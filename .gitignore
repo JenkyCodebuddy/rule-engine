@@ -49,3 +49,5 @@ Temporary Items
 .idea/modules.xml
 .idea/workspace.xml
 Codebuddy.iml
+.idea/vcs.xml
+target/classes/com/example/Codebuddy/main.class
