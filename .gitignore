@@ -1,53 +1,28 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
 .idea/.name
 .idea/compiler.xml
 .idea/copyright/profiles_settings.xml
 .idea/encodings.xml
 .idea/misc.xml
 .idea/modules.xml
+.idea/uiDesigner.xml
 .idea/workspace.xml
-Codebuddy.iml
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+RESTapi-test.iml
+mvnw
+mvnw.cmd
+target/classes/application.properties
+target/classes/com/example/GreetingController.class
+target/classes/com/example/GreetingModel.class
+target/classes/com/example/InsultModel.class
+target/classes/com/example/SpringRestApiApplication.class
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+target/test-classes/com/example/SpringRestApiApplicationTests.class
+.idea/azureSettings.xml
 .idea/vcs.xml
-target/classes/com/example/Codebuddy/main.class
+target/maven-archiver/pom.properties
+target/restAPI-test-0.1.0.jar
+target/restAPI-test-0.1.0.jar.original
