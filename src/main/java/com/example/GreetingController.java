@@ -39,4 +39,25 @@ public class GreetingController {
         i++;
 
     }
+
+    public void blabla2(){
+        int i = 0;
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        i++;
+        i++;
+        i++;
+        i++;
+        i++;
+        i++;
+
+    }
+
 }
