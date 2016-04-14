@@ -22,7 +22,21 @@ public class GreetingController {
 
     public void blabla(){
         int i = 0;
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
+        System.out.println("asd");
         i++;
         i++;
+        i++;
+        i++;
+        i++;
+        i++;
+
     }
 }
