@@ -19,7 +19,7 @@ public class GreetingController {
     public GreetingModel greeting(@RequestParam(value="name", defaultValue="World") String name) {
         String[] val = {"1","1","1","1","1","1","1"};
         Calc calculator = new Calc(val);
-        return new GreetingModel(counter.incrementAndGet(),
+        return new GreetingModel(String.format(template, calculator.generateScore()),
                 String.format(template, calculator.generateScore()));
     }
 }
