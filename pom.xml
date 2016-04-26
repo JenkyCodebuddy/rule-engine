@@ -34,7 +34,7 @@
 			<version>4.12</version>
 		</dependency>
 		<dependency>
-			<groupId>com.example.scocalc</groupId>
+			<groupId>wildtornado.scocalc</groupId>
 			<artifactId>scocalc</artifactId>
 			<version>1.0.0</version>
 		</dependency>
