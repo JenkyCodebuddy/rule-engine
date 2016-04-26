@@ -6,6 +6,7 @@ import com.example.GreetingModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import wildtornado.scocalc.Calc;
 
 @RestController
 public class GreetingController {
@@ -16,48 +17,9 @@ public class GreetingController {
 
     @RequestMapping("/greeting")
     public GreetingModel greeting(@RequestParam(value="name", defaultValue="World") String name) {
+        String[] val = {"1","1","1","1","1","1","1"};
+        Calc calculator = new Calc(val);
         return new GreetingModel(counter.incrementAndGet(),
-                String.format(template, name));
+                String.format(template, calculator.generateScore()));
     }
-
-    public void blabla(){
-        int i = 0;
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        i++;
-        i++;
-        i++;
-        i++;
-        i++;
-        i++;
-
-    }
-
-    public void blabla2(){
-        int i = 0;
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        System.out.println("asd");
-        i++;
-        i++;
-        i++;
-        i++;
-        i++;
-        i++;
-
-    }
-
 }
