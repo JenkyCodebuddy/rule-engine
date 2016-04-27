@@ -2,15 +2,15 @@ package com.example;
 
 public class GreetingModel {
 
-    private final String id;
+    private final long id;
     private final String content;
 
-    public GreetingModel(String id, String content) {
+    public GreetingModel(long id, String content) {
         this.id = id;
         this.content = content;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 

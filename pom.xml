@@ -37,8 +37,6 @@
 			<groupId>wildtornado.scocalc</groupId>
 			<artifactId>scocalc</artifactId>
 			<version>1.0.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/scocalc.jar</systemPath>
 		</dependency>
 	</dependencies>
 
