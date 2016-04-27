@@ -11,15 +11,14 @@ import wildtornado.scocalc.Calc;
 @RestController
 public class GreetingController {
 
-    private static final String template = "Hello, %s!";
+    private static final String template = "%s";
     private final AtomicLong counter = new AtomicLong();
     //test
 
-    @RequestMapping("/greeting")
-    public GreetingModel greeting(@RequestParam(value="name", defaultValue="World") String name) {
+    @RequestMapping("/score")
+    public GreetingModel score() {
         String[] val = {"1","1","1","1","1","1","1"};
         Calc calculator = new Calc(val);
-        return new GreetingModel(counter.incrementAndGet(),
-                String.format(template, calculator.generateScore()));
+        return new GreetingModel(counter.incrementAndGet(), String.format(template,calculator.generateScore()));
     }
 }

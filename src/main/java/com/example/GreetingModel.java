@@ -3,18 +3,18 @@ package com.example;
 public class GreetingModel {
 
     private final long id;
-    private final String content;
+    private final String score;
 
-    public GreetingModel(long id, String content) {
+    public GreetingModel(long id, String score) {
         this.id = id;
-        this.content = content;
+        this.score = score;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getContent() {
-        return content;
+    public String getScore() {
+        return score;
     }
 }
