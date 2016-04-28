@@ -14,30 +14,48 @@
 	</parent>
 
 	<dependencies>
+		<!-- Spring boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- GSON -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.6.2</version>
 		</dependency>
+		<!-- JSON -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20160212</version>
 		</dependency>
+		<!-- Junit unit testing framework -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
+		<!-- Score calculator -->
 		<dependency>
 			<groupId>wildtornado.scocalc</groupId>
 			<artifactId>scocalc</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<!-- Spring security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>4.0.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>4.0.4.RELEASE</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<properties>

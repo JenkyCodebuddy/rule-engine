@@ -1,11 +1,11 @@
 package com.example;
 
-public class GreetingModel {
+public class ScoreModel {
 
     private final long id;
     private final String score;
 
-    public GreetingModel(long id, String score) {
+    public ScoreModel(long id, String score) {
         this.id = id;
         this.score = score;
     }
