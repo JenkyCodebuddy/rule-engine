@@ -10,20 +10,23 @@ import org.springframework.web.bind.annotation.RestController;
 import wildtornado.scocalc.Calc;
 
 @RestController
+@RequestMapping(value = "/score")
 public class ScoreController {
     @Autowired
     private static final String template = "%s";
     private final AtomicLong counter = new AtomicLong();
     //test
 
-    @RequestMapping(value = "/score", method = RequestMethod.POST)
-    public String logs(@RequestParam("json") String json) {
-        return json;
-    }/*
+    @RequestMapping(method = RequestMethod.POST)
+    public ScoreModel test(){
+        return new ScoreModel(1, "hoi");
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET)
     public ScoreModel score() {
-        *//*String[] val = {"1", "1", "1", "1", "1", "1", "1"};
+        String[] val = {"100", "1", "1", "1", "1", "1", "1"};
         Calc calculator = new Calc(val);
-        return new ScoreModel(counter.incrementAndGet(), String.format(template, calculator.generateScore()));*//*
-        return null;
-    }*/
+        return new ScoreModel(counter.incrementAndGet(), String.format(template, calculator.generateScore()));
+    }
 }
