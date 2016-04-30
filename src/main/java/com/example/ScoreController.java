@@ -15,11 +15,19 @@ public class ScoreController {
     @Autowired
     private static final String template = "%s";
     private final AtomicLong counter = new AtomicLong();
+    public String json;
     //test
 
     @RequestMapping(method = RequestMethod.POST)
     public ScoreModel test(){
-        return new ScoreModel(1, "hoi");
+        httpRequest http = new httpRequest();                   //call sonarqube api when POST request is made
+        try{
+            json = http.sendPost();
+        }
+        catch(Exception e){
+            System.out.println("Oops!");
+        }
+        return new ScoreModel(1,"test");
     }
 
 

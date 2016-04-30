@@ -54,6 +54,12 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
+		<!-- Apache HTTPclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
 
 
 	</dependencies>
