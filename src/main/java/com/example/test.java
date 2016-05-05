@@ -3,6 +3,7 @@ package com.example;
 import org.apache.http.HttpRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 
 /**
@@ -18,22 +19,23 @@ public class test {
     private double technicalDebt;
     private double commentPercentage;
     private double linesOfCode;
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         httpRequest http = new httpRequest();
         String jsonString = "";
         try{
             jsonString = http.sendPost();
         }
         catch(Exception e){
-            System.out.println("Oops!");
+            System.out.println(e);
         }
         //System.out.println("json = " + json);
         test p = new test();
         //p.readJson(jsonString);
         p.fillMetrics(p.readJson(jsonString));
-        mapData();
-        DataInput metrics = new DataInput();
-    }
+        DataInput metrics = p.mapData();
+        Calc calc = new Calc(metrics);
+        System.out.println(" = " + calc.generateScore().getFinalScore());
+    }*/
 
     private JSONArray readJson(String jsonString){
         JSONArray json = new JSONArray(jsonString);

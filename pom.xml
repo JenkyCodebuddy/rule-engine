@@ -54,6 +54,10 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<!-- Apache HTTPclient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
