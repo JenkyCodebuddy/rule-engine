@@ -7,33 +7,32 @@ import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
 public class httpRequest {
 
     private final String USER_AGENT = "Mozilla/5.0";
-    public static void main(String[] args) {                        //main is for testing purposes
-        String json = "";
-        httpRequest http = new httpRequest();
-        try {
-            json = http.sendPost();
-        }
-        catch(Exception e){
-            System.out.println("Oops!");
-        }
-    }
 
     public String sendPost() throws Exception {
 
         String url = "http://localhost:9000/api/resources?resource=com.example%3AINFMAN01-1&metrics=complexity,duplicated_lines_density,violations_density,tests,sqale_index,comment_lines_density,ncloc&format=json"; //url which calls required metrics
-
+        //String url = "http://145.24.222.226/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=complexity,duplicated_lines_density,violations_density,tests,sqale_index,comment_lines_density,ncloc&format=json";
+        //CredentialsProvider cred = new BasicCredentialsProvider();
+        //cred.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("admin", "CC4d96"));
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
+
 
         // add header
         post.setHeader("User-Agent", USER_AGENT);
@@ -63,7 +62,6 @@ public class httpRequest {
         }
 
         return result.toString();
-        //System.out.println(result.toString());
 
     }
 

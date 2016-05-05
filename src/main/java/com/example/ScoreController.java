@@ -19,22 +19,25 @@ public class ScoreController {
     //test
 
     @RequestMapping(method = RequestMethod.POST)
-    public ScoreModel test(){
-        httpRequest http = new httpRequest();                   //call sonarqube api when POST request is made
+    public ScoreModel test() {
+        httpRequest http = new httpRequest();
         try{
             json = http.sendPost();
         }
-        catch(Exception e){
+        catch (Exception e ){
             System.out.println("Oops!");
         }
-        return new ScoreModel(1,"test");
+        System.out.println(json);
+        return new ScoreModel(12);
+        //return processMetrics.getScoreModel();
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
     public ScoreModel score() {
         String[] val = {"100", "1", "1", "1", "1", "1", "1"};
-        Calc calculator = new Calc(val);
-        return new ScoreModel(counter.incrementAndGet(), String.format(template, calculator.generateScore()));
+       // Calc calculator = new Calc(val);
+        return new ScoreModel(12);
     }
+
 }

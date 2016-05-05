@@ -2,10 +2,10 @@ package com.example;
 
 public class ScoreModel {
 
-    private final long id;
-    private final String score;
+    private long id;
+    private long score;
 
-    public ScoreModel(long id, String score) {
+    public ScoreModel(long score) {
         this.id = id;
         this.score = score;
     }
@@ -14,7 +14,15 @@ public class ScoreModel {
         return id;
     }
 
-    public String getScore() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getScore() {
         return score;
+    }
+
+    public void setScore(long score) {
+        this.score = score;
     }
 }
