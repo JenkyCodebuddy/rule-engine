@@ -1,4 +1,4 @@
-package com.example;
+package jenky.codebuddy;
 
 import org.apache.http.HttpRequest;
 import org.json.JSONArray;

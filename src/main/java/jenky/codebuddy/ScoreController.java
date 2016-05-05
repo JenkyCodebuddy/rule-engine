@@ -1,13 +1,11 @@
-package com.example;
+package jenky.codebuddy;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import wildtornado.scocalc.Calc;
 
 @RestController
 @RequestMapping(value = "/score")
@@ -19,7 +17,7 @@ public class ScoreController {
     //test
 
     @RequestMapping(method = RequestMethod.POST)
-    public ScoreModel test() {
+    public ScoreModel createScoreFromMetrics() {
         httpRequest http = new httpRequest();
         try{
             json = http.sendPost();
@@ -34,7 +32,7 @@ public class ScoreController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ScoreModel score() {
+    public ScoreModel retrieveScore() {
         String[] val = {"100", "1", "1", "1", "1", "1", "1"};
        // Calc calculator = new Calc(val);
         return new ScoreModel(12);

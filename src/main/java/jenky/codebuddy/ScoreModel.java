@@ -1,4 +1,4 @@
-package com.example;
+package jenky.codebuddy;
 
 public class ScoreModel {
 
