@@ -41,7 +41,7 @@ public class processJSON {
         System.out.println(" = " + calc.generateScore().getFinalScore());
     }*/
 
-    public Score getScore(){
+    public Score getScore(){  //this method executes everything in order to retrieve a Score model
         httpRequest http = new httpRequest();
         jsonString = "";
         try{
@@ -57,17 +57,17 @@ public class processJSON {
         return calculator.generateScore();
     }
 
-    private JSONArray readJson(String jsonString){
+    private JSONArray readJson(String jsonString){ //read entire sonarqube api JSON string and select the metrics
         JSONArray json = new JSONArray(jsonString);
         JSONObject obj = json.getJSONObject(0);
         JSONArray metrics = obj.getJSONArray("msr");
         return metrics;
     }
 
-    private void fillMetrics (JSONArray metrics){
+    private void fillMetrics (JSONArray metrics){ //map the metrics from the json to variables
         for(int i = 0; i < metrics.length(); i++){
             metric = metrics.getJSONObject(i);
-            switch(metric.getString("key")){
+            switch(metric.getString("key")){ // not all metrics are supported + not yet expendable
                 case "ncloc": linesOfCode = metric.getDouble("val"); break;
                 case "sqale_index": technicalDebt = metric.getDouble("val"); break;
                 case "comment_lines_density": commentPercentage = metric.getDouble("val"); break;
@@ -78,7 +78,7 @@ public class processJSON {
         }
     }
 
-    private DataInput mapData(){
+    private DataInput mapData(){ //map the variables to a new datainput object
         DataInput datainput = new DataInput();
         datainput.setCodeComplexity(codeComplexity);
         datainput.setCommentPercentage(commentPercentage);

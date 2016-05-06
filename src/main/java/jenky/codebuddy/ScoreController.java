@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ScoreController {
     private ScoreModel score;
     @RequestMapping(method = RequestMethod.POST)
-    public ScoreModel createScoreFromMetrics() {
+    public ScoreModel createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
         processJSON process = new processJSON();
         score = new ScoreModel(process.getScore().getFinalScore());
         setScore(score);
@@ -20,12 +20,12 @@ public class ScoreController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET) //return the ScoreModel on GET request, only returns something if POST has been made beforehand
     public ScoreModel retrieveScore() {
         return getScore();
     }
 
-    private void setScore(ScoreModel score) {
+    private void setScore(ScoreModel score) { //get and set for ScoreModel
         this.score = score;
     }
 
