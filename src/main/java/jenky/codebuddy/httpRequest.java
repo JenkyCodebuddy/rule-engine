@@ -26,13 +26,14 @@ public class httpRequest {
 
     public String sendPost() throws Exception {
 
-        //String url = "http://localhost:9000/api/resources?resource=com.example%3AINFMAN01-1&metrics=complexity,duplicated_lines_density,violations_density,tests,sqale_index,comment_lines_density,ncloc&format=json"; //url which calls required metrics
-        String url = "http://145.24.222.226/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=complexity,duplicated_lines_density,violations_density,tests,sqale_index,comment_lines_density,ncloc&format=json";
-        CredentialsProvider cred = new BasicCredentialsProvider();
+        String url = "http://localhost:9000/api/resources?resource=com.example%3AINFMAN01-1&metrics=complexity,duplicated_lines_density,violations_density,tests,sqale_index,comment_lines_density,ncloc&format=json"; //url which calls required metrics
+        //String url = "https://145.24.222.226/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=complexity,duplicated_lines_density,violations_density,tests,sqale_index,comment_lines_density,ncloc&format=json";;
+        /*CredentialsProvider cred = new BasicCredentialsProvider();
         cred.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
         CloseableHttpClient client = HttpClients.custom()
                 .setDefaultCredentialsProvider(cred)
-                .build();
+                .build();*/
+        HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
 
 

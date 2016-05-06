@@ -10,32 +10,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/score")
 public class ScoreController {
-    @Autowired
-    private static final String template = "%s";
-    private final AtomicLong counter = new AtomicLong();
-    public String json;
-    //test
-
+    private ScoreModel score;
     @RequestMapping(method = RequestMethod.POST)
     public ScoreModel createScoreFromMetrics() {
-        httpRequest http = new httpRequest();
-        try{
-            json = http.sendPost();
-        }
-        catch (Exception e ){
-            System.out.println("Oops!");
-        }
-        System.out.println(json);
-        return new ScoreModel(12);
-        //return processMetrics.getScoreModel();
+        processJSON process = new processJSON();
+        score = new ScoreModel(process.getScore().getFinalScore());
+        setScore(score);
+        return score;
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
     public ScoreModel retrieveScore() {
-        String[] val = {"100", "1", "1", "1", "1", "1", "1"};
-       // Calc calculator = new Calc(val);
-        return new ScoreModel(12);
+        return getScore();
     }
 
+    private void setScore(ScoreModel score) {
+        this.score = score;
+    }
+
+    private ScoreModel getScore() {
+        return score;
+    }
 }
