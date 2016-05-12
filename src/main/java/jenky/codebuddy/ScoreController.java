@@ -1,7 +1,6 @@
 package jenky.codebuddy;
 
 import jenky.codebuddy.models.ResultModel;
-import jenky.codebuddy.processJSON;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,14 +15,15 @@ public class ScoreController {
     public ResultModel createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
         processJSON process = new processJSON();
         score = process.getScore();
-        setScore(score);
-        return new ResultModel(score);
+        result = new ResultModel(score);
+        setResult(result);
+        return result;
     }
 
 
     @RequestMapping(method = RequestMethod.GET) //return the ScoreModel on GET request, only returns something if POST has been made beforehand
-    public Score retrieveScore() {
-        return getScore();
+    public ResultModel retrieveResult() {
+        return getResult();
     }
 
     private void setScore(Score score) { //get and set for ScoreModel
@@ -32,5 +32,13 @@ public class ScoreController {
 
     private Score getScore() {
         return score;
+    }
+
+    private ResultModel getResult(){
+        return result;
+    }
+
+    private void setResult(ResultModel result){
+        this.result = result;
     }
 }

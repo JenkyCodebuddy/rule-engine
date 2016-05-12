@@ -30,7 +30,6 @@ public class RestClient {
     private HttpStatus status;
 
     public RestClient() {
-
         this.rest = new RestTemplate(disableSSL());
         this.headers = setHeaders();
     }
