@@ -21,11 +21,16 @@ public class processJSON {
     private double linesOfCode;
     private double linesOfComments;
 
+    public static void main(String[] args) {
+        RestClient client = new RestClient();
+        client.get("https://api.github.com/repos/JenkyCodebuddy/rule-engine/commits/master");
+    }
+
     public Score getScore(){  //this method executes everything in order to retrieve a Score model
         RestClient client = new RestClient();
         jsonString = "";
         try{
-           jsonString = client.post("/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=ncloc,coverage,duplicated_lines_density,comment_lines&format=json","");
+           jsonString = client.post("https://145.24.222.226/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=ncloc,coverage,duplicated_lines_density,comment_lines&format=json","");
         }
         catch(Exception e){
             System.out.println(e);
@@ -83,103 +88,4 @@ public class processJSON {
         datainput.setCommentLines(0);
         return datainput;
     }
-
-    //bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla//bla
-    //bla
-
 }

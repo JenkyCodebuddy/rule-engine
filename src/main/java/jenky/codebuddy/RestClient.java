@@ -24,7 +24,7 @@ import java.security.cert.X509Certificate;
 public class RestClient {
 ///sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=ncloc,coverage,duplicated_lines_density&format=json"
 
-    private String server = "https://145.24.222.226";
+    //private String server = "https://145.24.222.226";
     private RestTemplate rest;
     private HttpHeaders headers;
     private HttpStatus status;
@@ -36,14 +36,14 @@ public class RestClient {
 
     public String get(String uri) {
         HttpEntity<String> requestEntity = new HttpEntity<String>("", headers);
-        ResponseEntity<String> responseEntity = rest.exchange(server + uri, HttpMethod.GET, requestEntity, String.class);
+        ResponseEntity<String> responseEntity = rest.exchange(uri, HttpMethod.GET, requestEntity, String.class);
         this.setStatus(responseEntity.getStatusCode());
         return responseEntity.getBody();
     }
 
     public String post(String uri, String json) {
         HttpEntity<String> requestEntity = new HttpEntity<String>(json, headers);
-        ResponseEntity<String> responseEntity = rest.exchange(server + uri, HttpMethod.POST, requestEntity, String.class);
+        ResponseEntity<String> responseEntity = rest.exchange(uri, HttpMethod.POST, requestEntity, String.class);
         this.setStatus(responseEntity.getStatusCode());
         return responseEntity.getBody();
     }
