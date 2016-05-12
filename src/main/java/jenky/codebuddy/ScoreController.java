@@ -1,35 +1,36 @@
 package jenky.codebuddy;
 
-import java.util.concurrent.atomic.AtomicLong;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import jenky.codebuddy.models.ResultModel;
+import jenky.codebuddy.processJSON;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import wildtornado.scocalc.objects.Score;
 
 @RestController
 @RequestMapping(value = "/score")
 public class ScoreController {
-    private ScoreModel score;
+    private Score score;
+    private ResultModel result;
     @RequestMapping(method = RequestMethod.POST)
-    public ScoreModel createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
+    public ResultModel createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
         processJSON process = new processJSON();
-        score = new ScoreModel(process.getScore().getLinesOfCodeScore());
+        score = process.getScore();
         setScore(score);
-        return score;
+        return new ResultModel(score);
     }
 
 
     @RequestMapping(method = RequestMethod.GET) //return the ScoreModel on GET request, only returns something if POST has been made beforehand
-    public ScoreModel retrieveScore() {
+    public Score retrieveScore() {
         return getScore();
     }
 
-    private void setScore(ScoreModel score) { //get and set for ScoreModel
+    private void setScore(Score score) { //get and set for ScoreModel
         this.score = score;
     }
 
-    private ScoreModel getScore() {
+    private Score getScore() {
         return score;
     }
 }

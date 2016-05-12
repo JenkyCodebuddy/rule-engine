@@ -1,4 +1,4 @@
-package jenky.codebuddy;
+package jenky.codebuddy.models;
 
 public class ScoreModel {
 
