@@ -6,13 +6,10 @@ import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 import wildtornado.scocalc.objects.Score;
 
-/**
- * Created by joost on 5-5-2016.
- */
-
 public class processJSON {
     JSONObject metric;
     DataInput metrics;
+    DataInput comparison;
     Calc calculator;
     private String jsonString;
     private double codeComplexity;
@@ -22,30 +19,13 @@ public class processJSON {
     private double technicalDebt;
     private double commentPercentage;
     private double linesOfCode;
-
-    /*public static void main(String[] args) {
-        httpRequest http = new httpRequest();
-        String jsonString = "";
-        try{
-            jsonString = http.sendPost();
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-        //System.out.println("json = " + json);
-        processJSON p = new processJSON();
-        //p.readJson(jsonString);
-        p.fillMetrics(p.readJson(jsonString));
-        DataInput metrics = p.mapData();
-        Calc calc = new Calc(metrics);
-        System.out.println(" = " + calc.generateScore().getFinalScore());
-    }*/
+    private double linesOfComments;
 
     public Score getScore(){  //this method executes everything in order to retrieve a Score model
-        httpRequest http = new httpRequest();
+        RestClient client = new RestClient();
         jsonString = "";
         try{
-            jsonString = http.sendPost();
+           jsonString = client.post("/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=ncloc,coverage,duplicated_lines_density,comment_lines&format=json","");
         }
         catch(Exception e){
             System.out.println(e);
@@ -53,7 +33,8 @@ public class processJSON {
         processJSON p = new processJSON();
         p.fillMetrics(p.readJson(jsonString));
         metrics = p.mapData();
-        calculator = new Calc(metrics);
+        comparison = createComparisonDataInputModel();
+        calculator = new Calc(metrics,comparison);
         return calculator.generateScore();
     }
 
@@ -74,6 +55,7 @@ public class processJSON {
                 case "complexity": codeComplexity = metric.getDouble("val"); break;
                 case "tests": numberOfTests= metric.getDouble("val"); break;
                 case "duplicated_lines_density": codeDuplicationDensity = metric.getDouble("val"); break;
+                case "comment_lines": linesOfComments = metric.getDouble("val"); break;
             }
         }
     }
@@ -86,6 +68,19 @@ public class processJSON {
         datainput.setTechnicalDebt(technicalDebt);
         datainput.setCodeDuplicationDensity(codeDuplicationDensity);
         datainput.setCodeViolationsDensity(codeViolationsDensity);
+        datainput.setCommentLines(linesOfComments);
+        return datainput;
+    }
+
+    private DataInput createComparisonDataInputModel(){
+        DataInput datainput = new DataInput();
+        datainput.setCodeComplexity(0);
+        datainput.setCommentPercentage(0);
+        datainput.setLinesOfCode(0);
+        datainput.setTechnicalDebt(0);
+        datainput.setCodeDuplicationDensity(0);
+        datainput.setCodeViolationsDensity(0);
+        datainput.setCommentLines(0);
         return datainput;
     }
 }

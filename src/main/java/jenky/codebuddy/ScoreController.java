@@ -14,7 +14,7 @@ public class ScoreController {
     @RequestMapping(method = RequestMethod.POST)
     public ScoreModel createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
         processJSON process = new processJSON();
-        score = new ScoreModel(process.getScore().getFinalScore());
+        score = new ScoreModel(process.getScore().getLinesOfCodeScore());
         setScore(score);
         return score;
     }
