@@ -76,6 +76,7 @@ public class RestClient {
             e.printStackTrace();
         } catch (KeyStoreException e) {
             e.printStackTrace();
+            System.out.println("Oops!!!");
         }
 
         SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
