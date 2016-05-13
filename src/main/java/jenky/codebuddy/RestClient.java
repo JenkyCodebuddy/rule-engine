@@ -29,9 +29,9 @@ public class RestClient {
     private HttpHeaders headers;
     private HttpStatus status;
 
-    public RestClient() {
+    public RestClient(String username, String password) {
         this.rest = new RestTemplate(disableSSL());
-        this.headers = setHeaders();
+        this.headers = setHeaders(username, password);
     }
 
     public String get(String uri) {
@@ -92,8 +92,8 @@ public class RestClient {
         return requestFactory;
     }
 
-    private HttpHeaders setHeaders(){ //method for setting authentication information needed for connecting to the sonarqube api
-        String plainCreds = "admin:CC4d96";
+    private HttpHeaders setHeaders(String username, String password){ //method for setting authentication information needed for connecting to the sonarqube api
+        String plainCreds = username + ":" + password;
         byte[] plainCredsBytes = plainCreds.getBytes();
         byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
         String base64Creds = new String(base64CredsBytes);

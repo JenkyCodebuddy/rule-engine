@@ -10,7 +10,7 @@ public class RestClientTest {
     private RestClient restclient;
 
     public RestClientTest(){
-        restclient = new RestClient();
+        restclient = new RestClient("admin","admin");
     }
 
     @Test

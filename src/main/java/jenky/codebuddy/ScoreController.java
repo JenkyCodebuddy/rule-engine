@@ -1,6 +1,7 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.models.ResultModel;
+import jenky.codebuddy.models.CommitModel;
+import jenky.codebuddy.models.CompleteResultModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,19 +11,22 @@ import wildtornado.scocalc.objects.Score;
 @RequestMapping(value = "/score")
 public class ScoreController {
     private Score score;
-    private ResultModel result;
+    private CommitModel commitModel;
+    private CompleteResultModel result;
     @RequestMapping(method = RequestMethod.POST)
-    public ResultModel createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
-        processJSON process = new processJSON();
+    public CompleteResultModel createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
+        processSonarqubeJson process = new processSonarqubeJson();
         score = process.getScore();
-        result = new ResultModel(score);
+        processGitHubJson github = new processGitHubJson();
+        commitModel = github.doEverything();
+        result = new CompleteResultModel(score,commitModel);
         setResult(result);
         return result;
     }
 
 
     @RequestMapping(method = RequestMethod.GET) //return the ScoreModel on GET request, only returns something if POST has been made beforehand
-    public ResultModel retrieveResult() {
+    public CompleteResultModel retrieveResult() {
         return getResult();
     }
 
@@ -34,11 +38,11 @@ public class ScoreController {
         return score;
     }
 
-    private ResultModel getResult(){
+    private CompleteResultModel getResult(){
         return result;
     }
 
-    private void setResult(ResultModel result){
+    private void setResult(CompleteResultModel result){
         this.result = result;
     }
 }
