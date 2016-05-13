@@ -1,9 +1,9 @@
 package jenky.codebuddy;
 
 
-import jenky.codebuddy.models.AuthorModel;
-import jenky.codebuddy.models.CommitModel;
-import jenky.codebuddy.models.CommitterModel;
+import jenky.codebuddy.models.restModels.AuthorModel;
+import jenky.codebuddy.models.restModels.CommitModel;
+import jenky.codebuddy.models.restModels.CommitterModel;
 import org.json.JSONObject;
 
 public class processGitHubJson extends callApi {

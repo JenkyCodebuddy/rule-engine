@@ -1,7 +1,7 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.models.CommitModel;
-import jenky.codebuddy.models.CompleteResultModel;
+import jenky.codebuddy.models.restModels.CommitModel;
+import jenky.codebuddy.models.restModels.CompleteResultModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

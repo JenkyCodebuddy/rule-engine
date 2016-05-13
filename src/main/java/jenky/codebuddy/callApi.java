@@ -3,7 +3,7 @@ package jenky.codebuddy;
 import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.Score;
 
-public class callApi { //class for making API calls ayy lmao
+public class callApi { //class for making API calls
 
     private String url;
     private String username;

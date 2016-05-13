@@ -1,8 +1,4 @@
-package jenky.codebuddy.models;
-
-import org.apache.catalina.User;
-
-import java.util.Date;
+package jenky.codebuddy.models.restModels;
 
 /**
  * Created by joost on 13-5-2016.

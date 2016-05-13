@@ -1,4 +1,4 @@
-package jenky.codebuddy.models;
+package jenky.codebuddy.models.restModels;
 
 import wildtornado.scocalc.objects.Score;
 
