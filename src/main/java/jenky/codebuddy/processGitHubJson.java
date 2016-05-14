@@ -14,10 +14,6 @@ public class processGitHubJson extends callApi {
     private CommitModel commitModel;
     private JsonObject committerInfoJsonObject;
 
-    public static void main(String[] args) {
-        processGitHubJson test = new processGitHubJson();
-    }
-
     public processGitHubJson() {
         super("https://api.github.com/repos/JenkyCodebuddy/rule-engine/commits/master", "CodebuddyTest", "dekatkrabtdekrullenvandetrap", "GET");
         this.jsonString = super.getResponse();
