@@ -1,6 +1,5 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.models.restModels.CommitModel;
 import jenky.codebuddy.models.restModels.CompleteResultModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,23 +10,16 @@ import wildtornado.scocalc.objects.Score;
 @RequestMapping(value = "/score")
 public class ScoreController {
     private Score score;
-    private CommitModel commitModel;
     private CompleteResultModel result;
+    restModelBuilder modelbuilder = new restModelBuilder();
     @RequestMapping(method = RequestMethod.POST)
-    public CompleteResultModel createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
-        processSonarqubeJson process = new processSonarqubeJson();
-        score = process.getScore();
-        processGitHubJson github = new processGitHubJson();
-        commitModel = github.doEverything();
-        result = new CompleteResultModel(score,commitModel);
-        setResult(result);
-        return result;
+    public void createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
+        setCompleteResultModel(modelbuilder.buildCompleteResultModel());
     }
 
-
     @RequestMapping(method = RequestMethod.GET) //return the ScoreModel on GET request, only returns something if POST has been made beforehand
-    public CompleteResultModel retrieveResult() {
-        return getResult();
+    public CompleteResultModel retrieveCompleteResultModel() {
+        return getCompleteResultModel();
     }
 
     private void setScore(Score score) { //get and set for ScoreModel
@@ -38,11 +30,11 @@ public class ScoreController {
         return score;
     }
 
-    private CompleteResultModel getResult(){
+    private CompleteResultModel getCompleteResultModel(){
         return result;
     }
 
-    private void setResult(CompleteResultModel result){
+    private void setCompleteResultModel(CompleteResultModel result){
         this.result = result;
     }
 }

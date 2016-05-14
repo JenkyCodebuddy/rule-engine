@@ -22,9 +22,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 
 public class RestClient {
-///sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=ncloc,coverage,duplicated_lines_density&format=json"
-
-    //private String server = "https://145.24.222.226";
+    
     private RestTemplate rest;
     private HttpHeaders headers;
     private HttpStatus status;

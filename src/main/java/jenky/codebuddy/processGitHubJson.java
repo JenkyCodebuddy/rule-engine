@@ -1,6 +1,8 @@
 package jenky.codebuddy;
 
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import jenky.codebuddy.models.restModels.AuthorModel;
 import jenky.codebuddy.models.restModels.CommitModel;
 import jenky.codebuddy.models.restModels.CommitterModel;
@@ -10,55 +12,62 @@ public class processGitHubJson extends callApi {
 
     private String jsonString;
     private CommitModel commitModel;
-    private JSONObject committerInfoJsonObject;
-    
-    public processGitHubJson(){
-        super("https://api.github.com/repos/JenkyCodebuddy/rule-engine/commits/master", "CodebuddyTest", "dekatkrabtdekrullenvandetrap", "GET");
-        this.jsonString = super.getResponse();
+    private JsonObject committerInfoJsonObject;
+
+    public static void main(String[] args) {
+        processGitHubJson test = new processGitHubJson();
     }
 
-    public CommitModel doEverything(){
-        processGitHubJson github = new processGitHubJson();
-        github.readGitHubJsonString(github.jsonString);
-        github.mapJsonToCommitModel();
-        return github.getCommitModel();
+    public processGitHubJson() {
+        super("https://api.github.com/repos/JenkyCodebuddy/rule-engine/commits/master", "CodebuddyTest", "dekatkrabtdekrullenvandetrap", "GET");
+        this.jsonString = super.getResponse();
+        readGitHubJsonString(jsonString);
     }
 
     private void readGitHubJsonString(String jsonString) {
-        JSONObject apiResponseJsonObject = new JSONObject(jsonString);                  //convert json string to json object
-        JSONObject commit = apiResponseJsonObject.getJSONObject("commit");              //retrieve authorinfo, commiterinfo and username info
-        JSONObject authorInfo = commit.getJSONObject("author");
-        JSONObject committerInfo = commit.getJSONObject("committer");
-        String authorUsername = apiResponseJsonObject.getJSONObject("author").getString("login");
-        String committerUsername = apiResponseJsonObject.getJSONObject("committer").getString("login");
 
-        JSONObject result = createNewCommitterInfoJsonObject(authorInfo,committerInfo,authorUsername,committerUsername);
-        setCommitterInfoJsonObject(result);
+        JsonObject apiResponseJsonObject = (new JsonParser()).parse(jsonString).getAsJsonObject();
+        JsonObject commit = apiResponseJsonObject.getAsJsonObject("commit");
+        JsonObject authorInfo = commit.getAsJsonObject("author");
+        JsonObject committerInfo = commit.getAsJsonObject("committer");
+
+        String authorUsername = apiResponseJsonObject.getAsJsonObject("author").get("login").getAsString();
+        String committerUsername = apiResponseJsonObject.getAsJsonObject("committer").get("login").getAsString();
+
+       createNewCommitterInfoJsonObject(authorInfo, committerInfo, authorUsername, committerUsername);
     }
 
-    private JSONObject createNewCommitterInfoJsonObject(JSONObject committerInfo, JSONObject authorInfo, String authorUsername, String committerUsername){
-        JSONObject committerInfoJsonObject = new JSONObject();                 //create new JSONObject containing: authorinfo, authorusername, committerinfo and the committers username
-        committerInfoJsonObject.put("author", authorInfo);
-        committerInfoJsonObject.put("committer", committerInfo);
-        committerInfoJsonObject.put("authorUsername", authorUsername);
-        committerInfoJsonObject.put("committerUsername", committerUsername);
+    private void createNewCommitterInfoJsonObject(JsonObject committerInfo, JsonObject authorInfo, String authorUsername, String committerUsername) {
 
-        return committerInfoJsonObject;
+        JsonObject committerInfoJsonObject = new JsonObject();                 //create new JSONObject containing: authorinfo, authorusername, committerinfo and the committers username
+        committerInfoJsonObject.add("author", authorInfo);
+        committerInfoJsonObject.add("committer", committerInfo);
+        committerInfoJsonObject.addProperty("authorUsername", authorUsername);
+        committerInfoJsonObject.addProperty("committerUsername", committerUsername);
+
+        mapJsonToCommitModel(committerInfoJsonObject);
     }
 
-    private void mapJsonToCommitModel(){
+    private void mapJsonToCommitModel(JsonObject committerInfoJsonObject) {
         CommitterModel committerModel;
         AuthorModel authorModel;
         String committerUsername;
         String authorUsername;
-        JSONObject committerInfoJsonObject = getCommitterInfoJsonObject();
+        JsonObject committer = committerInfoJsonObject.getAsJsonObject("committer");
+        JsonObject author = committerInfoJsonObject.getAsJsonObject("author");
 
-        committerModel = new CommitterModel(committerInfoJsonObject.getJSONObject("committer").getString("name"),committerInfoJsonObject.getJSONObject("committer").getString("email"),committerInfoJsonObject.getJSONObject("committer").getString("date"));
-        authorModel = new AuthorModel(committerInfoJsonObject.getJSONObject("author").getString("name"),committerInfoJsonObject.getJSONObject("author").getString("email"),committerInfoJsonObject.getJSONObject("author").getString("date"));
-        committerUsername = committerInfoJsonObject.getString("committerUsername");
-        authorUsername = committerInfoJsonObject.getString("authorUsername");
+        committerModel = new CommitterModel(committer.get("name").getAsString(),
+                committer.get("email").getAsString(),
+                committer.get("date").getAsString());
 
-        CommitModel commitModel = new CommitModel(committerModel,authorModel,committerUsername,authorUsername);
+        authorModel = new AuthorModel(author.get("name").getAsString(),
+                author.get("email").getAsString(),
+                author.get("date").getAsString());
+
+        committerUsername = committerInfoJsonObject.get("committerUsername").getAsString();
+        authorUsername = committerInfoJsonObject.get("authorUsername").getAsString();
+
+        CommitModel commitModel = new CommitModel(committerModel, authorModel, committerUsername, authorUsername);
         setCommitModel(commitModel);
     }
 
@@ -70,11 +79,4 @@ public class processGitHubJson extends callApi {
         return commitModel;
     }
 
-    public void setCommitterInfoJsonObject(JSONObject committerInfoJsonObject) {
-        this.committerInfoJsonObject = committerInfoJsonObject;
-    }
-
-    public JSONObject getCommitterInfoJsonObject() {
-        return committerInfoJsonObject;
-    }
 }

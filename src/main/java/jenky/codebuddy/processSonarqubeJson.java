@@ -8,8 +8,9 @@ import wildtornado.scocalc.objects.Score;
 
 public class processSonarqubeJson extends callApi {
     JSONObject metric;
-    DataInput metrics;
-    DataInput comparison;
+    DataInput metricsDataInputModel;
+    DataInput comparisonDataInputModel;
+    Score scoreModel;
     Calc calculator;
     private String jsonString;
     private double codeComplexity;
@@ -27,28 +28,20 @@ public class processSonarqubeJson extends callApi {
                 "CC4d96",
                 "POST");
         this.jsonString = super.getResponse();
+        readSonarqubeJson(jsonString);
     }
 
-    public Score getScore() {
-        processSonarqubeJson p = new processSonarqubeJson();
-        p.fillMetrics(p.readSonarqubeJson(jsonString));
-        metrics = p.mapData();
-        comparison = createComparisonDataInputModel();
-        calculator = new Calc(metrics, comparison);
-        return calculator.generateScore();
-    }
-
-    private JSONArray readSonarqubeJson(String jsonString) { //read entire sonarqube api JSON string and select the metrics
+    private void readSonarqubeJson(String jsonString) { //read entire sonarqube api JSON string and select the metricsDataInputModel
         JSONArray json = new JSONArray(jsonString);
         JSONObject obj = json.getJSONObject(0);
         JSONArray metrics = obj.getJSONArray("msr");
-        return metrics;
+        fillMetrics(metrics);
     }
 
-    private void fillMetrics(JSONArray metrics) { //map the metrics from the json to variables
+    private void fillMetrics(JSONArray metrics) { //map the metricsDataInputModel from the json to variables
         for (int i = 0; i < metrics.length(); i++) {
             metric = metrics.getJSONObject(i);
-            switch (metric.getString("key")) { // not all metrics are supported + not yet expendable
+            switch (metric.getString("key")) { // not all metricsDataInputModel are supported + not yet expendable
                 case "ncloc":
                     linesOfCode = metric.getDouble("val");
                     break;
@@ -72,29 +65,60 @@ public class processSonarqubeJson extends callApi {
                     break;
             }
         }
+        mapMetricsData();
+        createComparisonDataInputModel();
     }
 
-    private DataInput mapData() { //map the variables to a new datainput object
-        DataInput datainput = new DataInput();
-        datainput.setCodeComplexity(codeComplexity);
-        datainput.setCommentPercentage(commentPercentage);
-        datainput.setLinesOfCode(linesOfCode);
-        datainput.setTechnicalDebt(technicalDebt);
-        datainput.setCodeDuplicationDensity(codeDuplicationDensity);
-        datainput.setCodeViolationsDensity(codeViolationsDensity);
-        datainput.setCommentLines(linesOfComments);
-        return datainput;
+    private void mapMetricsData() { //map the metric variables to a new datainput object
+        DataInput metricDataInputModel = new DataInput();
+        metricDataInputModel.setCodeComplexity(codeComplexity);
+        metricDataInputModel.setCommentPercentage(commentPercentage);
+        metricDataInputModel.setLinesOfCode(linesOfCode);
+        metricDataInputModel.setTechnicalDebt(technicalDebt);
+        metricDataInputModel.setCodeDuplicationDensity(codeDuplicationDensity);
+        metricDataInputModel.setCodeViolationsDensity(codeViolationsDensity);
+        metricDataInputModel.setCommentLines(linesOfComments);
+        setMetricsDataInputModel(metricDataInputModel);
     }
 
-    private DataInput createComparisonDataInputModel() {
-        DataInput datainput = new DataInput();
-        datainput.setCodeComplexity(0);
-        datainput.setCommentPercentage(0);
-        datainput.setLinesOfCode(0);
-        datainput.setTechnicalDebt(0);
-        datainput.setCodeDuplicationDensity(0);
-        datainput.setCodeViolationsDensity(0);
-        datainput.setCommentLines(0);
-        return datainput;
+    private void createComparisonDataInputModel() {
+        DataInput comaprisonDataInputModel = new DataInput();
+        comaprisonDataInputModel.setCodeComplexity(0);
+        comaprisonDataInputModel.setCommentPercentage(0);
+        comaprisonDataInputModel.setLinesOfCode(0);
+        comaprisonDataInputModel.setTechnicalDebt(0);
+        comaprisonDataInputModel.setCodeDuplicationDensity(0);
+        comaprisonDataInputModel.setCodeViolationsDensity(0);
+        comaprisonDataInputModel.setCommentLines(0);
+        setComparisonDataInputModel(comaprisonDataInputModel);
+    }
+
+    public void createScoreModel(){
+        calculator = new Calc(getMetricsDataInputModel(), getComparisonDataInputModel());
+        setScoreModel(calculator.generateScore());
+    }
+
+    private DataInput getMetricsDataInputModel() {
+        return metricsDataInputModel;
+    }
+
+    private void setMetricsDataInputModel(DataInput metrics) {
+        this.metricsDataInputModel = metrics;
+    }
+
+    private DataInput getComparisonDataInputModel() {
+        return comparisonDataInputModel;
+    }
+
+    private void setComparisonDataInputModel(DataInput comparisonDataInputModel) {
+        this.comparisonDataInputModel = comparisonDataInputModel;
+    }
+
+    public Score getScoreModel() {
+        return scoreModel;
+    }
+
+    public void setScoreModel(Score scoreModel) {
+        this.scoreModel = scoreModel;
     }
 }
