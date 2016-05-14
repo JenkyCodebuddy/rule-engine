@@ -11,10 +11,9 @@ import wildtornado.scocalc.objects.Score;
 public class ScoreController {
     private Score score;
     private CompleteResultModel result;
-    restModelBuilder modelbuilder = new restModelBuilder();
     @RequestMapping(method = RequestMethod.POST)
-    public void createScoreFromMetrics() { //create new ScoreModel using the generated score on POST request
-        setCompleteResultModel(modelbuilder.buildCompleteResultModel());
+    public void createScoreFromMetrics() { //create new completeResultModel on POST request
+        setCompleteResultModel(new restModelBuilder().buildCompleteResultModel()); //build completeResultModel in restModelBuilder.class
     }
 
     @RequestMapping(method = RequestMethod.GET) //return the ScoreModel on GET request, only returns something if POST has been made beforehand
