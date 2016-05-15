@@ -5,56 +5,36 @@ import java.util.Date;
 /**
  * Created by joost on 14-5-2016.
  */
-public class itemModel {
+public class commit {
 
-    private int id;
-    private String name;
-    private String type;
-    private String image;
+    private String id;
+    private int score_id;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
 
-    public itemModel(int id, String name, String type, String image, Date created_at, Date updated_at, Date deleted_at) {
+    public commit(String id, int score_id, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.name = name;
-        this.type = type;
-        this.image = image;
+        this.score_id = score_id;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getScore_id() {
+        return score_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setScore_id(int score_id) {
+        this.score_id = score_id;
     }
 
     public Date getCreated_at() {

@@ -5,19 +5,19 @@ import java.util.Date;
 /**
  * Created by joost on 14-5-2016.
  */
-public class achievementModel {
+public class project {
 
     private int id;
+    private int customer_id;
     private String name;
-    private String description;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
 
-    public achievementModel(int id, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
+    public project(int id, int customer_id, String name, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
+        this.customer_id = customer_id;
         this.name = name;
-        this.description = description;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -31,20 +31,20 @@ public class achievementModel {
         this.id = id;
     }
 
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Date getCreated_at() {

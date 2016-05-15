@@ -1,40 +1,54 @@
 package jenky.codebuddy.models.databaseModels;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Entity;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.Table;
+
+import javax.validation.Valid;
 import java.util.Date;
 
-/**
- * Created by joost on 14-5-2016.
- */
-public class commitModel {
 
-    private String id;
-    private int score_id;
+public class achievement {
+
+    private int id;
+    private String name;
+    private String description;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
 
-    public commitModel(String id, int score_id, Date created_at, Date updated_at, Date deleted_at) {
+    public achievement(int id, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.score_id = score_id;
+        this.name = name;
+        this.description = description;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getScore_id() {
-        return score_id;
+    public String getName() {
+        return name;
     }
 
-    public void setScore_id(int score_id) {
-        this.score_id = score_id;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreated_at() {

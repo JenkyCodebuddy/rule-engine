@@ -9,7 +9,7 @@ import wildtornado.scocalc.objects.Score;
 @RestController
 @RequestMapping(value = "/score")
 public class ScoreController {
-    private Score score;
+
     private CompleteResultModel result;
     @RequestMapping(method = RequestMethod.POST)
     public void createScoreFromMetrics() { //create new completeResultModel on POST request
@@ -19,14 +19,6 @@ public class ScoreController {
     @RequestMapping(method = RequestMethod.GET) //return the ScoreModel on GET request, only returns something if POST has been made beforehand
     public CompleteResultModel retrieveCompleteResultModel() {
         return getCompleteResultModel();
-    }
-
-    private void setScore(Score score) { //get and set for ScoreModel
-        this.score = score;
-    }
-
-    private Score getScore() {
-        return score;
     }
 
     private CompleteResultModel getCompleteResultModel(){

@@ -22,7 +22,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 
 public class RestClient {
-    
+
     private RestTemplate rest;
     private HttpHeaders headers;
     private HttpStatus status;

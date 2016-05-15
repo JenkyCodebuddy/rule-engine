@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by joost on 14-5-2016.
  */
-public class metricModel {
+public class metric {
 
     private int id;
     private String name;
@@ -13,7 +13,7 @@ public class metricModel {
     private Date updated_at;
     private Date deleted_at;
 
-    public metricModel(int id, String name, Date created_at, Date updated_at, Date deleted_at) {
+    public metric(int id, String name, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
         this.name = name;
         this.created_at = created_at;

@@ -5,19 +5,21 @@ import java.util.Date;
 /**
  * Created by joost on 14-5-2016.
  */
-public class projectModel {
+public class item {
 
     private int id;
-    private int customer_id;
     private String name;
+    private String type;
+    private String image;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
 
-    public projectModel(int id, int customer_id, String name, Date created_at, Date updated_at, Date deleted_at) {
+    public item(int id, String name, String type, String image, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.customer_id = customer_id;
         this.name = name;
+        this.type = type;
+        this.image = image;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -31,20 +33,28 @@ public class projectModel {
         this.id = id;
     }
 
-    public int getCustomer_id() {
-        return customer_id;
-    }
-
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Date getCreated_at() {

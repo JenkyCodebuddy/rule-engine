@@ -1,11 +1,14 @@
 package jenky.codebuddy.models.databaseModels;
 
+import javax.persistence.IdClass;
+import javax.persistence.Table;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * Created by joost on 14-5-2016.
- */
-public class userModel {
+
+@Table(name = "user")
+public class user {
 
     private int id;
     private int customer_id;
@@ -15,8 +18,11 @@ public class userModel {
     private Date updated_at;
     private Date deleted_at;
     private int jenkycoins;
+    private Set<score> scores = new HashSet<score>(0);
+    private Set<item> items = new HashSet<item>(0);
+    private Set<achievement> achievements = new HashSet<achievement>(0);
 
-    public userModel(int id, int customer_id, String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins) {
+    public user(int id, int customer_id, String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Set<score> scores, Set<item> items, Set<achievement> achievements) {
         this.id = id;
         this.customer_id = customer_id;
         this.username = username;
@@ -25,6 +31,9 @@ public class userModel {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.jenkycoins = jenkycoins;
+        this.scores = scores;
+        this.items = items;
+        this.achievements = achievements;
     }
 
     public int getId() {
@@ -89,5 +98,29 @@ public class userModel {
 
     public void setJenkycoins(int jenkycoins) {
         this.jenkycoins = jenkycoins;
+    }
+
+    public Set<score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<score> scores) {
+        this.scores = scores;
+    }
+
+    public Set<item> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<item> items) {
+        this.items = items;
+    }
+
+    public Set<achievement> getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(Set<achievement> achievements) {
+        this.achievements = achievements;
     }
 }

@@ -1,9 +1,9 @@
 package jenky.codebuddy.models.databaseModels;
 
-/**
- * Created by joost on 14-5-2016.
- */
-public class scoreModel {
+import java.util.HashSet;
+import java.util.Set;
+
+public class score {
 
     private int id;
     private int user_id;
@@ -11,14 +11,20 @@ public class scoreModel {
     private int metric_id;
     private double sonar_value;
     private int score;
+    private Set<commit> commits  = new HashSet<commit>(0);
+    private project project;
+    private metric metric;
 
-    public scoreModel(int id, int user_id, int project_id, int metric_id, double sonar_value, int score) {
+    public score(int id, int user_id, int project_id, int metric_id, double sonar_value, int score, Set<commit> commits, project project, metric metric) {
         this.id = id;
         this.user_id = user_id;
         this.project_id = project_id;
         this.metric_id = metric_id;
         this.sonar_value = sonar_value;
         this.score = score;
+        this.commits = commits;
+        this.project = project;
+        this.metric = metric;
     }
 
     public int getId() {
@@ -67,5 +73,29 @@ public class scoreModel {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public Set<commit> getCommits() {
+        return commits;
+    }
+
+    public void setCommits(Set<commit> commits) {
+        this.commits = commits;
+    }
+
+    public project getProject() {
+        return project;
+    }
+
+    public void setProject(project project) {
+        this.project = project;
+    }
+
+    public metric getMetric() {
+        return metric;
+    }
+
+    public void setMetric(metric metric) {
+        this.metric = metric;
     }
 }
