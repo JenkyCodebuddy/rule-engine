@@ -5,11 +5,13 @@ public class CommitterModel {
     private String name;
     private String email;
     private String date;
+    private String committerUsername;
 
-    public CommitterModel(String name, String email, String date){
+    public CommitterModel(String name, String email, String date, String committerUsername){
         this.name = name;
         this.email = email;
         this.date = date;
+        this.committerUsername = committerUsername;
     }
 
     public String getName() {
@@ -34,5 +36,13 @@ public class CommitterModel {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getCommitterUsername() {
+        return committerUsername;
+    }
+
+    public void setCommitterUsername(String committerUsername) {
+        this.committerUsername = committerUsername;
     }
 }

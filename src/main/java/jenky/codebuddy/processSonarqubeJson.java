@@ -23,7 +23,7 @@ public class processSonarqubeJson extends callApi {
     private double linesOfComments;
 
     public processSonarqubeJson() {
-        super("https://145.24.222.226/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=ncloc,coverage,duplicated_lines_density,comment_lines&format=json",
+        super("https://145.24.222.226/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=ncloc,coverage,duplicated_lines_density,complexity,comment_lines,sqale_index,tests&format=json",
                 "admin",
                 "CC4d96",
                 "POST");
@@ -62,6 +62,9 @@ public class processSonarqubeJson extends callApi {
                     break;
                 case "comment_lines":
                     linesOfComments = metric.getDouble("val");
+                    break;
+                default:
+                    System.out.println("Unknown metric found: "+ metric.getString("key"));
                     break;
             }
         }

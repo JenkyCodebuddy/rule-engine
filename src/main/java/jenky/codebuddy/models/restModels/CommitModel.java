@@ -1,20 +1,25 @@
 package jenky.codebuddy.models.restModels;
 
-/**
- * Created by joost on 13-5-2016.
- */
 public class CommitModel {
 
     private CommitterModel committerModel;
     private AuthorModel authorModel;
-    private String committerUsername;
-    private String authorUsername;
+    private String commitID;
+    private String projectName;
 
-    public CommitModel(CommitterModel committerModel, AuthorModel authorModel, String committerUsername, String authorUsername){
+    public CommitModel(CommitterModel committerModel, AuthorModel authorModel, String commitID, String projectName){
         this.committerModel = committerModel;
         this.authorModel = authorModel;
-        this.committerUsername = committerUsername;
-        this.authorUsername = authorUsername;
+        this.projectName = projectName;
+        this.commitID = commitID;
+    }
+
+    public CommitterModel getCommitterModel() {
+        return committerModel;
+    }
+
+    public void setCommitterModel(CommitterModel committerModel) {
+        this.committerModel = committerModel;
     }
 
     public AuthorModel getAuthorModel() {
@@ -25,27 +30,19 @@ public class CommitModel {
         this.authorModel = authorModel;
     }
 
-    public String getAuthorUsername() {
-        return authorUsername;
+    public String getCommitID() {
+        return commitID;
     }
 
-    public void setAuthorUsername(String authorUsername) {
-        this.authorUsername = authorUsername;
+    public void setCommitID(String commitID) {
+        this.commitID = commitID;
     }
 
-    public CommitterModel getCommitterModel() {
-        return committerModel;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setCommitModel(CommitterModel committerModel) {
-        this.committerModel = committerModel;
-    }
-
-    public String getCommitterUsername() {
-        return committerUsername;
-    }
-
-    public void setCommitterUsername(String committerUsername) {
-        this.committerUsername = committerUsername;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 }

@@ -8,6 +8,9 @@ import jenky.codebuddy.models.restModels.CommitModel;
 import jenky.codebuddy.models.restModels.CommitterModel;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class processGitHubJson extends callApi {
 
     private String jsonString;
@@ -28,18 +31,23 @@ public class processGitHubJson extends callApi {
         JsonObject committerInfo = commit.getAsJsonObject("committer");
 
         String authorUsername = apiResponseJsonObject.getAsJsonObject("author").get("login").getAsString();
-        String committerUsername = apiResponseJsonObject.getAsJsonObject("committer").get("login").getAsString();
+        String committerUsername = apiResponseJsonObject.getAsJsonObject("author").get("login").getAsString();
 
-       createNewCommitterInfoJsonObject(authorInfo, committerInfo, authorUsername, committerUsername);
+        String commitID = apiResponseJsonObject.get("sha").getAsString();
+        String projectName = filterRegex(apiResponseJsonObject.get("url").getAsString());
+
+       createNewCommitterInfoJsonObject(authorInfo, committerInfo, authorUsername, committerUsername, commitID, projectName);
     }
 
-    private void createNewCommitterInfoJsonObject(JsonObject committerInfo, JsonObject authorInfo, String authorUsername, String committerUsername) {
+    private void createNewCommitterInfoJsonObject(JsonObject committerInfo, JsonObject authorInfo, String committerUsername, String authorUsername, String commitID, String projectName) {
 
         JsonObject committerInfoJsonObject = new JsonObject();                 //create new JSONObject containing: authorinfo, authorusername, committerinfo and the committers username
+        authorInfo.addProperty("username", authorUsername);
+        committerInfo.addProperty("username", committerUsername);
         committerInfoJsonObject.add("author", authorInfo);
         committerInfoJsonObject.add("committer", committerInfo);
-        committerInfoJsonObject.addProperty("authorUsername", authorUsername);
-        committerInfoJsonObject.addProperty("committerUsername", committerUsername);
+        committerInfoJsonObject.addProperty("commitID", commitID);
+        committerInfoJsonObject.addProperty("projectName", projectName);
 
         mapJsonToCommitModel(committerInfoJsonObject);
     }
@@ -47,24 +55,35 @@ public class processGitHubJson extends callApi {
     private void mapJsonToCommitModel(JsonObject committerInfoJsonObject) {
         CommitterModel committerModel;
         AuthorModel authorModel;
-        String committerUsername;
-        String authorUsername;
-        JsonObject committer = committerInfoJsonObject.getAsJsonObject("committer");
-        JsonObject author = committerInfoJsonObject.getAsJsonObject("author");
+        String commitID;
+        String projectName;
 
-        committerModel = new CommitterModel(committer.get("name").getAsString(),
-                committer.get("email").getAsString(),
-                committer.get("date").getAsString());
+        authorModel = buildAuthorModel(committerInfoJsonObject.getAsJsonObject("author"),
+                committerInfoJsonObject.getAsJsonObject("author").get("username").getAsString());
+        committerModel = buildCommitterModel(committerInfoJsonObject.getAsJsonObject("committer"),
+                committerInfoJsonObject.getAsJsonObject("committer").get("username").getAsString());
 
-        authorModel = new AuthorModel(author.get("name").getAsString(),
-                author.get("email").getAsString(),
-                author.get("date").getAsString());
+        projectName = committerInfoJsonObject.get("projectName").getAsString();
+        commitID = committerInfoJsonObject.get("commitID").getAsString();
 
-        committerUsername = committerInfoJsonObject.get("committerUsername").getAsString();
-        authorUsername = committerInfoJsonObject.get("authorUsername").getAsString();
-
-        CommitModel commitModel = new CommitModel(committerModel, authorModel, committerUsername, authorUsername);
+        CommitModel commitModel = new CommitModel(committerModel, authorModel, commitID, projectName);
         setCommitModel(commitModel);
+    }
+
+    private AuthorModel buildAuthorModel(JsonObject author, String username){
+        AuthorModel authorModel = new AuthorModel(author.get("name").getAsString(),
+                author.get("email").getAsString(),
+                author.get("date").getAsString(),
+                username);
+        return authorModel;
+    }
+
+    private CommitterModel buildCommitterModel(JsonObject committer, String username){
+        CommitterModel committerModel = new CommitterModel(committer.get("name").getAsString(),
+                committer.get("email").getAsString(),
+                committer.get("date").getAsString(),
+                username);
+        return committerModel;
     }
 
     public void setCommitModel(CommitModel commitModel) {
@@ -73,6 +92,11 @@ public class processGitHubJson extends callApi {
 
     public CommitModel getCommitModel() {
         return commitModel;
+    }
+
+    private String filterRegex(String url){
+        String[] paths = url.split("/");
+        return paths[5];
     }
 
 }

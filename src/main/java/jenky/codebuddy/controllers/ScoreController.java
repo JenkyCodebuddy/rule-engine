@@ -1,13 +1,14 @@
-package jenky.codebuddy;
+package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.restModels.CompleteResultModel;
+import jenky.codebuddy.restModelBuilder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import wildtornado.scocalc.objects.Score;
 
 @RestController
-@RequestMapping(value = "/score")
+@RequestMapping(value = "/score") //all requests to the "/score" endpoint
 public class ScoreController {
 
     private CompleteResultModel result;
@@ -16,7 +17,7 @@ public class ScoreController {
         setCompleteResultModel(new restModelBuilder().buildCompleteResultModel()); //build completeResultModel in restModelBuilder.class
     }
 
-    @RequestMapping(method = RequestMethod.GET) //return the ScoreModel on GET request, only returns something if POST has been made beforehand
+    @RequestMapping(method = RequestMethod.GET) //return the completeResultModel on GET request, only returns something if POST has been made beforehand
     public CompleteResultModel retrieveCompleteResultModel() {
         return getCompleteResultModel();
     }
