@@ -39,18 +39,8 @@ public class user {
     private Set<item> items = new HashSet<item>(0);
     private Set<achievement> achievements = new HashSet<achievement>(0);
 
-    public user(int id, int customer_id, String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Set<score> scores, Set<item> items, Set<achievement> achievements) {
-        this.id = id;
-        this.customer_id = customer_id;
-        this.username = username;
-        this.password = password;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
-        this.jenkycoins = jenkycoins;
-        this.scores = scores;
-        this.items = items;
-        this.achievements = achievements;
+    public user() {
+
     }
 
     public int getId() {
