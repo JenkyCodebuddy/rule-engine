@@ -1,24 +1,33 @@
 package jenky.codebuddy.models.databaseModels;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by joost on 14-5-2016.
+ * Created by joost (meme_lord) on 14-5-2016.
  */
+
+@Entity
+@Table(name = "commit")
 public class commit {
 
+    @Id @GeneratedValue
     private String id;
-    private int score_id;
+
+    @OneToOne
+    @JoinColumn(name = "score_id")
+    private score Score;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
+
+    @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public commit(String id, int score_id, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
-        this.score_id = score_id;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+    public commit() {
     }
 
     public String getId() {
@@ -29,12 +38,12 @@ public class commit {
         this.id = id;
     }
 
-    public int getScore_id() {
-        return score_id;
+    public score getScore() {
+        return Score;
     }
 
-    public void setScore_id(int score_id) {
-        this.score_id = score_id;
+    public void setScore(score score) {
+        Score = score;
     }
 
     public Date getCreated_at() {

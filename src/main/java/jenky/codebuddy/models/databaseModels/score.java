@@ -1,30 +1,43 @@
 package jenky.codebuddy.models.databaseModels;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "score")
 public class score {
 
+    @Id @GeneratedValue
     private int id;
-    private int user_id;
-    private int project_id;
-    private int metric_id;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private user User;
+
+    @OneToOne
+    @JoinColumn(name = "project_id")
+    private project Project;
+
+    @OneToOne
+    @JoinColumn(name = "metric_id")
+    private metric Metric;
+
+    @Column(name = "sonar_value")
     private double sonar_value;
+
+    @Column(name = "score")
     private int score;
+    //????
     private Set<commit> commits  = new HashSet<commit>(0);
+
+    @Column(name = "project")
     private project project;
+
+    @Column(name = "metric")
     private metric metric;
 
-    public score(int id, int user_id, int project_id, int metric_id, double sonar_value, int score, Set<commit> commits, project project, metric metric) {
-        this.id = id;
-        this.user_id = user_id;
-        this.project_id = project_id;
-        this.metric_id = metric_id;
-        this.sonar_value = sonar_value;
-        this.score = score;
-        this.commits = commits;
-        this.project = project;
-        this.metric = metric;
+    public score() {
     }
 
     public int getId() {
@@ -35,29 +48,6 @@ public class score {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public int getProject_id() {
-        return project_id;
-    }
-
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
-    }
-
-    public int getMetric_id() {
-        return metric_id;
-    }
-
-    public void setMetric_id(int metric_id) {
-        this.metric_id = metric_id;
-    }
 
     public double getSonar_value() {
         return sonar_value;

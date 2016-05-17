@@ -1,28 +1,40 @@
 package jenky.codebuddy.models.databaseModels;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by joost on 14-5-2016.
  */
+
+@Entity
+@Table(name = "item")
 public class item {
 
+    @Id @GeneratedValue
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "type")
     private String type;
+
+    @Column(name = "image")
     private String image;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
+
+    @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public item(int id, String name, String type, String image, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.image = image;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+    public item() {
+
     }
 
     public int getId() {

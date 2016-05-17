@@ -1,26 +1,34 @@
 package jenky.codebuddy.models.databaseModels;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by joost on 14-5-2016.
  */
+@Entity
+@Table(name = "project")
 public class project {
 
+    @Id @GeneratedValue
     private int id;
+
+    @Column(name = "customer_id")
     private int customer_id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
+
+    @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public project(int id, int customer_id, String name, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
-        this.customer_id = customer_id;
-        this.name = name;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+    public project() {
     }
 
     public int getId() {

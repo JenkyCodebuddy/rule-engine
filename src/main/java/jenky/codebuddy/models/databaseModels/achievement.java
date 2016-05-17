@@ -1,30 +1,34 @@
 package jenky.codebuddy.models.databaseModels;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Entity;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Table;
 
+import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.Date;
 
-
+@Entity
+@Table( name = "achievement")
 public class achievement {
 
+    @Id @GeneratedValue
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
+
+    @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public achievement(int id, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+    public achievement() {
     }
 
     public int getId() {

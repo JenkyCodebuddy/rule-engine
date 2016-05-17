@@ -1,23 +1,40 @@
 package jenky.codebuddy.models.databaseModels;
 
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Entity
 @Table(name = "user")
 public class user {
 
+    @Id @GeneratedValue
     private int id;
-    private int customer_id;
+
+    @OneToOne
+    @JoinColumn(name = "customer")
+    //private customer customer_id;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
+
+    @Column(name = "deleted_at")
     private Date deleted_at;
+
+    @Column(name = "jenkycoins")
     private int jenkycoins;
+
+    //?????
     private Set<score> scores = new HashSet<score>(0);
     private Set<item> items = new HashSet<item>(0);
     private Set<achievement> achievements = new HashSet<achievement>(0);
