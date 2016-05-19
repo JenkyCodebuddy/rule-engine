@@ -14,7 +14,7 @@ public class commit {
     @Id @GeneratedValue
     private String id;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "score_id")
     private score Score;
 
