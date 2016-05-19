@@ -3,7 +3,7 @@ package jenky.codebuddy.models.databaseModels;
 import java.util.Date;
 
 /**
- * Created by joost (meme_lord) on 14-5-2016.
+ * Created by joost (meme_lord...) on 14-5-2016.
  */
 public class item {
 
