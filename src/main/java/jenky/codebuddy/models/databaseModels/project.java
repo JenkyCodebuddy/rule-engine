@@ -8,13 +8,10 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "project")
-public class project {
+public class Project {
 
     @Id @GeneratedValue
     private int id;
-
-    @Column(name = "customer_id")
-    private int customer_id;
 
     @Column(name = "name")
     private String name;
@@ -28,7 +25,7 @@ public class project {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public project() {
+    public Project() {
     }
 
     public int getId() {

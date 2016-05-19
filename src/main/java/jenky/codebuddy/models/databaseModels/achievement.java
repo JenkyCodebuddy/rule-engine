@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table( name = "achievement")
-public class achievement {
+public class Achievement {
 
     @Id @GeneratedValue
     @Column(name = "id")
@@ -28,7 +28,7 @@ public class achievement {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public achievement() {
+    public Achievement() {
     }
 
     public int getId() {

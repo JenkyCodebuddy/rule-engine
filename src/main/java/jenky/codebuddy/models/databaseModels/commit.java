@@ -9,14 +9,14 @@ import java.util.Date;
 
 @Entity
 @Table(name = "commit")
-public class commit {
+public class Commit {
 
     @Id @GeneratedValue
     private String id;
 
     @OneToMany
     @JoinColumn(name = "score_id")
-    private score Score;
+    private jenky.codebuddy.models.databaseModels.Score Score;
 
     @Column(name = "created_at")
     private Date created_at;
@@ -27,7 +27,7 @@ public class commit {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public commit() {
+    public Commit() {
     }
 
     public String getId() {
@@ -38,12 +38,12 @@ public class commit {
         this.id = id;
     }
 
-    public score getScore() {
+    public jenky.codebuddy.models.databaseModels.Score getScore() {
         return Score;
     }
 
-    public void setScore(score score) {
-        Score = score;
+    public void setScore(jenky.codebuddy.models.databaseModels.Score Score) {
+        Score = Score;
     }
 
     public Date getCreated_at() {

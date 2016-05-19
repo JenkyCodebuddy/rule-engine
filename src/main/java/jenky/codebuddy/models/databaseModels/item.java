@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "item")
-public class item {
+public class Item {
 
     @Id @GeneratedValue
     @Column(name = "id")
@@ -33,7 +33,7 @@ public class item {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public item() {
+    public Item() {
 
     }
 

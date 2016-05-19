@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "metric")
-public class metric {
+public class Metric {
 
     @Id @GeneratedValue
     @Column
@@ -27,7 +27,7 @@ public class metric {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public metric() {
+    public Metric() {
     }
 
     public int getId() {

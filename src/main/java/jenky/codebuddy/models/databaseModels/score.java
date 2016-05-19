@@ -6,22 +6,22 @@ import java.util.Set;
 
 @Entity
 @Table(name = "score")
-public class score {
+public class Score {
 
     @Id @GeneratedValue
     private int id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private user User;
+    private jenky.codebuddy.models.databaseModels.User User;
 
     @OneToOne
     @JoinColumn(name = "project_id")
-    private project Project;
+    private jenky.codebuddy.models.databaseModels.Project Project;
 
     @OneToOne
     @JoinColumn(name = "metric_id")
-    private metric Metric;
+    private jenky.codebuddy.models.databaseModels.Metric Metric;
 
     @Column(name = "sonar_value")
     private double sonar_value;
@@ -29,15 +29,15 @@ public class score {
     @Column(name = "score")
     private int score;
     //????
-    private Set<commit> commits  = new HashSet<commit>(0);
+    private Set<Commit> Commits = new HashSet<Commit>(0);
 
     @Column(name = "project")
-    private project project;
+    private jenky.codebuddy.models.databaseModels.Project Project;
 
     @Column(name = "metric")
-    private metric metric;
+    private jenky.codebuddy.models.databaseModels.Metric Metric;
 
-    public score() {
+    public Score() {
     }
 
     public int getId() {
@@ -65,27 +65,27 @@ public class score {
         this.score = score;
     }
 
-    public Set<commit> getCommits() {
-        return commits;
+    public Set<Commit> getCommits() {
+        return Commits;
     }
 
-    public void setCommits(Set<commit> commits) {
-        this.commits = commits;
+    public void setCommits(Set<Commit> Commits) {
+        this.Commits = Commits;
     }
 
-    public project getProject() {
-        return project;
+    public jenky.codebuddy.models.databaseModels.Project getProject() {
+        return Project;
     }
 
-    public void setProject(project project) {
-        this.project = project;
+    public void setProject(jenky.codebuddy.models.databaseModels.Project Project) {
+        this.Project = Project;
     }
 
-    public metric getMetric() {
-        return metric;
+    public jenky.codebuddy.models.databaseModels.Metric getMetric() {
+        return Metric;
     }
 
-    public void setMetric(metric metric) {
-        this.metric = metric;
+    public void setMetric(jenky.codebuddy.models.databaseModels.Metric Metric) {
+        this.Metric = Metric;
     }
 }

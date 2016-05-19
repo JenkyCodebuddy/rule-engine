@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class user {
+public class User {
 
     @Id @GeneratedValue
     private int id;
@@ -35,11 +35,11 @@ public class user {
     private int jenkycoins;
 
     //?????
-    private Set<score> scores = new HashSet<score>(0);
-    private Set<item> items = new HashSet<item>(0);
-    private Set<achievement> achievements = new HashSet<achievement>(0);
+    private Set<Score> Scores = new HashSet<Score>(0);
+    private Set<Item> Items = new HashSet<Item>(0);
+    private Set<Achievement> Achievements = new HashSet<Achievement>(0);
 
-    public user() {
+    public User() {
 
     }
 
@@ -100,27 +100,27 @@ public class user {
         this.jenkycoins = jenkycoins;
     }
 
-    public Set<score> getScores() {
-        return scores;
+    public Set<Score> getScores() {
+        return Scores;
     }
 
-    public void setScores(Set<score> scores) {
-        this.scores = scores;
+    public void setScores(Set<Score> Scores) {
+        this.Scores = Scores;
     }
 
-    public Set<item> getItems() {
-        return items;
+    public Set<Item> getItems() {
+        return Items;
     }
 
-    public void setItems(Set<item> items) {
-        this.items = items;
+    public void setItems(Set<Item> Items) {
+        this.Items = Items;
     }
 
-    public Set<achievement> getAchievements() {
-        return achievements;
+    public Set<Achievement> getAchievements() {
+        return Achievements;
     }
 
-    public void setAchievements(Set<achievement> achievements) {
-        this.achievements = achievements;
+    public void setAchievements(Set<Achievement> Achievements) {
+        this.Achievements = Achievements;
     }
 }
