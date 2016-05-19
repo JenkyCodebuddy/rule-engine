@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wildtornado.scocalc.objects.Score;
 
 @RestController
-@RequestMapping(value = "/score") //all requests to the "/score" endpoint
+@RequestMapping(value = "/score") //all requests to the "/score" endpoint 
 public class ScoreController {
 
     private CompleteResultModel result;
