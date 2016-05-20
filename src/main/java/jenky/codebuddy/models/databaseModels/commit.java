@@ -2,6 +2,8 @@ package jenky.codebuddy.models.databaseModels;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by joost (meme_lord) on 14-5-2016.
@@ -12,11 +14,11 @@ import java.util.Date;
 public class Commit {
 
     @Id @GeneratedValue
+    @Column(name = "commit_id")
     private String id;
 
-    @OneToMany
-    @JoinColumn(name = "score_id")
-    private jenky.codebuddy.models.databaseModels.Score Score;
+    @OneToMany(mappedBy = "commit")
+    private Set<Score> scores = new HashSet<Score>(0);
 
     @Column(name = "created_at")
     private Date created_at;
@@ -30,6 +32,14 @@ public class Commit {
     public Commit() {
     }
 
+    public Commit(String id, Set<Score> scores, Date created_at, Date updated_at, Date deleted_at) {
+        this.id = id;
+        this.scores = scores;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.deleted_at = deleted_at;
+    }
+
     public String getId() {
         return id;
     }
@@ -38,12 +48,12 @@ public class Commit {
         this.id = id;
     }
 
-    public jenky.codebuddy.models.databaseModels.Score getScore() {
-        return Score;
+    public Set<Score> getScores() {
+        return scores;
     }
 
-    public void setScore(jenky.codebuddy.models.databaseModels.Score Score) {
-        Score = Score;
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
     }
 
     public Date getCreated_at() {

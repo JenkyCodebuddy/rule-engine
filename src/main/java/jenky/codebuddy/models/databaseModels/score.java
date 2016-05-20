@@ -11,33 +11,39 @@ public class Score {
     @Id @GeneratedValue
     private int id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private jenky.codebuddy.models.databaseModels.User User;
+    private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "project_id")
-    private jenky.codebuddy.models.databaseModels.Project Project;
+    private Project project;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "commit_id")
+    private Commit commit;
+
+    @ManyToOne
     @JoinColumn(name = "metric_id")
-    private jenky.codebuddy.models.databaseModels.Metric Metric;
+    private Metric metric;
 
     @Column(name = "sonar_value")
     private double sonar_value;
 
     @Column(name = "score")
     private int score;
-    //????
-    private Set<Commit> Commits = new HashSet<Commit>(0);
-
-    @Column(name = "project")
-    private jenky.codebuddy.models.databaseModels.Project Project;
-
-    @Column(name = "metric")
-    private jenky.codebuddy.models.databaseModels.Metric Metric;
 
     public Score() {
+    }
+
+    public Score(int id, User user, Project project, Commit commit, Metric metric, double sonar_value, int score) {
+        this.id = id;
+        this.user = user;
+        this.project = project;
+        this.commit = commit;
+        this.metric = metric;
+        this.sonar_value = sonar_value;
+        this.score = score;
     }
 
     public int getId() {
@@ -48,6 +54,37 @@ public class Score {
         this.id = id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Metric getMetric() {
+        return metric;
+    }
+
+    public void setMetric(Metric metric) {
+        this.metric = metric;
+    }
+
+    public Commit getCommit() {
+        return commit;
+    }
+
+    public void setCommit(Commit commit) {
+        this.commit = commit;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     public double getSonar_value() {
         return sonar_value;
@@ -65,27 +102,6 @@ public class Score {
         this.score = score;
     }
 
-    public Set<Commit> getCommits() {
-        return Commits;
-    }
 
-    public void setCommits(Set<Commit> Commits) {
-        this.Commits = Commits;
-    }
 
-    public jenky.codebuddy.models.databaseModels.Project getProject() {
-        return Project;
-    }
-
-    public void setProject(jenky.codebuddy.models.databaseModels.Project Project) {
-        this.Project = Project;
-    }
-
-    public jenky.codebuddy.models.databaseModels.Metric getMetric() {
-        return Metric;
-    }
-
-    public void setMetric(jenky.codebuddy.models.databaseModels.Metric Metric) {
-        this.Metric = Metric;
-    }
 }

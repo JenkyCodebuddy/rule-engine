@@ -12,7 +12,7 @@ import java.util.Date;
 public class Metric {
 
     @Id @GeneratedValue
-    @Column
+    @Column(name = "metric_id")
     private int id;
 
     @Column(name = "name")
@@ -28,6 +28,14 @@ public class Metric {
     private Date deleted_at;
 
     public Metric() {
+    }
+
+    public Metric(int id, String name, Date created_at, Date updated_at, Date deleted_at) {
+        this.id = id;
+        this.name = name;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.deleted_at = deleted_at;
     }
 
     public int getId() {

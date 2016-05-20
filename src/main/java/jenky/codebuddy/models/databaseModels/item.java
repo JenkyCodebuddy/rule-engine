@@ -2,6 +2,8 @@ package jenky.codebuddy.models.databaseModels;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by joost on 14-5-2016.
@@ -12,8 +14,12 @@ import java.util.Date;
 public class Item {
 
     @Id @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "item_id")
     private int id;
+
+    @ManyToMany
+    @JoinTable(name = "achievement_has_user", joinColumns = { @JoinColumn(name = "item_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    private Set<User> users = new HashSet<User>();
 
     @Column(name = "name")
     private String name;
@@ -35,6 +41,25 @@ public class Item {
 
     public Item() {
 
+    }
+
+    public Item(int id, Set<User> users, String name, String image, String type, Date created_at, Date updated_at, Date deleted_at) {
+        this.id = id;
+        this.users = users;
+        this.name = name;
+        this.image = image;
+        this.type = type;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.deleted_at = deleted_at;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public int getId() {

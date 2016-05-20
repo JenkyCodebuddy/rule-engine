@@ -10,11 +10,8 @@ import java.util.Set;
 public class User {
 
     @Id @GeneratedValue
+    @Column(name = "user_id")
     private int id;
-
-    @OneToOne
-    @JoinColumn(name = "customer")
-    //private customer customer_id;
 
     @Column(name = "username")
     private String username;
@@ -34,13 +31,22 @@ public class User {
     @Column(name = "jenkycoins")
     private int jenkycoins;
 
-    //?????
+    //score mapping
+    @OneToMany(mappedBy = "user")
     private Set<Score> Scores = new HashSet<Score>(0);
-    private Set<Item> Items = new HashSet<Item>(0);
-    private Set<Achievement> Achievements = new HashSet<Achievement>(0);
 
     public User() {
+    }
 
+    public User(int id, String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Set<Score> scores) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.deleted_at = deleted_at;
+        this.jenkycoins = jenkycoins;
+        Scores = scores;
     }
 
     public int getId() {
@@ -108,19 +114,5 @@ public class User {
         this.Scores = Scores;
     }
 
-    public Set<Item> getItems() {
-        return Items;
-    }
 
-    public void setItems(Set<Item> Items) {
-        this.Items = Items;
-    }
-
-    public Set<Achievement> getAchievements() {
-        return Achievements;
-    }
-
-    public void setAchievements(Set<Achievement> Achievements) {
-        this.Achievements = Achievements;
-    }
 }

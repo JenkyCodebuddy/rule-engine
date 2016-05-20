@@ -4,14 +4,20 @@ package jenky.codebuddy.models.databaseModels;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table( name = "achievement")
 public class Achievement {
 
     @Id @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "achievement_id")
     private int id;
+
+    @ManyToMany
+    @JoinTable(name = "achievement_has_user", joinColumns = { @JoinColumn(name = "achievement_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    private Set<User> users = new HashSet<User>();
 
     @Column(name = "name")
     private String name;
@@ -31,6 +37,16 @@ public class Achievement {
     public Achievement() {
     }
 
+    public Achievement(int id, Set<User> users, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
+        this.id = id;
+        this.users = users;
+        this.name = name;
+        this.description = description;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.deleted_at = deleted_at;
+    }
+
     public int getId() {
         return id;
     }
@@ -45,6 +61,14 @@ public class Achievement {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public String getDescription() {
