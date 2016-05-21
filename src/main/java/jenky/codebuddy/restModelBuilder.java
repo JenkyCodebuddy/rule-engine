@@ -4,6 +4,8 @@ import jenky.codebuddy.models.restModels.CommitModel;
 import jenky.codebuddy.models.restModels.CompleteResultModel;
 import wildtornado.scocalc.objects.Score;
 
+import java.util.Map;
+
 public class restModelBuilder { //class which builds rest models and supplies these to the controller
 
     private Score scoreModel;
@@ -13,12 +15,12 @@ public class restModelBuilder { //class which builds rest models and supplies th
     public restModelBuilder() {
     }
 
-    public CompleteResultModel buildCompleteResultModel(){
-        completeResultModel = new CompleteResultModel(buildScoreModel(), buildCommitModel());
+    public CompleteResultModel buildCompleteResultModel(Map requestParams){
+        completeResultModel = new CompleteResultModel(buildScoreModel(requestParams), buildCommitModel());
         return completeResultModel;
     }
 
-    private Score buildScoreModel(){
+    private Score buildScoreModel(Map requestParams){
         processSonarqubeJson process = new processSonarqubeJson();
         process.createScoreModel();
         scoreModel = process.getScoreModel();
