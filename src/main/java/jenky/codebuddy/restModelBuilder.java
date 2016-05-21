@@ -14,8 +14,9 @@ public class restModelBuilder { //class which builds rest models and supplies th
     private Commit commitModel;
     private CompleteResult completeResultModel;
 
-    public restModelBuilder(Map requestParams) {
-        splitRequestParamsMap(requestParams);
+    public restModelBuilder(Map requestParams, String sonarqubeResponse) {
+        committerInfoMap = requestParams;
+        sonarqubeJson = sonarqubeResponse;
     }
 
     public CompleteResult buildCompleteResultModel(){
@@ -34,12 +35,6 @@ public class restModelBuilder { //class which builds rest models and supplies th
         processGitHubJson github = new processGitHubJson(commitInfo);
         commitModel = github.getCommitModel();
         return commitModel;
-    }
-
-    private void splitRequestParamsMap(Map requestParams){ //method which splits the requestParams map and sets 2 variables
-        this.sonarqubeJson = requestParams.get("sonarqubeResponse").toString();
-        requestParams.remove("sonarqubeResponse");
-        this.committerInfoMap = requestParams;
     }
 
 
