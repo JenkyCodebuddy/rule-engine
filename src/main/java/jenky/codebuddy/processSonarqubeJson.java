@@ -6,7 +6,7 @@ import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 import wildtornado.scocalc.objects.Score;
 
-public class processSonarqubeJson extends callApi {
+public class processSonarqubeJson {
     JSONObject metric;
     DataInput metricsDataInputModel;
     DataInput comparisonDataInputModel;
@@ -22,13 +22,8 @@ public class processSonarqubeJson extends callApi {
     private double linesOfCode;
     private double linesOfComments;
 
-    public processSonarqubeJson() {
-        super("https://145.24.222.226/sonar/api/resources?resource=jenky:codebuddy.rule-engine&metrics=ncloc,coverage,duplicated_lines_density,complexity,comment_lines,sqale_index,tests&format=json",
-                "admin",
-                "CC4d96",
-                "POST");
-        this.jsonString = super.getResponse();
-        readSonarqubeJson(jsonString);
+    public processSonarqubeJson(String sonarqubeResponseJsonString) {
+        readSonarqubeJson(sonarqubeResponseJsonString);
     }
 
     private void readSonarqubeJson(String jsonString) { //read entire sonarqube api JSON string and select the metricsDataInputModel

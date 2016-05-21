@@ -2,12 +2,12 @@ package jenky.codebuddy.models.restModels;
 
 import wildtornado.scocalc.objects.Score;
 
-public class CompleteResultModel {
+public class CompleteResult {
 
-    private CommitModel commitmodel;
+    private Commit commitmodel;
     private Score scoreModel;
 
-    public CompleteResultModel(Score score, CommitModel commitmodel){
+    public CompleteResult(Score score, Commit commitmodel){
         this.scoreModel = score;
         this.commitmodel = commitmodel;
     }
@@ -20,11 +20,11 @@ public class CompleteResultModel {
         this.scoreModel = scoreModel;
     }
 
-    public CommitModel getCommitmodel() {
+    public Commit getCommitmodel() {
         return commitmodel;
     }
 
-    public void setCommitmodel(CommitModel commitmodel) {
+    public void setCommitmodel(Commit commitmodel) {
         this.commitmodel = commitmodel;
     }
 }
