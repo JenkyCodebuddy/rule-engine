@@ -17,7 +17,7 @@ public class processGitHubJson {
         commitModel = new Commit(commitInfo.get("username").toString(),
                 commitInfo.get("email").toString(),
                 commitInfo.get("branch").toString(),
-                commitInfo.get("commit").toString(),
+                commitInfo.get("sha").toString(),
                 filterRegex(commitInfo.get("projectUrl").toString()));
         setCommitModel(commitModel);
     }
