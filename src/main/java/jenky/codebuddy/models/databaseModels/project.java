@@ -1,22 +1,47 @@
 package jenky.codebuddy.models.databaseModels;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by joost on 14-5-2016.
  */
-public class project {
+@Entity
+@Table(name = "project")
+public class Project {
 
+    @Id @GeneratedValue
+    @Column(name = "project_id")
     private int id;
-    private int customer_id;
+
+    @OneToMany(mappedBy = "project")
+    private Set<Score> scores = new HashSet<Score>(0);
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
+
+    @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public project(int id, int customer_id, String name, Date created_at, Date updated_at, Date deleted_at) {
+    public Project() {
+    }
+
+    public Project(int id, Set<Score> scores, Company company, String name, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.customer_id = customer_id;
+        this.scores = scores;
+        this.company = company;
         this.name = name;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -29,14 +54,6 @@ public class project {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getCustomer_id() {
-        return customer_id;
-    }
-
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
     }
 
     public String getName() {

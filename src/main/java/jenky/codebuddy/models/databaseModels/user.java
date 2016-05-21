@@ -1,39 +1,52 @@
 package jenky.codebuddy.models.databaseModels;
 
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Entity
 @Table(name = "user")
-public class user {
+public class User {
 
+    @Id @GeneratedValue
+    @Column(name = "user_id")
     private int id;
-    private int customer_id;
-    private String username;
-    private String password;
-    private Date created_at;
-    private Date updated_at;
-    private Date deleted_at;
-    private int jenkycoins;
-    private Set<score> scores = new HashSet<score>(0);
-    private Set<item> items = new HashSet<item>(0);
-    private Set<achievement> achievements = new HashSet<achievement>(0);
 
-    public user(int id, int customer_id, String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Set<score> scores, Set<item> items, Set<achievement> achievements) {
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "created_at")
+    private Date created_at;
+
+    @Column(name = "updated_at")
+    private Date updated_at;
+
+    @Column(name = "deleted_at")
+    private Date deleted_at;
+
+    @Column(name = "jenkycoins")
+    private int jenkycoins;
+
+    //score mapping
+    @OneToMany(mappedBy = "user")
+    private Set<Score> Scores = new HashSet<Score>(0);
+
+    public User() {
+    }
+
+    public User(int id, String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Set<Score> scores) {
         this.id = id;
-        this.customer_id = customer_id;
         this.username = username;
         this.password = password;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.jenkycoins = jenkycoins;
-        this.scores = scores;
-        this.items = items;
-        this.achievements = achievements;
+        Scores = scores;
     }
 
     public int getId() {
@@ -44,13 +57,6 @@ public class user {
         this.id = id;
     }
 
-    public int getCustomer_id() {
-        return customer_id;
-    }
-
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
-    }
 
     public String getUsername() {
         return username;
@@ -100,27 +106,13 @@ public class user {
         this.jenkycoins = jenkycoins;
     }
 
-    public Set<score> getScores() {
-        return scores;
+    public Set<Score> getScores() {
+        return Scores;
     }
 
-    public void setScores(Set<score> scores) {
-        this.scores = scores;
+    public void setScores(Set<Score> Scores) {
+        this.Scores = Scores;
     }
 
-    public Set<item> getItems() {
-        return items;
-    }
 
-    public void setItems(Set<item> items) {
-        this.items = items;
-    }
-
-    public Set<achievement> getAchievements() {
-        return achievements;
-    }
-
-    public void setAchievements(Set<achievement> achievements) {
-        this.achievements = achievements;
-    }
 }

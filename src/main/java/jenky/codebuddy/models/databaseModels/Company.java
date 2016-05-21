@@ -6,19 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by joost (meme_lord) on 14-5-2016.
+ * Created by Fabian on 19-5-2016.
  */
-
 @Entity
-@Table(name = "commit")
-public class Commit {
+public class Company {
 
-    @Id @GeneratedValue
-    @Column(name = "commit_id")
+    @Id
+    @GeneratedValue
     private String id;
 
-    @OneToMany(mappedBy = "commit")
-    private Set<Score> scores = new HashSet<Score>(0);
+    @OneToMany(mappedBy = "company")
+    private Set<Project> project = new HashSet<Project>(0);
 
     @Column(name = "created_at")
     private Date created_at;
@@ -29,12 +27,13 @@ public class Commit {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public Commit() {
+
+    public Company() {
     }
 
-    public Commit(String id, Set<Score> scores, Date created_at, Date updated_at, Date deleted_at) {
+    public Company(String id, Set<Project> project, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.scores = scores;
+        this.project = project;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -48,12 +47,12 @@ public class Commit {
         this.id = id;
     }
 
-    public Set<Score> getScores() {
-        return scores;
+    public Set<Project> getProject() {
+        return project;
     }
 
-    public void setScores(Set<Score> scores) {
-        this.scores = scores;
+    public void setProject(Set<Project> project) {
+        this.project = project;
     }
 
     public Date getCreated_at() {
