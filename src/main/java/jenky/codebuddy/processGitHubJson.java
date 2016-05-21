@@ -32,7 +32,7 @@ public class processGitHubJson {
 
     private String filterRegex(String url) {
         String[] paths = url.split("/");
-        return paths[5];
+        return paths[2];
     }
 
 }
