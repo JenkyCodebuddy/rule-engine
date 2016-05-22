@@ -27,6 +27,7 @@ public class restModelBuilder { //class which builds rest models and supplies th
 
     private Score buildScoreModel(String sonarqubeJson){
         processSonarqubeJson process = new processSonarqubeJson(sonarqubeJson);
+        process.createScoreModel();
         scoreModel = process.getScoreModel();
         return scoreModel;
     }
