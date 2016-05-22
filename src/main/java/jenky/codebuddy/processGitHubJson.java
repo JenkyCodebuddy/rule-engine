@@ -18,7 +18,7 @@ public class processGitHubJson {
                 commitInfo.get("email").toString(),
                 commitInfo.get("branch").toString(),
                 commitInfo.get("sha").toString(),
-                filterRegex(commitInfo.get("projectUrl").toString()));
+                filterRegex(commitInfo.get("projectName").toString()));
         setCommitModel(commitModel);
     }
 

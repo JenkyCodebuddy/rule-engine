@@ -14,9 +14,9 @@ public class restModelBuilder { //class which builds rest models and supplies th
     private Commit commitModel;
     private CompleteResult completeResultModel;
 
-    public restModelBuilder(Map requestParams, String sonarqubeResponse) {
-        committerInfoMap = requestParams;
-        sonarqubeJson = sonarqubeResponse;
+    public restModelBuilder(String sonarqubeResponse, Map requestParams) {
+        this.committerInfoMap = requestParams;
+        this.sonarqubeJson = sonarqubeResponse;
     }
 
     public CompleteResult buildCompleteResultModel(){
@@ -25,8 +25,8 @@ public class restModelBuilder { //class which builds rest models and supplies th
         return completeResultModel;
     }
 
-    private Score buildScoreModel(String sonarqubeJson){
-        processSonarqubeJson process = new processSonarqubeJson(sonarqubeJson);
+    private Score buildScoreModel(String json){
+        processSonarqubeJson process = new processSonarqubeJson(json);
         process.createScoreModel();
         scoreModel = process.getScoreModel();
         return scoreModel;
