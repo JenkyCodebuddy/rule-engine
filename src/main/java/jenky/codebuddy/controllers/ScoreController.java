@@ -35,10 +35,6 @@ public class ScoreController {
         this.result = result;
     }
 
-    private void filterMap(Map<String,String> headers){
-
-    }
-
     private Map<String, String> createGithubUserInfoMap(Map<String, String> headers){
         githubInfoMap = new HashMap<String, String>();
         githubInfoMap.put("username",headers.get("username"));

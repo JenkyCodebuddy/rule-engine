@@ -1,5 +1,6 @@
 package jenky.codebuddy;
 
+import jenky.codebuddy.models.restModels.Commit;
 import org.hibernate.validator.constraints.URL;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -12,6 +13,7 @@ public class RestClientTest {
         RestClientTest t = new RestClientTest();
         try{
             t.bla();
+            t.testModel();
         }
         catch(Exception e){
 
@@ -21,6 +23,12 @@ public class RestClientTest {
     @Test
     public void bla() throws Exception {
         assertEquals(1,1);
+    }
+
+    @Test
+    public void testModel() throws Exception{
+        Commit c = new Commit("Joost","joost1235@hotmail.com","master","asdasd12113ui1h3ir","cyka/blyat/idi/nahui");
+        assertNotEquals(c.getEmail(),"");
     }
 }
 
