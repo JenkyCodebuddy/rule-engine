@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table( name = "achievement")
+@Table(name="achievement")
 public class Achievement {
 
     @Id @GeneratedValue

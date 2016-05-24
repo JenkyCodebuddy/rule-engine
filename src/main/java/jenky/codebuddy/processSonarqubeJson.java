@@ -76,6 +76,7 @@ public class processSonarqubeJson {
         metricDataInputModel.setCodeDuplicationDensity(codeDuplicationDensity);
         metricDataInputModel.setCodeViolationsDensity(codeViolationsDensity);
         metricDataInputModel.setCommentLines(linesOfComments);
+        metricDataInputModel.setNumberOfTests(numberOfTests);
         setMetricsDataInputModel(metricDataInputModel);
     }
 

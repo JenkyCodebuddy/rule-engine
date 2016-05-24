@@ -7,7 +7,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">eu-cdbr-azure-west-d.cloudapp.net:3306</property>
+        <property name="connection.url">jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/CodeBuddyDB</property>
         <property name="connection.username">b3f5726dc6f028</property>
         <property name="connection.password">ed99c6e3</property>
 
@@ -16,7 +16,7 @@
         <property name="current_session_context_class">thread</property>
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">validate</property>
+        <property name="hbm2ddl.auto">create</property>
 
         <mapping class="jenky.codebuddy.models.databaseModels.Achievement"/>
         <mapping class="jenky.codebuddy.models.databaseModels.Commit"/>

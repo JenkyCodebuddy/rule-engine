@@ -1,20 +1,21 @@
 package jenky.codebuddy.models.databaseModels;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User{
 
-    @Id @GeneratedValue
-    @Column(name = "user_id")
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="user_id", unique = true, nullable = false)
     private int id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -40,7 +41,7 @@ public class User {
 
     public User(int id, String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Set<Score> scores) {
         this.id = id;
-        this.username = username;
+        this.email = username;
         this.password = password;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -58,12 +59,12 @@ public class User {
     }
 
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

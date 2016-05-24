@@ -27,7 +27,7 @@ public class RestClientTest {
 
     @Test
     public void testModel() throws Exception{
-        Commit c = new Commit("Joost","joost1235@hotmail.com","master","asdasd12113ui1h3ir","cyka/blyat/idi/nahui");
+        Commit c = new Commit("Joost","joost1235@hotmail.com","master","asdasd12113ui1h3ir","cyka/TestclassForDAO/idi/nahui");
         assertNotEquals(c.getEmail(),"");
     }
 }

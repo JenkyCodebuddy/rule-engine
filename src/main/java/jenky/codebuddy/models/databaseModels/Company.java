@@ -13,7 +13,7 @@ public class Company {
 
     @Id
     @GeneratedValue
-    private String id;
+    private int id;
 
     @OneToMany(mappedBy = "company")
     private Set<Project> project = new HashSet<Project>(0);
@@ -31,7 +31,7 @@ public class Company {
     public Company() {
     }
 
-    public Company(String id, Set<Project> project, Date created_at, Date updated_at, Date deleted_at) {
+    public Company(int id, Set<Project> project, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
         this.project = project;
         this.created_at = created_at;
@@ -39,11 +39,11 @@ public class Company {
         this.deleted_at = deleted_at;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

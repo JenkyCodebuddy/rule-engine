@@ -16,10 +16,6 @@ public class Score {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
-
-    @ManyToOne
     @JoinColumn(name = "commit_id")
     private Commit commit;
 
@@ -36,10 +32,9 @@ public class Score {
     public Score() {
     }
 
-    public Score(int id, User user, Project project, Commit commit, Metric metric, double sonar_value, int score) {
+    public Score(int id, User user, Commit commit, Metric metric, double sonar_value, int score) {
         this.id = id;
         this.user = user;
-        this.project = project;
         this.commit = commit;
         this.metric = metric;
         this.sonar_value = sonar_value;
@@ -76,14 +71,6 @@ public class Score {
 
     public void setCommit(Commit commit) {
         this.commit = commit;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
     }
 
     public double getSonar_value() {

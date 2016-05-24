@@ -17,7 +17,7 @@ public class Project {
     private int id;
 
     @OneToMany(mappedBy = "project")
-    private Set<Score> scores = new HashSet<Score>(0);
+    private Set<Commit> commits = new HashSet<Commit>(0);
 
     @ManyToOne
     @JoinColumn(name = "company_id")
@@ -38,9 +38,9 @@ public class Project {
     public Project() {
     }
 
-    public Project(int id, Set<Score> scores, Company company, String name, Date created_at, Date updated_at, Date deleted_at) {
+    public Project(int id, Set<Commit> commits, Company company, String name, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.scores = scores;
+        this.commits = commits;
         this.company = company;
         this.name = name;
         this.created_at = created_at;

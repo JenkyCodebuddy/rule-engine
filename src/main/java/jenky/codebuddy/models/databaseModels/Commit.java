@@ -15,10 +15,14 @@ public class Commit {
 
     @Id @GeneratedValue
     @Column(name = "commit_id")
-    private String id;
+    private int id;
 
     @OneToMany(mappedBy = "commit")
     private Set<Score> scores = new HashSet<Score>(0);
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     @Column(name = "created_at")
     private Date created_at;
@@ -29,22 +33,26 @@ public class Commit {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
+    @Column(name = "branch")
+    private String branch;
+
     public Commit() {
     }
 
-    public Commit(String id, Set<Score> scores, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
+    public Commit(Set<Score> scores, Project project, Date created_at, Date updated_at, Date deleted_at, String branch) {
         this.scores = scores;
+        this.project = project;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
+        this.branch = branch;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -54,6 +62,14 @@ public class Commit {
 
     public void setScores(Set<Score> scores) {
         this.scores = scores;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public Date getCreated_at() {
@@ -78,5 +94,13 @@ public class Commit {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 }
