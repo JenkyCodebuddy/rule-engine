@@ -101,6 +101,7 @@
 	</dependencies>
 
 	<properties>
+		<start-class>jenky.codebuddy.startApplication</start-class>
 		<java.version>1.8</java.version>
 	</properties>
 
