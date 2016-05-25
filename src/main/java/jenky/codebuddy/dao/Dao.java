@@ -110,10 +110,11 @@ public class Dao<T, Id extends Serializable> implements DaoInterface<T, Id> {
 
         Criteria crit = getCurrentSession().createCriteria(type)
                 .add(Restrictions.eq(column,value));
-        Optional<Criteria> cr = Optional.of(crit);
+        Optional<Criteria> cr = Optional.ofNullable(crit);
         //Criteria crit = getCurrentSession().createCriteria(type)
         //       .add(Restrictions.eq(column,value));
-        return cr;
+        return (Optional<T>) cr ;
+        //return (T) crit.uniqueResult();
     }
 
     public boolean checkIfRecordExists(String column, T value){
