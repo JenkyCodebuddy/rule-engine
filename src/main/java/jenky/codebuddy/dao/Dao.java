@@ -8,11 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
-import sun.net.www.content.text.Generic;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.nio.file.Paths;
 import java.util.List;
@@ -106,15 +102,13 @@ public class Dao<T, Id extends Serializable> implements DaoInterface<T, Id> {
         return crit.list();
     }
 
-    public Optional<T> getRecordIfExists(String column, T value){
+    public T getRecordIfExists(String column, T value){
 
         Criteria crit = getCurrentSession().createCriteria(type)
                 .add(Restrictions.eq(column,value));
         Optional<Criteria> cr = Optional.ofNullable(crit);
-        //Criteria crit = getCurrentSession().createCriteria(type)
-        //       .add(Restrictions.eq(column,value));
-        return (Optional<T>) cr ;
-        //return (T) crit.uniqueResult();
+        return (T) cr.get().uniqueResult();
+
     }
 
     public boolean checkIfRecordExists(String column, T value){
