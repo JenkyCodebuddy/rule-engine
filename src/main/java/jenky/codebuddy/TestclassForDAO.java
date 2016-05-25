@@ -11,12 +11,10 @@ public class TestclassForDAO {
     public static void main(String[] args) {
         DatabaseServiceFactory factory = new DatabaseServiceFactory();
         DatabaseService userService = factory.getDatabaseService("User");
-        DatabaseService itemService = factory.getDatabaseService("Item");
+        User u = (User) userService.getRecordIfExists("email","meme");
+        System.out.println("u = " + u.getId());
 
-        User u = new User();
-        userService.persist(u);
-
-        userService.checkIfRecordExists("email","email");
+        //System.out.println(" checkIfRecordExists " + userService.checkIfRecordExists("email","memee"));
 
     }
 }

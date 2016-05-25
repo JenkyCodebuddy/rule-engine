@@ -11,6 +11,8 @@ import org.hibernate.criterion.Restrictions;
 import sun.net.www.content.text.Generic;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.nio.file.Paths;
 import java.util.List;
@@ -109,10 +111,11 @@ public class Dao<T, Id extends Serializable> implements DaoInterface<T, Id> {
         return (T) crit.uniqueResult();
     }
 
-    public boolean checkIfRecordExists(String value, String column){
+    public boolean checkIfRecordExists(String column, String value){
         Criteria crit = getCurrentSession().createCriteria(type)
                 .add(Restrictions.eq(column,value));
-        if(crit.uniqueResult()==null){
+        crit.list();
+        if(crit.list().isEmpty()){
             return false;
         }
         else{
