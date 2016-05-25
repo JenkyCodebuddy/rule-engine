@@ -4,6 +4,7 @@ import jenky.codebuddy.models.databaseModels.User;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public interface DaoInterface<T, Id extends Serializable> {
 

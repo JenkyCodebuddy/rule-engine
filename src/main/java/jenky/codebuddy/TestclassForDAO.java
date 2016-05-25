@@ -4,6 +4,9 @@ import jenky.codebuddy.dao.DatabaseService;
 import jenky.codebuddy.dao.DatabaseServiceFactory;
 import jenky.codebuddy.models.databaseModels.Metric;
 import jenky.codebuddy.models.databaseModels.User;
+import org.hibernate.Criteria;
+
+import java.util.Optional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,9 +23,13 @@ public class TestclassForDAO {
         else {
             System.out.println("Niks");
         }
-        User p = (User) userService.getRecordIfExists("email","meme");
-        System.out.println("u = " + p.getId());*/
-
+        User a = (User) userService.getRecordIfExists("email","meme");
+        Optional<User> p = Optional.ofNullable(a);
+        if (p.isPresent()){
+            System.out.println("u = " + p.get().getId());
+        } else {
+            System.out.println("nope");
+        }
 
         DatabaseService metricService = new DatabaseServiceFactory().getDatabaseService("Metric");
 

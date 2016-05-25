@@ -75,12 +75,12 @@ public class processSonarqubeJson {
 
     private void mapMetricsData() { //map the metric variables to a new datainput object
         DataInput metricDataInputModel = new DataInput();
-      //  metricDataInputModel.setCodeComplexity(codeComplexity);
+        metricDataInputModel.setCodeComplexity(codeComplexity);
         metricDataInputModel.setCommentPercentage(commentPercentage);
         metricDataInputModel.setLinesOfCode(linesOfCode);
         metricDataInputModel.setTechnicalDebt(technicalDebt);
         metricDataInputModel.setCodeDuplicationDensity(codeDuplicationDensity);
-       // metricDataInputModel.setCodeViolationsDensity(codeViolationsDensity);
+        metricDataInputModel.setCodeViolationsDensity(codeViolationsDensity);
         metricDataInputModel.setCommentLines(linesOfComments);
         metricDataInputModel.setNumberOfTests(numberOfTests);
         setMetricsDataInputModel(metricDataInputModel);
@@ -88,12 +88,12 @@ public class processSonarqubeJson {
 
     private void createComparisonDataInputModel() {
         DataInput comaprisonDataInputModel = new DataInput();
-        //comaprisonDataInputModel.setCodeComplexity(0);
+        comaprisonDataInputModel.setCodeComplexity(0);
         comaprisonDataInputModel.setCommentPercentage(0);
         comaprisonDataInputModel.setLinesOfCode(0);
         comaprisonDataInputModel.setTechnicalDebt(0);
         comaprisonDataInputModel.setCodeDuplicationDensity(0);
-       // comaprisonDataInputModel.setCodeViolationsDensity(0);
+        comaprisonDataInputModel.setCodeViolationsDensity(0);
         comaprisonDataInputModel.setCommentLines(0);
         setComparisonDataInputModel(comaprisonDataInputModel);
     }
