@@ -44,14 +44,14 @@ public class DatabaseService<T> {
         return users;
     }
 
-    public boolean checkIfRecordExists(String column, String value){
+    public boolean checkIfRecordExists(String column, T value){
         dao.openCurrentSession();
         boolean result = dao.checkIfRecordExists(column,value);
         dao.closeCurrentSession();
         return result;
     }
 
-    public T getRecordIfExists(String column, String value){
+    public T getRecordIfExists(String column, T value){
         dao.openCurrentSession();
         T entity = (T) dao.getRecordIfExists(column,value);
         dao.closeCurrentSession();

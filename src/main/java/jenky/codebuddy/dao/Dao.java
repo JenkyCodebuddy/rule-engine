@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by joost on 24-5-2016.
@@ -105,13 +106,17 @@ public class Dao<T, Id extends Serializable> implements DaoInterface<T, Id> {
         return crit.list();
     }
 
-    public T getRecordIfExists(String column, String value){
+    public Optional<T> getRecordIfExists(String column, T value){
+
         Criteria crit = getCurrentSession().createCriteria(type)
                 .add(Restrictions.eq(column,value));
-        return (T) crit.uniqueResult();
+        Optional<Criteria> cr = Optional.of(crit);
+        //Criteria crit = getCurrentSession().createCriteria(type)
+        //       .add(Restrictions.eq(column,value));
+        return cr;
     }
 
-    public boolean checkIfRecordExists(String column, String value){
+    public boolean checkIfRecordExists(String column, T value){
         Criteria crit = getCurrentSession().createCriteria(type)
                 .add(Restrictions.eq(column,value));
         crit.list();

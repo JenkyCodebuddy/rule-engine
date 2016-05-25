@@ -11,8 +11,14 @@ public class TestclassForDAO {
     public static void main(String[] args) {
         DatabaseServiceFactory factory = new DatabaseServiceFactory();
         DatabaseService userService = factory.getDatabaseService("User");
-        User u = (User) userService.getRecordIfExists("email","meme");
-        System.out.println("u = " + u.getId());
+        if(userService.checkIfRecordExists("email","meme")){
+        }
+        else {
+            System.out.println("Niks");
+        }
+        User p = (User) userService.getRecordIfExists("email","meme");
+        System.out.println("u = " + p.getId());
+
 
         //System.out.println(" checkIfRecordExists " + userService.checkIfRecordExists("email","memee"));
 

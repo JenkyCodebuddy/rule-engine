@@ -17,7 +17,7 @@ public interface DaoInterface<T, Id extends Serializable> {
 
     public List<T> findAll();
 
-    public boolean checkIfRecordExists(String column, String value);
+    public boolean checkIfRecordExists(String column, T value);
 
-    public T getRecordIfExists(String column, String value);
+    public T getRecordIfExists(String column, T value);
 }
