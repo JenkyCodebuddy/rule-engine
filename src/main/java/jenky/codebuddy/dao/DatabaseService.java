@@ -46,9 +46,16 @@ public class DatabaseService<T> {
 
     public boolean checkIfRecordExists(String column, String value){
         dao.openCurrentSession();
-        dao.checkIfRecordExists(column,value);
+        boolean result = dao.checkIfRecordExists(column,value);
         dao.closeCurrentSession();
-        return true;
+        return result;
+    }
+
+    public T getRecordIfExists(String column, String value){
+        dao.openCurrentSession();
+        T entity = (T) dao.getRecordIfExists(column,value);
+        dao.closeCurrentSession();
+        return entity;
     }
 
     public Dao genericDao() {

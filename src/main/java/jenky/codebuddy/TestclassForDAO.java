@@ -16,5 +16,7 @@ public class TestclassForDAO {
         User u = new User();
         userService.persist(u);
 
+        userService.checkIfRecordExists("email","email");
+
     }
 }
