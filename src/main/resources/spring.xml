@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <beans>
+
+        <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+            <property name="url" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/CodeBuddyDB"/>
+            <property name="username" value="b3f5726dc6f028"/>
+            <property name="password" value="ed99c6e3"/>
+        </bean>
+
+        <bean id="myProductDao" class="jenky.codebuddy.database.dao.ProductDaoImpl">
+            <property name="sessionFactory" ref="mySessionFactory"/>
+        </bean>
+
+        <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+            <property name="sessionFactory" ref="sessionFactory" />
+        </bean>
+
+        <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+            <property name="dataSource" ref="myDataSource"/>
+            <property name="packagesToScan" value="jenky.codebuddy.models.entities" />
+            <property name="hibernateProperties">
+                <value>
+                    hibernate.dialect=org.hibernate.dialect.HSQLDialect
+                </value>
+            </property>
+        </bean>
+
+    </beans>
+</beans>
