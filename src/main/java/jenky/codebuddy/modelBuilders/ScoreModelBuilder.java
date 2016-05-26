@@ -33,7 +33,7 @@ public class ScoreModelBuilder {
 
     private void readSonarqubeJson(String jsonString) { //read entire sonarqube api JSON string and select the metricsDataInputModel
 
-        jsonString = jsonString.replace("//","");
+        jsonString = jsonString.replace("\\s","");
         JSONArray json = new JSONArray(jsonString);
         JSONObject obj = json.getJSONObject(0);
         JSONArray metrics = obj.getJSONArray("msr");
