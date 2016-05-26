@@ -1,4 +1,4 @@
-package jenky.codebuddy.models.databaseModels;
+package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
 import java.util.Date;

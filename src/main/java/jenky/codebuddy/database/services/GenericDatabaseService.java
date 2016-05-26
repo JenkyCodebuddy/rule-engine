@@ -1,14 +1,16 @@
-package jenky.codebuddy.dao;
+package jenky.codebuddy.database.services;
+
+import jenky.codebuddy.database.dao.GenericDataAccessObject;
 
 import java.util.List;
 
 
-public class DatabaseService<T> {
+public class GenericDatabaseService<T> {
 
-    private static Dao dao;
+    private static GenericDataAccessObject dao;
 
-    public DatabaseService(Class<T> type) {
-        dao = new Dao(type);
+    public GenericDatabaseService(Class<T> type) {
+        dao = new GenericDataAccessObject(type);
     }
 
     public void persist(T entity) {
@@ -58,7 +60,7 @@ public class DatabaseService<T> {
         return entity;
     }
 
-    public Dao genericDao() {
+    public GenericDataAccessObject genericDao() {
         return dao;
     }
 }

@@ -1,12 +1,8 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.models.restModels.Commit;
-import org.hibernate.validator.constraints.URL;
+import jenky.codebuddy.models.rest.Commit;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
 
 public class RestClientTest {
     public static void main(String[] args) {

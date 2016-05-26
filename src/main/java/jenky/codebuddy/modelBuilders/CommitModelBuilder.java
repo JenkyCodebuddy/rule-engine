@@ -1,15 +1,14 @@
-package jenky.codebuddy;
+package jenky.codebuddy.modelbuilders;
 
 
-import com.google.gson.JsonObject;
-import jenky.codebuddy.models.restModels.Commit;
+import jenky.codebuddy.models.rest.Commit;
 
 import java.util.Map;
 
-public class processGitHubJson {
+public class CommitModelBuilder {
     private Commit commitModel;
 
-    public processGitHubJson(Map commitInfo) {
+    public CommitModelBuilder(Map commitInfo) {
         createCommitModel(commitInfo);
     }
 

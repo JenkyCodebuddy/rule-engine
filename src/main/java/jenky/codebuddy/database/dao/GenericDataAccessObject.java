@@ -1,6 +1,6 @@
-package jenky.codebuddy.dao;
+package jenky.codebuddy.database.dao;
 
-import jenky.codebuddy.models.databaseModels.*;
+import jenky.codebuddy.models.entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,12 +17,12 @@ import java.util.Optional;
 /**
  * Created by joost on 24-5-2016.
  */
-public class Dao<T, Id extends Serializable> implements DaoInterface<T, Id> {
+public class GenericDataAccessObject<T, Id extends Serializable> implements DataAccessObjectInterface<T, Id> {
     private Session currentSession;
     private Class<T> type;
     private Transaction currentTransaction;
 
-    public Dao(Class<T> type) {
+    public GenericDataAccessObject(Class<T> type) {
         this.type = type;
     }
 

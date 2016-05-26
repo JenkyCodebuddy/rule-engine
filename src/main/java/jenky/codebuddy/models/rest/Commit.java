@@ -1,4 +1,4 @@
-package jenky.codebuddy.models.restModels;
+package jenky.codebuddy.models.rest;
 
 public class Commit {
 

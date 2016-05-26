@@ -1,4 +1,4 @@
-package jenky.codebuddy.models.databaseModels;
+package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -6,29 +6,25 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by joost (...) on 14-5-2016.
+ * Created by joost on 14-5-2016.
  */
-
 @Entity
-@Table(name = "item")
-public class Item {
+@Table(name = "project")
+public class Project {
 
     @Id @GeneratedValue
-    @Column(name = "item_id")
+    @Column(name = "project_id")
     private int id;
 
-    @ManyToMany
-    @JoinTable(name = "achievement_has_user", joinColumns = { @JoinColumn(name = "item_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    private Set<User> users = new HashSet<User>();
+    @OneToMany(mappedBy = "project")
+    private Set<Commit> commits = new HashSet<Commit>(0);
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "type")
-    private String type;
-
-    @Column(name = "image")
-    private String image;
 
     @Column(name = "created_at")
     private Date created_at;
@@ -39,27 +35,17 @@ public class Item {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public Item() {
-
+    public Project() {
     }
 
-    public Item(int id, Set<User> users, String name, String image, String type, Date created_at, Date updated_at, Date deleted_at) {
+    public Project(int id, Set<Commit> commits, Company company, String name, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.users = users;
+        this.commits = commits;
+        this.company = company;
         this.name = name;
-        this.image = image;
-        this.type = type;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public int getId() {
@@ -76,22 +62,6 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Date getCreated_at() {

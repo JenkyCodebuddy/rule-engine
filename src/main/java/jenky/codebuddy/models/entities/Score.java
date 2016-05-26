@@ -1,8 +1,6 @@
-package jenky.codebuddy.models.databaseModels;
+package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "score")

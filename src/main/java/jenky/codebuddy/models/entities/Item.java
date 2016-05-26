@@ -1,29 +1,34 @@
-package jenky.codebuddy.models.databaseModels;
-
+package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Created by joost (...) on 14-5-2016.
+ */
+
 @Entity
-@Table(name="achievement")
-public class Achievement {
+@Table(name = "item")
+public class Item {
 
     @Id @GeneratedValue
-    @Column(name = "achievement_id")
+    @Column(name = "item_id")
     private int id;
 
     @ManyToMany
-    @JoinTable(name = "achievement_has_user", joinColumns = { @JoinColumn(name = "achievement_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    @JoinTable(name = "achievement_has_user", joinColumns = { @JoinColumn(name = "item_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private Set<User> users = new HashSet<User>();
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "image")
+    private String image;
 
     @Column(name = "created_at")
     private Date created_at;
@@ -34,17 +39,27 @@ public class Achievement {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public Achievement() {
+    public Item() {
+
     }
 
-    public Achievement(int id, Set<User> users, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
+    public Item(int id, Set<User> users, String name, String image, String type, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
         this.users = users;
         this.name = name;
-        this.description = description;
+        this.image = image;
+        this.type = type;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public int getId() {
@@ -63,20 +78,20 @@ public class Achievement {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public String getType() {
+        return type;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+    public String getImage() {
+        return image;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Date getCreated_at() {

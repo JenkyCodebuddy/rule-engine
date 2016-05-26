@@ -1,37 +1,25 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.dao.DatabaseService;
-import jenky.codebuddy.dao.DatabaseServiceFactory;
-import jenky.codebuddy.models.databaseModels.Metric;
-import jenky.codebuddy.models.databaseModels.User;
-import org.hibernate.Criteria;
-
-import java.util.Optional;
-
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  * Created by joost on 24-5-2016.
  */
 public class TestclassForDAO {
     public static void main(String[] args) {
         /*DatabaseServiceFactory factory = new DatabaseServiceFactory();
-        DatabaseService userService = factory.getDatabaseService("User");
-        if(userService.checkIfRecordExists("email","meme")){
-        }
-        else {
+        GenericDatabaseService userService = factory.getDatabaseService("User");
+        if (userService.checkIfRecordExists("email", "meme")) {
+        } else {
             System.out.println("Niks");
         }
-        User a = (User) userService.getRecordIfExists("email","meme");
+        User a = (User) userService.getRecordIfExists("email", "memeee");
         Optional<User> p = Optional.ofNullable(a);
-        if (p.isPresent()){
+        if (p.isPresent()) {
             System.out.println("u = " + p.get().getId());
         } else {
             System.out.println("nope");
         }
-
-        DatabaseService metricService = new DatabaseServiceFactory().getDatabaseService("Metric");
+*/
+        /*GenericDatabaseService metricService = new DatabaseServiceFactory().getDatabaseService("Metric");
 
         ArrayList<String> list = new ArrayList<String>();
         list.add("test1");
@@ -40,8 +28,8 @@ public class TestclassForDAO {
         list.add("test4");
         list.add("test5");
 
-        for(int i = 0; i<list.size(); i++){
-            if(!metricService.checkIfRecordExists("name",list.get(i))){
+        for (int i = 0; i < list.size(); i++) {
+            if (!metricService.checkIfRecordExists("name", list.get(i))) {
                 Metric m = new Metric();
                 m.setCreated_at(new Date());
                 m.setDeleted_at(new Date());
@@ -49,7 +37,7 @@ public class TestclassForDAO {
                 m.setName(list.get(i));
                 metricService.persist(m);
             }
-        }
+        }*/
         //System.out.println(" checkIfRecordExists " + userService.checkIfRecordExists("email","memee"));
 
     }

@@ -1,30 +1,28 @@
-package jenky.codebuddy.models.databaseModels;
+package jenky.codebuddy.models.entities;
+
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by joost on 14-5-2016.
- */
 @Entity
-@Table(name = "project")
-public class Project {
+@Table(name="achievement")
+public class Achievement {
 
     @Id @GeneratedValue
-    @Column(name = "project_id")
+    @Column(name = "achievement_id")
     private int id;
 
-    @OneToMany(mappedBy = "project")
-    private Set<Commit> commits = new HashSet<Commit>(0);
-
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
+    @ManyToMany
+    @JoinTable(name = "achievement_has_user", joinColumns = { @JoinColumn(name = "achievement_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    private Set<User> users = new HashSet<User>();
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "created_at")
     private Date created_at;
@@ -35,14 +33,14 @@ public class Project {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
-    public Project() {
+    public Achievement() {
     }
 
-    public Project(int id, Set<Commit> commits, Company company, String name, Date created_at, Date updated_at, Date deleted_at) {
+    public Achievement(int id, Set<User> users, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.commits = commits;
-        this.company = company;
+        this.users = users;
         this.name = name;
+        this.description = description;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -62,6 +60,22 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreated_at() {
