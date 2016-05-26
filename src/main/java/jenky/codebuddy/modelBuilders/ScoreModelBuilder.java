@@ -15,7 +15,7 @@ public class ScoreModelBuilder {
     Calc calculator;
     private String jsonString;
 
-    private double codeComplexity;
+    private double codeViolations;
     private double codeDuplications;
     private double codeDuplicationDensity;
     private double numberOfTests;
@@ -54,8 +54,8 @@ public class ScoreModelBuilder {
                 case "comment_lines_density":
                     commentPercentage = metric.getDouble("val");
                     break;
-                case "complexity":
-                    codeComplexity = metric.getDouble("val");
+                case "violations":
+                    codeViolations= metric.getDouble("val");
                     break;
                 case "tests":
                     numberOfTests = metric.getDouble("val");
@@ -100,6 +100,8 @@ public class ScoreModelBuilder {
         metricDataInputModel.setTestCoverage(codeCoverage);
         metricDataInputModel.setTestErrors(numberOfTestErrors);
         metricDataInputModel.setTestFailures(numberOfTestFailures);
+        metricDataInputModel.setCodeViolations(codeViolations);
+        metricDataInputModel.setCommentedOutCodeLines(0);
         setMetricsDataInputModel(metricDataInputModel);
     }
 
@@ -115,6 +117,8 @@ public class ScoreModelBuilder {
         comparisonDataInputModel.setTestCoverage(0);
         comparisonDataInputModel.setTestErrors(0);
         comparisonDataInputModel.setTestFailures(0);
+        comparisonDataInputModel.setCodeViolations(0);
+        comparisonDataInputModel.setCommentedOutCodeLines(0);
         setComparisonDataInputModel(comparisonDataInputModel);
     }
 
