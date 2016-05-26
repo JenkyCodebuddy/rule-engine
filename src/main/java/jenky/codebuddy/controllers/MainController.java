@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RestController //all requests to the "/score" endpoint
+@RestController //all requests to the "/score" endpoint test
 public class MainController {
 
     String sonarqubeResponse;
