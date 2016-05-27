@@ -33,23 +33,35 @@ public class MainController {
         businessLogicDB.storeCompleteResultModel(getCompleteResultModel());
     }
 
+    //TODO if statement so that only after the user is authenticated this can be accessed
     @RequestMapping(value = "/score", method = RequestMethod.GET)
     private CompleteResult getCompleteResultModel(){
         return result;
     }
 
+    //TODO combine this with login
     @RequestMapping(value = "/token", method = RequestMethod.GET)
     private String tokenGenerator(@RequestHeader String id) {
         Key key = MacProvider.generateKey();
         token.setToken(Jwts.builder().setSubject(id).signWith(SignatureAlgorithm.HS512, key).compact());
         token.setKey(key);
         token.setId(id);
-        return this.token.getToken();
+        return token.getToken();
     }
 
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     private void authorize(@RequestHeader String userToken) {
         Verification.verify(userToken, token.getKey(), token.getId());
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    private void login(@RequestHeader String userToken) {
+        //TODO implement login adds user to db with current token, id and key
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    private void logout(@RequestHeader String userToken) {
+        //TODO implement logout removes user from db
     }
 
     private void setCompleteResultModel(CompleteResult result){
