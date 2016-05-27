@@ -1,6 +1,6 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.database.dao.ProductDao;
+import jenky.codebuddy.database.dao.UserDaoImplService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -10,10 +10,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestclassForDAO {
     public static void main(String[] args) {
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        System.out.println("************** BEGINNING PROGRAM **************");
 
-        ProductDao dao = (ProductDao) context.getBean("myProductDao");
-        System.out.println(" = " + dao.loadProductsByCategory("joost1235@hotmail.com"));
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        UserDaoImplService personService = (UserDaoImplService) context.getBean("userService");
+        personService.fetchAllUsers();
 
     }
 }
