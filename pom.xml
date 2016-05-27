@@ -57,7 +57,7 @@
 			<artifactId>scocalc</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<!-- Spring security
+		<!--Spring security
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -72,7 +72,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		-->
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>2.0.9.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+			<version>1.0.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.stormpath.spring</groupId>
+			<artifactId>stormpath-default-spring-boot-starter</artifactId>
+			<version>1.0.RC9.1</version>
+		</dependency> -->
 		<!-- Apache HTTPclient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -96,7 +110,11 @@
 			<artifactId>hibernate-annotations</artifactId>
 			<version>3.5.6-Final</version>
 		</dependency>
-
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.6.0</version>
+		</dependency>
 
 	</dependencies>
 
