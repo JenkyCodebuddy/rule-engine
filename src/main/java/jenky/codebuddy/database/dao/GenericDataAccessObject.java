@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +24,14 @@ import java.util.Optional;
 
 @Repository
 public class GenericDataAccessObject<T, Id extends Serializable> implements DataAccessObjectInterface<T, Id> {
+
     private Session currentSession;
     private Class<T> type;
     private Transaction currentTransaction;
     private SessionFactory sessionFactory;
+
+    public GenericDataAccessObject() {
+    }
 
     public GenericDataAccessObject(Class<T> type) {
         this.type = type;
@@ -40,6 +45,8 @@ public class GenericDataAccessObject<T, Id extends Serializable> implements Data
     public SessionFactory getSessionFactory(){
         return sessionFactory;
     }
+
+
 
     /*public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();

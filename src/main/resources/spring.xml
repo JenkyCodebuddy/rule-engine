@@ -2,10 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
     <beans>
-        <tx:annotation-driven proxy-target-class="true"
-                              transaction-manager="txManager"/>
+        <!--als je die context verwijderd dan krijg je de nullpointer weer. Maar ik denk dat hier iet mee moet gebeuren, maar als je dit runt krijg je weer een andere error-->
+        <context:component-scan
+                base-package="jenky.codebuddy" />
+        <context:annotation-config></context:annotation-config>
+        <tx:annotation-driven/>
         <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
             <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
             <property name="url" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/CodeBuddyDB"/>
@@ -13,26 +23,6 @@
             <property name="password" value="ed99c6e3"/>
             <property name="initialSize" value="1"/>
             <property name="maxActive" value="4"/>
-        </bean>
-
-        <!--<bean id="genericDatabaseService" class="jenky.codebuddy.database.services.GenericDatabaseService">
-            <property name="dao" ref="genericDataAccessObject"/>
-            <constructor-arg value="0"></constructor-arg>-->
-        <bean id="genericDatabaseService" class="jenky.codebuddy.database.services.GenericDatabaseService">
-            <constructor-arg type="java.lang.Class" value="jenky.codebuddy.models.entities.User"></constructor-arg>
-        </bean>
-
-        <bean id="genericDataAccessObject" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
-            <property name="sessionFactory" ref="mySessionFactory"/>
-            <constructor-arg value="0"/>
-        </bean>
-
-        <!--<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-            <property name="sessionFactory" ref="mySessionFactory" />
-        </bean>-->
-
-        <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-            <property name="dataSource" ref="myDataSource"/>
         </bean>
 
         <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -43,6 +33,18 @@
                     hibernate.dialect=org.hibernate.dialect.HSQLDialect
                 </value>
             </property>
+        </bean>
+
+        <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+            <property name="sessionFactory" ref="mySessionFactory"/>
+        </bean>
+
+        <bean id="genericDatabaseService" class="jenky.codebuddy.database.services.GenericDatabaseService">
+            <constructor-arg type="java.lang.Class" value="jenky.codebuddy.models.entities.User"></constructor-arg>
+        </bean>
+
+        <bean id="genericDataAccessObject" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="sessionFactory" ref="mySessionFactory"/>
         </bean>
 
     </beans>
