@@ -1,8 +1,11 @@
 package jenky.codebuddy;
 
 import jenky.codebuddy.database.dao.UserDaoImplService;
+import jenky.codebuddy.models.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.List;
 
 /**
  * Created by joost on 24-5-2016.
@@ -14,7 +17,8 @@ public class TestclassForDAO {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         UserDaoImplService personService = (UserDaoImplService) context.getBean("userService");
-        personService.fetchAllUsers();
+        List<User> list = personService.fetchAllUsers();
+        System.out.println("list = " + list);
 
     }
 }
