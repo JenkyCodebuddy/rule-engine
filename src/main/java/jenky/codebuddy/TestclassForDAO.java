@@ -1,13 +1,8 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.database.dao.GenericDataAccessObject;
-import jenky.codebuddy.database.dao.UserDaoImplService;
 import jenky.codebuddy.database.services.GenericDatabaseService;
-import jenky.codebuddy.models.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
 
 /**
  * Created by joost on 24-5-2016.

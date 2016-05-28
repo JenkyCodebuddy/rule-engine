@@ -1,5 +1,6 @@
-package jenky.codebuddy.database.dao;
+package jenky.codebuddy.database.services;
 
+import jenky.codebuddy.database.dao.UserDaoImpl;
 import jenky.codebuddy.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
