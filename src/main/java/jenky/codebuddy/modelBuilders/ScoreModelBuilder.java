@@ -98,7 +98,7 @@ public class ScoreModelBuilder {
                     System.out.println("Unknown metric found: "+ metric.getString("key"));
                     break;
             }
-            //logic.updateMetricTable(metric.getString("key"));
+            logic.updateMetricTable(metric.getString("key"));
         }
         mapMetricsData();
         createComparisonDataInputModel();

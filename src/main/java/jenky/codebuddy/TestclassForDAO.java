@@ -1,6 +1,8 @@
 package jenky.codebuddy;
 
+import jenky.codebuddy.database.dao.GenericDataAccessObject;
 import jenky.codebuddy.database.dao.UserDaoImplService;
+import jenky.codebuddy.database.services.GenericDatabaseService;
 import jenky.codebuddy.models.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,9 +18,9 @@ public class TestclassForDAO {
         System.out.println("************** BEGINNING PROGRAM **************");
 
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        UserDaoImplService personService = (UserDaoImplService) context.getBean("userService");
-        List<User> list = personService.fetchAllUsers();
-        System.out.println("list = " + list);
+        GenericDatabaseService p = (GenericDatabaseService) context.getBean("genericDatabaseService");
+        p.findAll();
+        //System.out.println("list = " + list);
 
     }
 }

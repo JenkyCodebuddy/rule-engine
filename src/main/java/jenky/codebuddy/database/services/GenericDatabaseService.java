@@ -1,66 +1,73 @@
 package jenky.codebuddy.database.services;
 
 import jenky.codebuddy.database.dao.GenericDataAccessObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
+@Component
 public class GenericDatabaseService<T> {
 
-    private static GenericDataAccessObject dao;
+    private GenericDataAccessObject dao;
 
     public GenericDatabaseService(Class<T> type) {
         dao = new GenericDataAccessObject(type);
     }
 
+    public GenericDataAccessObject getDao() {
+        return dao;
+    }
+
+    @Autowired
+    public void setDao(GenericDataAccessObject dao) {
+       this.dao = dao;
+    }
+
     public void persist(T entity) {
-        dao.openCurrentSessionwithTransaction();
+        //dao.openCurrentSessionwithTransaction();
         dao.persist(entity);
-        dao.closeCurrentSessionwithTransaction();
+        //dao.closeCurrentSessionwithTransaction();
     }
 
     public void update(T entity) {
-        dao.openCurrentSessionwithTransaction();
+     //   dao.openCurrentSessionwithTransaction();
         dao.update(entity);
-        dao.closeCurrentSessionwithTransaction();
+     //   dao.closeCurrentSessionwithTransaction();
     }
 
     public T findById(int id) {
-        dao.openCurrentSession();
+    //    dao.openCurrentSession();
         T entity = (T) dao.findById(id);
-        dao.closeCurrentSession();
+    //    dao.closeCurrentSession();
         return entity;
     }
 
     public void delete(int id) {
-        dao.openCurrentSessionwithTransaction();
+    //    dao.openCurrentSessionwithTransaction();
         T entity = (T) dao.findById(id);
         dao.delete(entity);
-        dao.closeCurrentSessionwithTransaction();
+    //    dao.closeCurrentSessionwithTransaction();
     }
 
     public List<T> findAll() {
-        dao.openCurrentSession();
+   //     dao.openCurrentSession();
         List<T> users = dao.findAll();
-        dao.closeCurrentSession();
+   //     dao.closeCurrentSession();
         return users;
     }
 
     public boolean checkIfRecordExists(String column, T value){
-        dao.openCurrentSession();
+   //     dao.openCurrentSession();
         boolean result = dao.checkIfRecordExists(column,value);
-        dao.closeCurrentSession();
+   //     dao.closeCurrentSession();
         return result;
     }
 
     public T getRecordIfExists(String column, T value){
-        dao.openCurrentSession();
+    //    dao.openCurrentSession();
         T entity = (T) dao.getRecordIfExists(column,value);
-        dao.closeCurrentSession();
+     //   dao.closeCurrentSession();
         return entity;
-    }
-
-    public GenericDataAccessObject genericDao() {
-        return dao;
     }
 }

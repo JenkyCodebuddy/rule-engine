@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <beans>
         <tx:annotation-driven proxy-target-class="true"
-                              transaction-manager="txManager" />
+                              transaction-manager="txManager"/>
         <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
             <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
             <property name="url" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/CodeBuddyDB"/>
@@ -15,12 +15,16 @@
             <property name="maxActive" value="4"/>
         </bean>
 
-        <bean id="userService" class="jenky.codebuddy.database.dao.UserDaoImplService">
-            <property name="productDao" ref="userDao"/>
+        <!--<bean id="genericDatabaseService" class="jenky.codebuddy.database.services.GenericDatabaseService">
+            <property name="dao" ref="genericDataAccessObject"/>
+            <constructor-arg value="0"></constructor-arg>-->
+        <bean id="genericDatabaseService" class="jenky.codebuddy.database.services.GenericDatabaseService">
+            <constructor-arg type="java.lang.Class" value="jenky.codebuddy.models.entities.User"></constructor-arg>
         </bean>
 
-        <bean id="userDao" class="jenky.codebuddy.database.dao.UserDaoImpl">
+        <bean id="genericDataAccessObject" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
             <property name="sessionFactory" ref="mySessionFactory"/>
+            <constructor-arg value="0"/>
         </bean>
 
         <!--<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
@@ -33,7 +37,7 @@
 
         <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
             <property name="dataSource" ref="myDataSource"/>
-            <property name="packagesToScan" value="jenky.codebuddy.models.entities" />
+            <property name="packagesToScan" value="jenky.codebuddy.models.entities"/>
             <property name="hibernateProperties">
                 <value>
                     hibernate.dialect=org.hibernate.dialect.HSQLDialect
