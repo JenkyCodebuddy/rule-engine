@@ -14,7 +14,6 @@
         <!--als je die context verwijderd dan krijg je de nullpointer weer. Maar ik denk dat hier iet mee moet gebeuren, maar als je dit runt krijg je weer een andere error-->
         <context:component-scan
                 base-package="jenky.codebuddy" />
-        <context:annotation-config></context:annotation-config>
         <tx:annotation-driven/>
         <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
             <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
