@@ -22,27 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private Session currentSession;
-    private Transaction currentTransaction;
-
-    public Session getCurrentSession() {
-        return currentSession;
-    }
-
-    public void setCurrentSession(Session currentSession) {
-        this.currentSession = currentSession;
-    }
-
-    public Transaction getCurrentTransaction() {
-        return currentTransaction;
-    }
-
-    public void setCurrentTransaction(Transaction currentTransaction) {
-        this.currentTransaction = currentTransaction;
-    }
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Transactional
-    public void persist(UserDao user){
-        getCurrentSession().save(user);
+    public void persist(User user){
+        sessionFactory.getCurrentSession().save(user);
     }
 }

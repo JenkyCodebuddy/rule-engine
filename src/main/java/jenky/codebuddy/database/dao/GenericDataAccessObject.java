@@ -9,6 +9,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.nio.file.Paths;
@@ -18,13 +20,12 @@ import java.util.Optional;
 /**
  * Created by joost on 24-5-2016.
  */
+@Repository
 public class GenericDataAccessObject<T, Id extends Serializable> implements DataAccessObjectInterface<T, Id> {
-    private Session currentSession;
     private Class<T> type;
-    private Transaction currentTransaction;
 
-    public GenericDataAccessObject(Class<T> type) {
-    }
+    @Autowired
+    private SessionFactory sessionFactory;
 
     public GenericDataAccessObject() {
     }
@@ -38,93 +39,43 @@ public class GenericDataAccessObject<T, Id extends Serializable> implements Data
         this.type = type;
     }
 
-    public Session openCurrentSession() {
-        currentSession = getSessionFactory().openSession();
-        return currentSession;
-    }
-
-    public Session openCurrentSessionwithTransaction() {
-        currentSession = getSessionFactory().openSession();
-        currentTransaction = currentSession.beginTransaction();
-        return currentSession;
-    }
-
-    public void closeCurrentSession() {
-        currentSession.close();
-    }
-
-    public void closeCurrentSessionwithTransaction() {
-        currentTransaction.commit();
-        currentSession.close();
-    }
-
-    private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration();
-        configuration.configure(Paths.get("src","main","resources","hibernate.cfg.xml").toFile());
-        configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(Commit.class);
-        configuration.addAnnotatedClass(Company.class);
-        configuration.addAnnotatedClass(Item.class);
-        configuration.addAnnotatedClass(Metric.class);
-        configuration.addAnnotatedClass(Project.class);
-        configuration.addAnnotatedClass(Score.class);
-        configuration.addAnnotatedClass(Achievement.class);
-
-
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-        return sessionFactory;
-    }
-
-    public Session getCurrentSession() {
-        return currentSession;
-    }
-
-    public void setCurrentSession(Session currentSession) {
-        this.currentSession = currentSession;
-    }
-
-    public Transaction getCurrentTransaction() {
-        return currentTransaction;
-    }
-
-    public void setCurrentTransaction(Transaction currentTransaction) {
-        this.currentTransaction = currentTransaction;
-    }
-
+    @Transactional
     public void persist(T entity) {
-        getCurrentSession().save(entity);
+        sessionFactory.getCurrentSession().save(entity);
     }
 
+    @Transactional
     public void update(T entity) {
-        getCurrentSession().update(entity);
+        sessionFactory.getCurrentSession().update(entity);
     }
 
+    @Transactional
     public T findById(final int id) {
-        return (T) getCurrentSession().get(type, id);
+        return (T)  sessionFactory.getCurrentSession().get(type, id);
     }
 
+    @Transactional
     public void delete(T entity) {
-        getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().delete(entity);
     }
 
+    @Transactional
     public List<T> findAll() {
-        Criteria crit = getCurrentSession().createCriteria(type);
+        Criteria crit =  sessionFactory.getCurrentSession().createCriteria(type);
         return crit.list();
     }
 
+    @Transactional
     public T getRecordIfExists(String column, T value){
-
-        Criteria crit = getCurrentSession().createCriteria(type)
+        Criteria crit =  sessionFactory.getCurrentSession().createCriteria(type)
                 .add(Restrictions.eq(column,value));
         Optional<Criteria> cr = Optional.ofNullable(crit);
         return (T) cr.get().uniqueResult();
-
     }
 
+    @Transactional
     public boolean checkIfRecordExists(String column, T value){
-        Criteria crit = getCurrentSession().createCriteria(type)
+        Criteria crit =  sessionFactory.getCurrentSession().createCriteria(type)
                 .add(Restrictions.eq(column,value));
         crit.list();
         if(crit.list().isEmpty()){
@@ -134,5 +85,4 @@ public class GenericDataAccessObject<T, Id extends Serializable> implements Data
             return true;
         }
     }
-
 }

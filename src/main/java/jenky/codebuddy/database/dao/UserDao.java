@@ -12,6 +12,6 @@ import java.util.List;
  */
 public interface UserDao {
 
-    public void persist(UserDao user);
+    public void persist(User user);
 
 }

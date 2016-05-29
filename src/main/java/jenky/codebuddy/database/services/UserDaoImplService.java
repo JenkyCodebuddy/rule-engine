@@ -1,10 +1,12 @@
 package jenky.codebuddy.database.services;
 
+import jenky.codebuddy.database.dao.UserDao;
 import jenky.codebuddy.database.dao.UserDaoImpl;
 import jenky.codebuddy.models.entities.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,31 +14,15 @@ import java.util.List;
 /**
  * Created by joost on 27-5-2016.
  */
-public class UserDaoImplService {
+@Service
+public class UserDaoImplService implements UserDaoManager {
 
-    private UserDaoImpl userDao;
-    private SessionFactory sessionFactory;
+    @Autowired
+    private UserDao userDao;
 
+    @Override
     @Transactional
-    public void persist(User userDao){
-        sessionFactory.getCurrentSession().persist(userDao);
-    }
-
-    @Autowired
-    public void setUserDao(UserDaoImpl userDao) {
-        this.userDao = userDao;
-    }
-
-    public UserDaoImpl getUserDao() {
-        return userDao;
-    }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public void persist(User user) {
+        userDao.persist(user);
     }
 }
