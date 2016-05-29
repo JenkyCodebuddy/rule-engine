@@ -25,9 +25,6 @@
             <property name="maxPoolSize" value="3"/>
         </bean>
 
-        <!-- Service beans -->
-
-
         <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
             <property name="dataSource" ref="myDataSource"/>
         </bean>
