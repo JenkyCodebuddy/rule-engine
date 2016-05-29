@@ -27,14 +27,13 @@ public class GenericDataAccessObject<T, Id extends Serializable> implements Data
     @Autowired
     private SessionFactory sessionFactory;
 
-    public GenericDataAccessObject() {
+    public GenericDataAccessObject(Class<T> type) {
     }
 
     public Class<T> getType() {
         return type;
     }
 
-    @Autowired
     public void setType(Class<T> type) {
         this.type = type;
     }
