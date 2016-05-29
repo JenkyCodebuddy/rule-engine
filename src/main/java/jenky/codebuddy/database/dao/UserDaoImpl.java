@@ -17,15 +17,23 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by joost on 26-5-2016.
+ * Implements the UserDao interface. This is part of the Data Acces Object design pattern.
+ * This class is managed by Spring en gets a SessionFactory injected.
+ * This class is responsible for executing the requested actions on the database.
  */
 @Repository
 public class UserDaoImpl implements UserDao {
 
+    /**
+     * Injected by Spring
+     */
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional
+    /**
+     * Takes as input an user and saved it with help from the sessionFactory.
+     * @param user
+     */
     public void persist(User user){
         sessionFactory.getCurrentSession().save(user);
     }

@@ -7,9 +7,7 @@ import javax.persistence.Column;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by joost on 26-5-2016.
- */
+
 public interface UserDao {
 
     public void persist(User user);
