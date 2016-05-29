@@ -55,6 +55,7 @@
 
         <bean id="userDaoImplService" class="jenky.codebuddy.database.services.UserDaoImplService">
             <property name="userDao" ref="userDaoImpl"/>
+            <property name="sessionFactory" ref = "mySessionFactory"/>
         </bean>
 
         <!-- Dao beans -->
@@ -92,6 +93,7 @@
         </bean>
 
         <bean id="userDaoImpl" class="jenky.codebuddy.database.dao.UserDaoImpl">
+            <property name="type" value="jenky.codebuddy.models.entities.User"/>
         </bean>
 
 

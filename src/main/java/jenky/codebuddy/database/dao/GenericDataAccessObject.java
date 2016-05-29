@@ -23,6 +23,9 @@ public class GenericDataAccessObject<T, Id extends Serializable> implements Data
     private Class<T> type;
     private Transaction currentTransaction;
 
+    public GenericDataAccessObject(Class<T> type) {
+    }
+
     public GenericDataAccessObject() {
     }
 

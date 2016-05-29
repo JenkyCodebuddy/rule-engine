@@ -12,15 +12,14 @@ import java.util.List;
 /**
  * Created by joost on 27-5-2016.
  */
-@Component
 public class UserDaoImplService {
 
     private UserDaoImpl userDao;
     private SessionFactory sessionFactory;
 
-
-    public UserDaoImpl getUserDao() {
-        return userDao;
+    @Transactional
+    public void persist(User userDao){
+        sessionFactory.getCurrentSession().persist(userDao);
     }
 
     @Autowired
@@ -28,10 +27,16 @@ public class UserDaoImplService {
         this.userDao = userDao;
     }
 
-    @Transactional
-    public void persist(UserDaoImpl userDao){
-        sessionFactory.getCurrentSession().persist(userDao);
+    public UserDaoImpl getUserDao() {
+        return userDao;
     }
 
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }
