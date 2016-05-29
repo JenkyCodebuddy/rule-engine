@@ -2,48 +2,125 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx.xsd
-                           http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/context
-                           http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <beans>
-        <!--als je die context verwijderd dan krijg je de nullpointer weer. Maar ik denk dat hier iet mee moet gebeuren, maar als je dit runt krijg je weer een andere error-->
-        <context:component-scan
-                base-package="jenky.codebuddy" />
-        <tx:annotation-driven/>
-        <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-            <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-            <property name="url" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/CodeBuddyDB"/>
-            <property name="username" value="b3f5726dc6f028"/>
+        <tx:annotation-driven proxy-target-class="true"
+                              transaction-manager="txManager" />
+
+        <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+            <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+            <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/CodeBuddyDB"/>
+            <property name="user" value="b3f5726dc6f028"/>
             <property name="password" value="ed99c6e3"/>
-            <property name="initialSize" value="1"/>
-            <property name="maxActive" value="4"/>
+            <property name="minPoolSize" value="1"/>
+            <property name="maxPoolSize" value="2"/>
+            <property name="maxIdleTime" value="1000"/>
+        </bean>
+
+        <!-- Service beans -->
+
+        <bean id="achievementService" class="jenky.codebuddy.database.services.AchievementService">
+            <property name="dao" ref="achievementDao"/>
+        </bean>
+
+        <bean id="commitService" class="jenky.codebuddy.database.services.CommitService">
+            <property name="dao" ref="commitDao"/>
+        </bean>
+
+        <bean id="companyService" class="jenky.codebuddy.database.services.CompanyService">
+            <property name="dao" ref="companyDao"/>
+        </bean>
+
+        <bean id="itemService" class="jenky.codebuddy.database.services.ItemService">
+            <property name="dao" ref="itemDao"/>
+        </bean>
+
+        <bean id="metricService" class="jenky.codebuddy.database.services.MetricService">
+            <property name="dao" ref="metricDao"/>
+            <property name="sessionFactory" ref = "mySessionFactory"/>
+        </bean>
+
+        <bean id="projectService" class="jenky.codebuddy.database.services.ProjectService">
+            <property name="dao" ref="projectDao"/>
+        </bean>
+
+        <bean id="scoreService" class="jenky.codebuddy.database.services.ScoreService">
+            <property name="dao" ref="scoreDao"/>
+        </bean>
+
+        <bean id="userService" class="jenky.codebuddy.database.services.UserService">
+            <property name="dao" ref="userDao"/>
+            <property name="sessionFactory" ref = "mySessionFactory"/>
+        </bean>
+
+        <bean id="userDaoImplService" class="jenky.codebuddy.database.services.UserDaoImplService">
+            <property name="userDao" ref="userDaoImpl"/>
+        </bean>
+
+        <!-- Dao beans -->
+
+        <bean id="achievementDao" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.Achievement"/>
+        </bean>
+
+        <bean id="commitDao" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.Commit"/>
+        </bean>
+
+        <bean id="companyDao" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.Company"/>
+        </bean>
+
+        <bean id="itemDao" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.Item"/>
+        </bean>
+
+        <bean id="metricDao" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.Metric"/>
+        </bean>
+
+        <bean id="projectDao" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.Project"/>
+        </bean>
+
+        <bean id="scoreDao" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.Score"/>
+        </bean>
+
+        <bean id="userDao" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.User"/>
+        </bean>
+
+        <bean id="userDaoImpl" class="jenky.codebuddy.database.dao.UserDaoImpl">
+        </bean>
+
+
+
+        <!-- redundant generic beans
+        <bean id="genericDatabaseService" class="jenky.codebuddy.database.services.UserService">
+            <property name="dao" ref="genericDataAccessObject"></property>
+        </bean>
+
+        <bean id="genericDataAccessObject" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
+            <property name="type" value="jenky.codebuddy.models.entities.User"></property>
+        </bean>
+-->
+        <!--<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+            <property name="sessionFactory" ref="mySessionFactory" />
+        </bean>-->
+
+        <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="myDataSource"/>
         </bean>
 
         <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
             <property name="dataSource" ref="myDataSource"/>
-            <property name="packagesToScan" value="jenky.codebuddy.models.entities"/>
+            <property name="packagesToScan" value="jenky.codebuddy.models.entities" />
             <property name="hibernateProperties">
                 <value>
                     hibernate.dialect=org.hibernate.dialect.HSQLDialect
                 </value>
             </property>
-        </bean>
-
-        <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-            <property name="sessionFactory" ref="mySessionFactory"/>
-        </bean>
-
-        <bean id="genericDatabaseService" class="jenky.codebuddy.database.services.GenericDatabaseService">
-            <constructor-arg type="java.lang.Class" value="jenky.codebuddy.models.entities.User"></constructor-arg>
-        </bean>
-
-        <bean id="genericDataAccessObject" class="jenky.codebuddy.database.dao.GenericDataAccessObject">
-            <property name="sessionFactory" ref="mySessionFactory"/>
         </bean>
 
     </beans>

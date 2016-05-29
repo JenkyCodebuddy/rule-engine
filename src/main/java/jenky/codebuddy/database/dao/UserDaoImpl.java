@@ -1,12 +1,17 @@
 package jenky.codebuddy.database.dao;
 
-import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.database.services.UserDaoImplService;
+import jenky.codebuddy.models.entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.nio.file.Paths;
 import java.util.List;
 
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,24 +22,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private SessionFactory sessionFactory;
+    private Session currentSession;
+    private Transaction currentTransaction;
 
-    public SessionFactory getSessionFactory(){
-        return sessionFactory;
+    public Session getCurrentSession() {
+        return currentSession;
     }
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public void setCurrentSession(Session currentSession) {
+        this.currentSession = currentSession;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
     }
 
     @Transactional
-    public List<User> selectAll() {
-        Session session = getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        Criteria criteria = session.createCriteria(User.class);
-        List<User> persons = (List<User>) criteria.list();
-        session.getTransaction().commit();
-        return persons;
+    public void persist(UserDao user){
+        getCurrentSession().save(user);
     }
 }

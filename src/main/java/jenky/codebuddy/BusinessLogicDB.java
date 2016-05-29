@@ -1,9 +1,13 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.database.services.DatabaseServiceFactory;
-import jenky.codebuddy.database.services.GenericDatabaseService;
+import javafx.application.Application;
+import jenky.codebuddy.database.services.MetricService;
+import jenky.codebuddy.database.services.ServiceFactory;
+import jenky.codebuddy.database.services.UserService;
 import jenky.codebuddy.models.entities.Metric;
 import jenky.codebuddy.models.rest.CompleteResult;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
 
@@ -12,14 +16,13 @@ import java.util.Date;
  */
 public class BusinessLogicDB {
 
-    DatabaseServiceFactory factory = new DatabaseServiceFactory();
-
+    //DatabaseServiceFactory factory = new DatabaseServiceFactory();
     public BusinessLogicDB() {
 
     }
 
     public void updateMetricTable(String metric) {
-        GenericDatabaseService metricService = new DatabaseServiceFactory().getDatabaseService("Metric");
+        MetricService metricService = (MetricService) new ServiceFactory().getService("MetricService");
         if (!metricService.checkIfRecordExists("name", metric)) {
             Metric m = new Metric();
             m.setCreated_at(new Date());
@@ -29,7 +32,7 @@ public class BusinessLogicDB {
     }
 
     public void storeCompleteResultModel(CompleteResult completeResult) {
-        GenericDatabaseService userService = factory.getDatabaseService("User");
+        /*UserService userService = factory.getDatabaseService("User");*/
     }
 }
 

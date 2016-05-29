@@ -1,8 +1,12 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.database.services.GenericDatabaseService;
+import jenky.codebuddy.database.services.ServiceFactory;
+import jenky.codebuddy.database.services.UserService;
+import jenky.codebuddy.models.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.List;
 
 /**
  * Created by joost on 24-5-2016.
@@ -12,10 +16,14 @@ public class TestclassForDAO {
 
         System.out.println("************** BEGINNING PROGRAM **************");
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        GenericDatabaseService p = (GenericDatabaseService) context.getBean("genericDatabaseService");
-        p.findAll();
-        //System.out.println("list = " + list);
+        //ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
+        //met deze class kan je testen of die max 4 users error is opgelost
+        //probeer de goede sessie te pakken in de persist method in userservice.class
+        for(int x = 0 ; x < 100; x++) {
+            UserService userService = (UserService) new ServiceFactory().getService("UserService");
+            User u = new User();
+            userService.persist(u);
+        }
     }
 }
