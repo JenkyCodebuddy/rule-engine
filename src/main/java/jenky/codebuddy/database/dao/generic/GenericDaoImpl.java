@@ -1,68 +1,74 @@
-package jenky.codebuddy.database.dao;
+package jenky.codebuddy.database.dao.generic;
 
-import jenky.codebuddy.models.entities.*;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.nio.file.Paths;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by joost on 24-5-2016.
  */
 @Repository
-public class GenericDataAccessObject<T, Id extends Serializable> implements DataAccessObjectInterface<T, Id> {
-    private Class<T> type;
+public abstract class GenericDaoImpl<T, Id extends Serializable> implements GenericDao<T, Id> {
+    protected Class<? extends T> type;
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public GenericDataAccessObject(Class<T> type) {
+    public GenericDaoImpl() {
+        Type t = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) t;
+        type = (Class) pt.getActualTypeArguments()[0];
     }
 
-    public Class<T> getType() {
-        return type;
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     public void setType(Class<T> type) {
         this.type = type;
     }
 
-    @Transactional
-    public void persist(T entity) {
+    @Override
+    public void add(T entity) {
         sessionFactory.getCurrentSession().save(entity);
     }
 
-    @Transactional
+    @Override
     public void update(T entity) {
         sessionFactory.getCurrentSession().update(entity);
     }
 
-    @Transactional
-    public T findById(final int id) {
-        return (T)  sessionFactory.getCurrentSession().get(type, id);
+    @Override
+    public void saveOrUpdate(T entity) {
+        sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
 
-    @Transactional
+    @Override
     public void delete(T entity) {
         sessionFactory.getCurrentSession().delete(entity);
     }
 
-    @Transactional
+    @Override
     public List<T> findAll() {
-        Criteria crit =  sessionFactory.getCurrentSession().createCriteria(type);
-        return crit.list();
+        return sessionFactory.getCurrentSession().createCriteria(type).list();
     }
+
+    @Override
+    public T findById(final int id) {
+        return (T)  sessionFactory.getCurrentSession().get(type, id);
+    }
+
+
+
+    /*public boolean checkIfRecordExists(String column, T value);
+
+    public T getRecordIfExists(String column, T value);
 
     @Transactional
     public T getRecordIfExists(String column, T value){
@@ -83,5 +89,5 @@ public class GenericDataAccessObject<T, Id extends Serializable> implements Data
         else{
             return true;
         }
-    }
+    }*/
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "metric")
 public class Metric {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "metric_id")
     private int id;
 

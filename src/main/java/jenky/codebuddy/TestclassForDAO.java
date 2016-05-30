@@ -1,10 +1,9 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.database.services.UserDaoImplService;
+import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.style.ToStringCreator;
 
 import java.util.Date;
 import java.util.Random;
@@ -33,7 +32,9 @@ public class TestclassForDAO {
                 }
                 for(int x = 100 ; x < 1100; x++) {
                     System.out.println("x = " + rand.nextInt());
-                    UserDaoImplService userDaoImplService = (UserDaoImplService)context.getBean("userDaoImplService");
+                    //GenericDatabaseService genericDatabaseService = (GenericDatabaseService) context.getBean("genericDatabaseService");
+                    //UserDaoImplService userDaoImplService = (UserDaoImplService)context.getBean("userDaoImplService");
+
                     User u = new User();
                     u.setEmail("test" + rand.nextInt());
                     u.setPassword("test");
@@ -41,7 +42,13 @@ public class TestclassForDAO {
                     u.setDeleted_at(new Date());
                     u.setUpdated_at(new Date());
                     u.setJenkycoins(1);
-                    userDaoImplService.persist(u);
+
+                    Commit c = new Commit();
+                    c.setCreated_at(new Date());
+
+                    /*Company bla = new Company();
+                    bla.setCreated_at(new Date());*/
+                   // genericDatabaseService.persist(c);
                 }
 
             }

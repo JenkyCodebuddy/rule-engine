@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "commit")
 public class Commit {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "commit_id")
     private int id;
 

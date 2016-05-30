@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name="achievement")
 public class Achievement {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "achievement_id")
     private int id;
 

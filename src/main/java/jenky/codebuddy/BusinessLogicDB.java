@@ -23,7 +23,7 @@ public class BusinessLogicDB {
     }
 
     public void storeCompleteResultModel(CompleteResult completeResult) {
-        /*UserService userService = factory.getDatabaseService("User");*/
+        /*CommitService userService = factory.getDatabaseService("User");*/
     }
 }
 
