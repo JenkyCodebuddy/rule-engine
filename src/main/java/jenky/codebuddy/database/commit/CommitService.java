@@ -1,8 +1,7 @@
-package jenky.codebuddy.database.dao.generic.commit;
+package jenky.codebuddy.database.commit;
 
-import jenky.codebuddy.database.dao.generic.GenericService;
+import jenky.codebuddy.database.generic.GenericService;
 import jenky.codebuddy.models.entities.Commit;
-import jenky.codebuddy.models.entities.User;
 
 import java.util.List;
 
@@ -11,4 +10,6 @@ import java.util.List;
  */
 public interface CommitService extends GenericService<Commit, Integer> {
     public List<Commit> getCommits();
+
+    public void saveCommit(Commit commit);
 }

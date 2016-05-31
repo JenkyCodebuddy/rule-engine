@@ -12,9 +12,7 @@
                               transaction-manager="txManager" />
 
         <context:component-scan
-                base-package="jenky.codebuddy.database.dao" />
-        <context:component-scan
-                base-package="jenky.codebuddy.database.services" />
+                base-package="jenky.codebuddy.database" />
 
         <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
             <property name="driverClass" value="com.mysql.jdbc.Driver"/>
@@ -37,7 +35,7 @@
             <property name="packagesToScan" value="jenky.codebuddy.models.entities" />
             <property name="hibernateProperties">
                 <props>
-                    <prop key="hibernate.hbm2ddl.auto">create</prop>
+                    <prop key="hibernate.hbm2ddl.auto">update</prop>
                     <prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5Dialect </prop>
                 </props>
             </property>

@@ -1,14 +1,9 @@
-package jenky.codebuddy.database.dao.generic;
-
-import jenky.codebuddy.models.entities.User;
+package jenky.codebuddy.database.generic;
 
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Fabian on 29-5-2016.
- */
-public interface GenericService<T, Id extends Serializable> {
+public interface GenericDao<T, Id extends Serializable> {
 
     public void add(T entity);
 
@@ -21,5 +16,4 @@ public interface GenericService<T, Id extends Serializable> {
     public void delete(T entity);
 
     public List<T> findAll();
-
 }

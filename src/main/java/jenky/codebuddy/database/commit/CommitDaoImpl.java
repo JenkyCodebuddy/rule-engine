@@ -1,8 +1,7 @@
-package jenky.codebuddy.database.dao.generic.commit;
+package jenky.codebuddy.database.commit;
 
-import jenky.codebuddy.database.dao.generic.GenericDaoImpl;
+import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Commit;
-import jenky.codebuddy.models.entities.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,5 +16,10 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
     public List<Commit> getCommits() {
         List<Commit> commits = super.findAll();
         return commits;
+    }
+
+    @Override
+    public void saveCommit(Commit commit){
+        super.add(commit);
     }
 }

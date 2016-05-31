@@ -1,4 +1,4 @@
-package jenky.codebuddy.database.dao.generic;
+package jenky.codebuddy.database.generic;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Implements the GenericService interfaces and is responsible for sending the requests to the CommitDao.
+ * Implements the GenericService interfaces and is responsible for sending the requests to the ScoreDao.
  * This is the service layer. This does class does not has a direct connection to the database.
  */
 @Service
@@ -59,4 +59,5 @@ public abstract class GenericServiceImpl<T, Id extends Serializable> implements 
     public List<T> findAll() {
         return genericDao.findAll();
     }
+    
 }

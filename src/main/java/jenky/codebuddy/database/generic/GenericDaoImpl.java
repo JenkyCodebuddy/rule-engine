@@ -1,6 +1,8 @@
-package jenky.codebuddy.database.dao.generic;
+package jenky.codebuddy.database.generic;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +30,10 @@ public abstract class GenericDaoImpl<T, Id extends Serializable> implements Gene
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    public SessionFactory getSessionFactory(){
+        return this.sessionFactory;
     }
 
     public void setType(Class<T> type) {
@@ -63,7 +69,6 @@ public abstract class GenericDaoImpl<T, Id extends Serializable> implements Gene
     public T findById(final int id) {
         return (T)  sessionFactory.getCurrentSession().get(type, id);
     }
-
 
 
     /*public boolean checkIfRecordExists(String column, T value);

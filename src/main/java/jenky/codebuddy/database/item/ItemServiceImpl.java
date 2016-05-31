@@ -1,7 +1,7 @@
-package jenky.codebuddy.database.dao.generic.commit;
+package jenky.codebuddy.database.item;
 
-import jenky.codebuddy.database.dao.generic.GenericServiceImpl;
-import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.database.generic.GenericServiceImpl;
+import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,22 +15,22 @@ import java.util.List;
  * Created by joost on 30-5-2016.
  */
 @Service
-public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> implements CommitService {
+public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implements ItemService {
 
-    private CommitDao commitDao;
+    private ItemDao itemDao;
 
     @Autowired
-    public CommitServiceImpl(@Qualifier("commitDaoImpl") CommitDao commitDao) {
-        this.commitDao = commitDao;
+    public ItemServiceImpl(@Qualifier("itemDaoImpl") ItemDao itemDao) {
+        this.itemDao = itemDao;
     }
 
-    public CommitServiceImpl(){
+    public ItemServiceImpl(){
 
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<Commit> getCommits(){
-        return commitDao.getCommits();
+    public List<Item> getAllItems() {
+        return itemDao.getAllItems();
     }
 }
