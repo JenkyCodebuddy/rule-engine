@@ -4,8 +4,11 @@ import jenky.codebuddy.BusinessLogicController;
 import jenky.codebuddy.BusinessLogicDB;
 import jenky.codebuddy.models.rest.CompleteResult;
 import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
+import jenky.codebuddy.models.rest.Mail;
+import jenky.codebuddy.signUpMail;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.Map;
 
 @RestController //all requests to the "/score" endpoint test
@@ -28,6 +31,16 @@ public class MainController {
     @RequestMapping(value = "/score", method = RequestMethod.GET)
     private CompleteResult getCompleteResultModel(){
         return result;
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    private void signUp(@RequestParam String reciepentAddress){
+        signUpMail m  = new signUpMail();
+        try {
+            m.sendMail(reciepentAddress);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setCompleteResultModel(CompleteResult result){
