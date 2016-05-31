@@ -12,13 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Service layer of Item. Inherits the GenericService and implements the ItemService
  */
 @Service
 public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implements ItemService {
 
     private ItemDao itemDao;
 
+    /**
+     * Injected by Spring.
+     * @param itemDao
+     */
     @Autowired
     public ItemServiceImpl(@Qualifier("itemDaoImpl") ItemDao itemDao) {
         this.itemDao = itemDao;
@@ -28,6 +32,11 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implement
 
     }
 
+    /**
+     * Asks itemDao to find and return all the items
+     * Transaction management done by Spring.
+     * @return
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Item> getAllItems() {

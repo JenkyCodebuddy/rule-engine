@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.Metric;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * This interface specifices the specific methods MetricService must have.
  */
 public interface MetricService extends GenericService<Metric, Integer> {
     public List<Metric> getAllMetrics();

@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.Score;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * THis itnerface specifies specific methods ScoreService must have.
  */
 public interface ScoreService extends GenericService<Score, Integer> {
     public List<Score> getAllScores();

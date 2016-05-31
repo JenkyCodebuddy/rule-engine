@@ -7,8 +7,9 @@ import jenky.codebuddy.models.entities.Commit;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Specific methods for achievement. This interface inherits GenericDao interface
  */
+
 public interface AchievementDao extends GenericDao<Achievement, Integer> {
     public List<Achievement> getAchievements();
 }

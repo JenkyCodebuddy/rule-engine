@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.Metric;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * This interface specifies specific methodes for MetricDao
  */
 public interface MetricDao extends GenericDao<Metric, Integer> {
     public List<Metric> getAllMetrics();
