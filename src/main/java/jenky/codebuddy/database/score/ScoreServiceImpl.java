@@ -11,13 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Service layer of Score. Inherits the GenericService and implements the ScoreService interface.
  */
 @Service
 public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> implements ScoreService {
 
     private ScoreDao scoreDao;
 
+    /**
+     * Injected by Spring
+     * @param scoreDao
+     */
     @Autowired
     public ScoreServiceImpl(@Qualifier("scoreDaoImpl") ScoreDao scoreDao) {
         this.scoreDao = scoreDao;
@@ -27,6 +31,11 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
 
     }
 
+    /**
+     * Asks the scoreDao to get all the scores.
+     * Transaction management done by Spring.
+     * @return List containig all the scores.
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Score> getAllScores(){
