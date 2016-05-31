@@ -43,6 +43,6 @@ public class MetricServiceImpl extends GenericServiceImpl<Metric, Integer> imple
     @Override
     @Transactional
     public void saveMetric(Metric metric){
-        super.add(metric);
+        metricDao.add(metric);
     }
 }
