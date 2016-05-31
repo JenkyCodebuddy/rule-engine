@@ -14,7 +14,7 @@ import java.util.Set;
 public class Item {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
+    @Column(name = "id")
     private int id;
 
     @ManyToMany

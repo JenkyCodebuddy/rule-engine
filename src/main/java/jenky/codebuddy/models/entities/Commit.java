@@ -14,7 +14,7 @@ import java.util.Set;
 public class Commit {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "commit_id")
+    @Column(name = "id")
     private int id;
 
     @OneToMany(mappedBy = "commit")

@@ -12,7 +12,7 @@ import java.util.Set;
 public class Company {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "company_id")
+    @Column(name = "id")
     private int id;
 
     @OneToMany(mappedBy = "company")

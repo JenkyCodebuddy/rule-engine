@@ -13,7 +13,7 @@ import java.util.Set;
 public class Project {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_id")
+    @Column(name = "id")
     private int id;
 
     @OneToMany(mappedBy = "project")
