@@ -11,13 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Persistence layer for CommitService. Extends GenericService and implements CommitService.
  */
 @Service
 public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> implements CommitService {
 
     private CommitDao commitDao;
 
+    /**
+     * Injected by Spring
+     * @param commitDao
+     */
     @Autowired
     public CommitServiceImpl(@Qualifier("commitDaoImpl") CommitDao commitDao) {
         this.commitDao = commitDao;
@@ -27,12 +31,22 @@ public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> imple
 
     }
 
+    /**
+     * Ask commitDao to get all the commits
+     * Transaction is managed by Spring
+     * @return List cof commits
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Commit> getCommits(){
         return commitDao.getCommits();
     }
 
+    /**
+     * Ask commitDao to save te commit
+     * Transaction is managed by Spring
+     * @param commit
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveCommit(Commit commit) {

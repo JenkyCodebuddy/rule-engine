@@ -12,13 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Service layer of Achievement. Inherits GenericService and implements the AchievementService interface
  */
 @Service
 public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Integer> implements AchievementService {
 
     private AchievementDao achievementDao;
 
+    /**
+     * Injected by Spring
+     * @param achievementDao
+     */
     @Autowired
     public AchievementServiceImpl(@Qualifier("achievementDaoImpl") AchievementDao achievementDao) {
         this.achievementDao = achievementDao;
@@ -28,6 +32,10 @@ public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Inte
 
     }
 
+    /**
+     * Transaction management is handled by Spring.
+     * @return list containing achievements
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Achievement> getAchievements(){
