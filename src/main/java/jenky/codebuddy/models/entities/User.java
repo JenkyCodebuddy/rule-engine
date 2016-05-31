@@ -10,8 +10,8 @@ import java.util.Set;
 public class User{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id", unique = true, nullable = false)
-    private int id;
+    @Column(name="id", unique = true, nullable = false)
+    private int user_id;
 
     @Column(name = "email")
     private String email;
@@ -49,8 +49,8 @@ public class User{
 
     }
 
-    public int getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
     public String getEmail() {

@@ -19,8 +19,7 @@ public class TestclassForDAO {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         Random rand = new Random();
 
-        //met deze class kan je testen of die max 4 users error is opgelost
-        //probeer de goede sessie te pakken in de persist method in userservice.class
+        //This is temporary for testing purposes
         new Thread(new Runnable() {
             @Override
             public void run() {
