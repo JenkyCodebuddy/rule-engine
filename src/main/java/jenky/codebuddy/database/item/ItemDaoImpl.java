@@ -8,11 +8,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Persistence of ItemDao. Inherits GenericDao and implements the ItemDao interface.
  */
 @Repository
 public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDao {
 
+    /**
+     * Return all the items
+     * @return List of Items
+     */
     @Override
     public List<Item> getAllItems() {
         return super.findAll();

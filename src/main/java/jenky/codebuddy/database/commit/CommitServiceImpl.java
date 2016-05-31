@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Persistence layer for CommitService. Extends GenericService and implements CommitService.
+ * Service layer for Commit. Extends GenericService and implements CommitService.
  */
 @Service
 public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> implements CommitService {

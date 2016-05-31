@@ -10,16 +10,25 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Persistent for MetricDao
  */
 @Repository
 public class MetricDaoImpl extends GenericDaoImpl<Metric, Integer> implements MetricDao {
 
+    /**
+     * Get all the metrics
+     * @return List of metrics
+     */
     @Override
     public List<Metric> getAllMetrics() {
         return super.findAll();
     }
 
+    /**
+     * Checks if a certain metric exists
+     * @param metric
+     * @return true or false
+     */
     @Override
     public boolean checkIfMetricExists(String metric) {
         String hql = "FROM Metric m WHERE m.name = :metric";
@@ -34,6 +43,10 @@ public class MetricDaoImpl extends GenericDaoImpl<Metric, Integer> implements Me
         }
     }
 
+    /**
+     * Saves the given metric
+     * @param metric
+     */
     @Override
     public void saveMetric(Metric metric){
         super.add(metric);
