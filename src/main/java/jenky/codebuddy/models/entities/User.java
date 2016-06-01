@@ -31,6 +31,9 @@ public class User{
     @Column(name = "jenkycoins")
     private int jenkycoins;
 
+    @Column(name = "token")
+    private String token;
+
     //score mapping
     @OneToMany(mappedBy = "user")
     private Set<Score> Scores = new HashSet<Score>(0);
@@ -47,6 +50,18 @@ public class User{
         this.deleted_at = deleted_at;
         this.jenkycoins = jenkycoins;
 
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getUser_id() {
