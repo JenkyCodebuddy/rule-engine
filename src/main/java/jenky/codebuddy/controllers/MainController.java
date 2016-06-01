@@ -4,8 +4,6 @@ import jenky.codebuddy.BusinessLogicController;
 import jenky.codebuddy.BusinessLogicDB;
 import jenky.codebuddy.models.rest.CompleteResult;
 import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
-import jenky.codebuddy.models.rest.Mail;
-import jenky.codebuddy.signUpMail;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -33,14 +31,19 @@ public class MainController {
         return result;
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    private String test(){
+        return "WE BACK ONLINE BOIS";
+    }
+
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     private void signUp(@RequestParam String reciepentAddress){
-        signUpMail m  = new signUpMail();
-        try {
-            m.sendMail(reciepentAddress);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+//        signUpMail m  = new signUpMail();
+//        try {
+//            m.sendMail(reciepentAddress);
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void setCompleteResultModel(CompleteResult result){
