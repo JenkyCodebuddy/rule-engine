@@ -1,5 +1,6 @@
 package jenky.codebuddy;
 
+//import jenky.codebuddy.database.ServiceFactory;
 import jenky.codebuddy.database.commit.CommitServiceImpl;
 import jenky.codebuddy.database.company.CompanyServiceImpl;
 import jenky.codebuddy.database.metric.MetricServiceImpl;
