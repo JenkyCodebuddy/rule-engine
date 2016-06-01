@@ -27,7 +27,7 @@ public class MainController {
 
     @RequestMapping(value = "/score", method = RequestMethod.POST)
     public String createScoreFromMetrics(@RequestHeader Map<String,String> headers) { //create new completeResultModel on POST request
-        sonarqubeResponse = headers.get("sonarquberesponse");
+        sonarqubeResponse = headers.get("sonarqubeResponse");
         return sonarqubeResponse;
         //githubInfoMap = getBusinessLogicController().createGithubUserInfoMap(headers);
         //setCompleteResultModel(new CompleteResultModelBuilder(sonarqubeResponse, githubInfoMap).buildCompleteResultModel());
