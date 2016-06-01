@@ -34,6 +34,10 @@ public class User{
     @Column(name = "token")
     private String token;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JoinColumn(name = "verification")
+    private Verification verfication;
+
     //score mapping
     @OneToMany(mappedBy = "user")
     private Set<Score> Scores = new HashSet<Score>(0);

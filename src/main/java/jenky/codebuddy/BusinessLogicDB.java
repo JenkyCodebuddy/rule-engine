@@ -5,11 +5,15 @@ import jenky.codebuddy.database.commit.CommitServiceImpl;
 import jenky.codebuddy.database.company.CompanyServiceImpl;
 import jenky.codebuddy.database.metric.MetricServiceImpl;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
+import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Metric;
 import jenky.codebuddy.models.entities.Project;
+import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.CompleteResult;
 import jenky.codebuddy.models.rest.Profile;
+import jenky.codebuddy.token.TokenGenerator;
+import jenky.codebuddy.token.models.Token;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,11 +25,13 @@ import java.util.Date;
 public class BusinessLogicDB {
 
     ApplicationContext context;
+    TokenGenerator tokenGenerator;
     //DatabaseServiceFactory factory = new DatabaseServiceFactory();
 
 
     public BusinessLogicDB() {
         setContext(context = new ClassPathXmlApplicationContext("spring.xml"));
+        setTokenGenerator(new TokenGenerator());
     }
 
     public ApplicationContext getContext() {
@@ -75,8 +81,38 @@ public class BusinessLogicDB {
         //c.setProject();
     }
 
+    public String login(String email, String password){
+        User user;
+        String token = null;
+        UserServiceImpl u = (UserServiceImpl) getContext().getBean("userServiceImpl");
+        if(u.checkIfUserExists(email)){
+            user = u.getUserIfExists(email);
+            if (user.getPassword().equals(password)){
+                token = getTokenGenerator().createJWT("1","2","3",32L);
+                System.out.println(token);
+
+            }
+            else{
+                System.out.println("Wrong password");
+            }
+        }
+        else{
+            System.out.println("User doest noet exist");
+        }
+        TokenGenerator t = new TokenGenerator();
+        return token;
+    }
+
     public Profile getProfile(){
        return null;
+    }
+
+    public TokenGenerator getTokenGenerator() {
+        return tokenGenerator;
+    }
+
+    public void setTokenGenerator(TokenGenerator tokenGenerator) {
+        this.tokenGenerator = tokenGenerator;
     }
 }
 

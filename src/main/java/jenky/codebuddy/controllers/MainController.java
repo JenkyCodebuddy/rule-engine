@@ -8,6 +8,7 @@ import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
 //import jenky.codebuddy.signUpMail;
 import jenky.codebuddy.models.rest.Profile;
 import jenky.codebuddy.models.rest.Projects;
+import jenky.codebuddy.token.models.Token;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -41,9 +42,10 @@ public class MainController {
         getCompleteResultModel();
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    private String login(@RequestParam String email, String password ){
-        return "email: " + email + " password: " + password;
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    private String login(@RequestParam(value = "email") String email,
+                        @RequestParam(value = "password") String password ){
+        return getBusinessLogicDB().login(email,password);
     }
 
 
