@@ -18,7 +18,7 @@ public class Item {
     private int id;
 
     @ManyToMany
-    @JoinTable(name = "achievement_has_user", joinColumns = { @JoinColumn(name = "item_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    @JoinTable(name = "item_has_user", joinColumns = { @JoinColumn(name = "item_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private Set<User> users = new HashSet<User>();
 
     @Column(name = "name")
