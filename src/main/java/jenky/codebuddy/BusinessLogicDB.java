@@ -9,6 +9,7 @@ import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Metric;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.rest.CompleteResult;
+import jenky.codebuddy.models.rest.Profile;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -72,6 +73,10 @@ public class BusinessLogicDB {
         CommitServiceImpl commitService = (CommitServiceImpl) getContext().getBean("commitServiceImpl");
         commitService.add(c);
         //c.setProject();
+    }
+
+    public Profile getProfile(){
+       return null;
     }
 }
 

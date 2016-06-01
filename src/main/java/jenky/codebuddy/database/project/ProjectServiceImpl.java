@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Service layer of Project. Inherits the GenericService and implements the ProjectService interface.
+ * Service layer of Profile. Inherits the GenericService and implements the ProjectService interface.
  */
 @Service
 public class ProjectServiceImpl extends GenericServiceImpl<Project, Integer> implements ProjectService {

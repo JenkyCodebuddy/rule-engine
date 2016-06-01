@@ -6,6 +6,8 @@ import jenky.codebuddy.models.rest.CompleteResult;
 import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
 //import jenky.codebuddy.models.rest.Mail;
 //import jenky.codebuddy.signUpMail;
+import jenky.codebuddy.models.rest.Profile;
+import jenky.codebuddy.models.rest.Projects;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -40,9 +42,45 @@ public class MainController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    private void login(@RequestParam String email, String password ){
-       // getBusinessLogicDB().login(email,password);
+    private String login(@RequestParam String email, String password ){
+        return "email: " + email + " password: " + password;
     }
+
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    /*@RequestMapping(value = "/projects", method = RequestMethod.GET)
+    private Projects profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/achievements", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/shop", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/project", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/buy", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/equipment", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }*/
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     private void signUp(@RequestParam String email, String password){
