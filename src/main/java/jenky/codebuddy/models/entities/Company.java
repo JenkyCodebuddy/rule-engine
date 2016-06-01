@@ -11,8 +11,8 @@ import java.util.Set;
 @Entity
 public class Company {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @OneToMany(mappedBy = "company")

@@ -13,8 +13,8 @@ import java.util.Set;
 @Table(name = "item")
 public class Item {
 
-    @Id @GeneratedValue
-    @Column(name = "item_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @ManyToMany

@@ -10,8 +10,8 @@ import java.util.Set;
 @Table(name="achievement")
 public class Achievement {
 
-    @Id @GeneratedValue
-    @Column(name = "achievement_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @ManyToMany

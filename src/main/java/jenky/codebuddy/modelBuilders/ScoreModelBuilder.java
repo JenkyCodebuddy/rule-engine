@@ -26,6 +26,10 @@ public class ScoreModelBuilder {
     private double commentPercentage;
     private double linesOfCode;
     private double linesOfComments;
+    private double majorViolations;
+    private double minorViolations;
+    private double criticalViolations;
+    private double blockerViolations;
 
     public ScoreModelBuilder(String sonarqubeResponseJsonString) {
         readSonarqubeJson(sonarqubeResponseJsonString);
@@ -78,11 +82,23 @@ public class ScoreModelBuilder {
                 case "comment_lines":
                     linesOfComments = metric.getDouble("val");
                     break;
+                case "major_violations":
+                    majorViolations = metric.getDouble("val");
+                    break;
+                case "minor_violations":
+                    minorViolations = metric.getDouble("val");
+                    break;
+                case "blocker_violations":
+                    blockerViolations = metric.getDouble("val");
+                    break;
+                case "critical_violations":
+                    criticalViolations = metric.getDouble("val");
+                    break;
                 default:
                     System.out.println("Unknown metric found: "+ metric.getString("key"));
                     break;
             }
-            //logic.updateMetricTable(metric.getString("key"));
+            logic.updateMetricTable(metric.getString("key"));
         }
         mapMetricsData();
         createComparisonDataInputModel();
@@ -102,6 +118,10 @@ public class ScoreModelBuilder {
         metricDataInputModel.setTestFailures(numberOfTestFailures);
         metricDataInputModel.setCodeViolations(codeViolations);
         metricDataInputModel.setCommentedOutCodeLines(0);
+        metricDataInputModel.setMajorViolations(majorViolations);
+        metricDataInputModel.setMinorViolations(minorViolations);
+        metricDataInputModel.setCriticalViolations(criticalViolations);
+        metricDataInputModel.setBlockerViolations(blockerViolations);
         setMetricsDataInputModel(metricDataInputModel);
     }
 
@@ -119,6 +139,10 @@ public class ScoreModelBuilder {
         comparisonDataInputModel.setTestFailures(0);
         comparisonDataInputModel.setCodeViolations(0);
         comparisonDataInputModel.setCommentedOutCodeLines(0);
+        comparisonDataInputModel.setMajorViolations(0);
+        comparisonDataInputModel.setMinorViolations(0);
+        comparisonDataInputModel.setCriticalViolations(0);
+        comparisonDataInputModel.setBlockerViolations(0);
         setComparisonDataInputModel(comparisonDataInputModel);
     }
 

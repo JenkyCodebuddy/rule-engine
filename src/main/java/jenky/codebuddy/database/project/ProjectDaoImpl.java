@@ -1,0 +1,53 @@
+package jenky.codebuddy.database.project;
+
+import jenky.codebuddy.database.generic.GenericDaoImpl;
+import jenky.codebuddy.models.entities.Item;
+import jenky.codebuddy.models.entities.Project;
+import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * Perisstence of ProjectDao. Inherits GenericDaoImpl and implements ProjectDao interface
+ */
+@Repository
+public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements ProjectDao {
+
+    /**
+     * Get all the projects
+     * @return List containing all the projects.
+     */
+    @Override
+    public List<Project> getAllProjects() {
+        return super.findAll();
+    }
+
+    /**
+     * Check if the given project exists or not.
+     * @param projectName
+     * @return true or false
+     */
+    @Override
+    public boolean checkIfProjectExists(String projectName) {
+        String hql = "FROM Project p WHERE p.name = :project_name";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("project_name",projectName);
+        Project result = (Project) query.uniqueResult();
+        if(result != null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    /**
+     * Saves the project.
+     * @param project
+     */
+    @Override
+    public void saveProject(Project project) {
+        super.add(project);
+    }
+}

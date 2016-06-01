@@ -19,6 +19,7 @@
         <property name="hbm2ddl.auto">validate</property>
         <property name="hibernate.c3p0.max_size">1</property>
 
+
         <mapping class="jenky.codebuddy.models.entities.Achievement"/>
         <mapping class="jenky.codebuddy.models.entities.Commit"/>
         <mapping class="jenky.codebuddy.models.entities.Company"/>

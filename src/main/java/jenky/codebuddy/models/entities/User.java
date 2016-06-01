@@ -9,9 +9,9 @@ import java.util.Set;
 @Table(name = "user")
 public class User{
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="user_id", unique = true, nullable = false)
-    private int id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", unique = true, nullable = false)
+    private int user_id;
 
     @Column(name = "email")
     private String email;
@@ -31,6 +31,9 @@ public class User{
     @Column(name = "jenkycoins")
     private int jenkycoins;
 
+    @Column(name = "token")
+    private String token;
+
     //score mapping
     @OneToMany(mappedBy = "user")
     private Set<Score> Scores = new HashSet<Score>(0);
@@ -38,25 +41,32 @@ public class User{
     public User() {
     }
 
-    public User(int id, String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Set<Score> scores) {
-        this.id = id;
+    public User(String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins) {
+
         this.email = username;
         this.password = password;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.jenkycoins = jenkycoins;
-        Scores = scores;
+
     }
 
-    public int getId() {
-        return id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getToken() {
+        return token;
     }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
 
     public String getEmail() {
         return email;

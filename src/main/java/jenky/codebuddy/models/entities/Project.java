@@ -12,8 +12,8 @@ import java.util.Set;
 @Table(name = "project")
 public class Project {
 
-    @Id @GeneratedValue
-    @Column(name = "project_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @OneToMany(mappedBy = "project")

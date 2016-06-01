@@ -13,8 +13,8 @@ import java.util.Set;
 @Table(name = "commit")
 public class Commit {
 
-    @Id @GeneratedValue
-    @Column(name = "commit_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @OneToMany(mappedBy = "commit")
