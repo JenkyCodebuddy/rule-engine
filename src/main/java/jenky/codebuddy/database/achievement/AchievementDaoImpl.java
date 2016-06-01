@@ -8,11 +8,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Persistence for Achievement. This inherits GenericDaoImplementation
  */
 @Repository
 public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> implements AchievementDao {
 
+    /**
+     * Get all the achievements
+     * @return List containing achievement objects
+     */
     @Override
     public List<Achievement> getAchievements() {
         List<Achievement> achievements = super.findAll();

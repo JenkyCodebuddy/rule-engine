@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Fabian on 29-5-2016.
+ * This interface specifies the specific methods the GenericService must have.
  */
 public interface GenericService<T, Id extends Serializable> {
 

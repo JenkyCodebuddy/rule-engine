@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.Company;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Specific methods for CompanyDao
  */
 public interface CompanyDao extends GenericDao<Company, Integer> {
     public List<Company> getCompanies();

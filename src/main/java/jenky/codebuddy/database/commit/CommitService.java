@@ -6,7 +6,7 @@ import jenky.codebuddy.models.entities.Commit;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Specific methods for the CommitService. Extends the GenericService interface
  */
 public interface CommitService extends GenericService<Commit, Integer> {
     public List<Commit> getCommits();

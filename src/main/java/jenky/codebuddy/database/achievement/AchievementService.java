@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.Commit;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Specfic methods for the service Achievement. Inherits GenericService interface
  */
 public interface AchievementService extends GenericService<Achievement, Integer> {
     public List<Achievement> getAchievements();

@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.Project;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * This interface specifies the methods ProjectSerivce must have.
  */
 public interface ProjectService extends GenericService<Project, Integer> {
     public List<Project> getAllProjects();

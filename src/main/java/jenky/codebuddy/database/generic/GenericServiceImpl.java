@@ -24,36 +24,67 @@ public abstract class GenericServiceImpl<T, Id extends Serializable> implements 
 
     }
 
+    /**
+     * Asks the genericDao to save given entity.
+     * Transaction management done by Spring.
+     * @param entity
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void add(T entity) {
         genericDao.add(entity);
     }
 
+    /**
+     * Asks the genericDao to update given entity.
+     * Transaction management done by Spring.
+     * @param entity
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void update(T entity) {
         genericDao.saveOrUpdate(entity);
     }
 
+    /**
+     * Asks the genericDao to save the given entity if it's new or update it.
+     * Transaction management done by Spring.
+     * @param entity
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdate(T entity) {
         genericDao.saveOrUpdate(entity);
     }
 
+    /**
+     * Asks the genericDao to find and return all the entities matching the id.
+     * Transaction management done by Spring.
+     * @param id
+     * @return
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public T findById(int id) {
         return genericDao.findById(id);
     }
 
+    /**
+     * Asks the genericDao to delete the given entity.
+     * Transaction management done by Spring.
+     * @param entity
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void delete(T entity) {
         genericDao.delete(entity);
     }
 
+    /**
+     * Asks the genericDao to find and return all the matching entities.
+     * Transaction management done by Spring.
+     * @return
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<T> findAll() {

@@ -7,11 +7,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Persistence for Commit. Inherits GenericDao and implements the CommitDao interface
  */
 @Repository
 public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements CommitDao {
 
+    /**
+     * Get all the commit
+     * @return list containing Commit objects
+     */
     @Override
     public List<Commit> getCommits() {
         List<Commit> commits = super.findAll();

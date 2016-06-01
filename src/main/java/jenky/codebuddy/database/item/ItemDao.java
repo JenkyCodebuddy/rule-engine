@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.User;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * This interface specifies the specific methods an ItemDao must have.
  */
 public interface ItemDao extends GenericDao<Item, Integer> {
     public List<Item> getAllItems();

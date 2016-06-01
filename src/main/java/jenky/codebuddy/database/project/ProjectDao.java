@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.Project;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * Defines the specific methods ProjectDao must have.
  */
 public interface ProjectDao extends GenericDao<Project, Integer> {
     public List<Project> getAllProjects();

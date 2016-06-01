@@ -7,7 +7,7 @@ import jenky.codebuddy.models.entities.Score;
 import java.util.List;
 
 /**
- * Created by joost on 30-5-2016.
+ * This interface specifies the specific methods ScoreDao must have.
  */
 public interface ScoreDao extends GenericDao<Score, Integer> {
     public List<Score> getAllScores();
