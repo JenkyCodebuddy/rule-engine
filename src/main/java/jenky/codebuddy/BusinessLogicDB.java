@@ -97,7 +97,7 @@ public class BusinessLogicDB {
             }
         }
         else{
-            System.out.println("User doest noet exist");
+            System.out.println("email does not exist");
         }
         TokenGenerator t = new TokenGenerator();
         return token;
