@@ -13,6 +13,11 @@
 		<version>1.3.3.RELEASE</version>
 	</parent>
 
+	<properties>
+		<start-class>jenky.codebuddy.StartApplication</start-class>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<dependencies>
 		<!-- Spring boot -->
 		<dependency>
@@ -38,6 +43,12 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- dbcp -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
 		<!-- MySQL jdbc -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -57,7 +68,13 @@
 			<artifactId>scocalc</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<!--Spring security
+		<!-- Spring orm -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>4.2.6.RELEASE</version>
+		</dependency>
+		<!-- Spring security
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -72,21 +89,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.security.oauth</groupId>
-			<artifactId>spring-security-oauth2</artifactId>
-			<version>2.0.9.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-jwt</artifactId>
-			<version>1.0.4.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>com.stormpath.spring</groupId>
-			<artifactId>stormpath-default-spring-boot-starter</artifactId>
-			<version>1.0.RC9.1</version>
-		</dependency> -->
+		-->
 		<!-- Apache HTTPclient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -116,12 +119,19 @@
 			<version>0.6.0</version>
 		</dependency>
 
+		<!-- http://mvnrepository.com/artifact/c3p0/c3p0 -->
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
+		<!-- http://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 	</dependencies>
-
-	<properties>
-		<start-class>jenky.codebuddy.startApplication</start-class>
-		<java.version>1.8</java.version>
-	</properties>
 
 	<profiles>
 		<profile>
