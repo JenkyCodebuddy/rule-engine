@@ -31,8 +31,7 @@ public class Score {
     public Score() {
     }
 
-    public Score(int id, User user, Commit commit, Metric metric, double sonar_value, int score) {
-        this.id = id;
+    public Score(User user, Commit commit, Metric metric, double sonar_value, int score) {
         this.user = user;
         this.commit = commit;
         this.metric = metric;

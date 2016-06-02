@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
-import jenky.codebuddy.database.authentication.AuthenticationService;
 import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
 import jenky.codebuddy.database.commit.CommitServiceImpl;
 import jenky.codebuddy.database.company.CompanyServiceImpl;
@@ -13,19 +12,20 @@ import jenky.codebuddy.database.metric.MetricServiceImpl;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
 import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.models.entities.*;
+import jenky.codebuddy.models.entities.Score;
+import jenky.codebuddy.models.entities.Verification;
 import jenky.codebuddy.models.rest.CompleteResult;
 import jenky.codebuddy.models.rest.Profile;
 import jenky.codebuddy.token.*;
-import jenky.codebuddy.token.Verification;
 import jenky.codebuddy.token.models.Token;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import wildtornado.scocalc.objects.*;
 
 import java.io.*;
 import java.security.Key;
-import java.util.Base64;
-import java.util.Date;
+import java.util.*;
 
 
 public class BusinessLogicDB {
@@ -34,6 +34,7 @@ public class BusinessLogicDB {
     ApplicationContext context;
     TokenGenerator tokenGenerator;
     //DatabaseServiceFactory factory = new DatabaseServiceFactory();
+    Date date = new Date();
 
 
     public BusinessLogicDB() {
@@ -60,32 +61,29 @@ public class BusinessLogicDB {
     }
 
     public void storeCompleteResultModel(CompleteResult completeResult) {
+//        Set<Score> scores = new HashSet<Score>();
+//
+//        scores.add(completeResult.getScoreModel().getTotalScore())
+//                Score score = new Score(completeResult.)
+//
+//        ProjectServiceImpl projectService = (ProjectServiceImpl) getContext().getBean("projectServiceImpl");
+//        CompanyServiceImpl companyService = (CompanyServiceImpl) getContext().getBean("companyServiceImpl");
+//        CommitServiceImpl commitService = (CommitServiceImpl) getContext().getBean("commitServiceImpl");
+//        UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
+//
+//        //Project project = setProject(completeResult.getCommitmodel().getProjectName());
+//
+//        Commit commit = new Commit();
+//        if(!projectService.checkIfProjectExists(completeResult.getCommitmodel().getProjectName())){
+//            projectService.addProject(project);
+//        }
+//
+//        setCommit(completeResult.getCommitmodel().getBranch(), project, scores);
 
-        ProjectServiceImpl projectService = (ProjectServiceImpl) getContext().getBean("projectServiceImpl");
-        CompanyServiceImpl companyService = (CompanyServiceImpl) getContext().getBean("companyServiceImpl");
+    }
 
-        if(!projectService.checkIfProjectExists(completeResult.getCommitmodel().getProjectName())){
-            Project p = new Project();
-            p.setName(completeResult.getCommitmodel().getProjectName());
-            p.setCreated_at(new Date());
-            projectService.addProject(p);
-        }
-        if(!companyService.checkIfCompanyExists(completeResult.getCommitmodel().getProjectName())){
-            Project p = new Project();
-            p.setName(completeResult.getCommitmodel().getProjectName());
-            p.setCreated_at(new Date());
-            projectService.addProject(p);
-        }
-
-        Commit c = new Commit();
-        c.setCreated_at(new Date());
-        c.setDeleted_at(null);
-        c.setUpdated_at(null);
-        c.setBranch(completeResult.getCommitmodel().getBranch());
-        c.setProject(new Project());
-        CommitServiceImpl commitService = (CommitServiceImpl) getContext().getBean("commitServiceImpl");
-        commitService.add(c);
-        //c.setProject();
+    public void scoreTest(String sonarqubeJson){
+        //jsonString = jsonString.replaceAll("\\s","");
     }
 
     public String login(String email, String password){
@@ -184,8 +182,8 @@ public class BusinessLogicDB {
             Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);
             String keyString = auth.getAuth_key();
             Key key = stringToKey(keyString);
-            jenky.codebuddy.token.Verification verification = new Verification();
-            if(verification.verify(auth.getToken(), key, auth.getUser().getEmail())){
+            Verify verify = new Verify();
+            if(verify.verify(auth.getToken(), key, auth.getUser().getEmail())){
                 System.out.println("Token matches email, token is valid");
                 valid = true;
             }else{

@@ -174,4 +174,132 @@ public class ScoreModelBuilder {
     public void setScoreModel(Score scoreModel) {
         this.scoreModel = scoreModel;
     }
+
+    public String getJsonString() {
+        return jsonString;
+    }
+
+    public void setJsonString(String jsonString) {
+        this.jsonString = jsonString;
+    }
+
+    public double getCodeViolations() {
+        return codeViolations;
+    }
+
+    public void setCodeViolations(double codeViolations) {
+        this.codeViolations = codeViolations;
+    }
+
+    public double getCodeDuplications() {
+        return codeDuplications;
+    }
+
+    public void setCodeDuplications(double codeDuplications) {
+        this.codeDuplications = codeDuplications;
+    }
+
+    public double getCodeDuplicationDensity() {
+        return codeDuplicationDensity;
+    }
+
+    public void setCodeDuplicationDensity(double codeDuplicationDensity) {
+        this.codeDuplicationDensity = codeDuplicationDensity;
+    }
+
+    public double getNumberOfTests() {
+        return numberOfTests;
+    }
+
+    public void setNumberOfTests(double numberOfTests) {
+        this.numberOfTests = numberOfTests;
+    }
+
+    public double getNumberOfTestErrors() {
+        return numberOfTestErrors;
+    }
+
+    public void setNumberOfTestErrors(double numberOfTestErrors) {
+        this.numberOfTestErrors = numberOfTestErrors;
+    }
+
+    public double getNumberOfTestFailures() {
+        return numberOfTestFailures;
+    }
+
+    public void setNumberOfTestFailures(double numberOfTestFailures) {
+        this.numberOfTestFailures = numberOfTestFailures;
+    }
+
+    public double getCodeCoverage() {
+        return codeCoverage;
+    }
+
+    public void setCodeCoverage(double codeCoverage) {
+        this.codeCoverage = codeCoverage;
+    }
+
+    public double getTechnicalDebt() {
+        return technicalDebt;
+    }
+
+    public void setTechnicalDebt(double technicalDebt) {
+        this.technicalDebt = technicalDebt;
+    }
+
+    public double getCommentPercentage() {
+        return commentPercentage;
+    }
+
+    public void setCommentPercentage(double commentPercentage) {
+        this.commentPercentage = commentPercentage;
+    }
+
+    public double getLinesOfComments() {
+        return linesOfComments;
+    }
+
+    public void setLinesOfComments(double linesOfComments) {
+        this.linesOfComments = linesOfComments;
+    }
+
+    public double getLinesOfCode() {
+        return linesOfCode;
+    }
+
+    public void setLinesOfCode(double linesOfCode) {
+        this.linesOfCode = linesOfCode;
+    }
+
+    public double getMajorViolations() {
+        return majorViolations;
+    }
+
+    public void setMajorViolations(double majorViolations) {
+        this.majorViolations = majorViolations;
+    }
+
+    public double getMinorViolations() {
+        return minorViolations;
+    }
+
+    public void setMinorViolations(double minorViolations) {
+        this.minorViolations = minorViolations;
+    }
+
+    public double getCriticalViolations() {
+        return criticalViolations;
+    }
+
+    public void setCriticalViolations(double criticalViolations) {
+        this.criticalViolations = criticalViolations;
+    }
+
+    public double getBlockerViolations() {
+        return blockerViolations;
+    }
+
+    public void setBlockerViolations(double blockerViolations) {
+        this.blockerViolations = blockerViolations;
+    }
 }

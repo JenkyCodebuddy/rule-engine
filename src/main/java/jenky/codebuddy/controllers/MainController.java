@@ -1,24 +1,12 @@
 package jenky.codebuddy.controllers;
 
-import com.google.gson.JsonObject;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
 import jenky.codebuddy.BusinessLogicController;
 import jenky.codebuddy.BusinessLogicDB;
 import jenky.codebuddy.models.rest.CompleteResult;
-import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
 //import jenky.codebuddy.models.rest.Mail;
 //import jenky.codebuddy.signUpMail;
-import jenky.codebuddy.models.rest.Profile;
-import jenky.codebuddy.models.rest.Projects;
-import jenky.codebuddy.token.Verification;
-import jenky.codebuddy.token.models.Token;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
-import java.security.Key;
 import java.util.Map;
 
 @RestController //all requests to the "/score" endpoint test
@@ -52,7 +40,7 @@ public class MainController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST) //
     private String login(@RequestParam(value = "email") String email,
-                             @RequestParam(value = "password") String password ){
+                        @RequestParam(value = "password") String password ){
         return getBusinessLogicDB().login(email,password);
     }
 
@@ -81,7 +69,7 @@ public class MainController {
 
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     private void authorize(@RequestHeader String userToken) {
-        Verification.verify(userToken, token.getKey(), token.getId());
+        Verify.verify(userToken, token.getKey(), token.getId());
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

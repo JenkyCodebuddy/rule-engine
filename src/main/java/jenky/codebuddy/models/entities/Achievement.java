@@ -36,8 +36,7 @@ public class Achievement {
     public Achievement() {
     }
 
-    public Achievement(int id, Set<User> users, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
+    public Achievement(Set<User> users, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
         this.users = users;
         this.name = name;
         this.description = description;
