@@ -50,16 +50,10 @@ public class MainController {
         getCompleteResultModel();
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST) //
-    private String login(@RequestParam(value = "email") String email,
-                             @RequestParam(value = "password") String password ){
-        return getBusinessLogicDB().login(email,password);
-    }
-
 
     @RequestMapping(value = "/tokenTest", method = RequestMethod.GET)
     private String tokenTest(@RequestParam String token){
-        if(getBusinessLogicDB().checkIfValid(token)) {
+        if(/*getBusinessLogicDB().checkIfValid(token)*/ true) {
             System.out.println("Valid!");
             return "Authorized user";
         }

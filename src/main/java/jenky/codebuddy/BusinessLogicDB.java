@@ -37,7 +37,7 @@ public class BusinessLogicDB {
 
 
     public BusinessLogicDB() {
-        setContext(context = new ClassPathXmlApplicationContext("spring.xml"));
+        setContext(new ClassPathXmlApplicationContext("spring.xml"));
         setTokenGenerator(new TokenGenerator());
     }
 
@@ -88,112 +88,7 @@ public class BusinessLogicDB {
         //c.setProject();
     }
 
-    public String login(String email, String password){
-        UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
-        User user;
-        Token token = null;
-        Authentication authentication = new Authentication();
-        if(userService.checkIfUserExists(email)){
-            user = userService.getUserIfExists(email);
-            if (user.getPassword().equals(password)){
-                token = generateToken(email);
-                if(authenticationService.checkIfAuthenticationForUserExists(user.getUser_id())){
-                    updateAuthentication(user.getUser_id(), token.getToken(), keyToString(token.getKey()));
-                }
-                else{
-                    createNewAuthentication(user, token.getToken(), keyToString(token.getKey()));
-                }
-            }
-            else{
-                System.out.println("Wrong password");
-            }
-        }
-        else{
-            System.out.println("Email does not exist");
-        }
-        JSONObject json = new JSONObject();
-        json.put("token", token.getToken());
-        return json.toString();
-    }
 
-    private void updateAuthentication(int userId, String token, String key){
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
-        authenticationService.updateAuthentication(userId, token, key, new Date());
-        System.out.println("Updated an existing authentication record!");
-    }
-
-    private void createNewAuthentication(User user, String token, String key){
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
-        Authentication authentication = new Authentication();
-        authentication.setUser(user);
-        authentication.setToken(token);
-        authentication.setAuth_key(key);
-        authentication.setCreated_at(new Date());
-        authenticationService.saveAuthentication(authentication);
-        System.out.println("Created a new authentication record!");
-    }
-
-    private Token generateToken(String email){
-        Token token = new Token();
-        Key key = MacProvider.generateKey();
-        token.setToken(Jwts.builder().setSubject(email).signWith(SignatureAlgorithm.HS512, key).compact());
-        token.setKey(key);
-        token.setId(email);
-        return token;
-    }
-
-    private String keyToString(Key key){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = null;
-        try {
-            oos = new ObjectOutputStream( baos );
-            oos.writeObject( key );
-            oos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String keyString = Base64.getEncoder().encodeToString(baos.toByteArray());
-        return keyString;
-    }
-
-    private Key stringToKey(String keyString) {
-        Key key = null;
-        byte[] data = Base64.getDecoder().decode(keyString);
-        ObjectInputStream ois = null;
-        try {
-            ois = new ObjectInputStream(
-                    new ByteArrayInputStream(data));
-            Object o = ois.readObject();
-            key = (Key) o;
-            ois.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return key;
-    }
-
-    public boolean checkIfValid(String token){
-        Boolean valid = null;
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
-        if(authenticationService.checkIfTokenExists(token)){
-            System.out.println("Token exists in database");
-            Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);
-            String keyString = auth.getAuth_key();
-            Key key = stringToKey(keyString);
-            jenky.codebuddy.token.Verification verification = new Verification();
-            if(verification.verify(auth.getToken(), key, auth.getUser().getEmail())){
-                System.out.println("Token matches email, token is valid");
-                valid = true;
-            }else{
-                valid = false;
-            }
-        }
-        return valid;
-    }
 
     public Profile getProfile(){
        return null;
