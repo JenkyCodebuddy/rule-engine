@@ -17,17 +17,15 @@ import java.util.Base64;
 /**
  * Created by joost on 2-6-2016.
  */
-public class ValidationService {
+public class ValidationService { //static class for checking token if token is valid
 
-    ApplicationContext context;
+    private ValidationService() {
 
-    public ValidationService() {
-        setContext(new ClassPathXmlApplicationContext("spring.xml"));
     }
 
-    public boolean checkIfValid(String token){
+    public static boolean checkIfTokenIsValid(String token){  //method to check if the supplied token matches the token given to an user
         Boolean valid = false;
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
+        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) new ClassPathXmlApplicationContext("spring.xml").getBean("authenticationServiceImpl");
         if(authenticationService.checkIfTokenExists(token)){
             System.out.println("Token exists in database");
             Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);
@@ -42,7 +40,7 @@ public class ValidationService {
         return valid;
     }
 
-    public Key stringToKey(String keyString) {
+    public static Key stringToKey(String keyString) { //converts a keyString to a key so it can be used for validation
         Key key = null;
         byte[] data = Base64.getDecoder().decode(keyString);
         ObjectInputStream ois = null;
@@ -60,7 +58,7 @@ public class ValidationService {
         return key;
     }
 
-    public String keyToString(Key key){
+    public static String keyToString(Key key){ //converts a Key object to a keyString, so it can be saved in the database
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = null;
         try {
@@ -73,13 +71,5 @@ public class ValidationService {
 
         String keyString = Base64.getEncoder().encodeToString(baos.toByteArray());
         return keyString;
-    }
-
-    public ApplicationContext getContext() {
-        return context;
-    }
-
-    public void setContext(ApplicationContext context) {
-        this.context = context;
     }
 }

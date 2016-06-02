@@ -1,10 +1,9 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.services.LoginService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * Created by joost on 2-6-2016.
@@ -15,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     LoginService loginService = new LoginService();
+
     public LoginController() {
 
     }
 
     @RequestMapping(method = RequestMethod.POST) //
-    private String login(@RequestParam(value = "email") String email,
-                         @RequestParam(value = "password") String password ){
-        return loginService.login(email,password);
+    private String login(@RequestHeader Map<String,String> headers) {
+        return loginService.login(headers.get("email"), headers.get("password"));
     }
 
 }

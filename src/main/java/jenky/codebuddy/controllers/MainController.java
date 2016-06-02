@@ -36,32 +36,10 @@ public class MainController {
         setBusinessLogicController(new BusinessLogicController());
     }
 
-    @RequestMapping(value = "/score", method = RequestMethod.POST)
-    public String createScoreFromMetrics(@RequestHeader Map<String,String> headers) { //create new completeResultModel on POST request
-        sonarqubeResponse = headers.get("sonarqubeResponse");
-        return sonarqubeResponse;
-        //githubInfoMap = getBusinessLogicController().createGithubUserInfoMap(headers);
-        //setCompleteResultModel(new CompleteResultModelBuilder(sonarqubeResponse, githubInfoMap).buildCompleteResultModel());
-        //getBusinessLogicDB().storeCompleteResultModel(getCompleteResultModel());
-    }
-
-    @RequestMapping(value = "/score", method = RequestMethod.GET)
-    private void returnModel(){
-        getCompleteResultModel();
-    }
 
 
-    @RequestMapping(value = "/tokenTest", method = RequestMethod.GET)
-    private String tokenTest(@RequestParam String token){
-        if(/*getBusinessLogicDB().checkIfValid(token)*/ true) {
-            System.out.println("Valid!");
-            return "Authorized user";
-        }
-        else{
-            System.out.println("Not valid!");
-            return "Unauthorized";
-        }
-    }
+
+
 
     /*//TODO combine this with login
     @RequestMapping(value = "/token", method = RequestMethod.GET)
@@ -118,10 +96,10 @@ public class MainController {
         return getBusinessLogicDB().getProfile();
     }*/
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/signup", method = RequestMethod.POST)
     private void signUp(@RequestParam String email, String password){
         //getBusinessLogicDB().signup(email, password);
-    }
+    }*/
 
    /* @RequestMapping(value = "/verify", method = RequestMethod.POST){
 

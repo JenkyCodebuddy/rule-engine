@@ -18,7 +18,7 @@ import java.util.Date;
 /**
  * Created by joost on 2-6-2016.
  */
-public class LoginService extends ValidationService {
+public class LoginService{
 
     private ApplicationContext context;
 
@@ -37,10 +37,10 @@ public class LoginService extends ValidationService {
             if (user.getPassword().equals(password)){
                 token = generateToken(email);
                 if(authenticationService.checkIfAuthenticationForUserExists(user.getUser_id())){
-                    updateAuthentication(user.getUser_id(), token.getToken(), keyToString(token.getKey()));
+                    updateAuthentication(user.getUser_id(), token.getToken(), ValidationService.keyToString(token.getKey()));
                 }
                 else{
-                    createNewAuthentication(user, token.getToken(), keyToString(token.getKey()));
+                    createNewAuthentication(user, token.getToken(), ValidationService.keyToString(token.getKey()));
                 }
             }
             else{
@@ -50,9 +50,9 @@ public class LoginService extends ValidationService {
         else{
             System.out.println("Email does not exist");
         }
-        JSONObject json = new JSONObject();
-        json.put("token", token.getToken());
-        return json.toString();
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("token", token.getToken());
+        return jsonResponse.toString();
     }
 
 
