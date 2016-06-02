@@ -161,6 +161,6 @@ public class MainController {
         this.businessLogicDB = businessLogicDB;
     }
 
-    //all requests to the "/score" endpoint
+    //all requests to the "/score" endpoint.
 
 }
