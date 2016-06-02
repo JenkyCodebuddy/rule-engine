@@ -43,8 +43,7 @@ public class Item {
 
     }
 
-    public Item(int id, Set<User> users, String name, String image, String type, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
+    public Item(Set<User> users, String name, String image, String type, Date created_at, Date updated_at, Date deleted_at) {
         this.users = users;
         this.name = name;
         this.image = image;

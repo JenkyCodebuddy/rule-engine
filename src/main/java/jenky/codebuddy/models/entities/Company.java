@@ -31,8 +31,7 @@ public class Company {
     public Company() {
     }
 
-    public Company(int id, Set<Project> project, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
+    public Company(Set<Project> project, Date created_at, Date updated_at, Date deleted_at) {
         this.project = project;
         this.created_at = created_at;
         this.updated_at = updated_at;

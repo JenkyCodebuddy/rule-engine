@@ -38,8 +38,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(int id, Set<Commit> commits, Company company, String name, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
+    public Project(Set<Commit> commits, Company company, String name, Date created_at, Date updated_at, Date deleted_at) {
         this.commits = commits;
         this.company = company;
         this.name = name;
