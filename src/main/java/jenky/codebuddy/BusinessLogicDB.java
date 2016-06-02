@@ -4,6 +4,7 @@ package jenky.codebuddy;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
+import jenky.codebuddy.database.ServiceImplFactory;
 import jenky.codebuddy.database.authentication.AuthenticationService;
 import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
 import jenky.codebuddy.database.commit.CommitServiceImpl;
@@ -25,31 +26,22 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
-/**
- * Created by joost on 26-5-2016.
- */
+
 public class BusinessLogicDB {
 
-    ApplicationContext context;
+
+    ServiceImplFactory serviceImplFactory;
     TokenGenerator tokenGenerator;
     //DatabaseServiceFactory factory = new DatabaseServiceFactory();
 
 
     public BusinessLogicDB() {
-        setContext(context = new ClassPathXmlApplicationContext("spring.xml"));
+
         setTokenGenerator(new TokenGenerator());
     }
 
-    public ApplicationContext getContext() {
-        return context;
-    }
-
-    public void setContext(ApplicationContext context) {
-        this.context = context;
-    }
-
     public void updateMetricTable(String metric) {
-        MetricServiceImpl metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
+        MetricServiceImpl metricService = (MetricServiceImpl) serviceImplFactory.getServiceImpl("metricServiceImpl");
         if (!metricService.checkIfMetricExists(metric)){
             Metric m = new Metric();
             m.setCreated_at(new Date());
@@ -60,8 +52,8 @@ public class BusinessLogicDB {
 
     public void storeCompleteResultModel(CompleteResult completeResult) {
 
-        ProjectServiceImpl projectService = (ProjectServiceImpl) getContext().getBean("projectServiceImpl");
-        CompanyServiceImpl companyService = (CompanyServiceImpl) getContext().getBean("companyServiceImpl");
+        ProjectServiceImpl projectService = (ProjectServiceImpl) serviceImplFactory.getServiceImpl("projectServiceImpl");
+        CompanyServiceImpl companyService = (CompanyServiceImpl) serviceImplFactory.getServiceImpl("companyServiceImpl");
 
         if(!projectService.checkIfProjectExists(completeResult.getCommitmodel().getProjectName())){
             Project p = new Project();
@@ -82,14 +74,14 @@ public class BusinessLogicDB {
         c.setUpdated_at(null);
         c.setBranch(completeResult.getCommitmodel().getBranch());
         c.setProject(new Project());
-        CommitServiceImpl commitService = (CommitServiceImpl) getContext().getBean("commitServiceImpl");
+        CommitServiceImpl commitService = (CommitServiceImpl) serviceImplFactory.getServiceImpl("commitServiceImpl");
         commitService.add(c);
         //c.setProject();
     }
 
     public String login(String email, String password){
-        UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
+        UserServiceImpl userService = (UserServiceImpl) serviceImplFactory.getServiceImpl("userServiceImpl");
+        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) serviceImplFactory.getServiceImpl("authenticationServiceImpl");
         User user;
         Token token = null;
         Authentication authentication = new Authentication();
@@ -115,13 +107,13 @@ public class BusinessLogicDB {
     }
 
     private void updateAuthentication(int userId, String token, String key){
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
+        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) serviceImplFactory.getServiceImpl("authenticationServiceImpl");
         authenticationService.updateAuthentication(userId, token, key, new Date());
         System.out.println("Updated an existing authentication record!");
     }
 
     private void createNewAuthentication(User user, String token, String key){
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
+        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) serviceImplFactory.getServiceImpl("authenticationServiceImpl");
         Authentication authentication = new Authentication();
         authentication.setUser(user);
         authentication.setToken(token);
@@ -175,7 +167,7 @@ public class BusinessLogicDB {
 
     public boolean checkIfValid(String token){
         Boolean valid = null;
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
+        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) serviceImplFactory.getServiceImpl("authenticationServiceImpl");
         if(authenticationService.checkIfTokenExists(token)){
             System.out.println("Token exists in database");
             Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);
@@ -192,10 +184,6 @@ public class BusinessLogicDB {
         return valid;
     }
 
-    public Profile getProfile(){
-       return null;
-    }
-
     public TokenGenerator getTokenGenerator() {
         return tokenGenerator;
     }
@@ -204,6 +192,12 @@ public class BusinessLogicDB {
         this.tokenGenerator = tokenGenerator;
     }
 
+    public ServiceImplFactory getFactory() {
+        return serviceImplFactory;
+    }
 
+    public void setFactory(ServiceImplFactory factory) {
+        this.serviceImplFactory = factory;
+    }
 }
 
