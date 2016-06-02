@@ -11,8 +11,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Test {
     public static void main(String[] args) {
-        ServiceImplFactory serviceImplFactory = new ServiceImplFactory();
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) serviceImplFactory.getServiceImpl("authenticationServiceImpl");
-        authenticationService.getAuthenticationIfTokenExists("adasd");
+//        ServiceImplFactory serviceImplFactory = new ServiceImplFactory();
+//        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) serviceImplFactory.getServiceImpl("authenticationServiceImpl");
+//        authenticationService.getAuthenticationIfTokenExists("adasd");
     }
 }
