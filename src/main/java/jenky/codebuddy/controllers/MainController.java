@@ -48,7 +48,7 @@ public class MainController {
         getCompleteResultModel();
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST) //
     private String login(@RequestParam(value = "email") String email,
                         @RequestParam(value = "password") String password ){
         return getBusinessLogicDB().login(email,password);
