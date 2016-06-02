@@ -7,6 +7,10 @@ import jenky.codebuddy.BusinessLogicController;
 import jenky.codebuddy.BusinessLogicDB;
 import jenky.codebuddy.models.rest.CompleteResult;
 import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
+//import jenky.codebuddy.models.rest.Mail;
+//import jenky.codebuddy.signUpMail;
+import jenky.codebuddy.models.rest.Profile;
+import jenky.codebuddy.models.rest.Projects;
 import jenky.codebuddy.token.Verification;
 import jenky.codebuddy.token.models.Token;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +24,15 @@ public class MainController {
 
     String sonarqubeResponse;
     Map<String,String> githubInfoMap;
+    private boolean isVerfied;
     private CompleteResult result;
-    //private BusinessLogicController businessLogicController;
-    //private BusinessLogicDB businessLogicDB;
+    private BusinessLogicController businessLogicController;
+    private BusinessLogicDB businessLogicDB;
 
     public MainController(){
         setBusinessLogicDB(new BusinessLogicDB());
         setBusinessLogicController(new BusinessLogicController());
     }
-    private Token token = new Token();
-    private BusinessLogicController businessLogicController = new BusinessLogicController();
-    private BusinessLogicDB businessLogicDB = new BusinessLogicDB();
-
 
     @RequestMapping(value = "/score", method = RequestMethod.POST)
     public String createScoreFromMetrics(@RequestHeader Map<String,String> headers) { //create new completeResultModel on POST request
@@ -42,32 +43,31 @@ public class MainController {
         //getBusinessLogicDB().storeCompleteResultModel(getCompleteResultModel());
     }
 
-    //TODO if statement so that only after the user is authenticated this can be accessed
     @RequestMapping(value = "/score", method = RequestMethod.GET)
     private void returnModel(){
         getCompleteResultModel();
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    private void login(@RequestParam String email, String password ){
-       // getBusinessLogicDB().login(email,password);
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    private String login(@RequestParam(value = "email") String email,
+                        @RequestParam(value = "password") String password ){
+        return getBusinessLogicDB().login(email,password);
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    private void signUp(@RequestParam String email, String password){
-        //getBusinessLogicDB().signup(email, password);
+
+    @RequestMapping(value = "/tokenTest", method = RequestMethod.GET)
+    private String tokenTest(@RequestParam String token){
+        if(getBusinessLogicDB().checkIfValid(token)) {
+            System.out.println("Valid!");
+            return "Authorized user";
+        }
+        else{
+            System.out.println("Not valid!");
+            return "Unauthorized";
+        }
     }
 
-   /* @RequestMapping(value = "/verify", method = RequestMethod.POST){
-
-    }*/
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    private String test(){
-        return "WE BACK ONLINE BOIS";
-    }
-
-    //TODO combine this with login
+    /*//TODO combine this with login
     @RequestMapping(value = "/token", method = RequestMethod.GET)
     private String tokenGenerator(@RequestHeader String id) {
         Key key = MacProvider.generateKey();
@@ -90,6 +90,50 @@ public class MainController {
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     private void logout(@RequestHeader String userToken) {
         //TODO implement logout removes user from db
+    }*/
+
+    /*@RequestMapping(value = "/projects", method = RequestMethod.GET)
+    private Projects profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/achievements", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/shop", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/project", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/buy", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }
+
+    @RequestMapping(value = "/equipment", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }*/
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    private void signUp(@RequestParam String email, String password){
+        //getBusinessLogicDB().signup(email, password);
+    }
+
+   /* @RequestMapping(value = "/verify", method = RequestMethod.POST){
+
+    }*/
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    private String test(){
+        return "WE BACK ONLINE BOIS";
     }
 
     private void setCompleteResultModel(CompleteResult result){
@@ -116,8 +160,6 @@ public class MainController {
     public void setBusinessLogicDB(BusinessLogicDB businessLogicDB) {
         this.businessLogicDB = businessLogicDB;
     }
-
-    //all requests to the "/score" endpoint
 
     //all requests to the "/score" endpoint
 

@@ -1,6 +1,8 @@
 package jenky.codebuddy.database;
 
 import jenky.codebuddy.database.achievement.AchievementServiceImpl;
+import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
+import jenky.codebuddy.models.entities.Authentication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -9,8 +11,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Test {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        AchievementServiceImpl achievementService =  (AchievementServiceImpl) context.getBean("achievementServiceImpl");
-        achievementService.getAchievements();
+        ServiceImplFactory serviceImplFactory = new ServiceImplFactory();
+        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) serviceImplFactory.getServiceImpl("authenticationServiceImpl");
+        authenticationService.getAuthenticationIfTokenExists("adasd");
     }
 }
