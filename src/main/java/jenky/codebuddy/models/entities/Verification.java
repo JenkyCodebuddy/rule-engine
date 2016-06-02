@@ -15,7 +15,7 @@ public class Verification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique = true, nullable = false)
-    private int verficiation_id;
+    private int verificiation_id;
 
     @Column(name = "code")
     private String code;
@@ -36,12 +36,12 @@ public class Verification {
         this.user = user;
     }
 
-    public int getVerficiation_id() {
-        return verficiation_id;
+    public int getVerificiation_id() {
+        return verificiation_id;
     }
 
-    public void setVerficiation_id(int verficiation_id) {
-        this.verficiation_id = verficiation_id;
+    public void setVerificiation_id(int verificiation_id) {
+        this.verificiation_id = verificiation_id;
     }
 
     public String getCode() {

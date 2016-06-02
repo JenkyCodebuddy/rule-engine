@@ -1,5 +1,7 @@
 package jenky.codebuddy.models.entities;
 
+import jenky.codebuddy.token.models.Token;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -31,12 +33,13 @@ public class User{
     @Column(name = "jenkycoins")
     private int jenkycoins;
 
-    @Column(name = "token")
-    private String token;
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "verification")
     private Verification verfication;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JoinColumn(name = "authentication")
+    private Authentication authentication;
 
     //score mapping
     @OneToMany(mappedBy = "user")
@@ -45,31 +48,23 @@ public class User{
     public User() {
     }
 
-    public User(String username, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins) {
-
-        this.email = username;
+    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Set<Score> scores) {
+        this.email = email;
         this.password = password;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.jenkycoins = jenkycoins;
-
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+        this.verfication = verfication;
+        Scores = scores;
     }
 
     public int getUser_id() {
         return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getEmail() {
@@ -120,13 +115,19 @@ public class User{
         this.jenkycoins = jenkycoins;
     }
 
+    public Verification getVerfication() {
+        return verfication;
+    }
+
+    public void setVerfication(Verification verfication) {
+        this.verfication = verfication;
+    }
+
     public Set<Score> getScores() {
         return Scores;
     }
 
-    public void setScores(Set<Score> Scores) {
-        this.Scores = Scores;
+    public void setScores(Set<Score> scores) {
+        Scores = scores;
     }
-
-
 }
