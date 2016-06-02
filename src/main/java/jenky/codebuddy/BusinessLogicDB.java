@@ -1,6 +1,7 @@
 package jenky.codebuddy;
 
 //import jenky.codebuddy.database.ServiceFactory;
+import com.google.gson.JsonObject;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
@@ -17,6 +18,7 @@ import jenky.codebuddy.models.rest.Profile;
 import jenky.codebuddy.token.*;
 import jenky.codebuddy.token.Verification;
 import jenky.codebuddy.token.models.Token;
+import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -110,7 +112,9 @@ public class BusinessLogicDB {
         else{
             System.out.println("Email does not exist");
         }
-        return token.getToken();
+        JSONObject json = new JSONObject();
+        json.put("token", token.getToken());
+        return json.toString();
     }
 
     private void updateAuthentication(int userId, String token, String key){

@@ -1,5 +1,6 @@
 package jenky.codebuddy.controllers;
 
+import com.google.gson.JsonObject;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
@@ -13,6 +14,7 @@ import jenky.codebuddy.models.rest.Profile;
 import jenky.codebuddy.models.rest.Projects;
 import jenky.codebuddy.token.Verification;
 import jenky.codebuddy.token.models.Token;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -50,7 +52,7 @@ public class MainController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST) //
     private String login(@RequestParam(value = "email") String email,
-                        @RequestParam(value = "password") String password ){
+                             @RequestParam(value = "password") String password ){
         return getBusinessLogicDB().login(email,password);
     }
 
