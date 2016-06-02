@@ -48,7 +48,7 @@ public class MainController {
         getCompleteResultModel();
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST) //
     private String login(@RequestParam(value = "email") String email,
                         @RequestParam(value = "password") String password ){
         return getBusinessLogicDB().login(email,password);
@@ -161,6 +161,6 @@ public class MainController {
         this.businessLogicDB = businessLogicDB;
     }
 
-    //all requests to the "/score" endpoint
+    //all requests to the "/score" endpoint.
 
 }
