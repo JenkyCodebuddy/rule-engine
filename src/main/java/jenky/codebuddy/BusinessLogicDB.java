@@ -48,7 +48,7 @@ public class BusinessLogicDB {
         this.context = context;
     }
 
-    public void updateMetricTable(String metric) {
+    public void saveMetricTable(String metric) {
         MetricServiceImpl metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
         if (!metricService.checkIfMetricExists(metric)){
             Metric m = new Metric();
