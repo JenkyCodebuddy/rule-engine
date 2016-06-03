@@ -60,7 +60,7 @@ public class MainController {
 
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     private void authorize(@RequestHeader String userToken) {
-        Verify.verify(userToken, token.getKey(), token.getId());
+        Verification.verify(userToken, token.getKey(), token.getId());
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

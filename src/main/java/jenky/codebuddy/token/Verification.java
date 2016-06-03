@@ -10,7 +10,7 @@ import java.security.Key;
 /**
  * Created by Fabian on 27-5-2016.
  */
-public class Verify {
+public class Verification {
     public boolean verify(String token, Key signingkey, String id) {
         try {
             return (Jwts.parser().setSigningKey(signingkey).parseClaimsJws(token).getBody().getSubject().equals(id));
