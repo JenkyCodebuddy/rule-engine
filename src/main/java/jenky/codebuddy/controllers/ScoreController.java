@@ -2,6 +2,7 @@ package jenky.codebuddy.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +27,12 @@ public class ScoreController {
     }
 
     @RequestMapping(value = "/testdb", method = RequestMethod.POST)
-    private String test(@RequestHeader Map<String, String> headers){
+    private void test(@RequestHeader Map<String, String> headers){
         Gson gson = new Gson();
         String sonarqubeResponse = headers.get("sonarquberesponse");
-        Type test = new TypeToken<List<SonarResponse>>(){
-
-        }.getType();
+        Type test = new TypeToken<List<SonarResponse>>(){}.getType();
         List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse, test);
         SonarResponse sonarResponse = sonarResponseList.get(0);
-        return sonarResponse.getClass().getName();
+        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse);
     }
 }

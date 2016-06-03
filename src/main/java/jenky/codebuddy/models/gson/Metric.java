@@ -6,7 +6,7 @@ package jenky.codebuddy.models.gson;
 public class Metric {
 
     private String key;
-    private Float val;
+    private Double val;
     private String frmt_val;
 
     public Metric(){
@@ -26,11 +26,11 @@ public class Metric {
         this.key = key;
     }
 
-    public Float getVal() {
+    public Double getVal() {
         return val;
     }
 
-    public void setVal(Float val) {
+    public void setVal(Double val) {
         this.val = val;
     }
 

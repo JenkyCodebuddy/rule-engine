@@ -60,6 +60,7 @@ public class BusinessLogicDB {
 
     public void storeCompleteResultModel(CompleteResult completeResult) {
 
+
         ProjectServiceImpl projectService = (ProjectServiceImpl) getContext().getBean("projectServiceImpl");
         CompanyServiceImpl companyService = (CompanyServiceImpl) getContext().getBean("companyServiceImpl");
 

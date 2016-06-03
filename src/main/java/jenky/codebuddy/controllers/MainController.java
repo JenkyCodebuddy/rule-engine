@@ -1,22 +1,12 @@
 package jenky.codebuddy.controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import jenky.codebuddy.BusinessLogicController;
 import jenky.codebuddy.BusinessLogicDB;
-import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.CompleteResult;
-import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
 //import jenky.codebuddy.models.rest.Mail;
 //import jenky.codebuddy.signUpMail;
-import jenky.codebuddy.models.rest.Profile;
-import jenky.codebuddy.models.rest.Projects;
-import jenky.codebuddy.token.models.Token;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
-import java.security.Key;
 import java.util.Map;
 
 @RestController //all requests to the "/score" endpoint test
