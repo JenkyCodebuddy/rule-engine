@@ -15,4 +15,8 @@ public interface VerificationDao extends GenericDao<Verification, Integer> {
     public void removeVerification(Verification verification);
 
     public void updateVerficication(Verification verification);
+
+    public boolean checkIfVerificationExists(String verificationCode);
+
+    public Verification getVerificationIfExists(String verificationCode);
 }

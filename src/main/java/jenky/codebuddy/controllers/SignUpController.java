@@ -1,10 +1,7 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.services.SignUpService;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -16,9 +13,28 @@ import java.util.Map;
 @RequestMapping(value = "/signup")
 public class SignUpController {
 
+    SignUpService signUpService;
+
+    public SignUpController() {
+        setSignUpService(new SignUpService());
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public void signUpNewUser(@RequestHeader Map<String,String> headers){
-        SignUpService signUpService = new SignUpService();
-        signUpService.signUpNewUser(headers.get("email"),headers.get("password"));
+        getSignUpService().signUpNewUser(headers.get("email"));
+    }
+
+    @RequestMapping(value = "/verify", method = RequestMethod.POST)
+    public void checkVerificationCode(@RequestHeader Map<String, String> headers){
+        getSignUpService().checkVerificationCode(headers.get("verificationcode"), headers.get("password"));
+
+    }
+
+    public SignUpService getSignUpService() {
+        return signUpService;
+    }
+
+    public void setSignUpService(SignUpService signUpService) {
+        this.signUpService = signUpService;
     }
 }

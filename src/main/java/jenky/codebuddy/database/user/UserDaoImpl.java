@@ -1,11 +1,13 @@
 package jenky.codebuddy.database.user;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
+import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +48,17 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
         return(result.get());
     }
+
+    @Override
+    public void setPasswordForUser(String password, String userEmail, Date updatedAt) {
+        String hql = "UPDATE User u SET password =:password, updated_at =:updated_at WHERE u.email =:user_email";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("password",password);
+        query.setParameter("updated_at",updatedAt);
+        query.setParameter("user_email",userEmail);
+        query.executeUpdate();
+    }
+
 
     /**
      * Saves the project.

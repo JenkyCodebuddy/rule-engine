@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Perisstence of VerificationDao. Inherits GenericDaoImpl and implements VerificationDao interface
@@ -27,6 +28,24 @@ public class VerificationDaoImpl extends GenericDaoImpl<Verification, Integer> i
     @Override
     public void updateVerficication(Verification verification) {
         super.update(verification);
+    }
+
+    @Override
+    public boolean checkIfVerificationExists(String verficationCode){
+        String hql = "FROM Verification v WHERE v.code = :verification_code";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("verification_code",verficationCode);
+        Optional<Verification> result = Optional.ofNullable((Verification) query.uniqueResult());
+        return (result.isPresent());
+    }
+
+    @Override
+    public Verification getVerificationIfExists(String verficationCode){
+        String hql = "FROM Verification v WHERE v.code = :verification_code";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("verification_code",verficationCode);
+        Optional<Verification> result = Optional.ofNullable((Verification) query.uniqueResult());
+        return (result.get());
     }
 
 }
