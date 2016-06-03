@@ -34,12 +34,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_email",email);
         User result = (User) query.uniqueResult();
-        if(result != null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return (result != null);
     }
 
     @Override
