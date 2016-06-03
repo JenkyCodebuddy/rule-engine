@@ -14,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * Created by joost on 2-6-2016.
@@ -31,6 +32,7 @@ public class LoginService{
         AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
         User user;
         Token token = null;
+        JSONObject jsonResponse = new JSONObject();
         Authentication authentication = new Authentication();
         if(userService.checkIfUserExists(email)){
             user = userService.getUserIfExists(email);
@@ -42,16 +44,15 @@ public class LoginService{
                 else{
                     createNewAuthentication(user, token.getToken(), ValidationService.keyToString(token.getKey()));
                 }
+                jsonResponse.put("token", token.getToken());
             }
             else{
-                System.out.println("Wrong password");
+                jsonResponse.put("Error", "Incorrect password");
             }
         }
         else{
-            System.out.println("Email does not exist");
+            jsonResponse.put("Error", "Email does not exist");;
         }
-        JSONObject jsonResponse = new JSONObject();
-        jsonResponse.put("token", token.getToken());
         return jsonResponse.toString();
     }
 

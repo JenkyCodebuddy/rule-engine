@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Perisstence of VerificationDao. Inherits GenericDaoImpl and implements VerificationDao interface
@@ -33,8 +34,8 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         String hql = "FROM User u WHERE u.email = :user_email";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_email",email);
-        User result = (User) query.uniqueResult();
-        return (result != null);
+        Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
+        return (result.isPresent());
     }
 
     @Override
@@ -42,13 +43,8 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         String hql = "FROM User u WHERE u.email = :user_email";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_email",email);
-        User result = (User) query.uniqueResult();
-        if(result != null){
-            return result;
-        }
-        else{
-            return null;
-        }
+        Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
+        return(result.get());
     }
 
     /**
