@@ -25,9 +25,9 @@ public class ScoreController {
     }
 
     @RequestMapping(value = "/testdb")
-    private String test(@RequestParam String sonarqubeResponse){
+    private String test(@RequestHeader Map<String, String> headers){
         Gson gson = new Gson();
-        SonarResponse sonarResponse = gson.fromJson(sonarqubeResponse, SonarResponse.class);
+        SonarResponse sonarResponse = gson.fromJson(headers.get("sonarquberesponse"), SonarResponse.class);
         return sonarResponse.toString();
     }
 }
