@@ -4,6 +4,7 @@ import jenky.codebuddy.database.generic.GenericService;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,4 +18,7 @@ public interface UserService extends GenericService<User, Integer> {
     public boolean checkIfUserExists(String user);
 
     public User getUserIfExists(String email);
+
+    public void setPasswordForUser(String password, String email, Date updatedAt);
+
 }

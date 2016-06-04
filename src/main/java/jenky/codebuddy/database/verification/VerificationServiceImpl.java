@@ -45,4 +45,16 @@ public class VerificationServiceImpl extends GenericServiceImpl<Verification, In
     public void updateVerification(Verification verification) {
         verificationDao.updateVerficication(verification);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public boolean checkIfVerificationExists(String verificationCode){
+        return verificationDao.checkIfVerificationExists(verificationCode);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Verification getVerificationIfExists(String verificationCode){
+        return verificationDao.getVerificationIfExists(verificationCode);
+    }
 }

@@ -8,34 +8,34 @@
     http://www.springframework.org/schema/context/spring-context-3.0.xsd
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx.xsd">
-        <tx:annotation-driven proxy-target-class="true"
-                              transaction-manager="txManager" />
+    <tx:annotation-driven proxy-target-class="true"
+                          transaction-manager="txManager" />
 
-        <context:component-scan
-                base-package="jenky.codebuddy.database" />
+    <context:component-scan
+            base-package="jenky.codebuddy.database" />
 
-        <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-            <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-            <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB"/>
-            <property name="user" value="b20a60e558cd56"/>
-            <property name="password" value="e1d3efd7"/>
-            <property name="minPoolSize" value="1"/>
-            <property name="maxPoolSize" value="3"/>
-        </bean>
+    <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB"/>
+        <property name="user" value="b20a60e558cd56"/>
+        <property name="password" value="e1d3efd7"/>
+        <property name="minPoolSize" value="1"/>
+        <property name="maxPoolSize" value="3"/>
+    </bean>
 
-        <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-            <property name="dataSource" ref="myDataSource"/>
-        </bean>
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
 
-        <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-            <property name="dataSource" ref="myDataSource"/>
-            <property name="packagesToScan" value="jenky.codebuddy.models.entities" />
-            <property name="hibernateProperties">
-                <props>
-                    <prop key="hibernate.hbm2ddl.auto">update</prop>
-                    <prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5Dialect </prop>
-                </props>
-            </property>
-        </bean>
+    <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource"/>
+        <property name="packagesToScan" value="jenky.codebuddy.models.entities" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5Dialect </prop>
+            </props>
+        </property>
+    </bean>
 
 </beans>

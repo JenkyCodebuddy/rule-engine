@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,5 +71,11 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     @Transactional(propagation = Propagation.REQUIRED)
     public User getUserIfExists(String userEmail){
         return userDao.getUserIfExists(userEmail);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void setPasswordForUser(String password, String userEmail, Date updatedAt){
+        userDao.setPasswordForUser(password, userEmail, updatedAt);
     }
 }

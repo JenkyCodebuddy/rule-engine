@@ -14,4 +14,8 @@ public interface VerificationService extends GenericService<Verification, Intege
     public void removeVerification(Verification verification);
 
     public void updateVerification(Verification verification);
+
+    public boolean checkIfVerificationExists(String verificationCode);
+
+    public Verification getVerificationIfExists(String verificationCode);
 }
