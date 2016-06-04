@@ -8,7 +8,7 @@ import java.util.List;
 public class Profile {
 
     private User user;
-    private List<Commit> commits;
+    private List<UserCommit> userCommits;
     private double totalScore;
     private double avgScore;
     private double achievementCount;
@@ -25,12 +25,12 @@ public class Profile {
         this.user = user;
     }
 
-    public List<Commit> getCommits() {
-        return commits;
+    public List<UserCommit> getUserCommits() {
+        return userCommits;
     }
 
-    public void setCommits(List<Commit> commits) {
-        this.commits = commits;
+    public void setUserCommits(List<UserCommit> userCommits) {
+        this.userCommits = userCommits;
     }
 
     public double getTotalScore() {

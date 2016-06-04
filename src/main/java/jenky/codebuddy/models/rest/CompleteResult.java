@@ -4,10 +4,10 @@ import wildtornado.scocalc.objects.Score;
 
 public class CompleteResult {
 
-    private Commit commitmodel;
+    private UserCommit commitmodel;
     private Score scoreModel;
 
-    public CompleteResult(Score score, Commit commitmodel){
+    public CompleteResult(Score score, UserCommit commitmodel){
         this.scoreModel = score;
         this.commitmodel = commitmodel;
     }
@@ -20,11 +20,11 @@ public class CompleteResult {
         this.scoreModel = scoreModel;
     }
 
-    public Commit getCommitmodel() {
+    public UserCommit getCommitmodel() {
         return commitmodel;
     }
 
-    public void setCommitmodel(Commit commitmodel) {
+    public void setCommitmodel(UserCommit commitmodel) {
         this.commitmodel = commitmodel;
     }
 }

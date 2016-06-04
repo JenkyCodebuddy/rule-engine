@@ -3,6 +3,7 @@ package jenky.codebuddy.database.project;
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Project;
+import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -39,6 +40,20 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         }
         else{
             return false;
+        }
+    }
+
+    @Override
+    public Project getProjectIfExists(String projectName) {
+        String hql = "FROM Project p WHERE p.name = :project_name";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("project_name",projectName);
+        Project result = (Project) query.uniqueResult();
+        if(result != null){
+            return result;
+        }
+        else{
+            return null;
         }
     }
 

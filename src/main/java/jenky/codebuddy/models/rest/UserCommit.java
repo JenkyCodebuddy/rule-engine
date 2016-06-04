@@ -1,6 +1,6 @@
 package jenky.codebuddy.models.rest;
 
-public class Commit {
+public class UserCommit {
 
     String username;
     String email;
@@ -8,7 +8,7 @@ public class Commit {
     String sha;
     String projectName;
 
-    public Commit(String username, String email, String branch, String sha, String projectName) {
+    public UserCommit(String username, String email, String branch, String sha, String projectName) {
         this.username = username;
         this.email = email;
         this.branch = branch;

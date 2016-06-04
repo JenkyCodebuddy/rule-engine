@@ -1,7 +1,7 @@
-public Score setScore(Commit commit, Metric metric, int score, int sonarValue, User user){
+public Score setScore(Commit userCommit, Metric metric, int score, int sonarValue, User user){
         Score scoreSave = new Score();
 
-        scoreSave.setCommit(commit);
+        scoreSave.setCommit(userCommit);
         scoreSave.setMetric(metric);
         scoreSave.setScore(score);
         scoreSave.setSonar_value(sonarValue);

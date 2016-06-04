@@ -1,32 +1,32 @@
 package jenky.codebuddy.modelbuilders;
 
 
-import jenky.codebuddy.models.rest.Commit;
+import jenky.codebuddy.models.rest.UserCommit;
 
 import java.util.Map;
 
 public class CommitModelBuilder {
-    private Commit commitModel;
+    private UserCommit userCommitModel;
 
     public CommitModelBuilder(Map commitInfo) {
         createCommitModel(commitInfo);
     }
 
     public void createCommitModel(Map commitInfo) {
-        commitModel = new Commit(commitInfo.get("username").toString(),
+        userCommitModel = new UserCommit(commitInfo.get("username").toString(),
                 commitInfo.get("email").toString(),
                 commitInfo.get("branch").toString(),
                 commitInfo.get("sha").toString(),
                 filterRegex(commitInfo.get("projectName").toString()));
-        setCommitModel(commitModel);
+        setUserCommitModel(userCommitModel);
     }
 
-    public void setCommitModel(Commit commitModel) {
-        this.commitModel = commitModel;
+    public void setUserCommitModel(UserCommit userCommitModel) {
+        this.userCommitModel = userCommitModel;
     }
 
-    public Commit getCommitModel() {
-        return commitModel;
+    public UserCommit getUserCommitModel() {
+        return userCommitModel;
     }
 
     private String filterRegex(String url) {

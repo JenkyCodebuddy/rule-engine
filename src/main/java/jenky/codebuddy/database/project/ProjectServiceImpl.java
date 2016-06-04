@@ -65,4 +65,16 @@ public class ProjectServiceImpl extends GenericServiceImpl<Project, Integer> imp
     public boolean checkIfProjectExists(String projectName) {
         return projectDao.checkIfProjectExists(projectName);
     }
+
+    /**
+     * Asks the projectDao to return if the given project exists or not.
+     * Transaction management done by Spring.
+     * @param projectName
+     * @return true or false
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public Project getProjectIfExists(String projectName) {
+        return projectDao.getProjectIfExists(projectName);
+    }
 }

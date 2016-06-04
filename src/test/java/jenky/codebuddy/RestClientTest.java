@@ -1,6 +1,6 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.models.rest.Commit;
+import jenky.codebuddy.models.rest.UserCommit;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class RestClientTest {
 
     @Test
     public void testModel() throws Exception{
-        Commit c = new Commit("Joost","joost1235@hotmail.com","master","asdasd12113ui1h3ir","cyka/TestclassForDAO/idi/nahui");
+        UserCommit c = new UserCommit("Joost","joost1235@hotmail.com","master","asdasd12113ui1h3ir","cyka/TestclassForDAO/idi/nahui");
         assertNotEquals(c.getEmail(),"");
     }
 }
