@@ -37,7 +37,7 @@ public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Inte
      * @return list containing achievements
      */
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<Achievement> getAchievements(){
         return achievementDao.getAchievements();
     }

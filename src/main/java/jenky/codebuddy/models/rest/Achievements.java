@@ -7,8 +7,13 @@ import java.util.List;
 public class Achievements {
 
     private List<Achievement> achievements;
+    private String error;
 
     public Achievements() {
+    }
+
+    public Achievements(String error) {
+        this.error = error;
     }
 
     public List<Achievement> getAchievements() {
@@ -17,5 +22,13 @@ public class Achievements {
 
     public void setAchievements(List<Achievement> achievements) {
         this.achievements = achievements;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }

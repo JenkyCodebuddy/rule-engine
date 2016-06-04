@@ -14,7 +14,7 @@ public class Achievement {
     @Column(name = "id")
     private int id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "achievement_has_user", joinColumns = { @JoinColumn(name = "achievement_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private Set<User> users = new HashSet<User>();
 

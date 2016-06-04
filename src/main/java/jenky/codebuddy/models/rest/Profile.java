@@ -1,7 +1,9 @@
 package jenky.codebuddy.models.rest;
 
 
-import jenky.codebuddy.models.entities.*;
+
+import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.models.entities.Commit;
 
 import java.util.List;
 
@@ -13,8 +15,22 @@ public class Profile {
     private double avgScore;
     private double achievementCount;
     private double projectCount;
+    private String error;
 
     public Profile() {
+    }
+
+    public Profile(User user, List<Commit> commits, double totalScore, double avgScore, double achievementCount, double projectCount) {
+        this.user = user;
+        this.commits = commits;
+        this.totalScore = totalScore;
+        this.avgScore = avgScore;
+        this.achievementCount = achievementCount;
+        this.projectCount = projectCount;
+    }
+
+    public Profile(String error){
+        this.error=error;
     }
 
     public User getUser() {
@@ -63,5 +79,13 @@ public class Profile {
 
     public void setProjectCount(double projectCount) {
         this.projectCount = projectCount;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }
