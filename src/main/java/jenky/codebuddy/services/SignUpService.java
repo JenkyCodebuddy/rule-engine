@@ -5,11 +5,10 @@ import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.database.verification.VerificationServiceImpl;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.entities.Verification;
+import jenky.codebuddy.models.rest.Response;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
 
@@ -20,61 +19,64 @@ public class SignUpService {
 
     public SendMail sendMail;
     private ApplicationContext context;
+    private Response response;
 
     public SignUpService() {
-        setSendMail(new SendMail());
+        setSendMail(new SendMail());    //instantiate new SendMail object for sending emails
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
     }
 
-    public void signUpNewUser(String userEmail){
+    public Response signUpNewUser(String userEmail){
         UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        if(userService.checkIfUserExists(userEmail)){
-            System.out.println("User exists");
-            //user exists, do nothing?
+        if(userService.checkIfUserExists(userEmail)){  //check if email supplied by user already exists in the database
+            return new Response("400","Email already in use");
         }
         else{
-            String verificationCode = generateValidationCode();
-            saveVerificationCode(userEmail, verificationCode);
-            getSendMail().sendVerifcationMail(userEmail, verificationCode);
+            String verificationCode = generateVerificationCode(); //generate new verificationcode
+            saveVerificationCode(userEmail, verificationCode);  //save the verification code and email in the db
+            getSendMail().sendVerifcationMail(userEmail, verificationCode); //mail the verification code to the mail address supplied by the user
+            return new Response("200", "Verification code sent to " + userEmail);
         }
     }
 
-    public void checkVerificationCode(String verificationCode, String password){
+    public Response checkVerificationCode(String verificationCode, String password){
         VerificationServiceImpl verificationService = (VerificationServiceImpl) getContext().getBean("verificationServiceImpl");
         UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        if(verificationService.checkIfVerificationExists(verificationCode)){
-            Verification verification = verificationService.getVerificationIfExists(verificationCode);
-            userService.setPasswordForUser(password,verification.getUser().getEmail(),new Date());
-            verificationService.removeVerification(verification);
+        if(verificationService.checkIfVerificationExists(verificationCode)){    //check if the supplied verification code matches the verification code in the database
+            Verification verification = verificationService.getVerificationIfExists(verificationCode);  //get the verification code from the database
+            userService.setPasswordForUser(password,verification.getUser().getEmail(),new Date());  //set the password and updatedAt timestamp for the user attached to a verification code (every verification code is linked to an user)
+            verificationService.removeVerification(verification); //remove the verificationcode from the database (password for user is set, so its no longer needed in the database)
+            return new Response("200","Verification code is correct, new user is created");
         }
         else{
-            System.out.println("Wrong code!");
+            return new Response("400","Wrong verification code");
         }
     }
 
-    private String generateValidationCode(){
-        char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
+    private String generateVerificationCode(){
+        char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray(); //all possible characters in the verification code
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {  //for loop to make sure the verification code contains 10 random characters
             char c = chars[random.nextInt(chars.length)];
             sb.append(c);
         }
+        System.out.println(sb.toString());  //println for testing purposes
         return sb.toString();
     }
 
     private void saveVerificationCode(String userEmail, String verificationCode){
         VerificationServiceImpl verificationService = (VerificationServiceImpl) getContext().getBean("verificationServiceImpl");
         UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        User user = new User();
+        User user = new User();  //create new user with createdAt timestamp and email supplied by user
         user.setCreated_at(new Date());
         user.setEmail(userEmail);
-        userService.addUser(user);
-        Verification verification = new Verification();
+        userService.addUser(user);  //save new user in db
+        Verification verification = new Verification(); //create new verification record with: verification code, createdAt timestamp and link it to the user which was created earlier in the method
         verification.setCode(verificationCode);
         verification.setCreated_at(new Date());
         verification.setUser(userService.getUserIfExists(userEmail));
-        verificationService.addNewVerfication(verification);
+        verificationService.addNewVerfication(verification); //save the verification code in db
     }
 
     public SendMail getSendMail() {

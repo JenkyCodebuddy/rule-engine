@@ -1,5 +1,6 @@
 package jenky.codebuddy.controllers;
 
+import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.LoginService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class LoginController {
     }
 
     @RequestMapping(method = RequestMethod.POST) //
-    private String login(@RequestHeader Map<String,String> headers) {
+    private Response login(@RequestHeader Map<String,String> headers) {
         return loginService.login(headers.get("email"), headers.get("password"));
     }
 

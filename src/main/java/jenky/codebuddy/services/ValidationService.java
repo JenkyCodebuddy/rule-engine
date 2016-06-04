@@ -23,17 +23,15 @@ public class ValidationService { //static class for checking token if token is v
 
     }
 
-    public static boolean checkIfTokenIsValid(String token){  //method to check if the supplied token matches the token given to an user
+    public static boolean checkIfTokenIsValid(String token){  //method to check if the supplied token matches the token given to an user. Method is static, so no instantiation is needed everytime the method is called
         Boolean valid = false;
         AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) new ClassPathXmlApplicationContext("spring.xml").getBean("authenticationServiceImpl");
-        if(authenticationService.checkIfTokenExists(token)){
-            System.out.println("Token exists in database");
-            Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);
-            String keyString = auth.getAuth_key();
-            Key key = stringToKey(keyString);
-            jenky.codebuddy.token.Verification verification = new Verification();
-            if(verification.verify(auth.getToken(), key, auth.getUser().getEmail())){
-                System.out.println("Token matches email, token is valid");
+        if(authenticationService.checkIfTokenExists(token)){    //check if the token exists in the database
+            Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);  //get authentication record from the database which contains the supplied token
+            String keyString = auth.getAuth_key();  //get serialized key from the authentication record
+            Key key = stringToKey(keyString);   //deserialize the key string to a key object
+            Verification verification = new Verification();
+            if(verification.verify(auth.getToken(), key, auth.getUser().getEmail())){ //check if the token is valid using: token, key and userEmail
                 valid = true;
             }
         }
