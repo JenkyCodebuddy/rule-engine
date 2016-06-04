@@ -65,4 +65,16 @@ public class MetricServiceImpl extends GenericServiceImpl<Metric, Integer> imple
     public void saveMetric(Metric metric){
         metricDao.add(metric);
     }
+
+    /**
+     * Asks the projectDao to return if the given project exists or not.
+     * Transaction management done by Spring.
+     * @param metricName
+     * @return true or false
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public Metric getMetricIfExists(String metricName) {
+        return metricDao.getMetricIfExists(metricName);
+    }
 }

@@ -2,6 +2,7 @@ package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.Score;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +22,14 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
     public List<Score> getAllScores() {
         List<Score> scores = super.findAll();
         return scores;
+    }
+
+    /**
+     * Saves the project.
+     * @param score
+     */
+    @Override
+    public void save(Score score) {
+        super.add(score);
     }
 }

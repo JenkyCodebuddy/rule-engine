@@ -1,29 +1,18 @@
 package jenky.codebuddy;
 
-//import jenky.codebuddy.database.ServiceFactory;
-import com.google.gson.JsonObject;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
-import jenky.codebuddy.database.authentication.AuthenticationService;
-import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
 import jenky.codebuddy.database.commit.CommitServiceImpl;
 import jenky.codebuddy.database.company.CompanyServiceImpl;
 import jenky.codebuddy.database.metric.MetricServiceImpl;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
-import jenky.codebuddy.database.user.UserServiceImpl;
-import jenky.codebuddy.models.entities.*;
+import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.models.entities.Metric;
+import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.rest.CompleteResult;
 import jenky.codebuddy.models.rest.Profile;
-import jenky.codebuddy.token.*;
-import jenky.codebuddy.token.models.Token;
-import org.json.JSONObject;
+import jenky.codebuddy.token.TokenGenerator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.*;
-import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 
 

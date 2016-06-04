@@ -1,5 +1,6 @@
 package jenky.codebuddy.database.generic;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ public abstract class GenericServiceImpl<T, Id extends Serializable> implements 
 
     private GenericDao<T, Id> genericDao;
 
+    @Autowired
     public GenericServiceImpl(GenericDao<T, Id> genericDao){
         this.genericDao = genericDao;
     }

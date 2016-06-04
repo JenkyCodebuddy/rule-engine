@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import jenky.codebuddy.BusinessLogicController;
 import jenky.codebuddy.BusinessLogicDB;
+import jenky.codebuddy.modelbuilders.CommitModelBuilder;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.services.SaveScoreService;
@@ -16,14 +17,14 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by joost on 3-6-2016.
- */
+
 @RestController
 @RequestMapping(value = "/score")
 public class ScoreController {
 
     Map<String,String> githubInfoMap;
+    private BusinessLogicController businessLogicController;
+    private BusinessLogicDB businessLogicDB;
 
     public ScoreController(){
         setBusinessLogicDB(new BusinessLogicDB());
@@ -49,9 +50,9 @@ public class ScoreController {
         SonarResponse sonarResponse = sonarResponseList.get(0);
         ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse);
         githubInfoMap = getBusinessLogicController().createGithubUserInfoMap(headers);
-        
+        CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
 
-        SaveScoreService saveScoreService = new SaveScoreService(scoreModelBuilder.getMetricsDataInputModel(), sonarResponse, githubInfoMap)
+        SaveScoreService saveScoreService = new SaveScoreService(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
     }
 
     public Map<String, String> getGithubInfoMap() {

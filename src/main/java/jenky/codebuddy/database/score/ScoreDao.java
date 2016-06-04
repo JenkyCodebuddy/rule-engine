@@ -11,4 +11,7 @@ import java.util.List;
  */
 public interface ScoreDao extends GenericDao<Score, Integer> {
     public List<Score> getAllScores();
+
+    public void save(Score score);
+
 }

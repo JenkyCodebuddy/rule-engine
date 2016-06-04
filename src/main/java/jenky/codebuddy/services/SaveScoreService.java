@@ -1,18 +1,17 @@
 package jenky.codebuddy.services;
 
+import jenky.codebuddy.database.metric.MetricServiceImpl;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.models.entities.Commit;
-import jenky.codebuddy.models.entities.Project;
-import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
-import wildtornado.scocalc.objects.DataInput;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import wildtornado.scocalc.objects.Score;
 
 import java.util.*;
 
@@ -21,14 +20,13 @@ import java.util.*;
  */
 public class SaveScoreService {
 
-    private DataInput metricsDataInputModel;
+    private Score metricsDataInputModel;
     private SonarResponse sonarResponse;
     private UserCommit userCommit;
     private ApplicationContext context;
-    private Map<String, String> sonarToScore = new HashMap<>();
 
 
-    public SaveScoreService(DataInput metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit) {
+    public SaveScoreService(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit) {
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
         this.metricsDataInputModel = metricsDataInputModel;
         this.sonarResponse = sonarResponse;
@@ -39,22 +37,27 @@ public class SaveScoreService {
     }
 
     public void saveUserScore(Commit commit){
-        Score score = new Score();
         User user = new User();
         UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
         ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
+        MetricServiceImpl metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
+
         List<Metric> metricsList = this.sonarResponse.getMsr();
-        Set<Score> scores = new HashSet<Score>(0);
+        Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
         for (Metric aMetricsList : metricsList) {
+            jenky.codebuddy.models.entities.Score score = new jenky.codebuddy.models.entities.Score();
             score.setUser(userService.getUserIfExists(this.userCommit.getEmail()));
             score.setSonar_value(aMetricsList.getVal());
             score.setScore((int) getScoreByName(aMetricsList.getKey()));
             score.setCommit(commit);
+            score.setMetric(metricService.getMetricIfExists(aMetricsList.getKey()));
+            scores.add(score);
+            scoreService.save(score);
         }
 
+        user.setJenkycoins(10);
         user.setScores(scores);
-        userService.saveOrUpdate(user);
-        scoreService.add(score);
+        userService.add(user);
     }
 
     public Commit createCommit(UserCommit userCommit){
@@ -70,23 +73,24 @@ public class SaveScoreService {
 
     public double getScoreByName(String name){
         switch (name) {
-            case "ncloc": return this.metricsDataInputModel.getLinesOfCode();
-            case "sqale_index": return this.metricsDataInputModel.getTechnicalDebt();
-            case "duplicated_lines": return this.metricsDataInputModel.getCodeDuplication();
-            case "duplicated_lines_density": return this.metricsDataInputModel.getCodeDuplicationDensity();
-            case "comment_lines": return this.metricsDataInputModel.getCommentLines();
-            case "tests": return this.metricsDataInputModel.getNumberOfTests();
-            case "coverage": return this.metricsDataInputModel.getTestCoverage();
-            case "test_erros": return this.metricsDataInputModel.getTestErrors();
-            case "test_failures": return this.metricsDataInputModel.getTestFailures();
-            case "violations": return this.metricsDataInputModel.getCodeViolations();
-            case "major_violations": return this.metricsDataInputModel.getMajorViolations();
-            case "minor_violations": return this.metricsDataInputModel.getMinorViolations();
-            case "critical_violations": return this.metricsDataInputModel.getCriticalViolations();
-            case "blocker_violations": return this.metricsDataInputModel.getBlockerViolations();
-            default: return -1;
+            case "ncloc": return this.metricsDataInputModel.getLinesOfCodeScore();
+            case "sqale_index": return this.metricsDataInputModel.getTechnicalDebtScore();
+            case "duplicated_lines": return this.metricsDataInputModel.getCodeDuplicationScore();
+            //case "duplicated_lines_density": return this.metricsDataInputModel.getCodeDuplicationDensityScore();
+            //case "comment_lines": return this.metricsDataInputModel.getCommentLinesScore();
+            //case "tests": return this.metricsDataInputModel.getNumberOfTestsScore();
+            case "coverage": return this.metricsDataInputModel.getTestCoverageScore();
+            //case "test_erros": return this.metricsDataInputModel.getTestErrorsScore();
+            //case "test_failures": return this.metricsDataInputModel.getTestFailuresScore();
+            case "violations": return this.metricsDataInputModel.getCodeViolationsScore();
+            //case "major_violations": return this.metricsDataInputModel.getMajorViolationsScore();
+            //case "minor_violations": return this.metricsDataInputModel.getMinorViolationsScore();
+            //case "critical_violations": return this.metricsDataInputModel.getCriticalViolationsScore();
+            //case "blocker_violations": return this.metricsDataInputModel.getBlockerViolationsScore();
+            default: return 0;
         }
     }
+
 
 
     public ApplicationContext getContext() {

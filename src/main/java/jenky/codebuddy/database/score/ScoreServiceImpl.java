@@ -32,6 +32,17 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
     }
 
     /**
+     * Asks the projectDao to save the given project.
+     * Transaction management done by Spring.
+     * @param score
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void save(Score score) {
+        scoreDao.save(score);
+    }
+
+    /**
      * Asks the scoreDao to get all the scores.
      * Transaction management done by Spring.
      * @return List containig all the scores.

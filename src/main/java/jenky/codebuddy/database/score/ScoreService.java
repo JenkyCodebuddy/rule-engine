@@ -11,4 +11,7 @@ import java.util.List;
  */
 public interface ScoreService extends GenericService<Score, Integer> {
     public List<Score> getAllScores();
+
+    public void save(Score score);
+
 }
