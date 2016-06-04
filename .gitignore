@@ -29,3 +29,4 @@ target/restAPI-test-0.1.0.jar.original
 rule-engine.iml
 .idea/
 target/
+src/main/resources/spring.xml
