@@ -53,7 +53,7 @@ public class SaveScoreService {
             scores.add(score);
             scoreService.save(score);
         }
-
+        //TODO fix project name and scores from the scoremodel
         User user = userService.getUserIfExists(userCommit.getEmail());
         user.setJenkycoins(10);
         user.setScores(scores);
