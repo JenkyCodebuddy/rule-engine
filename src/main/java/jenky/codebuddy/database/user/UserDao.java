@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserDao extends GenericDao<User, Integer> {
     public List<User> getAllUsers();
 
-    public void saveUser(User user);
+    public void save(User user);
 
     public boolean checkIfUserExists(String userEmail);
 

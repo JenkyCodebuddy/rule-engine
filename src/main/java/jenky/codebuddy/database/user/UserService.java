@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserService extends GenericService<User, Integer> {
     public List<User> getAllUsers();
 
-    public void addUser(User user);
+    public void save(User user);
 
     public boolean checkIfUserExists(String user);
 

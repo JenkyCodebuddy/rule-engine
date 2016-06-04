@@ -50,8 +50,8 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void addUser(User user) {
-        userDao.saveUser(user);
+    public void save(User user) {
+        userDao.save(user);
     }
 
     /**

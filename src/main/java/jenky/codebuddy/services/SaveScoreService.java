@@ -37,7 +37,6 @@ public class SaveScoreService {
     }
 
     public void saveUserScore(Commit commit){
-        User user = new User();
         UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
         ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
         MetricServiceImpl metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
@@ -55,9 +54,10 @@ public class SaveScoreService {
             scoreService.save(score);
         }
 
+        User user = userService.getUserIfExists(userCommit.getEmail());
         user.setJenkycoins(10);
         user.setScores(scores);
-        userService.add(user);
+        userService.saveOrUpdate(user);
     }
 
     public Commit createCommit(UserCommit userCommit){
