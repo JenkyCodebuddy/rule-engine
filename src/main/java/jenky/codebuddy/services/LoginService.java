@@ -9,13 +9,11 @@ import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.token.models.Token;
-import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.Optional;
 
 /**
  * Created by joost on 2-6-2016.
@@ -38,10 +36,10 @@ public class LoginService{
             if (user.getPassword().equals(password)){   //check if the password matches the password in the db
                 token = generateToken(email);   //generate a token with the email as identifier (identifier is needed for validation)
                 if(authenticationService.checkIfAuthenticationForUserExists(user.getUser_id())){    //check if the user alread has a token
-                    updateAuthentication(user.getUser_id(), token.getToken(), ValidationService.keyToString(token.getKey()));   //if user has token, update the user's token in the database with a new one
+                    updateAuthentication(user.getUser_id(), token.getToken(), AuthenticationService.keyToString(token.getKey()));   //if user has token, update the user's token in the database with a new one
                 }
                 else{
-                    createNewAuthentication(user, token.getToken(), ValidationService.keyToString(token.getKey())); //if user doesn't have a token, create one
+                    createNewAuthentication(user, token.getToken(), AuthenticationService.keyToString(token.getKey())); //if user doesn't have a token, create one
                 }
                 return new Response("200", token.getToken());   //return appropriate response models to the controller
             }

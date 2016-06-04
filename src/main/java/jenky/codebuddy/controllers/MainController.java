@@ -12,7 +12,7 @@ import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
 //import jenky.codebuddy.signUpMail;
 import jenky.codebuddy.models.rest.Profile;
 import jenky.codebuddy.models.rest.Projects;
-import jenky.codebuddy.token.Verification;
+import jenky.codebuddy.token.Verify;
 import jenky.codebuddy.token.models.Token;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;

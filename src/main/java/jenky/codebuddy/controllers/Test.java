@@ -1,6 +1,6 @@
 package jenky.codebuddy.controllers;
 
-import jenky.codebuddy.services.ValidationService;
+import jenky.codebuddy.services.AuthenticationService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Test {
     @RequestMapping(value = "/lol")
     private String test(@RequestParam String token){
-        if(ValidationService.checkIfTokenIsValid(token)){
+        if(AuthenticationService.checkIfTokenIsValid(token)){
             return "It works!";
         }
         else{

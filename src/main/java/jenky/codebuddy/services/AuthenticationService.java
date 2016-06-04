@@ -5,7 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
 import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
 import jenky.codebuddy.models.entities.Authentication;
-import jenky.codebuddy.token.Verification;
+import jenky.codebuddy.token.Verify;
 import jenky.codebuddy.token.models.Token;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,9 +17,9 @@ import java.util.Base64;
 /**
  * Created by joost on 2-6-2016.
  */
-public class ValidationService { //static class for checking token if token is valid
+public class AuthenticationService { //static class for checking token if token is valid
 
-    private ValidationService() {
+    private AuthenticationService() {
 
     }
 
@@ -30,7 +30,7 @@ public class ValidationService { //static class for checking token if token is v
             Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);  //get authentication record from the database which contains the supplied token
             String keyString = auth.getAuth_key();  //get serialized key from the authentication record
             Key key = stringToKey(keyString);   //deserialize the key string to a key object
-            Verification verification = new Verification();
+            Verify verification = new Verify();
             if(verification.verify(auth.getToken(), key, auth.getUser().getEmail())){ //check if the token is valid using: token, key and userEmail
                 valid = true;
             }
