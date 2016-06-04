@@ -21,7 +21,7 @@ public class Metric {
     @Column(name = "created_at")
     private Date created_at;
 
-    @Column(name = "updated_ast")
+    @Column(name = "updated_at")
     private Date updated_at;
 
     @Column(name = "deleted_at")
