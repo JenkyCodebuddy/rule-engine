@@ -5,6 +5,7 @@ import jenky.codebuddy.models.gson.SonarResponse;
 import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 import wildtornado.scocalc.objects.Score;
+import wildtornado.scocalc.strategies.Calculator;
 
 import java.util.*;
 
@@ -12,7 +13,6 @@ public class ScoreModelBuilder {
     DataInput metricsDataInputModel;
     DataInput comparisonDataInputModel;
     Score scoreModel = new Score();
-    Calc calculator;
     Map<String, Double> metricsMap;
 
     public ScoreModelBuilder(SonarResponse sonarResponse) {
@@ -84,7 +84,7 @@ public class ScoreModelBuilder {
     }
 
     public void createScoreModel(){
-        this.calculator = new Calc(this.metricsDataInputModel, this.comparisonDataInputModel);
+        Calc calculator = new Calc(this.metricsDataInputModel, this.comparisonDataInputModel);
         this.scoreModel = calculator.generateScore();
     }
 
@@ -110,14 +110,6 @@ public class ScoreModelBuilder {
 
     public void setScoreModel(Score scoreModel) {
         this.scoreModel = scoreModel;
-    }
-
-    public Calc getCalculator() {
-        return calculator;
-    }
-
-    public void setCalculator(Calc calculator) {
-        this.calculator = calculator;
     }
 
     public Map<String, Double> getMetricsMap() {

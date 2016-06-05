@@ -57,7 +57,7 @@ public class SaveScoreService {
         User user = userService.getUserIfExists(userCommit.getEmail());
         user.setJenkycoins(10);
         user.setScores(scores);
-        userService.saveOrUpdate(user);
+        userService.save(user);
     }
 
     public Commit createCommit(UserCommit userCommit){
