@@ -83,6 +83,11 @@ public class ScoreModelBuilder {
         this.comparisonDataInputModel.setBlockerViolations((Double) metricsMap.get("blocker_violations"));
     }
 
+    /**
+     * Hier gaat het helemaal fout. Als i debug dan zie je wel dat de models scores bevatten.
+     * De score is altijd 0 die we terug krijgen van elke metric.
+     * Dit is toch wel de manier om het te gebruiken?
+     */
     public void createScoreModel(){
         Calc calculator = new Calc(this.metricsDataInputModel, this.comparisonDataInputModel);
         this.scoreModel = calculator.generateScore();
