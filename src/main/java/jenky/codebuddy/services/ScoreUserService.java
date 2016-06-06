@@ -38,7 +38,7 @@ public class ScoreUserService {
         saveUserScore(commit);
     }
 
-    public void saveUserScore(Commit commit){
+    private void saveUserScore(Commit commit){
         UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
         ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
         MetricServiceImpl metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
@@ -62,7 +62,7 @@ public class ScoreUserService {
         userService.saveOrUpdate(user);
     }
 
-    public Commit createCommit(UserCommit userCommit){
+    private Commit createCommit(UserCommit userCommit){
         ProjectServiceImpl projectService = (ProjectServiceImpl) getContext().getBean("projectServiceImpl");
         Commit commit = new Commit();
         commit.setBranch(userCommit.getBranch());
@@ -73,7 +73,7 @@ public class ScoreUserService {
         return commit;
     }
 
-    public double getScoreByName(String name){
+    private double getScoreByName(String name){
         switch (name) {
             case "ncloc": return this.metricsDataInputModel.getLinesOfCodeScore();
             case "sqale_index": return this.metricsDataInputModel.getTechnicalDebtScore();
@@ -101,11 +101,11 @@ public class ScoreUserService {
 
 
 
-    public ApplicationContext getContext() {
+    private ApplicationContext getContext() {
         return context;
     }
 
-    public void setContext(ApplicationContext context) {
+    private void setContext(ApplicationContext context) {
         this.context = context;
     }
 }
