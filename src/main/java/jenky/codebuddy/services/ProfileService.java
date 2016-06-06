@@ -34,7 +34,7 @@ public class ProfileService {
         double projectCount = getProjectCountFromUser(user);
         return new Profile(user, commits, avgScore, totalScore, achievementCount, projectCount);*/
         Profile p = new Profile();
-        p.setCommits(commits);
+        //p.setCommits(commits);
         return p;
     }
 
