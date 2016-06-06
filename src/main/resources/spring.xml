@@ -19,8 +19,8 @@
         <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB"/>
         <property name="user" value="b20a60e558cd56"/>
         <property name="password" value="e1d3efd7"/>
-        <property name="minPoolSize" value="1"/>
-        <property name="maxPoolSize" value="3"/>
+        <property name="minPoolSize" value="0"/>
+        <property name="maxPoolSize" value="1"/>
     </bean>
 
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
