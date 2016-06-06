@@ -60,27 +60,27 @@ public class ScoreModelBuilder {
     }
 
     /**
-     * Maps the sonarReponse to the comparisonDataInputModel
+     * Maps the previous commit to the comparisonDataInputModel
      * @param metricsMap
      */
     private void mapComparisonDataInputModel(Map metricsMap) {
         this.comparisonDataInputModel = new DataInput();
         this.comparisonDataInputModel.setCommentPercentage(0);
-        this.comparisonDataInputModel.setLinesOfCode((Double) metricsMap.get("ncloc"));
-        this.comparisonDataInputModel.setTechnicalDebt((Double) metricsMap.get("sqale_index"));
-        this.comparisonDataInputModel.setCodeDuplication((Double) metricsMap.get("duplicated_lines"));
-        this.comparisonDataInputModel.setCodeDuplicationDensity((Double) metricsMap.get("duplicated_lines_density"));
-        this.comparisonDataInputModel.setCommentLines((Double) metricsMap.get("comment_lines"));
-        this.comparisonDataInputModel.setNumberOfTests((Double) metricsMap.get("tests"));
-        this.comparisonDataInputModel.setTestCoverage((Double) metricsMap.get("coverage"));
-        this.comparisonDataInputModel.setTestErrors((Double) metricsMap.get("test_errors"));
-        this.comparisonDataInputModel.setTestFailures((Double) metricsMap.get("test_failures"));
-        this.comparisonDataInputModel.setCodeViolations((Double) metricsMap.get("violations"));
+        this.comparisonDataInputModel.setLinesOfCode(0);
+        this.comparisonDataInputModel.setTechnicalDebt(0);
+        this.comparisonDataInputModel.setCodeDuplication(0);
+        this.comparisonDataInputModel.setCodeDuplicationDensity(0);
+        this.comparisonDataInputModel.setCommentLines(0);
+        this.comparisonDataInputModel.setNumberOfTests(0);
+        this.comparisonDataInputModel.setTestCoverage(0);
+        this.comparisonDataInputModel.setTestErrors(0);
+        this.comparisonDataInputModel.setTestFailures(0);
+        this.comparisonDataInputModel.setCodeViolations(0);
         this.comparisonDataInputModel.setCommentedOutCodeLines(0);
-        this.comparisonDataInputModel.setMajorViolations((Double) metricsMap.get("major_violations"));
-        this.comparisonDataInputModel.setMinorViolations((Double) metricsMap.get("minor_violations"));
-        this.comparisonDataInputModel.setCriticalViolations((Double) metricsMap.get("critical_violations"));
-        this.comparisonDataInputModel.setBlockerViolations((Double) metricsMap.get("blocker_violations"));
+        this.comparisonDataInputModel.setMajorViolations(0);
+        this.comparisonDataInputModel.setMinorViolations(0);
+        this.comparisonDataInputModel.setCriticalViolations(0);
+        this.comparisonDataInputModel.setBlockerViolations(0);
     }
 
     /**
