@@ -12,4 +12,6 @@ public interface CommitDao extends GenericDao<Commit, Integer> {
     public List<Commit> getCommits();
 
     public void saveCommit(Commit commit);
+
+    public List<Commit> getCommitsFromUser(int user_id);
 }

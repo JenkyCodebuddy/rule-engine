@@ -4,6 +4,7 @@ import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.User;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
      * @return List of Items
      */
     @Override
+    @Transactional
     public List<Item> getAllItems() {
         return super.findAll();
     }

@@ -1,6 +1,7 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
+import jenky.codebuddy.database.commit.CommitServiceImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.entities.Commit;
@@ -26,13 +27,15 @@ public class ProfileService {
 
     public Profile returnProfile(String token) {
         User user = getUserWithToken(token);
-        List<Score> commits = getCommitsFromUser(user);/*
+        List<Commit> commits = getCommitsFromUser(user);/*
         double avgScore = getAvgScoreFromUser(user);
         double totalScore = getTotalScoreFromUser(user);
         double achievementCount = getAchievementCountFromUser(user);
         double projectCount = getProjectCountFromUser(user);
         return new Profile(user, commits, avgScore, totalScore, achievementCount, projectCount);*/
-        return new Profile();
+        Profile p = new Profile();
+        p.setCommits(commits);
+        return p;
     }
 
     public String getToken() {
@@ -56,9 +59,9 @@ public class ProfileService {
         return authenticationService.getAuthenticationIfTokenExists(token).getUser();
     }
 
-    private List<Score> getCommitsFromUser(User user) {
-        ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
-        List<Score> scores = scoreService.getScoresFromUserGroupedByCommit(user.getUser_id());
-        return scores;
+    private List<Commit> getCommitsFromUser(User user) {
+        CommitServiceImpl commitService= (CommitServiceImpl) getContext().getBean("commitServiceImpl");
+        List<Commit> commits = commitService.getCommitsFromUser(user.getUser_id());
+        return commits;
     }
 }

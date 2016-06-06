@@ -52,4 +52,10 @@ public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> imple
     public void saveCommit(Commit commit) {
         commitDao.saveCommit(commit);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<Commit> getCommitsFromUser(int user_id) {
+        return commitDao.getCommitsFromUser(user_id);
+    }
 }
