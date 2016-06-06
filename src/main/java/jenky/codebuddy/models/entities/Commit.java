@@ -36,15 +36,19 @@ public class Commit {
     @Column(name = "branch")
     private String branch;
 
+    @Column(name = "sha")
+    private String sha;
+
     public Commit() {
     }
 
-    public Commit(Set<Score> scores, Project project, Date created_at, Date updated_at, Date deleted_at, String branch) {
+    public Commit(Set<Score> scores, Project project, Date created_at, Date updated_at, Date deleted_at, String sha, String branch) {
         this.scores = scores;
         this.project = project;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
+        this.sha = sha;
         this.branch = branch;
     }
 
@@ -102,5 +106,13 @@ public class Commit {
 
     public void setBranch(String branch) {
         this.branch = branch;
+    }
+
+    public String getSha() {
+        return sha;
+    }
+
+    public void setSha(String sha) {
+        this.sha = sha;
     }
 }

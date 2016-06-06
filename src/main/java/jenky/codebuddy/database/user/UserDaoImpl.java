@@ -65,7 +65,16 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
      * @param user
      */
     @Override
-    public void saveUser(User user) {
+    public void save(User user) {
         super.add(user);
+    }
+
+    /**
+     * Saves or updates the user.
+     * @param user
+     */
+    @Override
+    public void saveOrUpdate(User user) {
+        super.saveOrUpdate(user);
     }
 }

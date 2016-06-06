@@ -15,4 +15,7 @@ public interface ProjectService extends GenericService<Project, Integer> {
     public void addProject(Project project);
 
     public boolean checkIfProjectExists(String projectName);
+
+    public Project getProjectIfExists(String projectname);
+
 }

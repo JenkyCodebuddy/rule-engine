@@ -30,3 +30,4 @@ rule-engine.iml
 .idea/
 target/
 src/main/resources/spring.xml
+src/main/java/resrouces/spring.xml

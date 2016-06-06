@@ -14,5 +14,8 @@ public interface MetricService extends GenericService<Metric, Integer> {
 
     public boolean checkIfMetricExists(String metric);
 
+    public Metric getMetricIfExists(String metricName);
+
+
     public void saveMetric(Metric metric);
 }

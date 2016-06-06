@@ -51,8 +51,8 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void addUser(User user) {
-        userDao.saveUser(user);
+    public void save(User user) {
+        userDao.save(user);
     }
 
     /**
@@ -78,4 +78,16 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     public void setPasswordForUser(String password, String userEmail, Date updatedAt){
         userDao.setPasswordForUser(password, userEmail, updatedAt);
     }
+
+    /**
+     * Saves or updates the user.
+     * @param user
+     */
+    @Transactional
+    @Override
+    public void saveOrUpdate(User user) {
+        userDao.saveOrUpdate(user);
+    }
+
+
 }

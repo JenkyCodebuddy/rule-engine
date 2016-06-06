@@ -14,11 +14,14 @@ import java.util.Optional;
 public interface UserDao extends GenericDao<User, Integer> {
     public List<User> getAllUsers();
 
-    public void saveUser(User user);
+    public void save(User user);
 
     public boolean checkIfUserExists(String userEmail);
 
     public User getUserIfExists(String userEmail);
+
+    public void saveOrUpdate(User user);
+
 
     public void setPasswordForUser(String password, String email, Date updatedAt);
 

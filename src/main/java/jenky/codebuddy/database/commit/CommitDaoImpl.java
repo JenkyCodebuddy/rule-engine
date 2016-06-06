@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Persistence for Commit. Inherits GenericDao and implements the CommitDao interface
+ * Persistence for UserCommit. Inherits GenericDao and implements the CommitDao interface
  */
 @Repository
 public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements CommitDao {
 
     /**
      * Get all the commit
-     * @return list containing Commit objects
+     * @return list containing UserCommit objects
      */
     @Override
     public List<Commit> getCommits() {

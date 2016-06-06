@@ -13,11 +13,14 @@ import java.util.List;
 public interface UserService extends GenericService<User, Integer> {
     public List<User> getAllUsers();
 
-    public void addUser(User user);
+    public void save(User user);
 
     public boolean checkIfUserExists(String user);
 
     public User getUserIfExists(String email);
+
+    public void saveOrUpdate(User user);
+
 
     public void setPasswordForUser(String password, String email, Date updatedAt);
 

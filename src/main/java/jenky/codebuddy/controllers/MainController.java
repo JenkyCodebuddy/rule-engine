@@ -36,6 +36,15 @@ public class MainController {
         setBusinessLogicController(new BusinessLogicController());
     }
 
+//    @RequestMapping(value = "/score", method = RequestMethod.POST)
+//    public String createScoreFromMetrics(@RequestParam(value = "sonarqubeResponse") String sonarqubeResponse) { //create new completeResultModel on POST request
+//        //public String createScoreFromMetrics(@RequestHeader Map<String,String> headers) { //create new completeResultModel on POST request
+//        //sonarqubeResponse = headers.get("sonarqubeResponse");
+//
+//        //githubInfoMap = getBusinessLogicController().createGithubUserInfoMap(headers);
+//        //setCompleteResultModel(new CompleteResultModelBuilder(sonarqubeResponse, githubInfoMap).buildCompleteResultModel());
+//        //getBusinessLogicDB().storeCompleteResultModel(getCompleteResultModel());
+//    }
 
 
 

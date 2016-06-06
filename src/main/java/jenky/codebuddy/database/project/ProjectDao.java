@@ -15,4 +15,6 @@ public interface ProjectDao extends GenericDao<Project, Integer> {
     public void saveProject(Project project);
 
     public boolean checkIfProjectExists(String projectName);
+
+    public Project getProjectIfExists(String projectname);
 }

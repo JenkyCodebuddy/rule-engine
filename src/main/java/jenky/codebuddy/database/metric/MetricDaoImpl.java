@@ -43,6 +43,20 @@ public class MetricDaoImpl extends GenericDaoImpl<Metric, Integer> implements Me
         }
     }
 
+    @Override
+    public Metric getMetricIfExists(String metricName) {
+        String hql = "FROM Metric m WHERE m.name = :metric";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("metric",metricName);
+        Metric result = (Metric) query.uniqueResult();
+        if(result != null){
+            return result;
+        }
+        else{
+            return null;
+        }
+    }
+
     /**
      * Saves the given metric
      * @param metric
