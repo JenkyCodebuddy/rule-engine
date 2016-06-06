@@ -29,9 +29,15 @@ public class CommitModelBuilder {
         return userCommitModel;
     }
 
+    /**
+     * extract projectname from address like http://github.com/company/project.git
+     * Splits at the fourth / and removes the last four characters (.git)
+     * @param url
+     * @return
+     */
     private String filterRegex(String url) {
         String[] paths = url.split("/");
-        return paths[2];
+        return paths[4].substring(0, paths[4].length() - 4);
     }
 
 }

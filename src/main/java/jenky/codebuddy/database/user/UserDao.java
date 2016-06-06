@@ -17,4 +17,7 @@ public interface UserDao extends GenericDao<User, Integer> {
     public boolean checkIfUserExists(String userEmail);
 
     public User getUserIfExists(String userEmail);
+
+    public void saveOrUpdate(User user);
+
 }

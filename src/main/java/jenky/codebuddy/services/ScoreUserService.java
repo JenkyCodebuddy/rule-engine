@@ -18,15 +18,17 @@ import java.util.*;
 /**
  * Created by Fabian on 4-6-2016.
  */
-public class SaveScoreService {
+public class ScoreUserService {
 
     private Score metricsDataInputModel;
     private SonarResponse sonarResponse;
     private UserCommit userCommit;
     private ApplicationContext context;
 
-
-    public SaveScoreService(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit) {
+    public ScoreUserService (){
+        setContext(new ClassPathXmlApplicationContext("spring.xml"));
+    }
+    public ScoreUserService(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit) {
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
         this.metricsDataInputModel = metricsDataInputModel;
         this.sonarResponse = sonarResponse;
@@ -57,7 +59,8 @@ public class SaveScoreService {
         User user = userService.getUserIfExists(userCommit.getEmail());
         user.setJenkycoins(10);
         user.setScores(scores);
-        userService.save(user);
+        user.setUpdated_at(new Date());
+        userService.saveOrUpdate(user);
     }
 
     public Commit createCommit(UserCommit userCommit){
@@ -90,6 +93,12 @@ public class SaveScoreService {
             default: return 0;
         }
     }
+
+    public List<jenky.codebuddy.models.entities.Score> getPreviousScores(String email){
+        ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
+        return scoreService.getPreviousScores(email);
+    }
+
 
 
 

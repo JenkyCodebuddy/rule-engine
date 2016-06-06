@@ -113,28 +113,5 @@ public abstract class GenericDaoImpl<T, Id extends Serializable> implements Gene
     }
 
 
-    /*public boolean checkIfRecordExists(String column, T value);
 
-    public T getRecordIfExists(String column, T value);
-
-    @Transactional
-    public T getRecordIfExists(String column, T value){
-        Criteria crit =  sessionFactory.getCurrentSession().createCriteria(type)
-                .add(Restrictions.eq(column,value));
-        Optional<Criteria> cr = Optional.ofNullable(crit);
-        return (T) cr.get().uniqueResult();
-    }
-
-    @Transactional
-    public boolean checkIfRecordExists(String column, T value){
-        Criteria crit =  sessionFactory.getCurrentSession().createCriteria(type)
-                .add(Restrictions.eq(column,value));
-        crit.list();
-        if(crit.list().isEmpty()){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }*/
 }

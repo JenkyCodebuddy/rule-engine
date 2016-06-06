@@ -7,7 +7,7 @@ import jenky.codebuddy.BusinessLogicDB;
 import jenky.codebuddy.modelbuilders.CommitModelBuilder;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.gson.SonarResponse;
-import jenky.codebuddy.services.SaveScoreService;
+import jenky.codebuddy.services.ScoreUserService;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,11 +48,13 @@ public class ScoreController {
         Type test = new TypeToken<List<SonarResponse>>(){}.getType();
         List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse, test);
         SonarResponse sonarResponse = sonarResponseList.get(0);
-        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse);
         githubInfoMap = getBusinessLogicController().createGithubUserInfoMap(headers);
         CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
 
-        SaveScoreService saveScoreService = new SaveScoreService(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
+        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
+
+
+        ScoreUserService scoreUserService = new ScoreUserService(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
     }
 
     public Map<String, String> getGithubInfoMap() {

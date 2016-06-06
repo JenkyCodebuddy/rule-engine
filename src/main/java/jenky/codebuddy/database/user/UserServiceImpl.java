@@ -71,4 +71,16 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     public User getUserIfExists(String userEmail){
         return userDao.getUserIfExists(userEmail);
     }
+
+    /**
+     * Saves or updates the user.
+     * @param user
+     */
+    @Transactional
+    @Override
+    public void saveOrUpdate(User user) {
+        userDao.saveOrUpdate(user);
+    }
+
+
 }

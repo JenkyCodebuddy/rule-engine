@@ -17,4 +17,7 @@ public interface UserService extends GenericService<User, Integer> {
     public boolean checkIfUserExists(String user);
 
     public User getUserIfExists(String email);
+
+    public void saveOrUpdate(User user);
+
 }
