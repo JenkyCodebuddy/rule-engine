@@ -30,8 +30,9 @@
         <property name="user" value="b20a60e558cd56"/>
         <property name="password" value="e1d3efd7"/>
         <property name="minPoolSize" value="0"/>
-        <property name="maxPoolSize" value="2"/>
+        <property name="maxPoolSize" value="4"/>
         <property name="maxIdleTime" value="1"/>
+        <property name="acquireIncrement" value="1"/>
     </bean>
 
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
