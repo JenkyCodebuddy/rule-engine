@@ -29,8 +29,6 @@ public class ScoreUserService {
     ScoreServiceImpl scoreService;
     MetricServiceImpl metricService;
 
-
-
     public ScoreUserService (){
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
         this.userService = (UserServiceImpl) getContext().getBean("userServiceImpl");

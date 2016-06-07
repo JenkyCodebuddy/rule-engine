@@ -21,6 +21,7 @@
         <property name="password" value="root"/>
         <property name="minPoolSize" value="0"/>
         <property name="maxPoolSize" value="1"/>
+        <property name="maxIdleTime" value="2"/>
     </bean>
 
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
