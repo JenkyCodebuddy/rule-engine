@@ -30,7 +30,6 @@ public class MainController {
     AuthenticationService authenticationService;
     LoginService loginService;
     ProfileService profileService;
-    ScoreUserService scoreUserService;
     ShopService shopService;
     SignUpService signUpService;
 
@@ -38,7 +37,6 @@ public class MainController {
         setAchievementsService(new AchievementsService());
         setLoginService(new LoginService());
         setProfileService(new ProfileService());
-        setScoreUserService(new ScoreUserService());
         setShopService(new ShopService());
         setSignUpService(new SignUpService());
     }
@@ -148,13 +146,6 @@ public class MainController {
         this.profileService = profileService;
     }
 
-    public ScoreUserService getScoreUserService() {
-        return scoreUserService;
-    }
-
-    public void setScoreUserService(ScoreUserService scoreUserService) {
-        this.scoreUserService = scoreUserService;
-    }
 
     public ShopService getShopService() {
         return shopService;

@@ -50,7 +50,6 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
             query2.setParameter("commitId", result-1);
             scores = query2.list();
         }
-
         return  scores;
     }
 
