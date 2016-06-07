@@ -11,8 +11,8 @@ public class test{
 
     public static void main(String[] args) {
     //zover was ik gekomen
-        testInterface test = new testInterface;
-        test.findByEmail("meme");
+        //testInterface test = new testInterface();
+        //test.findByEmail("meme");
 
     }
 
