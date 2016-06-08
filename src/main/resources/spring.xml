@@ -26,7 +26,7 @@
     <!--</bean>-->
 
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="jdbc:mysql://145.24.243.70:3306/codebuddylocal"/>
+        <property name="jdbcUrl" value="jdbc:mysql://86.91.141.178:3306/codebuddylocal"/>
         <property name="user" value="azure"/>
         <property name="password" value="54c2af2e074e15692bd38e23407edc855e67e285c5f03bddc8a331af36d4f3d5"/>
         <property name="minPoolSize" value="0"/>
