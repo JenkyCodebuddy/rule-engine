@@ -13,7 +13,7 @@
 
     <context:component-scan
             base-package="jenky.codebuddy.database" />
-
+    <!--lol-->
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB?zeroDateTimeBehavior=convertToNull"/>
         <property name="user" value="b20a60e558cd56"/>
