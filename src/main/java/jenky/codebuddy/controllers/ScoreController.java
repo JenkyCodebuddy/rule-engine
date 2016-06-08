@@ -23,38 +23,31 @@ import java.util.Map;
 public class ScoreController {
 
     Map<String,String> githubInfoMap;
-    private BusinessLogicController businessLogicController;
-    private BusinessLogicDB businessLogicDB;
+
 
     public ScoreController(){
-        setBusinessLogicDB(new BusinessLogicDB());
-        setBusinessLogicController(new BusinessLogicController());
+
     }
 
-
-    @RequestMapping(method = RequestMethod.POST)
-    public String createScoreFromMetrics(@RequestHeader Map<String,String> headers) { //create new completeResultModel on POST request
-        return "test";
-    }
 
     @RequestMapping(method = RequestMethod.GET)
     private void returnModel(){
     }
 
-    @RequestMapping(value = "/testdb", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     private void test(@RequestHeader Map<String, String> headers){
+        ScoreUserService scoreUserService = new ScoreUserService();
         Gson gson = new Gson();
         String sonarqubeResponse = headers.get("sonarquberesponse");
         Type test = new TypeToken<List<SonarResponse>>(){}.getType();
         List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse, test);
         SonarResponse sonarResponse = sonarResponseList.get(0);
-        githubInfoMap = getBusinessLogicController().createGithubUserInfoMap(headers);
+        githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
         CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
 
         ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
-
-
-        ScoreUserService scoreUserService = new ScoreUserService(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
+        
+        scoreUserService = new ScoreUserService(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
     }
 
     public Map<String, String> getGithubInfoMap() {
@@ -65,19 +58,5 @@ public class ScoreController {
         this.githubInfoMap = githubInfoMap;
     }
 
-    public BusinessLogicController getBusinessLogicController() {
-        return businessLogicController;
-    }
 
-    public void setBusinessLogicController(BusinessLogicController businessLogicController) {
-        this.businessLogicController = businessLogicController;
-    }
-
-    public BusinessLogicDB getBusinessLogicDB() {
-        return businessLogicDB;
-    }
-
-    public void setBusinessLogicDB(BusinessLogicDB businessLogicDB) {
-        this.businessLogicDB = businessLogicDB;
-    }
 }
