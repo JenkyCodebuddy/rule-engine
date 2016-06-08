@@ -1,22 +1,24 @@
 package jenky.codebuddy.controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonObject;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.crypto.MacProvider;
 import jenky.codebuddy.BusinessLogicController;
 import jenky.codebuddy.BusinessLogicDB;
-import jenky.codebuddy.modelbuilders.CommitModelBuilder;
-import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
-import jenky.codebuddy.models.gson.SonarResponse;
-import jenky.codebuddy.models.rest.*;
-import jenky.codebuddy.services.*;
-import org.springframework.web.bind.annotation.*;
-
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
-
+import jenky.codebuddy.models.rest.CompleteResult;
 //import jenky.codebuddy.models.rest.Mail;
 //import jenky.codebuddy.signUpMail;
+import jenky.codebuddy.models.rest.Profile;
+import jenky.codebuddy.models.rest.Projects;
+import jenky.codebuddy.token.Verify;
+import jenky.codebuddy.token.models.Token;
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import java.security.Key;
+import java.util.Map;
 
 @RestController //all requests to the "/score" endpoint test
 public class MainController {
@@ -25,85 +27,91 @@ public class MainController {
     Map<String,String> githubInfoMap;
     private boolean isVerfied;
     private CompleteResult result;
-
-    AchievementsService achievementsService;
-    AuthenticationService authenticationService;
-    LoginService loginService;
-    ProfileService profileService;
-    ShopService shopService;
-    SignUpService signUpService;
+    private BusinessLogicController businessLogicController;
+    private BusinessLogicDB businessLogicDB;
 
     public MainController(){
-        setAchievementsService(new AchievementsService());
-        setLoginService(new LoginService());
-        setProfileService(new ProfileService());
-        setShopService(new ShopService());
-        setSignUpService(new SignUpService());
+        setBusinessLogicDB(new BusinessLogicDB());
+        setBusinessLogicController(new BusinessLogicController());
+    }
+
+//    @RequestMapping(value = "/score", method = RequestMethod.POST)
+//    public String createScoreFromMetrics(@RequestParam(value = "sonarqubeResponse") String sonarqubeResponse) { //create new completeResultModel on POST request
+//        //public String createScoreFromMetrics(@RequestHeader Map<String,String> headers) { //create new completeResultModel on POST request
+//        //sonarqubeResponse = headers.get("sonarqubeResponse");
+//
+//        //githubInfoMap = getBusinessLogicController().createGithubUserInfoMap(headers);
+//        //setCompleteResultModel(new CompleteResultModelBuilder(sonarqubeResponse, githubInfoMap).buildCompleteResultModel());
+//        //getBusinessLogicDB().storeCompleteResultModel(getCompleteResultModel());
+//    }
+
+
+
+
+
+    /*//TODO combine this with login
+    @RequestMapping(value = "/token", method = RequestMethod.GET)
+    private String tokenGenerator(@RequestHeader String id) {
+        Key key = MacProvider.generateKey();
+        token.setToken(Jwts.builder().setSubject(id).signWith(SignatureAlgorithm.HS512, key).compact());
+        token.setKey(key);
+        token.setId(id);
+        return token.getToken();
+    }
+
+    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    private void authorize(@RequestHeader String userToken) {
+        Verify.verify(userToken, token.getKey(), token.getId());
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    private void login(@RequestHeader String userToken) {
+        //TODO implement login adds user to db with current token, id and key
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    private void logout(@RequestHeader String userToken) {
+        //TODO implement logout removes user from db
+    }*/
+
+    /*@RequestMapping(value = "/projects", method = RequestMethod.GET)
+    private Projects profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
     }
 
     @RequestMapping(value = "/achievements", method = RequestMethod.GET)
-    private Achievements getAllAchievements(@RequestHeader Map<String,String> headers){
-        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return achievementsService.getAllAchievements();
-        }
-        else{
-            return new Achievements("Token not valid");
-        }
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST) //
-    private Response login(@RequestHeader Map<String,String> headers) {
-        return loginService.login(headers.get("email"), headers.get("password"));
-    }
-
-
-    @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    private Profile getProfile(@RequestHeader Map<String,String> headers) {
-        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return profileService.returnProfile(headers.get("token"));
-        }
-        else{
-            return new Profile("Token not valid");
-        }
-    }
-
-    @RequestMapping(value = "/score", method = RequestMethod.POST)
-    private void saveScore(@RequestHeader Map<String, String> headers){
-        ScoreUserService scoreUserService = new ScoreUserService();
-        Gson gson = new Gson();
-        String sonarqubeResponse = headers.get("sonarquberesponse");
-        Type test = new TypeToken<List<SonarResponse>>(){}.getType();
-        List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse, test);
-        SonarResponse sonarResponse = sonarResponseList.get(0);
-        githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
-        CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
-
-        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
-        scoreUserService = new ScoreUserService(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
     }
 
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
-    private Items getAllItems(@RequestHeader Map<String,String> headers){
-        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getShopService().getAllItems();
-        }
-        else{
-            return new Items("Token not valid");
-        }
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public @ResponseBody
-    Response signUpNewUser(@RequestHeader Map<String,String> headers){ //sign up a new user with an email supplied by user
-        return getSignUpService().signUpNewUser(headers.get("email"));
+    @RequestMapping(value = "/project", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
     }
 
-    @RequestMapping(value = "/verify", method = RequestMethod.POST)
-    public @ResponseBody Response checkVerificationCode(@RequestHeader Map<String, String> headers){
-        return getSignUpService().checkVerificationCode(headers.get("verificationcode"), headers.get("password"));  //check verification code supplied by user, and if correct set password
+    @RequestMapping(value = "/buy", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
     }
 
+    @RequestMapping(value = "/equipment", method = RequestMethod.GET)
+    private Profile profile(@RequestParam String token){
+        return getBusinessLogicDB().getProfile();
+    }*/
 
+   /* @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    private void signUp(@RequestParam String email, String password){
+        //getBusinessLogicDB().signup(email, password);
+    }*/
+
+   /* @RequestMapping(value = "/verify", method = RequestMethod.POST){
+
+    }*/
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     private String test(){
@@ -114,55 +122,26 @@ public class MainController {
         this.result = result;
     }
 
-    public AchievementsService getAchievementsService() {
-        return achievementsService;
+
+    private CompleteResult getCompleteResultModel(){
+        return result;
     }
 
-    public void setAchievementsService(AchievementsService achievementsService) {
-        this.achievementsService = achievementsService;
+    public BusinessLogicController getBusinessLogicController() {
+        return businessLogicController;
     }
 
-    public AuthenticationService getAuthenticationService() {
-        return authenticationService;
+    public void setBusinessLogicController(BusinessLogicController businessLogicController) {
+        this.businessLogicController = businessLogicController;
     }
 
-    public void setAuthenticationService(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
+    public BusinessLogicDB getBusinessLogicDB() {
+        return businessLogicDB;
     }
 
-    public LoginService getLoginService() {
-        return loginService;
+    public void setBusinessLogicDB(BusinessLogicDB businessLogicDB) {
+        this.businessLogicDB = businessLogicDB;
     }
-
-    public void setLoginService(LoginService loginService) {
-        this.loginService = loginService;
-    }
-
-    public ProfileService getProfileService() {
-        return profileService;
-    }
-
-    public void setProfileService(ProfileService profileService) {
-        this.profileService = profileService;
-    }
-
-
-    public ShopService getShopService() {
-        return shopService;
-    }
-
-    public void setShopService(ShopService shopService) {
-        this.shopService = shopService;
-    }
-
-    public SignUpService getSignUpService() {
-        return signUpService;
-    }
-
-    public void setSignUpService(SignUpService signUpService) {
-        this.signUpService = signUpService;
-    }
-
 
     //all requests to the "/score" endpoint.
 
