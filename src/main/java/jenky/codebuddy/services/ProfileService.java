@@ -27,14 +27,17 @@ public class ProfileService {
 
     public Profile returnProfile(String token) {
         User user = getUserWithToken(token);
-        List<Commit> commits = getCommitsFromUser(user);/*
+        List<Commit> commits = getCommitsFromUser(user);
         double avgScore = getAvgScoreFromUser(user);
-        double totalScore = getTotalScoreFromUser(user);
+        double totalScore = getTotalScoreFromUser(user);/*
         double achievementCount = getAchievementCountFromUser(user);
         double projectCount = getProjectCountFromUser(user);
         return new Profile(user, commits, avgScore, totalScore, achievementCount, projectCount);*/
         Profile p = new Profile();
+        //p.setUser(user);
         p.setCommits(commits);
+        p.setAvgScore(avgScore);
+        p.setTotalScore(totalScore);
         return p;
     }
 
@@ -64,4 +67,20 @@ public class ProfileService {
         List<Commit> commits = commitService.getCommitsFromUser(user.getUser_id());
         return commits;
     }
+
+    private double getAvgScoreFromUser(User user){
+        ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
+        double avgScore = scoreService.getAvgScoreFromUser(user.getUser_id());
+        return avgScore;
+    }
+
+    private double getTotalScoreFromUser(User user){
+        ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
+        double totalScore = scoreService.getTotalScoreFromUser(user.getUser_id());
+        return totalScore;
+    }
+
+    //private double getTotalScoreFrom
+
+
 }

@@ -71,4 +71,16 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
     public List<Score> getPreviousScores(String userEmail) {
         return scoreDao.getPreviousScores(userEmail);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public double getAvgScoreFromUser(int user_id){
+        return scoreDao.getAvgScoreFromUser(user_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public double getTotalScoreFromUser(int user_id){
+        return scoreDao.getTotalScoreFromUser(user_id);
+    }
 }

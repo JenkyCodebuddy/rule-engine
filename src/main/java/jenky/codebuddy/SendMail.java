@@ -34,7 +34,7 @@ public class SendMail {
             message.setFrom(new InternetAddress("from-email@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(recipientEmail));
-            message.setSubject("Verification code");
+            message.setSubject("Verify code");
             message.setText("Your verification code is: " + verificationCode);
 
             Transport.send(message);

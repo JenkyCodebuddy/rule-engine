@@ -19,4 +19,7 @@ public interface ScoreDao extends GenericDao<Score, Integer> {
 
     public List<Score> getPreviousScores(String userEmail);
 
+    public double getAvgScoreFromUser(int user_id);
+
+    public double getTotalScoreFromUser(int user_id);
 }
