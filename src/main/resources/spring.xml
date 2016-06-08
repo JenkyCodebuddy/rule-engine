@@ -14,23 +14,13 @@
     <context:component-scan
             base-package="jenky.codebuddy.database" />
 
-    <!--<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
-        <!--<property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB"/>-->
-        <!--<property name="user" value="b20a60e558cd56"/>-->
-        <!--<property name="password" value="e1d3efd7"/>-->
-        <!--<property name="minPoolSize" value="0"/>-->
-        <!--<property name="maxPoolSize" value="4"/>-->
-        <!--<property name="maxIdleTime" value="1"/>-->
-        <!--<property name="acquireIncrement" value="1"/>-->
-    <!--</bean>-->
-
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="jdbc:postgresql://ec2-54-247-185-241.eu-west-1.compute.amazonaws.com:5432/dedeuefumk8f5l"/>
-        <property name="user" value="zaqfkjgupvlrbp"/>
-        <property name="password" value="YvIVbPz2MvmK_GmSdjjUCPHehQ"/>
+        <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB"/>
+        <property name="user" value="b20a60e558cd56"/>
+        <property name="password" value="e1d3efd7"/>
         <property name="minPoolSize" value="0"/>
-        <property name="maxPoolSize" value="15"/>
-        <property name="maxIdleTime" value="3"/>
+        <property name="maxPoolSize" value="4"/>
+        <property name="maxIdleTime" value="1"/>
         <property name="acquireIncrement" value="1"/>
     </bean>
 
@@ -44,7 +34,7 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.dialect"> org.hibernate.dialect.PostgreSQL9Dialect </prop>
+                <prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5Dialect </prop>
             </props>
         </property>
     </bean>
