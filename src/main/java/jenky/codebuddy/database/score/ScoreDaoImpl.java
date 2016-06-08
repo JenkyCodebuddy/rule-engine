@@ -47,7 +47,7 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         if(result > 0){
             String hql2 = "from Score s WHERE s.commit.id = :commitId";
             Query query2 = getSessionFactory().getCurrentSession().createQuery(hql2);
-            query2.setParameter("commitId", result-1);
+            query2.setParameter("commitId", 45);
             scores = query2.list();
         }
         return  scores;
