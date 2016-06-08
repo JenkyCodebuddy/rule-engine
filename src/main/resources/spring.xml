@@ -14,24 +14,13 @@
     <context:component-scan
             base-package="jenky.codebuddy.database" />
 
-    <!--localhost-->
-    <!--<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
-        <!--<property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
-        <!--<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/CodebuddyLocal"/>-->
-        <!--<property name="user" value="root"/>-->
-        <!--<property name="password" value="root"/>-->
-        <!--<property name="minPoolSize" value="0"/>-->
-        <!--<property name="maxPoolSize" value="1"/>-->
-        <!--<property name="maxIdleTime" value="1"/>-->
-    <!--</bean>-->
-
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="jdbc:mysql://86.91.141.178:3306/codebuddylocal"/>
-        <property name="user" value="azure"/>
-        <property name="password" value="54c2af2e074e15692bd38e23407edc855e67e285c5f03bddc8a331af36d4f3d5"/>
+        <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB"/>
+        <property name="user" value="b20a60e558cd56"/>
+        <property name="password" value="e1d3efd7"/>
         <property name="minPoolSize" value="0"/>
-        <property name="maxPoolSize" value="1"/>
-        <property name="maxIdleTime" value="0"/>
+        <property name="maxPoolSize" value="4"/>
+        <property name="maxIdleTime" value="1"/>
         <property name="acquireIncrement" value="1"/>
     </bean>
 
