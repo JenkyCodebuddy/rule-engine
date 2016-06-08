@@ -8,7 +8,7 @@ import jenky.codebuddy.services.ScoreUserService;
 import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 import wildtornado.scocalc.objects.Score;
-import wildtornado.scocalc.strategies.Calculator;
+//import wildtornado.scocalc.strategies.Calculator;
 
 import java.util.*;
 

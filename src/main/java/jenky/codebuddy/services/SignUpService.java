@@ -35,7 +35,7 @@ public class SignUpService {
             String verificationCode = generateVerificationCode(); //generate new verificationcode
             saveVerificationCode(userEmail, verificationCode);  //save the verification code and email in the db
             getSendMail().sendVerifcationMail(userEmail, verificationCode); //mail the verification code to the mail address supplied by the user
-            return new Response("200", "Verification code sent to " + userEmail);
+            return new Response("200", "Verify code sent to " + userEmail);
         }
     }
 
@@ -46,7 +46,7 @@ public class SignUpService {
             Verification verification = verificationService.getVerificationIfExists(verificationCode);  //get the verification code from the database
             userService.setPasswordForUser(password,verification.getUser().getEmail(),new Date());  //set the password and updatedAt timestamp for the user attached to a verification code (every verification code is linked to an user)
             verificationService.removeVerification(verification); //remove the verificationcode from the database (password for user is set, so its no longer needed in the database)
-            return new Response("200","Verification code is correct, new user is created");
+            return new Response("200","Verify code is correct, new user is created");
         }
         else{
             return new Response("400","Wrong verification code");
@@ -71,7 +71,7 @@ public class SignUpService {
         User user = new User();  //create new user with createdAt timestamp and email supplied by user
         user.setCreated_at(new Date());
         user.setEmail(userEmail);
-        userService.addUser(user);  //save new user in db
+        userService.save(user);  //save new user in db
         Verification verification = new Verification(); //create new verification record with: verification code, createdAt timestamp and link it to the user which was created earlier in the method
         verification.setCode(verificationCode);
         verification.setCreated_at(new Date());

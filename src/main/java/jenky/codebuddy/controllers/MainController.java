@@ -7,7 +7,6 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 import jenky.codebuddy.BusinessLogicController;
 import jenky.codebuddy.BusinessLogicDB;
 import jenky.codebuddy.models.rest.CompleteResult;
-import jenky.codebuddy.modelbuilders.CompleteResultModelBuilder;
 //import jenky.codebuddy.models.rest.Mail;
 //import jenky.codebuddy.signUpMail;
 import jenky.codebuddy.models.rest.Profile;
@@ -62,7 +61,7 @@ public class MainController {
 
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     private void authorize(@RequestHeader String userToken) {
-        Verification.verify(userToken, token.getKey(), token.getId());
+        Verify.verify(userToken, token.getKey(), token.getId());
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

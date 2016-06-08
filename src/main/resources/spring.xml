@@ -18,7 +18,7 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/CodeBuddyLocal"/>
         <property name="user" value="root"/>
-        <property name="password" value="root"/>
+        <property name="password" value=""/>
         <property name="minPoolSize" value="1"/>
         <property name="maxPoolSize" value="3"/>
     </bean>
@@ -34,6 +34,7 @@
             <props>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5Dialect </prop>
+                <prop key="show_sql">true</prop>
             </props>
         </property>
     </bean>
