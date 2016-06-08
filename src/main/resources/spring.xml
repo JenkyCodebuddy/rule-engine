@@ -29,8 +29,8 @@
         <property name="user" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
         <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
         <property name="minPoolSize" value="0"/>
-        <property name="maxPoolSize" value="4"/>
-        <property name="maxIdleTime" value="1"/>
+        <property name="maxPoolSize" value="15"/>
+        <property name="maxIdleTime" value="3"/>
         <property name="acquireIncrement" value="1"/>
     </bean>
 
@@ -43,7 +43,7 @@
         <property name="packagesToScan" value="jenky.codebuddy.models.entities" />
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
                 <prop key="hibernate.dialect"> org.hibernate.dialect.PostgreSQL9Dialect </prop>
             </props>
         </property>
