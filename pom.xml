@@ -7,15 +7,6 @@
 	<artifactId>restAPI-test</artifactId>
 	<version>0.1.0</version>
 
-	<repositories>
-		<!--other repositories if any-->
-		<repository>
-			<id>project.local</id>
-			<name>rule-engine</name>
-			<url>file:${project.basedir}/repo</url>
-		</repository>
-	</repositories>
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -193,6 +184,11 @@
 		<repository>
 			<id>spring-releases</id>
 			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+		<repository>
+			<id>project.local</id>
+			<name>rule-engine</name>
+			<url>file:${project.basedir}/repo</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
