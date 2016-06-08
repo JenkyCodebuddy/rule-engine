@@ -14,7 +14,7 @@ public class Verification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", unique = true, nullable = false)
+    @Column(name="verificaiton_id", unique = true, nullable = false)
     private int verificiation_id;
 
     @Column(name = "code")

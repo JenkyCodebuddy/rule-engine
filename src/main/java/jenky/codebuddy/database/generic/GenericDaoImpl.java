@@ -20,10 +20,6 @@ import java.util.List;
 public abstract class GenericDaoImpl<T, Id extends Serializable> implements GenericDao<T, Id> {
     protected Class<? extends T> type;
 
-    /**
-     * This sessionFactory is injected by Spring.
-     */
-    @Autowired
     private SessionFactory sessionFactory;
 
     public GenericDaoImpl() {
@@ -49,8 +45,8 @@ public abstract class GenericDaoImpl<T, Id extends Serializable> implements Gene
         return this.sessionFactory;
     }
 
+
     /**
-     *
      * @param type
      */
     public void setType(Class<T> type) {

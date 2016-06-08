@@ -11,7 +11,7 @@ import java.util.Set;
 public class Achievement {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "achievement_id")
     private int id;
 
     @ManyToMany(fetch = FetchType.EAGER)

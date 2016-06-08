@@ -12,7 +12,7 @@ public class Authentication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "authentication_id", unique = true, nullable = false)
     private int authentication_id;
 
     @OneToOne
@@ -80,7 +80,7 @@ public class Authentication {
 
     public Date getCreated_at() {
         return created_at;
-    }
+    }//
 
     public void setCreated_at(Date created_at) {
         this.created_at = created_at;

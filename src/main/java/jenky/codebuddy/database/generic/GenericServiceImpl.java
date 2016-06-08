@@ -38,17 +38,6 @@ public abstract class GenericServiceImpl<T, Id extends Serializable> implements 
     }
 
     /**
-     * Asks the genericDao to update given entity.
-     * Transaction management done by Spring.
-     * @param entity
-     */
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void update(T entity) {
-        genericDao.saveOrUpdate(entity);
-    }
-
-    /**
      * Asks the genericDao to save the given entity if it's new or update it.
      * Transaction management done by Spring.
      * @param entity
@@ -56,6 +45,17 @@ public abstract class GenericServiceImpl<T, Id extends Serializable> implements 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdate(T entity) {
+        genericDao.saveOrUpdate(entity);
+    }
+
+    /**
+     * Asks the genericDao to update given entity.
+     * Transaction management done by Spring.
+     * @param entity
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void update(T entity) {
         genericDao.saveOrUpdate(entity);
     }
 
