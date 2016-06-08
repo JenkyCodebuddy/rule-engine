@@ -14,10 +14,20 @@
     <context:component-scan
             base-package="jenky.codebuddy.database" />
 
+    <!--<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
+        <!--<property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB"/>-->
+        <!--<property name="user" value="b20a60e558cd56"/>-->
+        <!--<property name="password" value="e1d3efd7"/>-->
+        <!--<property name="minPoolSize" value="0"/>-->
+        <!--<property name="maxPoolSize" value="4"/>-->
+        <!--<property name="maxIdleTime" value="1"/>-->
+        <!--<property name="acquireIncrement" value="1"/>-->
+    <!--</bean>-->
+
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB"/>
-        <property name="user" value="b20a60e558cd56"/>
-        <property name="password" value="e1d3efd7"/>
+        <property name="jdbcUrl" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
+        <property name="user" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
         <property name="minPoolSize" value="0"/>
         <property name="maxPoolSize" value="4"/>
         <property name="maxIdleTime" value="1"/>
@@ -34,7 +44,7 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5Dialect </prop>
+                <prop key="hibernate.dialect"> org.hibernate.dialect.PostgreSQL9Dialect </prop>
             </props>
         </property>
     </bean>
