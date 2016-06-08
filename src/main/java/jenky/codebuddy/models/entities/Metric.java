@@ -12,7 +12,7 @@ import java.util.Date;
 public class Metric {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "metric_id")
     private int id;
 
     @Column(name = "name")

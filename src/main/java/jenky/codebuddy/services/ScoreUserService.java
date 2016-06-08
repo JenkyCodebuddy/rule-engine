@@ -25,8 +25,15 @@ public class ScoreUserService {
     private UserCommit userCommit;
     private ApplicationContext context;
 
+    UserServiceImpl userService;
+    ScoreServiceImpl scoreService;
+    MetricServiceImpl metricService;
+
     public ScoreUserService (){
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
+        this.userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
+        this.scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
+        this.metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
     }
     public ScoreUserService(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit) {
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
@@ -34,20 +41,22 @@ public class ScoreUserService {
         this.sonarResponse = sonarResponse;
         this.userCommit = userCommit;
 
+        this.userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
+        this.scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
+        this.metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
+
         Commit commit = createCommit(userCommit);
         saveUserScore(commit);
     }
 
     private void saveUserScore(Commit commit){
-        UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
-        MetricServiceImpl metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
 
         List<Metric> metricsList = this.sonarResponse.getMsr();
         Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
+        User user = userService.getUserIfExists(this.userCommit.getEmail());
         for (Metric aMetricsList : metricsList) {
             jenky.codebuddy.models.entities.Score score = new jenky.codebuddy.models.entities.Score();
-            score.setUser(userService.getUserIfExists(this.userCommit.getEmail()));
+            score.setUser(user);
             score.setSonar_value(aMetricsList.getVal());
             score.setScore((int) getScoreByName(aMetricsList.getKey()));
             score.setCommit(commit);
@@ -55,7 +64,6 @@ public class ScoreUserService {
             scores.add(score);
             scoreService.save(score);
         }
-        User user = userService.getUserIfExists(userCommit.getEmail());
         user.setJenkycoins(10);
         user.setScores(scores);
         user.setUpdated_at(new Date());
@@ -96,6 +104,16 @@ public class ScoreUserService {
     public List<jenky.codebuddy.models.entities.Score> getPreviousScores(String email){
         ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
         return scoreService.getPreviousScores(email);
+    }
+
+    public Map<String, String> createGithubUserInfoMap(Map<String, String> headers){
+        Map githubInfoMap = new HashMap<String, String>();
+        githubInfoMap.put("username",headers.get("username"));
+        githubInfoMap.put("email", headers.get("email"));
+        githubInfoMap.put("branch", headers.get("branch"));
+        githubInfoMap.put("sha", headers.get("sha"));
+        githubInfoMap.put("projectName", headers.get("projectname"));
+        return githubInfoMap;
     }
 
 

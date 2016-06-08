@@ -1,7 +1,5 @@
 package jenky.codebuddy.models.entities;
 
-import jenky.codebuddy.token.models.Token;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -12,7 +10,7 @@ import java.util.Set;
 public class User{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", unique = true, nullable = false)
+    @Column(name="user_id", unique = true, nullable = false)
     private int user_id;
 
     @Column(name = "email")
@@ -43,12 +41,18 @@ public class User{
 
     //score mapping
     @OneToMany(mappedBy = "user")
-    private Set<Score> Scores = new HashSet<Score>(0);
+    private Set<Score> scores = new HashSet<Score>(0);
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+    private Set<Achievement> achievements = new HashSet<Achievement>(0);
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+    private Set<Item> items = new HashSet<Item>(0);
 
     public User() {
     }
 
-    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Set<Score> scores) {
+    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<Achievement> achievements) {
         this.email = email;
         this.password = password;
         this.created_at = created_at;
@@ -56,7 +60,9 @@ public class User{
         this.deleted_at = deleted_at;
         this.jenkycoins = jenkycoins;
         this.verfication = verfication;
-        Scores = scores;
+        this.authentication = authentication;
+        this.scores = scores;
+        this.achievements = achievements;
     }
 
     public int getUser_id() {
@@ -124,10 +130,26 @@ public class User{
     }
 
     public Set<Score> getScores() {
-        return Scores;
+        return scores;
     }
 
     public void setScores(Set<Score> scores) {
-        Scores = scores;
+        this.scores = scores;
+    }
+
+    public Set<Achievement> getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(Set<Achievement> achievements) {
+        this.achievements = achievements;
+    }
+
+    public Authentication getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication(Authentication authentication) {
+        this.authentication = authentication;
     }
 }

@@ -7,6 +7,8 @@ import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +23,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
      * Get all the projects
      * @return List containing all the projects.
      */
+
     @Override
     public List<User> getAllUsers() {
         return super.findAll();
