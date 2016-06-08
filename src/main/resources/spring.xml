@@ -25,9 +25,9 @@
     <!--</bean>-->
 
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
-        <property name="user" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
-        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+        <property name="jdbcUrl" value="jdbc:postgresql://ec2-54-247-185-241.eu-west-1.compute.amazonaws.com:5432/dedeuefumk8f5l"/>
+        <property name="user" value="zaqfkjgupvlrbp"/>
+        <property name="password" value="YvIVbPz2MvmK_GmSdjjUCPHehQ"/>
         <property name="minPoolSize" value="0"/>
         <property name="maxPoolSize" value="15"/>
         <property name="maxIdleTime" value="3"/>
