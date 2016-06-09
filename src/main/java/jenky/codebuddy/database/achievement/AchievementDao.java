@@ -12,4 +12,8 @@ import java.util.List;
 
 public interface AchievementDao extends GenericDao<Achievement, Integer> {
     public List<Achievement> getAchievements();
+
+    public double getAchievementCountFromUser(int user_id);
+
+    public List<Achievement> getAchievementsFromUser(int user_id);
 }

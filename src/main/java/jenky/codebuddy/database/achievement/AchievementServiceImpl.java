@@ -41,4 +41,16 @@ public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Inte
     public List<Achievement> getAchievements(){
         return achievementDao.getAchievements();
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public double getAchievementCountFromUser(int user_id){
+        return achievementDao.getAchievementCountFromUser(user_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<Achievement> getAchievementsFromUser(int user_id){
+        return achievementDao.getAchievementsFromUser(user_id);
+    }
 }

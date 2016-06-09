@@ -23,4 +23,6 @@ public interface ScoreService extends GenericService<Score, Integer> {
 
     public double getTotalScoreFromUser(int user_id);
 
+    public List<Score> getScoresFromProject(int project_id);
+
 }

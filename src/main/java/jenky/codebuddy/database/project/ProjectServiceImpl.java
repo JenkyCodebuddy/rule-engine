@@ -3,6 +3,7 @@ package jenky.codebuddy.database.project;
 import jenky.codebuddy.database.generic.GenericServiceImpl;
 import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Project;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -76,5 +77,17 @@ public class ProjectServiceImpl extends GenericServiceImpl<Project, Integer> imp
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public Project getProjectIfExists(String projectName) {
         return projectDao.getProjectIfExists(projectName);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public double getProjectCountFromUser(int user_id) {
+        return projectDao.getProjectCountFromUser(user_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<Project> getActiveProjectsFromUser(int user_id) {
+        return projectDao.getActiveProjectsFromUser(user_id);
     }
 }

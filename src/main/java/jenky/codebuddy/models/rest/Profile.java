@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Profile {
 
-    private User user;
+    private String userEmail;
     private List<Commit> commits;
     private double totalScore;
     private double avgScore;
@@ -20,8 +20,8 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(User user, List<Commit> commits, double totalScore, double avgScore, double achievementCount, double projectCount) {
-        this.user = user;
+    public Profile(String userEmail, List<Commit> commits, double totalScore, double avgScore, double achievementCount, double projectCount) {
+        this.userEmail = userEmail;
         this.commits = commits;
         this.totalScore = totalScore;
         this.avgScore = avgScore;
@@ -33,12 +33,12 @@ public class Profile {
         this.error=error;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public List<Commit> getCommits() {

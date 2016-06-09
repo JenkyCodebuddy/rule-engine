@@ -12,6 +12,10 @@ public class Achievements {
     public Achievements() {
     }
 
+    public Achievements(List<Achievement> achievements) {
+        this.achievements = achievements;
+    }
+
     public Achievements(String error) {
         this.error = error;
     }

@@ -32,16 +32,15 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
 
     @Override
     public List<Commit> getCommitsFromUser(int user_id){
-        String hql = "FROM Commit commit " +
-                "INNER JOIN Project project " +
-                "ON commit.project = project.id " +
-                "INNER JOIN Score score " +
-                "ON commit.id = score.commit.id " +
-                "WHERE score.user.id = :user_id " +
+        String hql = "SELECT project.name, commit.branch, commit.created_at, commit.id FROM Commit commit " +
+                "INNER JOIN commit.project as project " +
+                "INNER JOIN commit.scores as scores " +
+                "WHERE scores.user =:user_id " +
                 "GROUP BY commit.id " +
-                "order by commit.id DESC";
+                "ORDER BY commit.id DESC ";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-       // query.setParameter("user_id",user_id);
+        query.setInteger("user_id",user_id);
+        query.setMaxResults(3);
         List<Commit> result = query.list();
         return result;
     }

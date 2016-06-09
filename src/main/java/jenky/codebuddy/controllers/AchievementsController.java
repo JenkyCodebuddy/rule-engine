@@ -1,6 +1,5 @@
 package jenky.codebuddy.controllers;
 
-import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.rest.Achievements;
 import jenky.codebuddy.services.AchievementsService;
 import jenky.codebuddy.services.AuthenticationService;
@@ -10,10 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-
-/**
- * Created by joost on 4-6-2016.
- */
 
 @RestController
 @RequestMapping(value = "/achievements")
@@ -28,7 +23,7 @@ public class AchievementsController {
     @RequestMapping(method = RequestMethod.GET)
     private Achievements getAllAchievements(@RequestHeader Map<String,String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return achievementsService.getAllAchievements();
+            return achievementsService.returnAchievements(headers.get("token"));
         }
         else{
             return new Achievements("Token not valid");

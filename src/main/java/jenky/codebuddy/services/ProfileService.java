@@ -1,7 +1,9 @@
 package jenky.codebuddy.services;
 
+import jenky.codebuddy.database.achievement.AchievementServiceImpl;
 import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
 import jenky.codebuddy.database.commit.CommitServiceImpl;
+import jenky.codebuddy.database.project.ProjectServiceImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.entities.Commit;
@@ -20,25 +22,30 @@ public class ProfileService {
 
     String token;
     ApplicationContext context;
+    ScoreServiceImpl scoreService;
+    CommitServiceImpl commitService;
+    AchievementServiceImpl achievementService;
+    ProjectServiceImpl projectService;
+    AuthenticationServiceImpl authenticationService;
 
     public ProfileService() {
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
+        setAuthenticationService((AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl"));
+        setScoreService((ScoreServiceImpl) getContext().getBean("scoreServiceImpl"));
+        setCommitService((CommitServiceImpl) getContext().getBean("commitServiceImpl"));
+        setProjectService((ProjectServiceImpl) getContext().getBean("projectServiceImpl"));
+        setAchievementService((AchievementServiceImpl) getContext().getBean("achievementServiceImpl"));
     }
 
     public Profile returnProfile(String token) {
         User user = getUserWithToken(token);
+        String userEmail = user.getEmail();
         List<Commit> commits = getCommitsFromUser(user);
         double avgScore = getAvgScoreFromUser(user);
-        double totalScore = getTotalScoreFromUser(user);/*
+        double totalScore = getTotalScoreFromUser(user);
         double achievementCount = getAchievementCountFromUser(user);
         double projectCount = getProjectCountFromUser(user);
-        return new Profile(user, commits, avgScore, totalScore, achievementCount, projectCount);*/
-        Profile p = new Profile();
-        //p.setUser(user);
-        p.setCommits(commits);
-        p.setAvgScore(avgScore);
-        p.setTotalScore(totalScore);
-        return p;
+        return new Profile(userEmail, commits, avgScore, totalScore, achievementCount, projectCount);
     }
 
     public String getToken() {
@@ -58,26 +65,67 @@ public class ProfileService {
     }
 
     private User getUserWithToken(String token) {
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
-        return authenticationService.getAuthenticationIfTokenExists(token).getUser();
+        return getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
     }
 
     private List<Commit> getCommitsFromUser(User user) {
-        CommitServiceImpl commitService= (CommitServiceImpl) getContext().getBean("commitServiceImpl");
-        List<Commit> commits = commitService.getCommitsFromUser(user.getUser_id());
-        return commits;
+        return getCommitService().getCommitsFromUser(user.getUser_id());
     }
 
     private double getAvgScoreFromUser(User user){
-        ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
-        double avgScore = scoreService.getAvgScoreFromUser(user.getUser_id());
-        return avgScore;
+        return getScoreService().getAvgScoreFromUser(user.getUser_id());
     }
 
     private double getTotalScoreFromUser(User user){
-        ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
-        double totalScore = scoreService.getTotalScoreFromUser(user.getUser_id());
-        return totalScore;
+        return getScoreService().getTotalScoreFromUser(user.getUser_id());
+    }
+
+    private double getAchievementCountFromUser(User user){
+        return getAchievementService().getAchievementCountFromUser(user.getUser_id());
+    }
+
+    private double getProjectCountFromUser(User user){
+        return getProjectService().getProjectCountFromUser(user.getUser_id());
+    }
+
+    public ScoreServiceImpl getScoreService() {
+        return scoreService;
+    }
+
+    public void setScoreService(ScoreServiceImpl scoreService) {
+        this.scoreService = scoreService;
+    }
+
+    public CommitServiceImpl getCommitService() {
+        return commitService;
+    }
+
+    public void setCommitService(CommitServiceImpl commitService) {
+        this.commitService = commitService;
+    }
+
+    public AchievementServiceImpl getAchievementService() {
+        return achievementService;
+    }
+
+    public void setAchievementService(AchievementServiceImpl achievementService) {
+        this.achievementService = achievementService;
+    }
+
+    public ProjectServiceImpl getProjectService() {
+        return projectService;
+    }
+
+    public void setProjectService(ProjectServiceImpl projectService) {
+        this.projectService = projectService;
+    }
+
+    public AuthenticationServiceImpl getAuthenticationService() {
+        return authenticationService;
+    }
+
+    public void setAuthenticationService(AuthenticationServiceImpl authenticationService) {
+        this.authenticationService = authenticationService;
     }
 
     //private double getTotalScoreFrom

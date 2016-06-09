@@ -18,4 +18,8 @@ public interface ProjectService extends GenericService<Project, Integer> {
 
     public Project getProjectIfExists(String projectname);
 
+    public double getProjectCountFromUser(int user_id);
+
+    public List<Project> getActiveProjectsFromUser(int user_id);
+
 }
