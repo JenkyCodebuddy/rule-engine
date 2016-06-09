@@ -14,15 +14,22 @@ import java.util.Map;
 @RequestMapping(value = "/login")
 public class LoginController {
 
-    LoginService loginService = new LoginService();
+    LoginService loginService;
 
     public LoginController() {
-
+        setLoginService(new LoginService());
     }
 
     @RequestMapping(method = RequestMethod.POST) //
     private Response login(@RequestHeader Map<String,String> headers) {
-        return loginService.login(headers.get("email"), headers.get("password"));
+        return getLoginService().login(headers.get("email"), headers.get("password"));
     }
 
+    public LoginService getLoginService() {
+        return loginService;
+    }
+
+    public void setLoginService(LoginService loginService) {
+        this.loginService = loginService;
+    }
 }
