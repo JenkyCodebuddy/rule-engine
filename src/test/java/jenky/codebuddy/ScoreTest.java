@@ -40,7 +40,7 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
     @Test
     @Transactional
     public void saveScore() throws Exception {
-        //scoreService.save(testScore);
+        scoreService.save(testScore);
     }
 
     @Test
