@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * Persistence layer of ScoreDao. Inherets GenericDao and implements the ScoreDao interface.
@@ -53,12 +54,12 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         String hql = "select max(s.commit.id) from Score s WHERE s.user.email = :userEmail";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("userEmail",userEmail);
-        int result = (int) query.uniqueResult();
+        Optional result = Optional.ofNullable(query.uniqueResult());
         System.out.println("result = " + result);
-        if(result > 0){
+        if(result.isPresent()){
             String hql2 = "from Score s WHERE s.commit.id = :commitId";
             Query query2 = getSessionFactory().getCurrentSession().createQuery(hql2);
-            query2.setParameter("commitId", result);
+            query2.setParameter("commitId", result.get());
             scores = query2.list();
         }
         return  scores;
