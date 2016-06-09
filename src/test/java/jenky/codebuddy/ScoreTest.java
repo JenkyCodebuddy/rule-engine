@@ -3,33 +3,34 @@ package jenky.codebuddy;
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Score;
-import org.junit.Assert;
+import jenky.codebuddy.models.entities.User;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 /**
  * Created by Fabian on 9-6-2016.
  */
 public class ScoreTest extends GenericDaoImpl<Score, Integer> {
 
+    private final String TESTEMAIL = "joost1235@hotmail.com";
     private ApplicationContext context;
     ScoreServiceImpl scoreService;
-
+    Score testScore;
+    User testuser;
 
     public ScoreTest() {
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
         this.scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
-
+        testScore = new Score();
+        testScore.setUser(testuser);
+        testuser = new User();
+        testuser.setEmail(TESTEMAIL);
     }
 
     public static void main(String[] args) {
@@ -38,18 +39,25 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
 
     @Test
     @Transactional
-    public void getAllScore() throws Exception {
-        Score testScore = new Score();
-        List<Score> scores = scoreService.getAllScores();
-        assertEquals(testScore, scores);
+    public void saveScore() throws Exception {
+        scoreService.save(testScore);
     }
 
     @Test
     @Transactional
-    public void saveScore() throws Exception {
-        Score testScore = new Score();
-        scoreService.save(testScore);
+    public void getPreviousScores()throws Exception{
+        List<Score> scores = scoreService.getPreviousScores(TESTEMAIL);
+        assertEquals(testScore.getClass(), scores.get(1).getClass());
     }
+
+    @Test
+    @Transactional
+    public void deleteTestScore()throws Exception{
+        List<Score> scores = scoreService.getPreviousScores(TESTEMAIL);
+        assertEquals(testScore.getClass(), scores.get(1).getClass());
+    }
+
+
 
     @Test
     public void testModel() throws Exception{

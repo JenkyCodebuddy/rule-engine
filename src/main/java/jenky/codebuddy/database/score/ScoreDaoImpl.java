@@ -8,6 +8,7 @@ import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,14 +19,18 @@ import java.util.Optional;
 @Repository
 public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements ScoreDao {
 
+    @PostConstruct
+    public void init(){
+        super.setType(Score.class);
+    }
+
     /**
      * Get all the scores
      * @return List containing scores
      */
     @Override
     public List<Score> getAllScores() {
-        List<Score> scores = super.findAll();
-        return scores;
+        return super.findAll();
     }
 
     /**

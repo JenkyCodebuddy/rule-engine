@@ -1,5 +1,6 @@
 package jenky.codebuddy.database.generic;
 
+import jenky.codebuddy.database.score.ScoreDaoImpl;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -107,7 +108,6 @@ public abstract class GenericDaoImpl<T, Id extends Serializable> implements Gene
     public T findById(final int id) {
         return (T)  sessionFactory.getCurrentSession().get(type, id);
     }
-
 
 
 }
