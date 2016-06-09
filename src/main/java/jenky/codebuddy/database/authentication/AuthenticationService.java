@@ -1,12 +1,9 @@
 package jenky.codebuddy.database.authentication;
 
 import jenky.codebuddy.database.generic.GenericService;
-import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.models.entities.Authentication;
 
-import java.security.Key;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Specfic methods for the service Achievement. Inherits GenericService interface

@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.metric;
 
 import jenky.codebuddy.database.generic.GenericService;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Metric;
 
 import java.util.List;

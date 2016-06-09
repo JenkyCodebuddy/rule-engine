@@ -2,7 +2,6 @@ package jenky.codebuddy.database.achievement;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
 import jenky.codebuddy.models.entities.Achievement;
-import jenky.codebuddy.models.entities.Commit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,7 @@
 package jenky.codebuddy.database.project;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Project;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,7 @@
 package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.models.entities.Commit;
-import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 

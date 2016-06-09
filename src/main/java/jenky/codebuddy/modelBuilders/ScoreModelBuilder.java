@@ -1,6 +1,5 @@
 package jenky.codebuddy.modelbuilders;
 
-import jenky.codebuddy.database.score.ScoreService;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
@@ -8,9 +7,12 @@ import jenky.codebuddy.services.ScoreUserService;
 import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 import wildtornado.scocalc.objects.Score;
-//import wildtornado.scocalc.strategies.Calculator;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//import wildtornado.scocalc.strategies.Calculator;
 
 public class ScoreModelBuilder {
     private DataInput metricsDataInputModel;

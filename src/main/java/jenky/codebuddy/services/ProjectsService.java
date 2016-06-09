@@ -4,7 +4,6 @@ import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
 import jenky.codebuddy.database.item.ItemServiceImpl;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;

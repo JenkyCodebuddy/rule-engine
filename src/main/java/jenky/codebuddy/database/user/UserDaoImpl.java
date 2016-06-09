@@ -1,14 +1,10 @@
 package jenky.codebuddy.database.user;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.models.entities.Authentication;
-import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

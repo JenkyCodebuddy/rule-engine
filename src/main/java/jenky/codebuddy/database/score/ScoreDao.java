@@ -1,9 +1,7 @@
 package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericDao;
-import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.entities.User;
 
 import java.util.List;
 

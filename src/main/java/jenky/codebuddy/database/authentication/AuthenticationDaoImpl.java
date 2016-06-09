@@ -1,17 +1,11 @@
 package jenky.codebuddy.database.authentication;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.models.entities.Authentication;
-import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import java.io.*;
-import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Persistence for Achievement. This inherits GenericDaoImplementation

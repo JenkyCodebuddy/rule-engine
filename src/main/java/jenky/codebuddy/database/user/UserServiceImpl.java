@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.user;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
-import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

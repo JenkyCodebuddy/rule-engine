@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.company;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Company;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.metric;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Metric;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

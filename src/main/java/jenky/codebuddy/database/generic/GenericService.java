@@ -1,7 +1,5 @@
 package jenky.codebuddy.database.generic;
 
-import jenky.codebuddy.models.entities.User;
-
 import java.io.Serializable;
 import java.util.List;
 

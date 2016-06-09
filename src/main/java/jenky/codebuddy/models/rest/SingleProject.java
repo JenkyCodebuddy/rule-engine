@@ -2,7 +2,6 @@ package jenky.codebuddy.models.rest;
 
 import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.entities.User;
 
 import java.util.List;
 

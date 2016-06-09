@@ -1,9 +1,7 @@
 package jenky.codebuddy.database.metric;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Metric;
-import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 

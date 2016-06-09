@@ -2,7 +2,10 @@ package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.LoginService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 

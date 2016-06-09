@@ -2,8 +2,6 @@ package jenky.codebuddy.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import jenky.codebuddy.BusinessLogicController;
-import jenky.codebuddy.BusinessLogicDB;
 import jenky.codebuddy.modelbuilders.CommitModelBuilder;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.gson.SonarResponse;

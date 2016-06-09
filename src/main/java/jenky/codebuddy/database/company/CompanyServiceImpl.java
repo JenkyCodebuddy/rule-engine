@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.company;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
-import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,7 +1,6 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Profile;
-import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.AuthenticationService;
 import jenky.codebuddy.services.ProfileService;
 import org.springframework.web.bind.annotation.RequestHeader;

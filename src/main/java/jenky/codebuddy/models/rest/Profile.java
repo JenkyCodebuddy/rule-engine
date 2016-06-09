@@ -1,10 +1,8 @@
 package jenky.codebuddy.models.rest;
 
 
-
-import jenky.codebuddy.models.entities.Item;
-import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.models.entities.Item;
 
 import java.util.List;
 
