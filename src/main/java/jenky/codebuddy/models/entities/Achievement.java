@@ -23,6 +23,9 @@ public class Achievement {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "completed_on")
+    private Date completed_on;
+
     @Column(name = "created_at")
     private Date created_at;
 
@@ -35,10 +38,11 @@ public class Achievement {
     public Achievement() {
     }
 
-    public Achievement(Set<AchievementUser> achievementusers, String name, String description, Date created_at, Date updated_at, Date deleted_at) {
+    public Achievement(Set<AchievementUser> achievementusers, String name, String description, Date completed_on, Date created_at, Date updated_at, Date deleted_at) {
         this.achievementusers = achievementusers;
         this.name = name;
         this.description = description;
+        this.completed_on = completed_on;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -98,5 +102,13 @@ public class Achievement {
 
     public void setAchievementusers(Set<AchievementUser> achievementusers) {
         this.achievementusers = achievementusers;
+    }
+
+    public Date getCompleted_on() {
+        return completed_on;
+    }
+
+    public void setCompleted_on(Date completed_on) {
+        this.completed_on = completed_on;
     }
 }
