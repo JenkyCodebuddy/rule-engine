@@ -40,7 +40,6 @@ public class ScoreController {
         Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
         List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse.replaceAll("\\s",""), sonar);
         SonarResponse sonarResponse = sonarResponseList.get(0);
-        System.out.println("headers = " + headers);
         githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
         CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
 
