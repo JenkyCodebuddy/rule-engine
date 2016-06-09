@@ -89,4 +89,10 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
     public List<Score> getScoresFromProject(int project_id){
         return scoreDao.getScoresFromProject(project_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void delete(Score score){
+        scoreDao.delete(score);
+    }
 }

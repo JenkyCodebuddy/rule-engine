@@ -17,6 +17,8 @@ public interface ScoreService extends GenericService<Score, Integer> {
 
     public void save(Score score);
 
+    public void delete(Score score);
+
     public List<Score> getPreviousScores(String userEmail);
 
     public double getAvgScoreFromUser(int user_id);

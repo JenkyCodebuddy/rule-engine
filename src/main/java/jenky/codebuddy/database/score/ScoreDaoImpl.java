@@ -34,7 +34,7 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
     }
 
     /**
-     * Saves the project.
+     * Saves the score.
      * @param score
      */
     @Override
@@ -56,6 +56,15 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
             scores = query2.list();
         }
         return  scores;
+    }
+
+    /**
+     * deletes the score.
+     * @param score
+     */
+    @Override
+    public void delete(Score score){
+        super.delete(score);
     }
 
     @Override

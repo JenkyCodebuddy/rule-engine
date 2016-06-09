@@ -53,16 +53,7 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
     @Test
     @Transactional
     public void deleteTestScore()throws Exception{
-        List<Score> scores = scoreService.getPreviousScores(TESTEMAIL);
-        assertEquals(testScore.getClass(), scores.get(1).getClass());
-    }
-
-
-
-    @Test
-    public void testModel() throws Exception{
-//        UserCommit c = new UserCommit("Joost","joost1235@hotmail.com","master","asdasd12113ui1h3ir","cyka/TestclassForDAO/idi/nahui");
-//        assertNotEquals(c.getEmail(),"");
+        scoreService.delete(testScore);
     }
 
     public ApplicationContext getContext() {
