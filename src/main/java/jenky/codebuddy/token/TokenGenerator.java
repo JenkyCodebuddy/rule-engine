@@ -13,6 +13,7 @@ public class TokenGenerator {
     private Key signingKey;
 
     /**
+     * Generates a token with an expiration date if set.
      * @param id
      * @param issuer
      * @param subject
