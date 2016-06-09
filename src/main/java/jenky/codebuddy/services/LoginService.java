@@ -41,14 +41,14 @@ public class LoginService{
                 else{
                     createNewAuthentication(user, token.getToken(), AuthenticationService.keyToString(token.getKey())); //if user doesn't have a token, create one
                 }
-                return new Response("200", token.getToken());   //return appropriate response models to the controller
+                return new Response(200, token.getToken());   //return appropriate response models to the controller
             }
             else{
-                return new Response("400", "Incorrect password");
+                return new Response(400, "Incorrect password");
             }
         }
         else{
-            return new Response("400", "Email does not exist");
+            return new Response(400, "Email does not exist");
         }
     }
 

@@ -5,19 +5,19 @@ package jenky.codebuddy.models.rest;
  */
 public class Response {
 
-    private String responseCode;
+    private int responseCode;
     private String responseMessage;
 
-    public Response(String responseCode, String responseMessage) {
+    public Response(int responseCode, String responseMessage) {
         this.responseCode = responseCode;
         this.responseMessage = responseMessage;
     }
 
-    public String getResponseCode() {
+    public int getResponseCode() {
         return responseCode;
     }
 
-    public void setResponseCode(String responseCode) {
+    public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
     }
 

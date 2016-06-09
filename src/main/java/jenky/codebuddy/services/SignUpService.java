@@ -29,13 +29,13 @@ public class SignUpService {
     public Response signUpNewUser(String userEmail){
         UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
         if(userService.checkIfUserExists(userEmail)){  //check if email supplied by user already exists in the database
-            return new Response("400","Email already in use");
+            return new Response(400,"Email already in use");
         }
         else{
             String verificationCode = generateVerificationCode(); //generate new verificationcode
             saveVerificationCode(userEmail, verificationCode);  //save the verification code and email in the db
             getSendMail().sendVerifcationMail(userEmail, verificationCode); //mail the verification code to the mail address supplied by the user
-            return new Response("200", "Verify code sent to " + userEmail);
+            return new Response(400, "Verify code sent to " + userEmail);
         }
     }
 
@@ -46,10 +46,10 @@ public class SignUpService {
             Verification verification = verificationService.getVerificationIfExists(verificationCode);  //get the verification code from the database
             userService.setPasswordForUser(password,verification.getUser().getEmail(),new Date());  //set the password and updatedAt timestamp for the user attached to a verification code (every verification code is linked to an user)
             verificationService.removeVerification(verification); //remove the verificationcode from the database (password for user is set, so its no longer needed in the database)
-            return new Response("200","Verify code is correct, new user is created");
+            return new Response(200,"Verify code is correct, new user is created");
         }
         else{
-            return new Response("400","Wrong verification code");
+            return new Response(400,"Wrong verification code");
         }
     }
 
