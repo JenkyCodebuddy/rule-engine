@@ -3,10 +3,13 @@ package jenky.codebuddy;
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.rest.UserCommit;
-import org.hibernate.SessionFactory;
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,16 +22,24 @@ import static org.junit.Assert.assertNotEquals;
 public class ScoreTest extends GenericDaoImpl<Score, Integer> {
 
     private ApplicationContext context;
+    ScoreServiceImpl scoreService;
 
+
+    public ScoreTest() {
+        setContext(new ClassPathXmlApplicationContext("spring.xml"));
+        this.scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
+
+    }
 
     public static void main(String[] args) {
 
     }
 
     @Test
+    @Transactional
     public void getAllScore() throws Exception {
         Score testScore = new Score();
-        Score score = super.findById(1);
+        Score score = scoreService.findById(1);
         assertEquals(testScore, score);
     }
 
@@ -44,5 +55,13 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
 
     public void setContext(ApplicationContext context) {
         this.context = context;
+    }
+
+    public ScoreServiceImpl getScoreService() {
+        return scoreService;
+    }
+
+    public void setScoreService(ScoreServiceImpl scoreService) {
+        this.scoreService = scoreService;
     }
 }
