@@ -40,8 +40,13 @@ public class ProjectsService {
     }
 
     public SingleProject returnSingleProjectWithScores(int project_id) {
-        List<Score> projectScores = getScoresFromProject(project_id);
-        return new SingleProject(projectScores);
+        if(getProjectService().checkIfProjectExists(project_id)) {
+            List<Score> projectScores = getScoresFromProject(project_id);
+            return new SingleProject(projectScores);
+        }
+        else{
+            return new SingleProject("Project not found");
+        }
     }
 
     private User getUserWithToken(String token) {

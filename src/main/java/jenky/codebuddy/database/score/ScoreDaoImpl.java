@@ -79,7 +79,7 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         String hql = "SELECT avg(score.score) FROM Score score INNER JOIN User user ON user.id = score.user WHERE user.id= :user_id GROUP BY user.id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_id",user_id);
-        Optional result = Optional.ofNullable((double) query.uniqueResult());
+        Optional result = Optional.ofNullable(query.uniqueResult());
         return result.isPresent() ? (double)result.get() : null;
     }
 
@@ -88,13 +88,19 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         String hql = "SELECT sum(score.score) FROM Score score INNER JOIN User user ON user.id = score.user WHERE user.id= :user_id GROUP BY user.id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_id",user_id);
-        Optional result =  Optional.ofNullable((long) query.uniqueResult());
+        Optional result = Optional.ofNullable(query.uniqueResult());
         return result.isPresent() ? (long)result.get() : null;
     }
 
     @Override
     public List<Score> getScoresFromProject(int project_id) {
-        String hql = "SELECT score.user.email, sum(score.score), (SELECT item.type FROM Item item) FROM Score score INNER JOIN score.commit as commits INNER JOIN commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
+        String hql = "SELECT score.user.email, sum(score.score), (SELECT item.name FROM Item item where item.id = 1) FROM Score score INNER JOIN score.commit as commits INNER JOIN commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
+
+        /*"SELECT item.id, item.name, item.image, item.type " +
+                "FROM Item item " +
+                "INNER JOIN item.itemusers as item_has_users " +
+                "WHERE item_has_users.user= :user_id AND item_has_users.equipped = true";*/
+
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("project_id",project_id);
         Optional<List<Score>> result = Optional.ofNullable((List<Score>) query.list());

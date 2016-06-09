@@ -20,6 +20,10 @@ public class Items {
         this.error = error;
     }
 
+    public Items(List<Item> items) {
+        this.items = items;
+    }
+
     public List<Item> getItems() {
         return items;
     }
