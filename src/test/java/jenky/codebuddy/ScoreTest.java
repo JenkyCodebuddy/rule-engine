@@ -12,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -39,8 +40,15 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
     @Transactional
     public void getAllScore() throws Exception {
         Score testScore = new Score();
-        Score score = scoreService.findById(1);
-        assertEquals(testScore, score);
+        List<Score> scores = scoreService.getAllScores();
+        assertEquals(testScore, scores);
+    }
+
+    @Test
+    @Transactional
+    public void saveScore() throws Exception {
+        Score testScore = new Score();
+        scoreService.save(testScore);
     }
 
     @Test
