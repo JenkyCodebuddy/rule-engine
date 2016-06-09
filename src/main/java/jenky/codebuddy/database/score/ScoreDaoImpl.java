@@ -56,8 +56,8 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         String hql = "SELECT avg(score.score) FROM Score score INNER JOIN User user ON user.id = score.user WHERE user.id= :user_id GROUP BY user.id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_id",user_id);
-        OptionalDouble result = OptionalDouble.of((double) query.uniqueResult());
-        return result.getAsDouble();
+        Optional result = Optional.ofNullable((double) query.uniqueResult());
+        return result.isPresent() ? (double)result.get() : null;
     }
 
     @Override
@@ -65,8 +65,8 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         String hql = "SELECT sum(score.score) FROM Score score INNER JOIN User user ON user.id = score.user WHERE user.id= :user_id GROUP BY user.id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_id",user_id);
-        OptionalLong result =  OptionalLong.of((long) query.uniqueResult());
-        return result.getAsLong();
+        Optional result =  Optional.ofNullable((long) query.uniqueResult());
+        return result.isPresent() ? (double)result.get() : null;
     }
 
     @Override
@@ -75,6 +75,6 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("project_id",project_id);
         Optional<List<Score>> result = Optional.ofNullable((List<Score>) query.list());
-        return result.get();
+        return result.isPresent() ? result.get() : null;
     }
 }
