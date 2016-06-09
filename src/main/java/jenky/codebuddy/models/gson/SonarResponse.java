@@ -25,7 +25,7 @@ public class SonarResponse {
 
     @Override
     public String toString() {
-        return "Ressources : \n id=" + id  + ",\n key=" + key + ",\n name=" + name + ",\n lname="
+        return "Resources : \n id=" + id  + ",\n key=" + key + ",\n name=" + name + ",\n lname="
                 + lname + ",\n scope=" + scope + ",\n qualifier=" + qualifier + ",\n date=" + date
                 + ",\n creationDate=" + creationDate + ",\n version=" + version + "\n description=" + description;
     }
