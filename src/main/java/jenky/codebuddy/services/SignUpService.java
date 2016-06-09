@@ -35,7 +35,7 @@ public class SignUpService {
             String verificationCode = generateVerificationCode(); //generate new verificationcode
             saveVerificationCode(userEmail, verificationCode);  //save the verification code and email in the db
             getSendMail().sendVerifcationMail(userEmail, verificationCode); //mail the verification code to the mail address supplied by the user
-            return new Response(400, "Verify code sent to " + userEmail);
+            return new Response(200, "Verification code sent to " + userEmail);
         }
     }
 
