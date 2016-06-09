@@ -21,7 +21,7 @@ public class ProfileController {
         setProfileService(new ProfileService());
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.GET)
     private Profile getProfile(@RequestHeader Map<String,String> headers) {
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
             return profileService.returnProfile(headers.get("token"));
