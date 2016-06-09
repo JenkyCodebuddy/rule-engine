@@ -52,15 +52,6 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
     }
 
     @Override
-    public List<Score> getScoresFromUserGroupedByCommit(int user_id){
-        String hql = "FROM Score as score inner join score.user";
-        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-        query.setParameter("user_id",user_id);
-        Optional<List<Score>> result = Optional.ofNullable((List<Score>) query.list());
-        return (result.get());
-    }
-
-    @Override
     public double getAvgScoreFromUser(int user_id){
         String hql = "SELECT avg(score.score) FROM Score score INNER JOIN User user ON user.id = score.user WHERE user.id= :user_id GROUP BY user.id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
@@ -83,7 +74,7 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         String hql = "SELECT score.user.email, sum(score.score), (SELECT item.type FROM Item item) FROM Score score INNER JOIN score.commit as commits INNER JOIN commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("project_id",project_id);
-        List<Score> result = query.list();
-        return result;
+        Optional<List<Score>> result = Optional.ofNullable((List<Score>) query.list());
+        return result.get();
     }
 }

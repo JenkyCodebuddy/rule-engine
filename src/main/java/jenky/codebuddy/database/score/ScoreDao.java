@@ -13,8 +13,6 @@ import java.util.List;
 public interface ScoreDao extends GenericDao<Score, Integer> {
     public List<Score> getAllScores();
 
-    public List<Score> getScoresFromUserGroupedByCommit(int user_id);
-
     public void save(Score score);
 
     public List<Score> getPreviousScores(String userEmail);

@@ -32,12 +32,6 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
 
     }
 
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public List<Score> getScoresFromUserGroupedByCommit(int user_id){
-        return scoreDao.getScoresFromUserGroupedByCommit(user_id);
-    }
-
     /**
      * Asks the projectDao to save the given project.
      * Transaction management done by Spring.
