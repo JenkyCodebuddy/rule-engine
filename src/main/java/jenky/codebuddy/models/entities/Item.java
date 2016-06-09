@@ -17,14 +17,13 @@ public class Item {
     @Column(name = "item_id")
     private int id;
 
-    @ManyToMany
-    @JoinTable(name = "item_has_user", joinColumns = { @JoinColumn(name = "item_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    private Set<User> users = new HashSet<User>();
+    @OneToMany(mappedBy= "item")
+    private Set<ItemUser> itemusers = new HashSet<ItemUser>();
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "type")
+    @Column(name = "item_type")
     private String type;
 
     @Column(name = "image")
@@ -43,22 +42,22 @@ public class Item {
 
     }
 
-    public Item(Set<User> users, String name, String image, String type, Date created_at, Date updated_at, Date deleted_at) {
-        this.users = users;
+    public Item(Set<ItemUser> itemusers, String name, String type, String image, Date created_at, Date updated_at, Date deleted_at) {
+        this.itemusers = itemusers;
         this.name = name;
-        this.image = image;
         this.type = type;
+        this.image = image;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<ItemUser> getItemusers() {
+        return itemusers;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setItemusers(Set<ItemUser> itemusers) {
+        this.itemusers = itemusers;
     }
 
     public int getId() {

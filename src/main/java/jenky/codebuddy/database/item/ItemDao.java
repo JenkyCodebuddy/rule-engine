@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface ItemDao extends GenericDao<Item, Integer> {
     public List<Item> getAllItems();
+
+    public List<Item> getEquippedItemsFromUser(int user_id);
 }

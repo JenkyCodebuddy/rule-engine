@@ -2,6 +2,7 @@ package jenky.codebuddy.models.rest;
 
 
 
+import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.entities.Commit;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class Profile {
 
-    private String userEmail;
+    private List<Item> equippedItems;
     private List<Commit> commits;
     private double totalScore;
     private double avgScore;
@@ -20,25 +21,26 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(String userEmail, List<Commit> commits, double totalScore, double avgScore, double achievementCount, double projectCount) {
-        this.userEmail = userEmail;
+    public Profile(List<Item> equippedItems, List<Commit> commits, double totalScore, double avgScore, double achievementCount, double projectCount) {
+        this.equippedItems = equippedItems;
         this.commits = commits;
         this.totalScore = totalScore;
         this.avgScore = avgScore;
         this.achievementCount = achievementCount;
         this.projectCount = projectCount;
+        this.error = error;
     }
 
     public Profile(String error){
         this.error=error;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public List<Item> getEquippedItems() {
+        return equippedItems;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEquippedItems(List<Item> equippedItems) {
+        this.equippedItems = equippedItems;
     }
 
     public List<Commit> getCommits() {

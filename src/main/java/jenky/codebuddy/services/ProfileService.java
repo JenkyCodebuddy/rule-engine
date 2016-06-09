@@ -3,12 +3,10 @@ package jenky.codebuddy.services;
 import jenky.codebuddy.database.achievement.AchievementServiceImpl;
 import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
 import jenky.codebuddy.database.commit.CommitServiceImpl;
+import jenky.codebuddy.database.item.ItemServiceImpl;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
-import jenky.codebuddy.models.entities.Authentication;
-import jenky.codebuddy.models.entities.Commit;
-import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.models.entities.*;
 import jenky.codebuddy.models.rest.Profile;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -27,6 +25,7 @@ public class ProfileService {
     AchievementServiceImpl achievementService;
     ProjectServiceImpl projectService;
     AuthenticationServiceImpl authenticationService;
+    ItemServiceImpl itemService;
 
     public ProfileService() {
         setContext(new ClassPathXmlApplicationContext("spring.xml"));
@@ -35,17 +34,18 @@ public class ProfileService {
         setCommitService((CommitServiceImpl) getContext().getBean("commitServiceImpl"));
         setProjectService((ProjectServiceImpl) getContext().getBean("projectServiceImpl"));
         setAchievementService((AchievementServiceImpl) getContext().getBean("achievementServiceImpl"));
+        setItemService((ItemServiceImpl) getContext().getBean("itemServiceImpl"));
     }
 
     public Profile returnProfile(String token) {
         User user = getUserWithToken(token);
-        String userEmail = user.getEmail();
+        List<Item> items = getEquippedItemsFromUser(user);
         List<Commit> commits = getCommitsFromUser(user);
         double avgScore = getAvgScoreFromUser(user);
         double totalScore = getTotalScoreFromUser(user);
         double achievementCount = getAchievementCountFromUser(user);
         double projectCount = getProjectCountFromUser(user);
-        return new Profile(userEmail, commits, avgScore, totalScore, achievementCount, projectCount);
+        return new Profile(items, commits, avgScore, totalScore, achievementCount, projectCount);
     }
 
     public String getToken() {
@@ -66,6 +66,10 @@ public class ProfileService {
 
     private User getUserWithToken(String token) {
         return getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
+    }
+
+    private List<Item> getEquippedItemsFromUser(User user){
+        return getItemService().getEquippedItemsFromUser(user.getUser_id());
     }
 
     private List<Commit> getCommitsFromUser(User user) {
@@ -126,6 +130,14 @@ public class ProfileService {
 
     public void setAuthenticationService(AuthenticationServiceImpl authenticationService) {
         this.authenticationService = authenticationService;
+    }
+
+    public ItemServiceImpl getItemService() {
+        return itemService;
+    }
+
+    public void setItemService(ItemServiceImpl itemService) {
+        this.itemService = itemService;
     }
 
     //private double getTotalScoreFrom

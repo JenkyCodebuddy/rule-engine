@@ -46,13 +46,13 @@ public class User{
     @OneToMany(mappedBy = "user")
     private Set<AchievementUser> achievements = new HashSet<AchievementUser>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
-    private Set<Item> items = new HashSet<Item>(0);
+    @OneToMany(mappedBy = "user")
+    private Set<ItemUser> itemusers = new HashSet<ItemUser>();
 
     public User() {
     }
 
-    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<AchievementUser> achievements, Set<Item> items) {
+    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<AchievementUser> achievements, Set<ItemUser> itemusers) {
         this.email = email;
         this.password = password;
         this.created_at = created_at;
@@ -63,7 +63,7 @@ public class User{
         this.authentication = authentication;
         this.scores = scores;
         this.achievements = achievements;
-        this.items = items;
+        this.itemusers = itemusers;
     }
 
     public int getUser_id() {
@@ -152,5 +152,13 @@ public class User{
 
     public void setAuthentication(Authentication authentication) {
         this.authentication = authentication;
+    }
+
+    public Set<ItemUser> getItemusers() {
+        return itemusers;
+    }
+
+    public void setItemusers(Set<ItemUser> itemusers) {
+        this.itemusers = itemusers;
     }
 }

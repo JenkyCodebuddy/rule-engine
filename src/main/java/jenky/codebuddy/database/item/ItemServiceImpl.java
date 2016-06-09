@@ -42,4 +42,10 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implement
     public List<Item> getAllItems() {
         return itemDao.getAllItems();
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<Item> getEquippedItemsFromUser(int user_id) {
+        return itemDao.getEquippedItemsFromUser(user_id);
+    }
 }
