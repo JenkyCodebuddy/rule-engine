@@ -36,12 +36,9 @@ public class ScoreController {
     private void saveScore(@RequestHeader Map<String, String> headers){
         ScoreUserService scoreUserService = new ScoreUserService();
         Gson gson = new Gson();
-        String sonarqubeResponse = headers.get("sonarquberesponse");
         Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
-        System.out.println(sonarqubeResponse.replaceAll("\\s",""));
-        List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse.replaceAll(" ",""), sonar);
+        List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
         SonarResponse sonarResponse = sonarResponseList.get(0);
-        System.out.println("headers = " + headers);
         githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
         CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
 
