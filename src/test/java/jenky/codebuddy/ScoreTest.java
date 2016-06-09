@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Fabian on 9-6-2016.
+ * Commented
  */
 public class ScoreTest extends GenericDaoImpl<Score, Integer> {
 
