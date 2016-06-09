@@ -92,5 +92,5 @@ public abstract class GenericServiceImpl<T, Id extends Serializable> implements 
     public List<T> findAll() {
         return genericDao.findAll();
     }
-    
+
 }

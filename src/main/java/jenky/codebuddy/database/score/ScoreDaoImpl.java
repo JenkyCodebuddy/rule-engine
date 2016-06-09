@@ -8,7 +8,10 @@ import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Persistence layer of ScoreDao. Inherets GenericDao and implements the ScoreDao interface.
@@ -16,14 +19,18 @@ import java.util.*;
 @Repository
 public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements ScoreDao {
 
+    @PostConstruct
+    public void init(){
+        super.setType(Score.class);
+    }
+
     /**
      * Get all the scores
      * @return List containing scores
      */
     @Override
     public List<Score> getAllScores() {
-        List<Score> scores = super.findAll();
-        return scores;
+        return super.findAll();
     }
 
     /**
@@ -49,6 +56,15 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
             scores = query2.list();
         }
         return  scores;
+    }
+
+    @Override
+    public List<Score> getScoresFromUserGroupedByCommit(int user_id){
+        String hql = "FROM Score as score inner join score.user";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("user_id",user_id);
+        Optional<List<Score>> result = Optional.ofNullable((List<Score>) query.list());
+        return (result.get());
     }
 
     @Override
