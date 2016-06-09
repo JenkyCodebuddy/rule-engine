@@ -38,7 +38,8 @@ public class ScoreController {
         Gson gson = new Gson();
         String sonarqubeResponse = headers.get("sonarquberesponse");
         Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
-        List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse.replaceAll(" ",""), sonar);
+        System.out.println(sonarqubeResponse.replaceAll("\\s",""));
+        List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse.replaceAll("\\s",""), sonar);
         SonarResponse sonarResponse = sonarResponseList.get(0);
         System.out.println("headers = " + headers);
         githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
