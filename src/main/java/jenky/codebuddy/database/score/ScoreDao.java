@@ -22,4 +22,6 @@ public interface ScoreDao extends GenericDao<Score, Integer> {
     public double getTotalScoreFromUser(int user_id);
 
     public List<Score> getScoresFromProject(int project_id);
+
+    public boolean checkIfUserHasScores(int user_id);
 }

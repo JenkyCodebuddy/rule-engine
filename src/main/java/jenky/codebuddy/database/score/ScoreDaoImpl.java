@@ -66,7 +66,7 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_id",user_id);
         Optional result =  Optional.ofNullable((long) query.uniqueResult());
-        return result.isPresent() ? (double)result.get() : null;
+        return result.isPresent() ? (long)result.get() : null;
     }
 
     @Override
@@ -76,5 +76,15 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         query.setInteger("project_id",project_id);
         Optional<List<Score>> result = Optional.ofNullable((List<Score>) query.list());
         return result.isPresent() ? result.get() : null;
+    }
+
+    @Override
+    public boolean checkIfUserHasScores(int user_id) {
+        String hql = "SELECT score.id FROM Score score WHERE score.user =:user_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
+        query.setMaxResults(1);
+        boolean result = query.list().isEmpty();
+        return result ? false: true;
     }
 }

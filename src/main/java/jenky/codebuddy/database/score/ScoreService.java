@@ -23,4 +23,6 @@ public interface ScoreService extends GenericService<Score, Integer> {
 
     public List<Score> getScoresFromProject(int project_id);
 
+    public boolean checkIfUserHasScores(int user_id);
+
 }

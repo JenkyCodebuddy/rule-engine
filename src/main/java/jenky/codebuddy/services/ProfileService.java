@@ -39,13 +39,18 @@ public class ProfileService {
 
     public Profile returnProfile(String token) {
         User user = getUserWithToken(token);
-        List<Item> items = getEquippedItemsFromUser(user);
-        List<Commit> commits = getCommitsFromUser(user);
-        double avgScore = getAvgScoreFromUser(user);
-        double totalScore = getTotalScoreFromUser(user);
-        double achievementCount = getAchievementCountFromUser(user);
-        double projectCount = getProjectCountFromUser(user);
-        return new Profile(items, commits, avgScore, totalScore, achievementCount, projectCount);
+        if(scoreService.checkIfUserHasScores(user.getUser_id())) {
+            List<Item> items = getEquippedItemsFromUser(user);
+            List<Commit> commits = getCommitsFromUser(user);
+            double avgScore = getAvgScoreFromUser(user);
+            double totalScore = getTotalScoreFromUser(user);
+            double achievementCount = getAchievementCountFromUser(user);
+            double projectCount = getProjectCountFromUser(user);
+            return new Profile(items, commits, avgScore, totalScore, achievementCount, projectCount);
+        }
+        else{
+            return new Profile("User has no scores yet");
+        }
     }
 
     public String getToken() {
