@@ -33,12 +33,12 @@ public class ScoreController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    private void test(@RequestHeader Map<String, String> headers){
+    private void saveScore(@RequestHeader Map<String, String> headers){
         ScoreUserService scoreUserService = new ScoreUserService();
         Gson gson = new Gson();
         String sonarqubeResponse = headers.get("sonarquberesponse");
         Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
-        List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse.replaceAll("\\s",""), sonar);
+        List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse.replaceAll(" ",""), sonar);
         SonarResponse sonarResponse = sonarResponseList.get(0);
         System.out.println("headers = " + headers);
         githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
