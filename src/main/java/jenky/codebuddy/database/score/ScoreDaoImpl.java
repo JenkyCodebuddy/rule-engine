@@ -34,12 +34,21 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
     }
 
     /**
-     * Saves the project.
+     * Deletes the score.
      * @param score
      */
     @Override
     public void save(Score score) {
         super.add(score);
+    }
+
+    /**
+     * Deletes the score.
+     * @param score
+     */
+    @Override
+    public void delete(Score score) {
+        super.delete(score);
     }
 
     public List<Score> getPreviousScores(String userEmail){
