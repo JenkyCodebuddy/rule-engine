@@ -15,7 +15,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Restcontroller
+ */
 @RestController
 @RequestMapping(value = "/score")
 public class ScoreController {
