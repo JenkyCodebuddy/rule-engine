@@ -24,7 +24,7 @@ public class ProjectsController {
             return getProjectsService().returnActiveProjectsForUser(headers.get("token"));
         }
         else{
-            return new ActiveProjects("Token not valid");
+            return new ActiveProjects(400,"Token not valid");
         }
     }
 
@@ -34,7 +34,7 @@ public class ProjectsController {
             return projectsService.returnSingleProjectWithScores(project_id);
         }
         else{
-            return new SingleProject("Token is not valid");
+            return new SingleProject(400,"Token is not valid");
         }
     }
 

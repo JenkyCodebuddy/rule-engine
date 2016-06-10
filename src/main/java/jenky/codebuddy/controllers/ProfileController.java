@@ -26,7 +26,7 @@ public class ProfileController {
             return getProfileService().returnProfile(headers.get("token"));
         }
         else{
-            return new Profile("Token not valid");
+            return new Profile(400, "Token is invalid");
         }
     }
 

@@ -9,13 +9,15 @@ public class SingleProject {
 
     private List<Score> userScores;
     private List<Item> equippedItems;
-    private String error;
+    private int responseCode;
+    private String responseMessage;
 
     public SingleProject() {
     }
 
-    public SingleProject(String error) {
-        this.error = error;
+    public SingleProject(int responseCode, String responseMessage) {
+        this.responseCode = responseCode;
+        this.responseMessage = responseMessage;
     }
 
     public SingleProject(List<Score> userScores) {
@@ -30,13 +32,20 @@ public class SingleProject {
         this.userScores = userScores;
     }
 
-    public String getError() {
-        return error;
+    public int getResponseCode() {
+        return responseCode;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
 }
 

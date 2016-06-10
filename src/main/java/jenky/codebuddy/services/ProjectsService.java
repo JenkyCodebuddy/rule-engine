@@ -45,7 +45,7 @@ public class ProjectsService {
             return new SingleProject(projectScores);
         }
         else{
-            return new SingleProject("Project not found");
+            return new SingleProject(400,"Project not found");
         }
     }
 

@@ -30,7 +30,7 @@ public class EquipmentController {
             return getEquipmentService().returnEquipmentFromUser(headers.get("token"));
         }
         else{
-            return new Equipment("Token not valid");
+            return new Equipment(400,"Token not valid");
         }
     }
 

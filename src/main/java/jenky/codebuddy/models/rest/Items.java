@@ -10,14 +10,16 @@ import java.util.List;
 public class Items {
 
     private List<Item> items;
-    private String error;
+    private int responseCode;
+    private String responseMessage;
 
     public Items() {
 
     }
 
-    public Items(String error) {
-        this.error = error;
+    public Items(int responseCode, String responseMessage) {
+        this.responseCode = responseCode;
+        this.responseMessage = responseMessage;
     }
 
     public Items(List<Item> items) {
@@ -32,11 +34,19 @@ public class Items {
         this.items = items;
     }
 
-    public String getError() {
-        return error;
+    public int getResponseCode() {
+        return responseCode;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 }

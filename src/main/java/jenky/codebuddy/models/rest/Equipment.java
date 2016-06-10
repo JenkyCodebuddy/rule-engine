@@ -9,14 +9,16 @@ import java.util.List;
  */
 public class Equipment {
 
-    List<Item> equipment;
-    String error;
+    private List<Item> equipment;
+    private int responseCode;
+    private String responseMessage;
 
     public Equipment() {
     }
 
-    public Equipment(String error) {
-        this.error = error;
+    public Equipment(int responseCode, String responseMessage) {
+        this.responseCode = responseCode;
+        this.responseMessage = responseMessage;
     }
 
     public Equipment(List<Item> equipment) {
@@ -31,11 +33,19 @@ public class Equipment {
         this.equipment = equipment;
     }
 
-    public String getError() {
-        return error;
+    public int getResponseCode() {
+        return responseCode;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 }

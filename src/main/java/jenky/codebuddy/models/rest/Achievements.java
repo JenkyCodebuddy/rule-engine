@@ -7,7 +7,8 @@ import java.util.List;
 public class Achievements {
 
     private List<Achievement> achievements;
-    private String error;
+    private int responseCode;
+    private String responseMessage;
 
     public Achievements() {
     }
@@ -16,8 +17,9 @@ public class Achievements {
         this.achievements = achievements;
     }
 
-    public Achievements(String error) {
-        this.error = error;
+    public Achievements(int responseCode, String responseMessage) {
+        this.responseCode = responseCode;
+        this.responseMessage = responseMessage;
     }
 
     public List<Achievement> getAchievements() {
@@ -28,11 +30,19 @@ public class Achievements {
         this.achievements = achievements;
     }
 
-    public String getError() {
-        return error;
+    public int getResponseCode() {
+        return responseCode;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 }
