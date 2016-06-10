@@ -1,5 +1,8 @@
 package jenky.codebuddy;
 
+import io.jsonwebtoken.impl.crypto.MacProvider;
+
+import java.security.Key;
 import java.util.Date;
 
 /**
@@ -11,8 +14,10 @@ public class TestInfo {
     static final String TESTPROJECT = "test engine";
     static final String TESTPASSWORD = "test";
     static final String TESTMETRIC = "test metric";
+    static final Key TESTKEY = MacProvider.generateKey();
+
     static String TESTTOKEN = "124v24vrd45g345346b5y45y45";
-    static String TESTKEY = "fisuh98898fisdfs0d0";
+    static String TESTKEYSTRING = "rO0ABXNyAB9qYXZheC5jcnlwdG8uc3BlYy5TZWNyZXRLZXlTcGVjW0cLZuIwYU0CAAJMAAlhbGdvcml0aG10ABJMamF2YS9sYW5nL1N0cmluZztbAANrZXl0AAJbQnhwdAAKSG1hY1NIQTUxMnVyAAJbQqzzF/gGCFTgAgAAeHAAAABAEAv3R4h9zOk0YWiGZQIQyq7qEh8DcDIn0ETve4gwmZWW8EqQcirZRsjMFPTOGj+nXCJHwCA815PRoAayIt9Wtw==";
     static Date TESTDATE = new Date();
     static Integer TESTID = 1;
 
