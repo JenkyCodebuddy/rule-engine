@@ -7,6 +7,7 @@ import jenky.codebuddy.models.entities.User;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
 
     @Test
     @Transactional
+    @Rollback
     public void saveScore() throws Exception {
         scoreService.save(testScore);
     }
