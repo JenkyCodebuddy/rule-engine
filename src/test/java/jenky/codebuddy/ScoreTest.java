@@ -19,9 +19,6 @@ import static org.junit.Assert.*;
  */
 public class ScoreTest extends GenericDaoImpl<Score, Integer> {
 
-    private final String TESTEMAIL = "joost1235@hotmail.com";
-    private final Integer TESTID = 1;
-
     private ApplicationContext context;
     private ScoreServiceImpl scoreService;
     private Score testScore;
@@ -31,7 +28,7 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
         this.scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
         testScore = new Score();
         User testuser = new User();
-        testuser.setEmail(TESTEMAIL);
+        testuser.setEmail(TestInfo.TESTEMAIL);
         testScore.setUser(testuser);
     }
 
@@ -45,7 +42,7 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
     @Test
     @Transactional
     public void getPreviousScores()throws Exception{
-        assertNotNull(scoreService.getPreviousScores(TESTEMAIL));
+        assertNotNull(scoreService.getPreviousScores(TestInfo.TESTEMAIL));
     }
 
     @Test
@@ -57,26 +54,26 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
     @Test
     @Transactional
     public void getAverageScore()throws Exception{
-        assertNotNull(scoreService.getAvgScoreFromUser(TESTID));
+        assertNotNull(scoreService.getAvgScoreFromUser(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
     public void getTotalScoreFromUser()throws Exception{
-        assertNotNull(scoreService.getTotalScoreFromUser(TESTID));
+        assertNotNull(scoreService.getTotalScoreFromUser(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
     public void getScoresFromProject()throws Exception{
-        List<Score> scores = scoreService.getScoresFromProject(TESTID);
+        List<Score> scores = scoreService.getScoresFromProject(TestInfo.TESTID);
         assertNotNull(scores);
     }
 
     @Test
     @Transactional
     public void checkIfUserHasScores()throws Exception{
-        boolean check = scoreService.checkIfUserHasScores(TESTID);
+        boolean check = scoreService.checkIfUserHasScores(TestInfo.TESTID);
         assertNotNull(check);
     }
 

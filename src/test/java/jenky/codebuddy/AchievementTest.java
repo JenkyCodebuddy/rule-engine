@@ -15,7 +15,6 @@ import static org.junit.Assert.assertSame;
  */
 public class AchievementTest {
 
-    private final Integer TESTID = 1;
 
     private ApplicationContext context;
     AchievementServiceImpl achievementService;
@@ -34,13 +33,13 @@ public class AchievementTest {
     @Test
     @Transactional
     public void getAchievementCountFromUser(){
-        assertNotNull(achievementService.getAchievementCountFromUser(TESTID));
+        assertNotNull(achievementService.getAchievementCountFromUser(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
     public void getAchievementFromUser(){
-        assertSame(Achievement.class, achievementService.getAchievementsFromUser(TESTID));
+        assertSame(Achievement.class, achievementService.getAchievementsFromUser(TestInfo.TESTID));
     }
 
 

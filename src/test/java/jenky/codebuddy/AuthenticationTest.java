@@ -20,11 +20,6 @@ import static org.junit.Assert.assertNotNull;
  */
 public class AuthenticationTest {
 
-    private final String TESTEMAIL = "joost1235@hotmail.com";
-    private final String TESTTOKEN = "124v24vrd45g345346b5y45y45";
-    private final String TESTKEY = "fisuh98898fisdfs0d0";
-    private final Date TESTDATE = new Date();
-    private final Integer TESTID = 1;
 
     private ApplicationContext context;
     private AuthenticationServiceImpl authenticationService;
@@ -35,9 +30,8 @@ public class AuthenticationTest {
         this.context = (new ClassPathXmlApplicationContext("spring.xml"));
         this.authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
 
-
         User testUser = new User();
-        testUser.setEmail(TESTEMAIL);
+        testUser.setEmail(TestInfo.TESTEMAIL);
         this.authentication = new Authentication();
         this.authentication.setUser(testUser);
     }
@@ -52,25 +46,25 @@ public class AuthenticationTest {
     @Test
     @Transactional
     public void checkIfAuthenticationForUserExists() throws Exception{
-        assertNotNull(authenticationService.checkIfAuthenticationForUserExists(TESTID));
+        assertNotNull(authenticationService.checkIfAuthenticationForUserExists(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
     public void updateAuthentication() throws Exception{
-        authenticationService.updateAuthentication(TESTID, TESTTOKEN, TESTKEY, TESTDATE);
+        authenticationService.updateAuthentication(TestInfo.TESTID, TestInfo.TESTTOKEN, TestInfo.TESTKEY, TestInfo.TESTDATE);
     }
 
     @Test
     @Transactional
     public void checkifAuthentactionTokenExists() throws Exception{
-        assertNotNull(authenticationService.checkIfAuthenticationForUserExists(TESTID));
+        assertNotNull(authenticationService.checkIfAuthenticationForUserExists(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
     public void getAuthenticationTokenIfExists() throws Exception{
-        assertNotNull(authenticationService.getAuthenticationIfTokenExists(TESTTOKEN));
+        assertNotNull(authenticationService.getAuthenticationIfTokenExists(TestInfo.TESTTOKEN));
     }
 
 
