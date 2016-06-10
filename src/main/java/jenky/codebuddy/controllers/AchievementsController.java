@@ -26,7 +26,7 @@ public class AchievementsController {
             return getAchievementsService().returnAchievements(headers.get("token"));
         }
         else{
-            return new Achievements("Token not valid");
+            return new Achievements(400,"Token not valid");
         }
     }
 

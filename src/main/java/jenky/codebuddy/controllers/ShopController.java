@@ -1,12 +1,10 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Items;
+import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.AuthenticationService;
 import jenky.codebuddy.services.ShopService;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -30,7 +28,17 @@ public class ShopController {
             return getShopService().getAllItems();
         }
         else{
-            return new Items("Token not valid");
+            return new Items(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/buy/{item_id}", method = RequestMethod.POST)
+    private Response buyItemForUser(@PathVariable int item_id, @RequestHeader Map<String, String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return getShopService().buyItemForUser(headers.get("token"), item_id);
+        }
+        else{
+            return new Response(400,"Token not valid");
         }
     }
 

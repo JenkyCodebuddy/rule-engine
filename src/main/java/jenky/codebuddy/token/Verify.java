@@ -13,7 +13,7 @@ import java.security.Key;
 public class Verify {
     public boolean verify(String token, Key signingkey, String id) {
         try {
-            return (Jwts.parser().setSigningKey(signingkey).parseClaimsJws(token).getBody().getSubject().equals(id));
+            return Jwts.parser().setSigningKey(signingkey).parseClaimsJws(token).getBody().getSubject().equals(id);
         } catch (SignatureException e) {
             return false;
         }

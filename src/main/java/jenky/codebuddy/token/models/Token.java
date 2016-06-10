@@ -7,7 +7,7 @@ import java.security.Key;
  */
 public class Token {
 
-    private String token;
+    private String javaWebToken;
     private String id;
     private Key key;
 
@@ -28,10 +28,10 @@ public class Token {
     }
 
     public String getToken() {
-        return token;
+        return javaWebToken;
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this.javaWebToken = token;
     }
 }

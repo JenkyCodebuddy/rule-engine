@@ -18,9 +18,14 @@ public interface UserService extends GenericService<User, Integer> {
 
     public User getUserIfExists(String email);
 
+    public void setPasswordForUser(String password, String email, Date updatedAt);
+
     public void saveOrUpdate(User user);
 
+    public boolean checkIfUserDoesntHaveItem(int user_id, int item_id);
 
-    public void setPasswordForUser(String password, String email, Date updatedAt);
+    public boolean checkIfUserHasEnoughCoins(int user_id, double amount);
+
+    public void subtractCoins(int user_id, double amount);
 
 }

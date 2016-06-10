@@ -1,13 +1,9 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.SendMail;
-import jenky.codebuddy.database.user.UserServiceImpl;
-import jenky.codebuddy.database.verification.VerificationServiceImpl;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.entities.Verification;
 import jenky.codebuddy.models.rest.Response;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
 import java.util.Random;
@@ -17,18 +13,14 @@ import java.util.Random;
  */
 public class SignUpService {
 
-    public SendMail sendMail;
-    private ApplicationContext context;
-    private Response response;
+    private SendMail sendMail;
 
     public SignUpService() {
-        setSendMail(new SendMail());    //instantiate new SendMail object for sending emails
-        setContext(new ClassPathXmlApplicationContext("spring.xml"));
+        setSendMail(new SendMail());
     }
 
     public Response signUpNewUser(String userEmail){
-        UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        if(userService.checkIfUserExists(userEmail)){  //check if email supplied by user already exists in the database
+        if(DatabaseFactory.getUserService().checkIfUserExists(userEmail)){  //check if email supplied by user already exists in the database
             return new Response(400,"Email already in use");
         }
         else{
@@ -40,12 +32,10 @@ public class SignUpService {
     }
 
     public Response checkVerificationCode(String verificationCode, String password){
-        VerificationServiceImpl verificationService = (VerificationServiceImpl) getContext().getBean("verificationServiceImpl");
-        UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        if(verificationService.checkIfVerificationExists(verificationCode)){    //check if the supplied verification code matches the verification code in the database
-            Verification verification = verificationService.getVerificationIfExists(verificationCode);  //get the verification code from the database
-            userService.setPasswordForUser(password,verification.getUser().getEmail(),new Date());  //set the password and updatedAt timestamp for the user attached to a verification code (every verification code is linked to an user)
-            verificationService.removeVerification(verification); //remove the verificationcode from the database (password for user is set, so its no longer needed in the database)
+        if(DatabaseFactory.getVerificationService().checkIfVerificationExists(verificationCode)){    //check if the supplied verification code matches the verification code in the database
+            Verification verification = DatabaseFactory.getVerificationService().getVerificationIfExists(verificationCode);  //get the verification code from the database
+            DatabaseFactory.getUserService().setPasswordForUser(password,verification.getUser().getEmail(),new Date());  //set the password and updatedAt timestamp for the user attached to a verification code (every verification code is linked to an user)
+            DatabaseFactory.getVerificationService().removeVerification(verification); //remove the verificationcode from the database (password for user is set, so its no longer needed in the database)
             return new Response(200,"Verify code is correct, new user is created");
         }
         else{
@@ -61,22 +51,19 @@ public class SignUpService {
             char c = chars[random.nextInt(chars.length)];
             sb.append(c);
         }
-        System.out.println(sb.toString());  //println for testing purposes
         return sb.toString();
     }
 
     private void saveVerificationCode(String userEmail, String verificationCode){
-        VerificationServiceImpl verificationService = (VerificationServiceImpl) getContext().getBean("verificationServiceImpl");
-        UserServiceImpl userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
         User user = new User();  //create new user with createdAt timestamp and email supplied by user
         user.setCreated_at(new Date());
         user.setEmail(userEmail);
-        userService.save(user);  //save new user in db
+        DatabaseFactory.getUserService().save(user);  //save new user in db
         Verification verification = new Verification(); //create new verification record with: verification code, createdAt timestamp and link it to the user which was created earlier in the method
         verification.setCode(verificationCode);
         verification.setCreated_at(new Date());
-        verification.setUser(userService.getUserIfExists(userEmail));
-        verificationService.addNewVerfication(verification); //save the verification code in db
+        verification.setUser(DatabaseFactory.getUserService().getUserIfExists(userEmail));
+        DatabaseFactory.getVerificationService().addNewVerfication(verification); //save the verification code in db
     }
 
     public SendMail getSendMail() {
@@ -85,13 +72,5 @@ public class SignUpService {
 
     public void setSendMail(SendMail sendMail) {
         this.sendMail = sendMail;
-    }
-
-    public ApplicationContext getContext() {
-        return context;
-    }
-
-    public void setContext(ApplicationContext context) {
-        this.context = context;
     }
 }

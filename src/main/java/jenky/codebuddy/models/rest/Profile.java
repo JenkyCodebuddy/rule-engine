@@ -14,23 +14,33 @@ public class Profile {
     private double avgScore;
     private double achievementCount;
     private double projectCount;
-    private String error;
+    private int responseCode;
+    private String responseMessage;
 
     public Profile() {
     }
 
-    public Profile(List<Item> equippedItems, List<Commit> commits, double totalScore, double avgScore, double achievementCount, double projectCount) {
+    public Profile(int responseCode, String responseMessage) {
+        this.responseCode = responseCode;
+        this.responseMessage = responseMessage;
+    }
+
+    public Profile(List<Item> equippedItems, List<Commit> commits, double totalScore, double avgScore, double achievementCount, double projectCount, int responseCode) {
         this.equippedItems = equippedItems;
         this.commits = commits;
         this.totalScore = totalScore;
         this.avgScore = avgScore;
         this.achievementCount = achievementCount;
         this.projectCount = projectCount;
-        this.error = error;
+        this.responseCode = responseCode;
     }
 
-    public Profile(String error){
-        this.error=error;
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 
     public List<Item> getEquippedItems() {
@@ -81,11 +91,11 @@ public class Profile {
         this.projectCount = projectCount;
     }
 
-    public String getError() {
-        return error;
+    public String getResponseMessage() {
+        return responseMessage;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 }

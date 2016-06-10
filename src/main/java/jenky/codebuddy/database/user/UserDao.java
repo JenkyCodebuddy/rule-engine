@@ -20,7 +20,11 @@ public interface UserDao extends GenericDao<User, Integer> {
 
     public void saveOrUpdate(User user);
 
-
     public void setPasswordForUser(String password, String email, Date updatedAt);
 
+    public boolean checkIfUserDoesntHaveItem(int user_id, int item_id);
+
+    public boolean checkIfUserHasEnoughCoins(int user_id, double amount);
+
+    public void subtractCoins(int user_id, double amount);
 }

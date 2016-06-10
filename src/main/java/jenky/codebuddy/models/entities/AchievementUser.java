@@ -1,14 +1,13 @@
 package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by joost on 9-6-2016.
  */
 @Entity
 @Table(name = "achievement_has_user")
-public class AchievementUser implements Serializable{
+public class AchievementUser {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 

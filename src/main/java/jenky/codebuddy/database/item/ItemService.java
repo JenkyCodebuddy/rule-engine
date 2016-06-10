@@ -12,4 +12,8 @@ public interface ItemService extends GenericService<Item, Integer> {
     public List<Item> getAllItems();
 
     public List<Item> getEquippedItemsFromUser(int user_id);
+
+    public boolean checkIfItemExists(int item_id);
+
+    public Item getItemIfExists(int item_id);
 }

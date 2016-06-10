@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Perisstence of ProjectDao. Inherits GenericDaoImpl and implements ProjectDao interface
@@ -32,13 +33,17 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         String hql = "FROM Project p WHERE p.name = :project_name";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("project_name",projectName);
-        Project result = (Project) query.uniqueResult();
-        if(result != null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        Optional<Project> result = Optional.ofNullable((Project) query.uniqueResult());
+        return (result.isPresent());
+    }
+
+    @Override
+    public boolean checkIfProjectExists(int project_id){
+        String hql = "FROM Project p WHERE p.id= :project_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("project_id", project_id);
+        Optional<Project> result = Optional.ofNullable((Project) query.uniqueResult());
+        return (result.isPresent());
     }
 
     @Override
@@ -46,13 +51,8 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         String hql = "FROM Project p WHERE p.name = :project_name";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("project_name",projectName);
-        Project result = (Project) query.uniqueResult();
-        if(result != null){
-            return result;
-        }
-        else{
-            return null;
-        }
+        Optional<Project> result = Optional.ofNullable((Project) query.uniqueResult());
+        return result.get();
     }
 
     /**

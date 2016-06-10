@@ -19,7 +19,7 @@
         <property name="user" value="root"/>
         <property name="password" value="root"/>
         <property name="minPoolSize" value="0"/>
-        <property name="maxPoolSize" value="2"/>
+        <property name="maxPoolSize" value="4"/>
         <property name="maxIdleTime" value="1"/>
         <property name="acquireIncrement" value="1"/>
     </bean>
