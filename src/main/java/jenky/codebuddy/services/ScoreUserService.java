@@ -64,7 +64,7 @@ public class ScoreUserService {
             scores.add(score);
             scoreService.save(score);
         }
-        user.setJenkycoins(10);
+        //user.setJenkycoins(this.metricsDataInputModel.get);
         user.setScores(scores);
         user.setUpdated_at(new Date());
         userService.saveOrUpdate(user);
