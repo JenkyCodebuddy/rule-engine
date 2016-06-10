@@ -29,11 +29,6 @@ public class ScoreController {
 
     }
 
-
-    @RequestMapping(method = RequestMethod.GET)
-    private void returnModel(){
-    }
-
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     private void saveScore(@RequestHeader Map<String, String> headers){
         ScoreUserService scoreUserService = new ScoreUserService();
@@ -43,19 +38,7 @@ public class ScoreController {
         SonarResponse sonarResponse = sonarResponseList.get(0);
         githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
         CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
-
         ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
-        
         scoreUserService = new ScoreUserService(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
     }
-
-    public Map<String, String> getGithubInfoMap() {
-        return githubInfoMap;
-    }
-
-    public void setGithubInfoMap(Map<String, String> githubInfoMap) {
-        this.githubInfoMap = githubInfoMap;
-    }
-
-
 }

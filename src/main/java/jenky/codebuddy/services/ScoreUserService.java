@@ -63,17 +63,8 @@ public class ScoreUserService {
             case "ncloc": return this.metricsDataInputModel.getLinesOfCodeScore();
             case "sqale_index": return this.metricsDataInputModel.getTechnicalDebtScore();
             case "duplicated_lines": return this.metricsDataInputModel.getCodeDuplicationScore();
-            //case "duplicated_lines_density": return this.metricsDataInputModel.getCodeDuplicationDensityScore();
-            //case "comment_lines": return this.metricsDataInputModel.getCommentLinesScore();
-            //case "tests": return this.metricsDataInputModel.getNumberOfTestsScore();
             case "coverage": return this.metricsDataInputModel.getTestCoverageScore();
-            //case "test_erros": return this.metricsDataInputModel.getTestErrorsScore();
-            //case "test_failures": return this.metricsDataInputModel.getTestFailuresScore();
             case "violations": return this.metricsDataInputModel.getCodeViolationsScore();
-            //case "major_violations": return this.metricsDataInputModel.getMajorViolationsScore();
-            //case "minor_violations": return this.metricsDataInputModel.getMinorViolationsScore();
-            //case "critical_violations": return this.metricsDataInputModel.getCriticalViolationsScore();
-            //case "blocker_violations": return this.metricsDataInputModel.getBlockerViolationsScore();
             default: return 0;
         }
     }
