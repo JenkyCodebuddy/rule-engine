@@ -1,6 +1,7 @@
 package jenky.codebuddy;
 
 import jenky.codebuddy.database.achievement.AchievementServiceImpl;
+import jenky.codebuddy.models.entities.Achievement;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -34,6 +35,12 @@ public class AchievementTest {
     @Transactional
     public void getAchievementCountFromUser(){
         assertNotNull(achievementService.getAchievementCountFromUser(TESTID));
+    }
+
+    @Test
+    @Transactional
+    public void getAchievementFromUser(){
+        assertSame(Achievement.class, achievementService.getAchievementsFromUser(TESTID));
     }
 
 
