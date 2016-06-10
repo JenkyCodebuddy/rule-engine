@@ -13,7 +13,7 @@
 
     <context:component-scan
             base-package="jenky.codebuddy.database"/>
-    <!--looooooooool-->
+    <!--loooooooooooool-->
     <!--<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
         <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/codebuddylocal?zeroDateTimeBehavior=convertToNull"/>-->
         <!--<property name="user" value="root"/>-->
