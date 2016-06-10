@@ -36,7 +36,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_email",email);
         Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
-        return (result.isPresent());
+        return result.isPresent();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_email",email);
         Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
-        return(result.get());
+        return result.get();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         query.setInteger("user_id",user_id);
         query.setInteger("item_id",item_id);
         Optional<List<User>> result = Optional.ofNullable(query.list());
-        return (result.get().isEmpty());
+        return result.get().isEmpty();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         query.setInteger("user_id",user_id);
         Optional result = Optional.ofNullable(query.uniqueResult());
         int userCurrency = (int)result.get();
-        return (((userCurrency - amount) >= 0) ? true : false);
+        return ((userCurrency - amount) >= 0) ? true : false;
     }
 
     @Override

@@ -48,7 +48,7 @@ public class ProfileService {
             double totalScore = getTotalScoreFromUser(user);
             double achievementCount = getAchievementCountFromUser(user);
             double projectCount = getProjectCountFromUser(user);
-            return new Profile(items, commits, avgScore, totalScore, achievementCount, projectCount, 200);
+            return new Profile(items, commits, totalScore, avgScore, achievementCount, projectCount, 200);
         }
         else{
             return new Profile(400, "User has no scores yet");
