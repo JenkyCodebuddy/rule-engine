@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Fabian on 9-6-2016.
  */
-public class ScoreTest extends GenericDaoImpl<Score, Integer> {
+public class ScoreTest{
 
     private ApplicationContext context;
     private ScoreServiceImpl scoreService;

@@ -26,19 +26,19 @@ public class AchievementTest {
 
     @Test
     @Transactional
-    public void getAchievements(){
+    public void getAchievements() throws Exception{
         assertNotNull(achievementService.getAchievements());
     }
 
     @Test
     @Transactional
-    public void getAchievementCountFromUser(){
+    public void getAchievementCountFromUser() throws Exception{
         assertNotNull(achievementService.getAchievementCountFromUser(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
-    public void getAchievementFromUser(){
+    public void getAchievementFromUser() throws Exception{
         assertSame(Achievement.class, achievementService.getAchievementsFromUser(TestInfo.TESTID));
     }
 

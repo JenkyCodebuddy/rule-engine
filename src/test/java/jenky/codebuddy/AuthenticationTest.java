@@ -51,6 +51,7 @@ public class AuthenticationTest {
 
     @Test
     @Transactional
+    @Rollback
     public void updateAuthentication() throws Exception{
         authenticationService.updateAuthentication(TestInfo.TESTID, TestInfo.TESTTOKEN, TestInfo.TESTKEY, TestInfo.TESTDATE);
     }
