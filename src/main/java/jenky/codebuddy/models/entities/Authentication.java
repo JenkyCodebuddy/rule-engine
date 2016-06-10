@@ -15,7 +15,7 @@ public class Authentication {
     @Column(name = "authentication_id", unique = true, nullable = false)
     private int authentication_id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

@@ -99,4 +99,5 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
     public boolean checkIfUserHasScores(int project_id){
         return scoreDao.checkIfUserHasScores(project_id);
     }
+
 }

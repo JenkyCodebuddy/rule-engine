@@ -22,11 +22,13 @@ import java.util.Map;
 @RequestMapping(value = "/score")
 public class ScoreController {
 
-    Map<String,String> githubInfoMap;
-
 
     public ScoreController(){
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    private void returnModel(){
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -36,9 +38,13 @@ public class ScoreController {
         Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
         List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
         SonarResponse sonarResponse = sonarResponseList.get(0);
-        githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
+        Map<String, String> githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
         CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
         ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
         scoreUserService = new ScoreUserService(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
     }
+
+
+
+
 }
