@@ -2,6 +2,7 @@ package jenky.codebuddy.database.commit;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
 import jenky.codebuddy.models.entities.Commit;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,7 @@ public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> imple
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Commit> getCommitsFromUser(int user_id) {
+        Hibernate.initialize(commitDao.getCommitsFromUser(user_id));
         return commitDao.getCommitsFromUser(user_id);
     }
 }

@@ -20,8 +20,9 @@ public class SingleProject {
         this.responseMessage = responseMessage;
     }
 
-    public SingleProject(List<Score> userScores) {
+    public SingleProject(List<Score> userScores, int responseCode) {
         this.userScores = userScores;
+        this.responseCode = responseCode;
     }
 
     public List<Score> getUserScores() {

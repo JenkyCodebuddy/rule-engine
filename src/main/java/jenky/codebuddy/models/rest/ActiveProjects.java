@@ -14,8 +14,9 @@ public class ActiveProjects {
     public ActiveProjects() {
     }
 
-    public ActiveProjects(List<Project> activeProjects) {
+    public ActiveProjects(List<Project> activeProjects, int responseCode) {
         this.activeProjects = activeProjects;
+        this.responseCode = responseCode;
     }
 
     public ActiveProjects(int responseCode, String responseMessage) {

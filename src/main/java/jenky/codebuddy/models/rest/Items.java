@@ -22,8 +22,9 @@ public class Items {
         this.responseMessage = responseMessage;
     }
 
-    public Items(List<Item> items) {
+    public Items(List<Item> items, int responseCode) {
         this.items = items;
+        this.responseCode = responseCode;
     }
 
     public List<Item> getItems() {
