@@ -6,7 +6,9 @@ import jenky.codebuddy.database.commit.CommitServiceImpl;
 import jenky.codebuddy.database.item.ItemServiceImpl;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
-import jenky.codebuddy.models.entities.*;
+import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.models.entities.Item;
+import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Profile;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -39,13 +41,18 @@ public class ProfileService {
 
     public Profile returnProfile(String token) {
         User user = getUserWithToken(token);
-        List<Item> items = getEquippedItemsFromUser(user);
-        List<Commit> commits = getCommitsFromUser(user);
-        double avgScore = getAvgScoreFromUser(user);
-        double totalScore = getTotalScoreFromUser(user);
-        double achievementCount = getAchievementCountFromUser(user);
-        double projectCount = getProjectCountFromUser(user);
-        return new Profile(items, commits, avgScore, totalScore, achievementCount, projectCount);
+        if(scoreService.checkIfUserHasScores(user.getUser_id())) {
+            List<Item> items = getEquippedItemsFromUser(user);
+            List<Commit> commits = getCommitsFromUser(user);
+            double avgScore = getAvgScoreFromUser(user);
+            double totalScore = getTotalScoreFromUser(user);
+            double achievementCount = getAchievementCountFromUser(user);
+            double projectCount = getProjectCountFromUser(user);
+            return new Profile(items, commits, avgScore, totalScore, achievementCount, projectCount);
+        }
+        else{
+            return new Profile("User has no scores yet");
+        }
     }
 
     public String getToken() {

@@ -23,7 +23,7 @@ public class AchievementsController {
     @RequestMapping(method = RequestMethod.GET)
     private Achievements getAllAchievements(@RequestHeader Map<String,String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return achievementsService.returnAchievements(headers.get("token"));
+            return getAchievementsService().returnAchievements(headers.get("token"));
         }
         else{
             return new Achievements("Token not valid");

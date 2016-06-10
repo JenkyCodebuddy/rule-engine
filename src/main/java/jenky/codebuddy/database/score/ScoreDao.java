@@ -1,9 +1,7 @@
 package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericDao;
-import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.entities.User;
 
 import java.util.List;
 
@@ -12,8 +10,6 @@ import java.util.List;
  */
 public interface ScoreDao extends GenericDao<Score, Integer> {
     public List<Score> getAllScores();
-
-    public List<Score> getScoresFromUserGroupedByCommit(int user_id);
 
     public void save(Score score);
 
@@ -26,4 +22,6 @@ public interface ScoreDao extends GenericDao<Score, Integer> {
     public double getTotalScoreFromUser(int user_id);
 
     public List<Score> getScoresFromProject(int project_id);
+
+    public boolean checkIfUserHasScores(int user_id);
 }

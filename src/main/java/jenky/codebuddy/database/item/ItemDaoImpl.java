@@ -1,12 +1,9 @@
 package jenky.codebuddy.database.item;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.models.entities.Item;
-import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

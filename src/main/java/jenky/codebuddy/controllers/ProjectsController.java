@@ -21,7 +21,7 @@ public class ProjectsController {
     @RequestMapping(method = RequestMethod.GET)
     private ActiveProjects showActiveProjectsForUser(@RequestHeader Map<String,String> headers) {
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return projectsService.returnActiveProjectsForUser(headers.get("token"));
+            return getProjectsService().returnActiveProjectsForUser(headers.get("token"));
         }
         else{
             return new ActiveProjects("Token not valid");

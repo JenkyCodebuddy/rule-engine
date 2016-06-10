@@ -1,6 +1,5 @@
 package jenky.codebuddy.controllers;
 
-import com.google.gson.JsonObject;
 import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.SignUpService;
 import org.springframework.web.bind.annotation.*;

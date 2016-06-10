@@ -1,13 +1,9 @@
 package jenky.codebuddy;
 
 import jenky.codebuddy.database.score.ScoreServiceImpl;
-import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by joost on 24-5-2016.

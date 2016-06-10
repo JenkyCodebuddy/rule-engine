@@ -4,6 +4,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
+
 import java.security.Key;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ public class TokenGenerator {
     private Key signingKey;
 
     /**
+     * Generates a token with an expiration date if set.
      * @param id
      * @param issuer
      * @param subject

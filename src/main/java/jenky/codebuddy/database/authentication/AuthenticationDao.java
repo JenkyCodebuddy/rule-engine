@@ -1,12 +1,9 @@
 package jenky.codebuddy.database.authentication;
 
 import jenky.codebuddy.database.generic.GenericDao;
-import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.models.entities.Authentication;
 
-import java.security.Key;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Specific methods for achievement. This interface inherits GenericDao interface

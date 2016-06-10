@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.project;
 
 import jenky.codebuddy.database.generic.GenericDao;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Project;
 
 import java.util.List;

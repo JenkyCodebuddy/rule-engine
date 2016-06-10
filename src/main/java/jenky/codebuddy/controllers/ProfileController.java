@@ -1,7 +1,6 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Profile;
-import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.AuthenticationService;
 import jenky.codebuddy.services.ProfileService;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -24,7 +23,7 @@ public class ProfileController {
     @RequestMapping(method = RequestMethod.GET)
     private Profile getProfile(@RequestHeader Map<String,String> headers) {
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return profileService.returnProfile(headers.get("token"));
+            return getProfileService().returnProfile(headers.get("token"));
         }
         else{
             return new Profile("Token not valid");

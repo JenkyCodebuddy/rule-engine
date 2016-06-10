@@ -1,12 +1,10 @@
 package jenky.codebuddy.database.user;
 
 import jenky.codebuddy.database.generic.GenericDao;
-import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Defines the specific methods VerificationDao must have.

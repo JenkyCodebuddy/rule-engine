@@ -1,9 +1,7 @@
 package jenky.codebuddy.database.metric;
 
 import jenky.codebuddy.database.generic.GenericDao;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Metric;
-import jenky.codebuddy.models.entities.Project;
 
 import java.util.List;
 

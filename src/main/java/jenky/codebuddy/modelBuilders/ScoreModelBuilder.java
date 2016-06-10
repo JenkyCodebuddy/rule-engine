@@ -1,6 +1,5 @@
 package jenky.codebuddy.modelbuilders;
 
-import jenky.codebuddy.database.score.ScoreService;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
@@ -8,9 +7,12 @@ import jenky.codebuddy.services.ScoreUserService;
 import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 import wildtornado.scocalc.objects.Score;
-//import wildtornado.scocalc.strategies.Calculator;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//import wildtornado.scocalc.strategies.Calculator;
 
 public class ScoreModelBuilder {
     private DataInput metricsDataInputModel;
@@ -69,26 +71,45 @@ public class ScoreModelBuilder {
     private void mapComparisonDataInputModel(String email) {
         List<jenky.codebuddy.models.entities.Score> previousScores = new ScoreUserService().getPreviousScores(email);
         HashMap<String, Double> previousScoresMap = new HashMap<String, Double>();
+        this.comparisonDataInputModel = new DataInput();
         for (jenky.codebuddy.models.entities.Score score : previousScores) {
             previousScoresMap.put(score.getMetric().getName(), score.getSonar_value());
         }
-        this.comparisonDataInputModel = new DataInput();
-        this.comparisonDataInputModel.setCommentPercentage(0);
-        this.comparisonDataInputModel.setLinesOfCode(previousScoresMap.get("ncloc"));
-        this.comparisonDataInputModel.setTechnicalDebt(previousScoresMap.get("sqale_index"));
-        this.comparisonDataInputModel.setCodeDuplication(previousScoresMap.get("duplicated_lines"));
-        this.comparisonDataInputModel.setCodeDuplicationDensity(previousScoresMap.get("duplicated_lines_density"));
-        this.comparisonDataInputModel.setCommentLines(previousScoresMap.get("comment_lines"));
-        this.comparisonDataInputModel.setNumberOfTests(previousScoresMap.get("tests"));
-        this.comparisonDataInputModel.setTestCoverage(previousScoresMap.get("coverage"));
-        this.comparisonDataInputModel.setTestErrors(previousScoresMap.get("test_errors"));
-        this.comparisonDataInputModel.setTestFailures(previousScoresMap.get("test_failures"));
-        this.comparisonDataInputModel.setCodeViolations(previousScoresMap.get("violations"));
-        this.comparisonDataInputModel.setCommentedOutCodeLines(0);
-        this.comparisonDataInputModel.setMajorViolations(previousScoresMap.get("major_violations"));
-        this.comparisonDataInputModel.setMinorViolations(previousScoresMap.get("minor_violations"));
-        this.comparisonDataInputModel.setCriticalViolations(previousScoresMap.get("critical_violations"));
-        this.comparisonDataInputModel.setBlockerViolations(previousScoresMap.get("blocker_violations"));
+        if (previousScoresMap.size() == 0){
+            this.comparisonDataInputModel.setCommentPercentage(0);
+            this.comparisonDataInputModel.setLinesOfCode(0);
+            this.comparisonDataInputModel.setTechnicalDebt(0);
+            this.comparisonDataInputModel.setCodeDuplication(0);
+            this.comparisonDataInputModel.setCodeDuplicationDensity(0);
+            this.comparisonDataInputModel.setCommentLines(0);
+            this.comparisonDataInputModel.setNumberOfTests(0);
+            this.comparisonDataInputModel.setTestCoverage(0);
+            this.comparisonDataInputModel.setTestErrors(0);
+            this.comparisonDataInputModel.setTestFailures(0);
+            this.comparisonDataInputModel.setCodeViolations(0);
+            this.comparisonDataInputModel.setCommentedOutCodeLines(0);
+            this.comparisonDataInputModel.setMajorViolations(0);
+            this.comparisonDataInputModel.setMinorViolations(0);
+            this.comparisonDataInputModel.setCriticalViolations(0);
+            this.comparisonDataInputModel.setBlockerViolations(0);
+        } else {
+            this.comparisonDataInputModel.setCommentPercentage(0);
+            this.comparisonDataInputModel.setLinesOfCode(previousScoresMap.get("ncloc"));
+            this.comparisonDataInputModel.setTechnicalDebt(previousScoresMap.get("sqale_index"));
+            this.comparisonDataInputModel.setCodeDuplication(previousScoresMap.get("duplicated_lines"));
+            this.comparisonDataInputModel.setCodeDuplicationDensity(previousScoresMap.get("duplicated_lines_density"));
+            this.comparisonDataInputModel.setCommentLines(previousScoresMap.get("comment_lines"));
+            this.comparisonDataInputModel.setNumberOfTests(previousScoresMap.get("tests"));
+            this.comparisonDataInputModel.setTestCoverage(previousScoresMap.get("coverage"));
+            this.comparisonDataInputModel.setTestErrors(previousScoresMap.get("test_errors"));
+            this.comparisonDataInputModel.setTestFailures(previousScoresMap.get("test_failures"));
+            this.comparisonDataInputModel.setCodeViolations(previousScoresMap.get("violations"));
+            this.comparisonDataInputModel.setCommentedOutCodeLines(0);
+            this.comparisonDataInputModel.setMajorViolations(previousScoresMap.get("major_violations"));
+            this.comparisonDataInputModel.setMinorViolations(previousScoresMap.get("minor_violations"));
+            this.comparisonDataInputModel.setCriticalViolations(previousScoresMap.get("critical_violations"));
+            this.comparisonDataInputModel.setBlockerViolations(previousScoresMap.get("blocker_violations"));
+        }
     }
 
     public void createScoreModel(){

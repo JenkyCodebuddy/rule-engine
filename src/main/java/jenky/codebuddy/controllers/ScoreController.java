@@ -2,8 +2,6 @@ package jenky.codebuddy.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import jenky.codebuddy.BusinessLogicController;
-import jenky.codebuddy.BusinessLogicDB;
 import jenky.codebuddy.modelbuilders.CommitModelBuilder;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.gson.SonarResponse;
@@ -17,7 +15,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Restcontroller
+ */
 @RestController
 @RequestMapping(value = "/score")
 public class ScoreController {
@@ -35,12 +35,11 @@ public class ScoreController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    private void test(@RequestHeader Map<String, String> headers){
+    private void saveScore(@RequestHeader Map<String, String> headers){
         ScoreUserService scoreUserService = new ScoreUserService();
         Gson gson = new Gson();
-        String sonarqubeResponse = headers.get("sonarquberesponse");
-        Type test = new TypeToken<List<SonarResponse>>(){}.getType();
-        List<SonarResponse> sonarResponseList = gson.fromJson(sonarqubeResponse.trim(), test);
+        Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
+        List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
         SonarResponse sonarResponse = sonarResponseList.get(0);
         githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
         CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);

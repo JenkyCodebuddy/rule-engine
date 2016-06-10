@@ -2,12 +2,10 @@ package jenky.codebuddy.database.commit;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Commit;
-import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Persistence for UserCommit. Inherits GenericDao and implements the CommitDao interface

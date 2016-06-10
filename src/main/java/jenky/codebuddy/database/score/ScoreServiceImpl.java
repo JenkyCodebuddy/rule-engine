@@ -2,7 +2,6 @@ package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
 import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -32,14 +31,8 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
 
     }
 
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public List<Score> getScoresFromUserGroupedByCommit(int user_id){
-        return scoreDao.getScoresFromUserGroupedByCommit(user_id);
-    }
-
     /**
-     * Asks the projectDao to save the given project.
+     * Asks the scoreDao to save the given score.
      * Transaction management done by Spring.
      * @param score
      */
@@ -47,6 +40,17 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
     @Transactional(propagation = Propagation.REQUIRED)
     public void save(Score score) {
         scoreDao.save(score);
+    }
+
+    /**
+     * Asks the scoreDao to delete the given score.
+     * Transaction management done by Spring.
+     * @param score
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void delete(Score score) {
+        scoreDao.delete(score);
     }
 
     /**
@@ -92,7 +96,8 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void delete(Score score){
-        scoreDao.delete(score);
+    public boolean checkIfUserHasScores(int project_id){
+        return scoreDao.checkIfUserHasScores(project_id);
     }
+
 }

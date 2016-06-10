@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.company;
 
 import jenky.codebuddy.database.generic.GenericService;
-import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Company;
 
 import java.util.List;

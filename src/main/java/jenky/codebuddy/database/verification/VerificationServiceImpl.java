@@ -1,15 +1,12 @@
 package jenky.codebuddy.database.verification;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
-import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.entities.Verification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * Service layer of Profile. Inherits the GenericService and implements the VerificationService interface.

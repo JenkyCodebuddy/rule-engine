@@ -1,6 +1,7 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
+import jenky.codebuddy.database.item.ItemServiceImpl;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Project;
@@ -21,6 +22,7 @@ public class ProjectsService {
     private ApplicationContext context;
     private ProjectServiceImpl projectService;
     private ScoreServiceImpl scoreService;
+    private ItemServiceImpl itemService;
     private AuthenticationServiceImpl authenticationService;
 
     public ProjectsService() {
@@ -28,28 +30,29 @@ public class ProjectsService {
         setProjectService((ProjectServiceImpl) getContext().getBean("projectServiceImpl"));
         setAuthenticationService((AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl"));
         setScoreService((ScoreServiceImpl) getContext().getBean("scoreServiceImpl"));
+        setItemService((ItemServiceImpl) getContext().getBean("itemServiceImpl"));
     }
 
-    public ActiveProjects returnActiveProjectsForUser(String token){
+    public ActiveProjects returnActiveProjectsForUser(String token) {
         User user = getUserWithToken(token);
         List<Project> allProjects = getAllProjectsFromUser(user);
         return new ActiveProjects(allProjects);
     }
 
-    public SingleProject returnSingleProjectWithScores(int project_id){
+    public SingleProject returnSingleProjectWithScores(int project_id) {
         List<Score> projectScores = getScoresFromProject(project_id);
         return new SingleProject(projectScores);
     }
 
-    private User getUserWithToken(String token){
+    private User getUserWithToken(String token) {
         return getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
     }
 
-    private List<Project> getAllProjectsFromUser(User user){
+    private List<Project> getAllProjectsFromUser(User user) {
         return getProjectService().getActiveProjectsFromUser(user.getUser_id());
     }
 
-    private List<Score> getScoresFromProject(int project_id){
+    private List<Score> getScoresFromProject(int project_id) {
         return getScoreService().getScoresFromProject(project_id);
     }
 
@@ -83,5 +86,13 @@ public class ProjectsService {
 
     public void setScoreService(ScoreServiceImpl scoreService) {
         this.scoreService = scoreService;
+    }
+
+    public ItemServiceImpl getItemService() {
+        return itemService;
+    }
+
+    public void setItemService(ItemServiceImpl itemService) {
+        this.itemService = itemService;
     }
 }

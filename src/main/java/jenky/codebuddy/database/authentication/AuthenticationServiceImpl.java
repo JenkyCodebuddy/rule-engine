@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.authentication;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
-import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.models.entities.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,9 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Key;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Service layer of Achievement. Inherits GenericService and implements the AuthenticationService interface
