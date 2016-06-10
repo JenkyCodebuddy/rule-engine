@@ -94,7 +94,7 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
 
     @Override
     public List<Score> getScoresFromProject(int project_id) {
-        String hql = "SELECT score.user.email, sum(score.score), (SELECT item.name FROM Item item where item.id = 1) FROM Score score INNER JOIN score.commit as commits INNER JOIN commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
+        String hql = "SELECT score.user.email, sum(score.score) FROM Score score INNER JOIN score.commit as commits INNER JOIN commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
 
         /*"SELECT item.id, item.name, item.image, item.type " +
                 "FROM Item item " +

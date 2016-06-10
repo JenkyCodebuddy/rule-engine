@@ -78,6 +78,24 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
         userDao.setPasswordForUser(password, userEmail, updatedAt);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public boolean checkIfUserDoesntHaveItem(int user_id, int item_id){
+        return userDao.checkIfUserDoesntHaveItem(user_id, item_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public boolean checkIfUserHasEnoughCoins(int user_id, double amount){
+        return userDao.checkIfUserHasEnoughCoins(user_id, amount);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public void subtractCoins(int user_id, double amount){
+        userDao.subtractCoins(user_id, amount);
+    }
+
     /**
      * Saves or updates the user.
      * @param user

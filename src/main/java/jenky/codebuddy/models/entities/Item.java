@@ -1,6 +1,7 @@
 package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
+import javax.websocket.ClientEndpoint;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +30,9 @@ public class Item {
     @Column(name = "image")
     private String image;
 
+    @Column(name = "price")
+    private double price;
+
     @Column(name = "created_at")
     private Date created_at;
 
@@ -42,11 +46,12 @@ public class Item {
 
     }
 
-    public Item(Set<ItemUser> itemusers, String name, String type, String image, Date created_at, Date updated_at, Date deleted_at) {
+    public Item(Set<ItemUser> itemusers, String name, String type, String image, double price, Date created_at, Date updated_at, Date deleted_at) {
         this.itemusers = itemusers;
         this.name = name;
         this.type = type;
         this.image = image;
+        this.price = price;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -114,5 +119,13 @@ public class Item {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

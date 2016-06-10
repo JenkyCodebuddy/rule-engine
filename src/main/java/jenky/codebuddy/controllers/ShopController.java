@@ -33,7 +33,7 @@ public class ShopController {
         }
     }
 
-    @RequestMapping(value = "/buy/{item_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/buy/{item_id}", method = RequestMethod.POST)
     private Response buyItemForUser(@PathVariable int item_id, @RequestHeader Map<String, String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
             return getShopService().buyItemForUser(headers.get("token"), item_id);
