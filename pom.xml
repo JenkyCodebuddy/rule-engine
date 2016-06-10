@@ -192,11 +192,11 @@
 			<id>spring-releases</id>
 			<url>https://repo.spring.io/libs-release</url>
 		</repository>
-		<repository>
-			<id>project.local</id>
-			<name>rule-engine</name>
-			<url>file:${project.basedir}/repo</url>
-		</repository>
+		<!--<repository>-->
+			<!--<id>project.local</id>-->
+			<!--<name>rule-engine</name>-->
+			<!--<url>file:${project.basedir}/repo</url>-->
+		<!--</repository>-->
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
