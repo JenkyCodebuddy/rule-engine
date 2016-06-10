@@ -29,7 +29,7 @@ public class ShopController {
             return getShopService().getAllItems();
         }
         else{
-            return new Items("Token not valid");
+            return new Items(400,"Token not valid");
         }
     }
 
