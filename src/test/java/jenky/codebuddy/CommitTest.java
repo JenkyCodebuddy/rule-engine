@@ -3,6 +3,8 @@ package jenky.codebuddy;
 import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
 import jenky.codebuddy.database.commit.CommitServiceImpl;
 import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.services.DatabaseFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,15 +19,10 @@ import static org.junit.Assert.assertNotNull;
  */
 public class CommitTest {
 
-    private ApplicationContext context;
-    private CommitServiceImpl commitService;
+    private Commit commit;
 
-    Commit commit;
-
-    public CommitTest() {
-        this.context = (new ClassPathXmlApplicationContext("spring.xml"));
-        this.commitService = (CommitServiceImpl) getContext().getBean("commitServiceImpl");
-
+    @Before
+    public void setUp() {
         this.commit = new Commit();
         this.commit.setCreated_at(TestInfo.TESTDATE);
     }
@@ -33,27 +30,22 @@ public class CommitTest {
     @Test
     @Transactional
     public void getAllCommits() throws Exception{
-        assertNotNull(commitService.getCommits());
+        assertNotNull(DatabaseFactory.getCommitService().getCommits());
     }
 
     @Test
     @Transactional
     @Rollback
     public void saveCommit() throws Exception{
-        commitService.saveCommit(this.commit);
+        DatabaseFactory.getCommitService().saveCommit(this.commit);
     }
 
     @Test
     @Transactional
     public void getCommitsFromUser(){
-        assertNotNull(commitService.getCommitsFromUser(TestInfo.TESTID));
+        assertNotNull(DatabaseFactory.getCommitService().getCommitsFromUser(TestInfo.TESTID));
     }
 
-
-
-    public ApplicationContext getContext() {
-        return context;
-    }
 
 
 

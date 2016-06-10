@@ -2,6 +2,8 @@ package jenky.codebuddy;
 
 import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.services.DatabaseFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,52 +18,28 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
 
-    private ApplicationContext context;
-    private UserServiceImpl userService;
-
-    public UserTest() throws Exception {
-        this.context = new ClassPathXmlApplicationContext("spring.xml");
-        this.userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-    }
-
     @Test
     @Transactional
     public void getAllUsers() throws Exception{
-        assertNotNull(userService.getAllUsers());
+        assertNotNull(DatabaseFactory.getUserService().getAllUsers());
     }
 
     @Test
     @Transactional
     public void checkIfUserExists() throws Exception{
-        assertNotNull(userService.checkIfUserExists(TestInfo.TESTEMAIL));
+        assertNotNull(DatabaseFactory.getUserService().checkIfUserExists(TestInfo.TESTEMAIL));
     }
 
     @Test
     @Transactional
     public void getUserIfExists() throws Exception{
-        assertNotNull(userService.getUserIfExists(TestInfo.TESTEMAIL));
+        assertNotNull(DatabaseFactory.getUserService().getUserIfExists(TestInfo.TESTEMAIL));
     }
 
     @Test
     @Transactional
     @Rollback
     public void setPasswordForUser(){
-        userService.setPasswordForUser(TestInfo.TESTPASSWORD, TestInfo.TESTEMAIL, TestInfo.TESTDATE);
-    }
-
-    public ApplicationContext getContext() throws Exception{
-        return context;
-    }
-
-    public void setContext(ApplicationContext context) {
-        this.context = context;
-    }
-
-    public UserServiceImpl getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserServiceImpl userService) {
-        this.userService = userService;
+        DatabaseFactory.getUserService().setPasswordForUser(TestInfo.TESTPASSWORD, TestInfo.TESTEMAIL, TestInfo.TESTDATE);
     }
 }

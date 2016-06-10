@@ -2,6 +2,7 @@ package jenky.codebuddy;
 
 import jenky.codebuddy.database.achievement.AchievementServiceImpl;
 import jenky.codebuddy.models.entities.Achievement;
+import jenky.codebuddy.services.DatabaseFactory;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,35 +16,21 @@ import static org.junit.Assert.assertSame;
  */
 public class AchievementTest {
 
-
-    private ApplicationContext context;
-    AchievementServiceImpl achievementService;
-
-    public AchievementTest(){
-        this.context = (new ClassPathXmlApplicationContext("spring.xml"));
-        this.achievementService = (AchievementServiceImpl) getContext().getBean("achievementServiceImpl");
-    }
-
     @Test
     @Transactional
     public void getAchievements() throws Exception{
-        assertNotNull(achievementService.getAchievements());
+        assertNotNull(DatabaseFactory.getAchievementService().getAchievements());
     }
 
     @Test
     @Transactional
     public void getAchievementCountFromUser() throws Exception{
-        assertNotNull(achievementService.getAchievementCountFromUser(TestInfo.TESTID));
+        assertNotNull(DatabaseFactory.getAchievementService().getAchievementCountFromUser(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
     public void getAchievementFromUser() throws Exception{
-        assertSame(Achievement.class, achievementService.getAchievementsFromUser(TestInfo.TESTID));
-    }
-
-
-    public ApplicationContext getContext() {
-        return context;
+        assertSame(Achievement.class, DatabaseFactory.getAchievementService().getAchievementsFromUser(TestInfo.TESTID).get(0));
     }
 }

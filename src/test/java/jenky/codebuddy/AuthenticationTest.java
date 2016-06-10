@@ -8,8 +8,10 @@ import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.services.AuthenticationService;
+import jenky.codebuddy.services.DatabaseFactory;
 import jenky.codebuddy.services.LoginService;
 import jenky.codebuddy.token.models.Token;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -31,16 +33,10 @@ import static org.junit.Assert.assertNotNull;
  */
 public class AuthenticationTest {
 
-
-    private ApplicationContext context;
-    private AuthenticationServiceImpl authenticationService;
-
     private Authentication authentication;
 
-    public AuthenticationTest(){
-        this.context = (new ClassPathXmlApplicationContext("spring.xml"));
-        this.authenticationService = (AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl");
-
+    @Before
+    public void setUp(){
         User testUser = new User();
         testUser.setEmail(TestInfo.TESTEMAIL);
         this.authentication = new Authentication();
@@ -69,44 +65,32 @@ public class AuthenticationTest {
     @Transactional
     @Rollback
     public void saveAuthentication() throws Exception{
-        authenticationService.saveAuthentication(this.authentication);
+        DatabaseFactory.getAuthenticationService().saveAuthentication(this.authentication);
     }
 
     @Test
     @Transactional
     public void checkIfAuthenticationForUserExists() throws Exception{
-        assertNotNull(authenticationService.checkIfAuthenticationForUserExists(TestInfo.TESTID));
+        assertNotNull(DatabaseFactory.getAuthenticationService().checkIfAuthenticationForUserExists(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
     @Rollback
     public void updateAuthentication() throws Exception{
-        authenticationService.updateAuthentication(TestInfo.TESTID, TestInfo.TESTTOKEN, TestInfo.TESTKEYSTRING, TestInfo.TESTDATE);
+        DatabaseFactory.getAuthenticationService().updateAuthentication(TestInfo.TESTID, TestInfo.TESTTOKEN, TestInfo.TESTKEYSTRING, TestInfo.TESTDATE);
     }
 
     @Test
     @Transactional
     public void checkifAuthentactionTokenExists() throws Exception{
-        assertNotNull(authenticationService.checkIfAuthenticationForUserExists(TestInfo.TESTID));
+        assertNotNull(DatabaseFactory.getAuthenticationService().checkIfAuthenticationForUserExists(TestInfo.TESTID));
     }
 
     @Test
     @Transactional
     public void getAuthenticationTokenIfExists() throws Exception{
-        assertNotNull(authenticationService.getAuthenticationIfTokenExists(TestInfo.TESTTOKEN));
+        assertNotNull(DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(TestInfo.TESTTOKEN));
     }
 
-
-    public ApplicationContext getContext() {
-        return context;
-    }
-
-    public void setContext(ApplicationContext context) {
-        this.context = context;
-    }
-
-    public AuthenticationServiceImpl getAuthenticationService() {
-        return authenticationService;
-    }
 }

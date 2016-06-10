@@ -2,6 +2,8 @@ package jenky.codebuddy;
 
 import jenky.codebuddy.database.metric.MetricServiceImpl;
 import jenky.codebuddy.models.entities.Metric;
+import jenky.codebuddy.services.DatabaseFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,14 +18,10 @@ import static org.junit.Assert.assertNotNull;
  */
 public class MetricTest {
 
-    private ApplicationContext context;
-    private MetricServiceImpl metricService;
-
     Metric metric;
 
-    public MetricTest(){
-        this.context = (new ClassPathXmlApplicationContext("spring.xml"));
-        this.metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
+    @Before
+    public void setUp(){
         this.metric = new Metric();
         metric.setName(TestInfo.TESTMETRIC);
     }
@@ -32,17 +30,13 @@ public class MetricTest {
     @Transactional
     @Rollback
     public void saveMetric() throws Exception{
-        metricService.saveMetric(this.metric);
+        DatabaseFactory.getMetricService().saveMetric(this.metric);
     }
 
     @Test
     @Transactional
     public void checkIfMetricExsists(){
-        assertNotNull(metricService.checkIfMetricExists(TestInfo.TESTMETRIC));
-    }
-
-    public ApplicationContext getContext() {
-        return context;
+        assertNotNull(DatabaseFactory.getMetricService().checkIfMetricExists(TestInfo.TESTMETRIC));
     }
 
 }
