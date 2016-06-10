@@ -50,7 +50,6 @@ public class ScoreUserService {
     }
 
     private void saveUserScore(Commit commit){
-
         List<Metric> metricsList = this.sonarResponse.getMsr();
         Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
         User user = userService.getUserIfExists(this.userCommit.getEmail());
@@ -64,6 +63,7 @@ public class ScoreUserService {
             scores.add(score);
             scoreService.save(score);
         }
+        //TODO add to current coins
         user.setJenkycoins(this.metricsDataInputModel.getCoinsEarned());
         user.setScores(scores);
         user.setUpdated_at(new Date());
