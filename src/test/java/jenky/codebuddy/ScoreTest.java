@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Created by Fabian on 9-6-2016.
@@ -19,22 +19,19 @@ import static org.junit.Assert.assertEquals;
 public class ScoreTest extends GenericDaoImpl<Score, Integer> {
 
     private final String TESTEMAIL = "joost1235@hotmail.com";
+    private final Integer TESTID = 1;
+
     private ApplicationContext context;
-    ScoreServiceImpl scoreService;
-    Score testScore;
-    User testuser;
+    private ScoreServiceImpl scoreService;
+    private Score testScore;
 
     public ScoreTest() {
-        setContext(new ClassPathXmlApplicationContext("spring.xml"));
+        this.context = (new ClassPathXmlApplicationContext("spring.xml"));
         this.scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
         testScore = new Score();
-        testScore.setUser(testuser);
-        testuser = new User();
+        User testuser = new User();
         testuser.setEmail(TESTEMAIL);
-    }
-
-    public static void main(String[] args) {
-
+        testScore.setUser(testuser);
     }
 
     @Test
@@ -46,8 +43,7 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
     @Test
     @Transactional
     public void getPreviousScores()throws Exception{
-        List<Score> scores = scoreService.getPreviousScores(TESTEMAIL);
-        assertEquals(testScore.getClass(), scores.get(1).getClass());
+        assertNotNull(scoreService.getPreviousScores(TESTEMAIL));
     }
 
     @Test
@@ -56,11 +52,38 @@ public class ScoreTest extends GenericDaoImpl<Score, Integer> {
         scoreService.delete(testScore);
     }
 
-    public ApplicationContext getContext() {
+    @Test
+    @Transactional
+    public void getAverageScore()throws Exception{
+        assertNotNull(scoreService.getAvgScoreFromUser(TESTID));
+    }
+
+    @Test
+    @Transactional
+    public void getTotalScoreFromUser()throws Exception{
+        assertNotNull(scoreService.getTotalScoreFromUser(TESTID));
+    }
+
+    @Test
+    @Transactional
+    public void getScoresFromProject()throws Exception{
+        List<Score> scores = scoreService.getScoresFromProject(TESTID);
+        assertNotNull(scores);
+    }
+
+    @Test
+    @Transactional
+    public void checkIfUserHasScores()throws Exception{
+        boolean check = scoreService.checkIfUserHasScores(TESTID);
+        assertNotNull(check);
+    }
+
+
+    private ApplicationContext getContext() {
         return context;
     }
 
-    public void setContext(ApplicationContext context) {
+    private void setContext(ApplicationContext context) {
         this.context = context;
     }
 

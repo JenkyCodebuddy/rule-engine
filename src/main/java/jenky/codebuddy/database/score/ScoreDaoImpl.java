@@ -55,7 +55,6 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("userEmail",userEmail);
         Optional result = Optional.ofNullable(query.uniqueResult());
-        System.out.println("result = " + result);
         if(result.isPresent()){
             String hql2 = "from Score s WHERE s.commit.id = :commitId";
             Query query2 = getSessionFactory().getCurrentSession().createQuery(hql2);
