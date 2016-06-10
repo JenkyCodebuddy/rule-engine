@@ -1,17 +1,7 @@
 package jenky.codebuddy;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.entities.User;
-import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Commented

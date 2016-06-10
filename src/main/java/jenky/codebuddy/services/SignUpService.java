@@ -1,14 +1,9 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.SendMail;
-import jenky.codebuddy.database.user.UserServiceImpl;
-import jenky.codebuddy.database.verification.VerificationServiceImpl;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.entities.Verification;
 import jenky.codebuddy.models.rest.Response;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.jpa.vendor.Database;
 
 import java.util.Date;
 import java.util.Random;

@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 /**
  * Persistence layer of ScoreDao. Inherets GenericDao and implements the ScoreDao interface.

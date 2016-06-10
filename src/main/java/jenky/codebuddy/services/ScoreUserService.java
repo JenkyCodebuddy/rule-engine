@@ -1,16 +1,10 @@
 package jenky.codebuddy.services;
 
-import jenky.codebuddy.database.metric.MetricServiceImpl;
-import jenky.codebuddy.database.project.ProjectServiceImpl;
-import jenky.codebuddy.database.score.ScoreServiceImpl;
-import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import wildtornado.scocalc.objects.Score;
 
 import java.util.*;

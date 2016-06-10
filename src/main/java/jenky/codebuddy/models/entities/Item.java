@@ -1,7 +1,6 @@
 package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
-import javax.websocket.ClientEndpoint;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

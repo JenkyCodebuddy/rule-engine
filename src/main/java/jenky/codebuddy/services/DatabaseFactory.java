@@ -11,8 +11,6 @@ import jenky.codebuddy.database.project.ProjectServiceImpl;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.database.verification.VerificationServiceImpl;
-import jenky.codebuddy.models.entities.Achievement;
-import jenky.codebuddy.models.rest.Equipment;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
