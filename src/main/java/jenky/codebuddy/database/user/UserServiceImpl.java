@@ -15,7 +15,7 @@ import java.util.List;
  * Service layer of Profile. Inherits the GenericService and implements the VerificationService interface.
  */
 @Service
-public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<User, Integer> implements UserService {
 
     private UserDao userDao;
 

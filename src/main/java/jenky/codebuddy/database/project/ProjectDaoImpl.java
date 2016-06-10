@@ -12,7 +12,7 @@ import java.util.Optional;
  * Perisstence of ProjectDao. Inherits GenericDaoImpl and implements ProjectDao interface
  */
 @Repository
-public class ProjectDaoImpl extends GenericDaoImpl<Project> implements ProjectDao {
+public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements ProjectDao {
 
     /**
      * Get all the projects

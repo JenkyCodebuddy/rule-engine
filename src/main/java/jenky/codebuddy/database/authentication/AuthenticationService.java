@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Specfic methods for the service Achievement. Inherits GenericService interface
  */
-public interface AuthenticationService extends GenericService<Authentication> {
+public interface AuthenticationService extends GenericService<Authentication, Integer> {
     public void saveAuthentication(Authentication authentication);
 
     public void updateAuthentication(int userId, String token, String key, Date updated_at);

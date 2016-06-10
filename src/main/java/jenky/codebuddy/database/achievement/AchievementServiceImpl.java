@@ -14,7 +14,7 @@ import java.util.List;
  * Service layer of Achievement. Inherits GenericService and implements the AuthenticationService interface
  */
 @Service
-public class AchievementServiceImpl extends GenericServiceImpl<Achievement> implements AchievementService {
+public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Integer> implements AchievementService {
 
     private AchievementDao achievementDao;
 

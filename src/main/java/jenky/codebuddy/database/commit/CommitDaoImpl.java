@@ -11,7 +11,7 @@ import java.util.List;
  * Persistence for UserCommit. Inherits GenericDao and implements the CommitDao interface
  */
 @Repository
-public class CommitDaoImpl extends GenericDaoImpl<Commit> implements CommitDao {
+public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements CommitDao {
 
     /**
      * Get all the commit

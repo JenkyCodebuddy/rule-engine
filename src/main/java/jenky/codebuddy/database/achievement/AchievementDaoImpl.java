@@ -11,7 +11,7 @@ import java.util.List;
  * Persistence for Achievement. This inherits GenericDaoImplementation
  */
 @Repository
-public class AchievementDaoImpl extends GenericDaoImpl<Achievement> implements AchievementDao {
+public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> implements AchievementDao {
 
     /**
      * Get all the achievements

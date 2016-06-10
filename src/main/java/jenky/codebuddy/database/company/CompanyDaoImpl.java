@@ -11,7 +11,7 @@ import java.util.List;
  * Peristence for CompanyDao. Inherits GenericaDao and implements the CompanyDao interface
 */
 @Repository
-public class CompanyDaoImpl extends GenericDaoImpl<Company> implements CompanyDao {
+public class CompanyDaoImpl extends GenericDaoImpl<Company, Integer> implements CompanyDao {
 
     /**
      * get all the companies

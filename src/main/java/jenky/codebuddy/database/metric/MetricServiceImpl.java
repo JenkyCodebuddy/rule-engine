@@ -14,7 +14,7 @@ import java.util.List;
  * Service layer of Metric. Inherits the GenericService and implements the MetricService
  */
 @Service
-public class MetricServiceImpl extends GenericServiceImpl<Metric> implements MetricService {
+public class MetricServiceImpl extends GenericServiceImpl<Metric, Integer> implements MetricService {
 
     private MetricDao metricDao;
 

@@ -9,7 +9,7 @@ import java.util.Date;
  * Specific methods for achievement. This interface inherits GenericDao interface
  */
 
-public interface AuthenticationDao extends GenericDao<Authentication> {
+public interface AuthenticationDao extends GenericDao<Authentication, Integer> {
 
     public void saveAuthentication(Authentication authentication);
 

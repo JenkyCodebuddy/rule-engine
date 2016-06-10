@@ -6,7 +6,7 @@ import jenky.codebuddy.models.entities.Verification;
 /**
  * Defines the specific methods VerificationDao must have.
  */
-public interface VerificationDao extends GenericDao<Verification> {
+public interface VerificationDao extends GenericDao<Verification, Integer> {
     public void addNewVerification(Verification verification);
 
     public void removeVerification(Verification verification);

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This interface specifies specific methodes for MetricDao
  */
-public interface MetricDao extends GenericDao<Metric> {
+public interface MetricDao extends GenericDao<Metric, Integer> {
     public List<Metric> getAllMetrics();
 
     public boolean checkIfMetricExists(String metric);

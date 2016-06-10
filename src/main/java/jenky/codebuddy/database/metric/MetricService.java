@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This interface specifices the specific methods MetricService must have.
  */
-public interface MetricService extends GenericService<Metric> {
+public interface MetricService extends GenericService<Metric, Integer> {
     public List<Metric> getAllMetrics();
 
     public boolean checkIfMetricExists(String metric);

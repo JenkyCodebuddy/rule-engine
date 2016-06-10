@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Defines the specific methods ProjectDao must have.
  */
-public interface ProjectDao extends GenericDao<Project> {
+public interface ProjectDao extends GenericDao<Project, Integer> {
     public List<Project> getAllProjects();
 
     public void saveProject(Project project);

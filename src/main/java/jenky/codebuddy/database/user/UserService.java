@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * This interface specifies the methods ProjectSerivce must have.
  */
-public interface UserService extends GenericService<User> {
+public interface UserService extends GenericService<User, Integer> {
     public List<User> getAllUsers();
 
     public void save(User user);

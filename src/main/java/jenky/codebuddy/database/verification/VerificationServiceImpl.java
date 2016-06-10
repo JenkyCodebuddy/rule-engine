@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Service layer of Profile. Inherits the GenericService and implements the VerificationService interface.
  */
 @Service
-public class VerificationServiceImpl extends GenericServiceImpl<Verification> implements VerificationService {
+public class VerificationServiceImpl extends GenericServiceImpl<Verification, Integer> implements VerificationService {
 
     private VerificationDao verificationDao;
 

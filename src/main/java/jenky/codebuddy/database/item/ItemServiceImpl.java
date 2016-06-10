@@ -15,7 +15,7 @@ import java.util.List;
  * Service layer of Item. Inherits the GenericService and implements the ItemService
  */
 @Service
-public class ItemServiceImpl extends GenericServiceImpl<Item> implements ItemService {
+public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implements ItemService {
 
     private ItemDao itemDao;
 

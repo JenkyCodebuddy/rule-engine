@@ -13,7 +13,7 @@ import java.util.Optional;
  * Perisstence of VerificationDao. Inherits GenericDaoImpl and implements VerificationDao interface
  */
 @Repository
-public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
+public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDao {
 
     /**
      * Get all the projects
