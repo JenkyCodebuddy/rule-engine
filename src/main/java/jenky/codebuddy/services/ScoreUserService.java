@@ -23,28 +23,13 @@ public class ScoreUserService {
     private Score metricsDataInputModel;
     private SonarResponse sonarResponse;
     private UserCommit userCommit;
-    private ApplicationContext context;
-
-    UserServiceImpl userService;
-    ScoreServiceImpl scoreService;
-    MetricServiceImpl metricService;
 
     public ScoreUserService (){
-        setContext(new ClassPathXmlApplicationContext("spring.xml"));
-        this.userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        this.scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
-        this.metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
     }
     public ScoreUserService(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit) {
-        setContext(new ClassPathXmlApplicationContext("spring.xml"));
         this.metricsDataInputModel = metricsDataInputModel;
         this.sonarResponse = sonarResponse;
         this.userCommit = userCommit;
-
-        this.userService = (UserServiceImpl) getContext().getBean("userServiceImpl");
-        this.scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
-        this.metricService = (MetricServiceImpl) getContext().getBean("metricServiceImpl");
-
         Commit commit = createCommit(userCommit);
         saveUserScore(commit);
     }
@@ -53,31 +38,29 @@ public class ScoreUserService {
 
         List<Metric> metricsList = this.sonarResponse.getMsr();
         Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
-        User user = userService.getUserIfExists(this.userCommit.getEmail());
+        User user = DatabaseFactory.getUserService().getUserIfExists(this.userCommit.getEmail());
         for (Metric aMetricsList : metricsList) {
             jenky.codebuddy.models.entities.Score score = new jenky.codebuddy.models.entities.Score();
             score.setUser(user);
             score.setSonar_value(aMetricsList.getVal());
             score.setScore((int) getScoreByName(aMetricsList.getKey()));
             score.setCommit(commit);
-            score.setMetric(metricService.getMetricIfExists(aMetricsList.getKey()));
+            score.setMetric(DatabaseFactory.getMetricService().getMetricIfExists(aMetricsList.getKey()));
             scores.add(score);
-            scoreService.save(score);
+            DatabaseFactory.getScoreService().save(score);
         }
         user.setJenkycoins(10);
         user.setScores(scores);
         user.setUpdated_at(new Date());
-        userService.saveOrUpdate(user);
+        DatabaseFactory.getUserService().saveOrUpdate(user);
     }
 
     private Commit createCommit(UserCommit userCommit){
-        ProjectServiceImpl projectService = (ProjectServiceImpl) getContext().getBean("projectServiceImpl");
         Commit commit = new Commit();
         commit.setBranch(userCommit.getBranch());
-        commit.setProject(projectService.getProjectIfExists(userCommit.getProjectName()));
+        commit.setProject(DatabaseFactory.getProjectService().getProjectIfExists(userCommit.getProjectName()));
         commit.setCreated_at(new Date());
         commit.setSha(userCommit.getSha());
-
         return commit;
     }
 
@@ -102,8 +85,7 @@ public class ScoreUserService {
     }
 
     public List<jenky.codebuddy.models.entities.Score> getPreviousScores(String email){
-        ScoreServiceImpl scoreService = (ScoreServiceImpl) getContext().getBean("scoreServiceImpl");
-        return scoreService.getPreviousScores(email);
+        return DatabaseFactory.getScoreService().getPreviousScores(email);
     }
 
     public Map<String, String> createGithubUserInfoMap(Map<String, String> headers){
@@ -114,16 +96,5 @@ public class ScoreUserService {
         githubInfoMap.put("sha", headers.get("sha"));
         githubInfoMap.put("projectName", headers.get("projectname"));
         return githubInfoMap;
-    }
-
-
-
-
-    private ApplicationContext getContext() {
-        return context;
-    }
-
-    private void setContext(ApplicationContext context) {
-        this.context = context;
     }
 }

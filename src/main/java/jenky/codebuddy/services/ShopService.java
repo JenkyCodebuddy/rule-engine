@@ -11,6 +11,7 @@ import jenky.codebuddy.models.rest.Items;
 import jenky.codebuddy.models.rest.Response;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.orm.jpa.vendor.Database;
 
 import java.util.List;
 
@@ -19,32 +20,21 @@ import java.util.List;
  */
 public class ShopService {
 
-    private ApplicationContext context;
-    private ItemServiceImpl itemService;
-    private UserServiceImpl userService;
-    private ItemUserServiceImpl itemUserService;
-    private AuthenticationServiceImpl authenticationService;
-
     public ShopService() {
-        setContext(new ClassPathXmlApplicationContext("spring.xml"));
-        setItemService((ItemServiceImpl) getContext().getBean("itemServiceImpl"));
-        setAuthenticationService((AuthenticationServiceImpl) getContext().getBean("authenticationServiceImpl"));
-        setUserService((UserServiceImpl) getContext().getBean("userServiceImpl"));
-        setItemUserService((ItemUserServiceImpl) getContext().getBean("itemUserServiceImpl"));
     }
 
     public Items getAllItems(){
-        List<Item> allItems = getItemService().getAllItems();
-        return new Items(allItems);
+        List<Item> allItems = DatabaseFactory.getItemService().getAllItems();
+        return new Items(allItems, 200);
     }
 
     public Response buyItemForUser(String token, int item_id){
-        User user = getUserWithToken(token);
-        if(checkIfItemExists(item_id)) {
-            Item item = getItemIfExists(item_id);
-            if (checkIfUserDoesntHaveItem(user, item_id)) {
-                if (checkIfUserHasEnoughCoins(user, item)) {
-                    subtractCoinsFromUser(user, item);
+        User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
+        if(DatabaseFactory.getItemService().checkIfItemExists(item_id)) {
+            Item item = DatabaseFactory.getItemService().getItemIfExists(item_id);
+            if (DatabaseFactory.getUserService().checkIfUserDoesntHaveItem(user.getUser_id(), item_id)) {
+                if (DatabaseFactory.getUserService().checkIfUserHasEnoughCoins(user.getUser_id(), item.getPrice())) {
+                    DatabaseFactory.getUserService().subtractCoins(user.getUser_id(), item.getPrice());
                     addItemToUser(user, item);
                     return new Response(200, "Item purchased for user");
                 } else {
@@ -58,75 +48,11 @@ public class ShopService {
         }
     }
 
-    private boolean checkIfItemExists(int item_id){
-        return getItemService().checkIfItemExists(item_id);
-    }
-
-    private Item getItemIfExists(int item_id){
-        return getItemService().getItemIfExists(item_id);
-    }
-
-    private boolean checkIfUserDoesntHaveItem(User user, int item_id){
-        return getUserService().checkIfUserDoesntHaveItem(user.getUser_id(), item_id);
-    }
-
-    private boolean checkIfUserHasEnoughCoins(User user, Item item){
-        return getUserService().checkIfUserHasEnoughCoins(user.getUser_id(), item.getPrice());
-    }
-
-    private void subtractCoinsFromUser(User user, Item item){
-        getUserService().subtractCoins(user.getUser_id(), item.getPrice());
-    }
-
     private void addItemToUser(User user, Item item){
         ItemUser itemUser = new ItemUser();
         itemUser.setUser(user);
         itemUser.setItem(item);
         itemUser.setEquipped(false);
-        getItemUserService().addItemUser(itemUser);
-    }
-
-    private User getUserWithToken(String token) {
-        return getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
-    }
-
-    public ApplicationContext getContext() {
-        return context;
-    }
-
-    public void setContext(ApplicationContext context) {
-        this.context = context;
-    }
-
-    public ItemServiceImpl getItemService() {
-        return itemService;
-    }
-
-    public void setItemService(ItemServiceImpl itemService) {
-        this.itemService = itemService;
-    }
-
-    public AuthenticationServiceImpl getAuthenticationService() {
-        return authenticationService;
-    }
-
-    public void setAuthenticationService(AuthenticationServiceImpl authenticationService) {
-        this.authenticationService = authenticationService;
-    }
-
-    public UserServiceImpl getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserServiceImpl userService) {
-        this.userService = userService;
-    }
-
-    public ItemUserServiceImpl getItemUserService() {
-        return itemUserService;
-    }
-
-    public void setItemUserService(ItemUserServiceImpl itemUserService) {
-        this.itemUserService = itemUserService;
+        DatabaseFactory.getItemUserService().addItemUser(itemUser);
     }
 }

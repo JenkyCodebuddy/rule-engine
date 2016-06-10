@@ -21,8 +21,9 @@ public class Equipment {
         this.responseMessage = responseMessage;
     }
 
-    public Equipment(List<Item> equipment) {
+    public Equipment(List<Item> equipment, int responseCode) {
         this.equipment = equipment;
+        this.responseCode = responseCode;
     }
 
     public List<Item> getEquipment() {

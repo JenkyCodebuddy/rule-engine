@@ -13,8 +13,9 @@ public class Achievements {
     public Achievements() {
     }
 
-    public Achievements(List<Achievement> achievements) {
+    public Achievements(List<Achievement> achievements, int responseCode) {
         this.achievements = achievements;
+        this.responseCode = responseCode;
     }
 
     public Achievements(int responseCode, String responseMessage) {
