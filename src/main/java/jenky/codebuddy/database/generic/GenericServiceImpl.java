@@ -13,12 +13,12 @@ import java.util.List;
  * This is the service layer. This does class does not has a direct connection to the database.
  */
 @Service
-public abstract class GenericServiceImpl<T, Id extends Serializable> implements GenericService<T, Id> {
+public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
-    private GenericDao<T, Id> genericDao;
+    private GenericDao<T> genericDao;
 
     @Autowired
-    public GenericServiceImpl(GenericDao<T, Id> genericDao){
+    public GenericServiceImpl(GenericDao<T> genericDao){
         this.genericDao = genericDao;
     }
 

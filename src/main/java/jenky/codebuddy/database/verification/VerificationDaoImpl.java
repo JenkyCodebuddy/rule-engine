@@ -11,7 +11,7 @@ import java.util.Optional;
  * Perisstence of VerificationDao. Inherits GenericDaoImpl and implements VerificationDao interface
  */
 @Repository
-public class VerificationDaoImpl extends GenericDaoImpl<Verification, Integer> implements VerificationDao {
+public class VerificationDaoImpl extends GenericDaoImpl<Verification> implements VerificationDao {
 
     @Override
     public void addNewVerification(Verification verification) {

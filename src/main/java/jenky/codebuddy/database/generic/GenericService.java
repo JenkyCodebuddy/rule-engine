@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * This interface specifies the specific methods the GenericService must have.
  */
-public interface GenericService<T, Id extends Serializable> {
+public interface GenericService<T> {
 
     public void add(T entity);
 

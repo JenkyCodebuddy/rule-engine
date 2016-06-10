@@ -9,6 +9,6 @@ import java.util.List;
 /**
  * This interface specifies the specific methods an ItemUserDao must have.
  */
-public interface ItemUserDao extends GenericDao<ItemUser, Integer> {
+public interface ItemUserDao extends GenericDao<ItemUser> {
     public void addItemUser(ItemUser itemUser);
 }

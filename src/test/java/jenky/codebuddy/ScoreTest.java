@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Commented
  */
-public class ScoreTest extends GenericDaoImpl<Score, Integer> {
+public class ScoreTest extends GenericDaoImpl<Score> {
 
 //    private final String TESTEMAIL = "joost1235@hotmail.com";
 //    private ApplicationContext context;

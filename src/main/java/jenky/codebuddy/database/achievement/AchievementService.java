@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Specfic methods for the service Achievement. Inherits GenericService interface
  */
-public interface AchievementService extends GenericService<Achievement, Integer> {
+public interface AchievementService extends GenericService<Achievement> {
     public List<Achievement> getAchievements();
 
     public double getAchievementCountFromUser(int user_id);

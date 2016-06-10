@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * THis itnerface specifies specific methods ScoreUserService must have.
  */
-public interface ScoreService extends GenericService<Score, Integer> {
+public interface ScoreService extends GenericService<Score> {
     public List<Score> getAllScores();
 
     public void save(Score score);

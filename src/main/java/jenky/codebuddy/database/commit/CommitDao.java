@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Specific methods for CommitDao
  */
-public interface CommitDao extends GenericDao<Commit, Integer> {
+public interface CommitDao extends GenericDao<Commit> {
     public List<Commit> getCommits();
 
     public void saveCommit(Commit commit);

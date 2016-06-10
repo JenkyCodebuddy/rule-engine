@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This interface specifies the specific methods ScoreDao must have.
  */
-public interface ScoreDao extends GenericDao<Score, Integer> {
+public interface ScoreDao extends GenericDao<Score> {
     public List<Score> getAllScores();
 
     public void save(Score score);

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Specific methods for CompanyDao
  */
-public interface CompanyDao extends GenericDao<Company, Integer> {
+public interface CompanyDao extends GenericDao<Company> {
     public List<Company> getCompanies();
 
     public boolean checkIfCompanyExists(String company);

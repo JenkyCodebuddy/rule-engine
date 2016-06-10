@@ -15,7 +15,7 @@ import java.util.OptionalInt;
  * Persistence layer of ScoreDao. Inherets GenericDao and implements the ScoreDao interface.
  */
 @Repository
-public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements ScoreDao {
+public class ScoreDaoImpl extends GenericDaoImpl<Score> implements ScoreDao {
 
     @PostConstruct
     public void init(){

@@ -15,7 +15,7 @@ import java.util.List;
  * @param <Id>
  */
 @Repository
-public abstract class GenericDaoImpl<T, Id extends Serializable> implements GenericDao<T, Id> {
+public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     protected Class<? extends T> type;
 
     private SessionFactory sessionFactory;

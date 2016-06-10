@@ -11,7 +11,7 @@ import java.util.Date;
  * Persistence for Achievement. This inherits GenericDaoImplementation
  */
 @Repository
-public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Integer> implements AuthenticationDao {
+public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication> implements AuthenticationDao {
 
     @Override
     public void saveAuthentication(Authentication authentication) {

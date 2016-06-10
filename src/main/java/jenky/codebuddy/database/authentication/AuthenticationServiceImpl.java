@@ -14,7 +14,7 @@ import java.util.Date;
  * Service layer of Achievement. Inherits GenericService and implements the AuthenticationService interface
  */
 @Service
-public class AuthenticationServiceImpl extends GenericServiceImpl<Authentication, Integer> implements AuthenticationService {
+public class AuthenticationServiceImpl extends GenericServiceImpl<Authentication> implements AuthenticationService {
 
     private AuthenticationDao authenticationDao;
     @Autowired

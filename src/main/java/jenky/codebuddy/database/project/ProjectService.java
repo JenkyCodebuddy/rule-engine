@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This interface specifies the methods ProjectSerivce must have.
  */
-public interface ProjectService extends GenericService<Project, Integer> {
+public interface ProjectService extends GenericService<Project> {
     public List<Project> getAllProjects();
 
     public void addProject(Project project);

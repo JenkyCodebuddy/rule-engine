@@ -11,7 +11,7 @@ import java.util.List;
  * Persistent for MetricDao
  */
 @Repository
-public class MetricDaoImpl extends GenericDaoImpl<Metric, Integer> implements MetricDao {
+public class MetricDaoImpl extends GenericDaoImpl<Metric> implements MetricDao {
 
     /**
      * Get all the metrics

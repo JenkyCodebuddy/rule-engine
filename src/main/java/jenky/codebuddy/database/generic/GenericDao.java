@@ -8,7 +8,7 @@ import java.util.List;
  * @param <T>
  * @param <Id>
  */
-public interface GenericDao<T, Id extends Serializable> {
+public interface GenericDao<T> {
 
     public void add(T entity);
 

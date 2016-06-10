@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Specific methods for the CommitService. Extends the GenericService interface
  */
-public interface CommitService extends GenericService<Commit, Integer> {
+public interface CommitService extends GenericService<Commit> {
     public List<Commit> getCommits();
 
     public void saveCommit(Commit commit);

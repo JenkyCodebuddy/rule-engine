@@ -9,7 +9,9 @@ import org.springframework.context.annotation.ImportResource;
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @SpringBootApplication
 @ImportResource("spring.xml")
-public class StartApplication { //class for starting the spring application
+public class StartApplication {
+
+	private StartApplication(){}
 
 	public static void main(String[] args) {
 		SpringApplication.run(StartApplication.class, args);

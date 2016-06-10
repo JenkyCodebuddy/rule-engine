@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Defines the specific methods VerificationDao must have.
  */
-public interface UserDao extends GenericDao<User, Integer> {
+public interface UserDao extends GenericDao<User> {
     public List<User> getAllUsers();
 
     public void save(User user);

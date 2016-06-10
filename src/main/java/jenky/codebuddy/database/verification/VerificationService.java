@@ -5,7 +5,7 @@ import jenky.codebuddy.models.entities.Verification;
 
 
 
-public interface VerificationService extends GenericService<Verification, Integer> {
+public interface VerificationService extends GenericService<Verification> {
     public void addNewVerfication(Verification verification);
 
     public void removeVerification(Verification verification);

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Specific methods for CompanyService
  */
-public interface CompanyService extends GenericService<Company, Integer> {
+public interface CompanyService extends GenericService<Company> {
     public List<Company> getCompanies();
 
     public boolean checkIfCompanyExists(String company);

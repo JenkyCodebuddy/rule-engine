@@ -14,7 +14,7 @@ import java.util.List;
  * Service layer of Score. Inherits the GenericService and implements the ScoreUserService interface.
  */
 @Service
-public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> implements ScoreService {
+public class ScoreServiceImpl extends GenericServiceImpl<Score> implements ScoreService {
 
     private ScoreDao scoreDao;
 

@@ -13,7 +13,7 @@ import java.util.Optional;
  * Persistence of ItemDao. Inherits GenericDao and implements the ItemDao interface.
  */
 @Repository
-public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDao {
+public class ItemDaoImpl extends GenericDaoImpl<Item> implements ItemDao {
 
     /**
      * Return all the items

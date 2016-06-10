@@ -14,7 +14,7 @@ import java.util.List;
  * Service layer of Profile. Inherits the GenericService and implements the ProjectService interface.
  */
 @Service
-public class ProjectServiceImpl extends GenericServiceImpl<Project, Integer> implements ProjectService {
+public class ProjectServiceImpl extends GenericServiceImpl<Project> implements ProjectService {
 
     private ProjectDao projectDao;
 

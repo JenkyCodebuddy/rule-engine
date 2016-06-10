@@ -14,7 +14,7 @@ import java.util.List;
  * Service layer for Company. Inherits GenericService and implements CompanyService interface.
  */
 @Service
-public class CompanyServiceImpl extends GenericServiceImpl<Company, Integer> implements CompanyService {
+public class CompanyServiceImpl extends GenericServiceImpl<Company> implements CompanyService {
 
     private CompanyDao companyDao;
 

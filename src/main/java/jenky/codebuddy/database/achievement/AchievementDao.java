@@ -9,7 +9,7 @@ import java.util.List;
  * Specific methods for achievement. This interface inherits GenericDao interface
  */
 
-public interface AchievementDao extends GenericDao<Achievement, Integer> {
+public interface AchievementDao extends GenericDao<Achievement> {
     public List<Achievement> getAchievements();
 
     public double getAchievementCountFromUser(int user_id);

@@ -9,6 +9,6 @@ import java.util.List;
 /**
  * Specifices the specific methods for ItemService.
  */
-public interface ItemUserService extends GenericService<ItemUser, Integer> {
+public interface ItemUserService extends GenericService<ItemUser> {
     public void addItemUser(ItemUser itemUser);
 }
