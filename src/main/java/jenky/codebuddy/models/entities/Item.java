@@ -1,7 +1,6 @@
 package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
-import javax.websocket.ClientEndpoint;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +26,7 @@ public class Item {
     @Column(name = "item_type")
     private String type;
 
-    @Column(name = "image")
+    @Column(name = "image", columnDefinition = "TEXT")
     private String image;
 
     @Column(name = "price")

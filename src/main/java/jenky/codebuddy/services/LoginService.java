@@ -3,14 +3,10 @@ package jenky.codebuddy.services;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
-import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
-import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.token.models.Token;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.security.Key;
 import java.util.Date;
@@ -52,7 +48,7 @@ public class LoginService {
     }
 
 
-    private Token generateToken(String email) { //method for generating a token
+    public Token generateToken(String email) { //method for generating a token
         Token token = new Token();
         Key key = MacProvider.generateKey();
         token.setToken(Jwts.builder().setSubject(email).signWith(SignatureAlgorithm.HS512, key).compact()); //generate a token with: userEmail as identifier, a key

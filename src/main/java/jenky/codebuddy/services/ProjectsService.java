@@ -1,17 +1,10 @@
 package jenky.codebuddy.services;
 
-import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
-import jenky.codebuddy.database.item.ItemServiceImpl;
-import jenky.codebuddy.database.project.ProjectServiceImpl;
-import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.ActiveProjects;
 import jenky.codebuddy.models.rest.SingleProject;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.jpa.vendor.Database;
 
 import java.util.List;
 

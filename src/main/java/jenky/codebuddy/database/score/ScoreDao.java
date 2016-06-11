@@ -15,8 +15,6 @@ public interface ScoreDao extends GenericDao<Score, Integer> {
 
     public void delete(Score score);
 
-    public List<Score> getScoresFromUserGroupedByCommit(int user_id);
-
     public List<Score> getPreviousScores(String userEmail);
 
     public double getAvgScoreFromUser(int user_id);

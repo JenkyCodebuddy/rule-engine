@@ -1,6 +1,5 @@
 package jenky.codebuddy.controllers;
 
-import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.rest.Items;
 import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.AuthenticationService;

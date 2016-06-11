@@ -1,16 +1,10 @@
 package jenky.codebuddy.services;
 
-import jenky.codebuddy.database.metric.MetricServiceImpl;
-import jenky.codebuddy.database.project.ProjectServiceImpl;
-import jenky.codebuddy.database.score.ScoreServiceImpl;
-import jenky.codebuddy.database.user.UserServiceImpl;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import wildtornado.scocalc.objects.Score;
 
 import java.util.*;
@@ -35,7 +29,6 @@ public class ScoreUserService {
     }
 
     private void saveUserScore(Commit commit){
-
         List<Metric> metricsList = this.sonarResponse.getMsr();
         Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
         User user = DatabaseFactory.getUserService().getUserIfExists(this.userCommit.getEmail());
@@ -49,7 +42,8 @@ public class ScoreUserService {
             scores.add(score);
             DatabaseFactory.getScoreService().save(score);
         }
-        user.setJenkycoins(10);
+        //TODO add to current coins
+        user.setJenkycoins(this.metricsDataInputModel.getCoinsEarned());
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);

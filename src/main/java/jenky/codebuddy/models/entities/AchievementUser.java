@@ -1,7 +1,6 @@
 package jenky.codebuddy.models.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by joost on 9-6-2016.

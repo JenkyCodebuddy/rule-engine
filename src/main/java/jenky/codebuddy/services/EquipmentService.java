@@ -1,12 +1,8 @@
 package jenky.codebuddy.services;
 
-import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
-import jenky.codebuddy.database.item.ItemServiceImpl;
 import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Equipment;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 
