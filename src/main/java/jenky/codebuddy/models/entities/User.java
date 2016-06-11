@@ -1,5 +1,7 @@
 package jenky.codebuddy.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,21 +34,26 @@ public class User{
     private int jenkycoins;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "verification")
     private Verification verfication;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "authentication")
     private Authentication authentication;
 
     //score mapping
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<Score> scores = new HashSet<Score>(0);
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<AchievementUser> achievements = new HashSet<AchievementUser>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<ItemUser> itemusers = new HashSet<ItemUser>();
 
     public User() {

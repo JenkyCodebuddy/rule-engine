@@ -1,5 +1,7 @@
 package jenky.codebuddy.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,10 +17,12 @@ public class Score {
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "commit_id")
     private Commit commit;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "metric_id")
     private Metric metric;
 
@@ -26,12 +30,12 @@ public class Score {
     private double sonar_value;
 
     @Column(name = "score")
-    private int score;
+    private double score;
 
     public Score() {
     }
 
-    public Score(User user, Commit commit, Metric metric, double sonar_value, int score) {
+    public Score(User user, Commit commit, Metric metric, double sonar_value, double score) {
         this.user = user;
         this.commit = commit;
         this.metric = metric;
@@ -79,11 +83,11 @@ public class Score {
         this.sonar_value = sonar_value;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

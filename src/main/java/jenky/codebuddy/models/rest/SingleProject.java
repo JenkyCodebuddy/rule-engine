@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SingleProject {
 
-    private List<Score> userScores;
+    private List<Object> userScores;
     private List<Item> equippedItems;
     private int responseCode;
     private String responseMessage;
@@ -20,16 +20,16 @@ public class SingleProject {
         this.responseMessage = responseMessage;
     }
 
-    public SingleProject(List<Score> userScores, int responseCode) {
+    public SingleProject(List<Object> userScores, int responseCode) {
         this.userScores = userScores;
         this.responseCode = responseCode;
     }
 
-    public List<Score> getUserScores() {
+    public List<Object> getUserScores() {
         return userScores;
     }
 
-    public void setUserScores(List<Score> userScores) {
+    public void setUserScores(List<Object> userScores) {
         this.userScores = userScores;
     }
 

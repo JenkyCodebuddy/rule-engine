@@ -4,6 +4,7 @@ import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Commit;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,9 +31,9 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
 
     @Override
     public List<Commit> getCommitsFromUser(int user_id){
-        String hql = "SELECT project.name, commit.branch, commit.created_at, commit.id FROM Commit commit " +
-                "INNER JOIN commit.project as project " +
-                "INNER JOIN commit.scores as scores " +
+        String hql = "FROM Commit commit " +
+                "LEFT JOIN FETCH commit.project as project " +
+                "LEFT JOIN FETCH commit.scores as scores " +
                 "WHERE scores.user =:user_id " +
                 "GROUP BY commit.id " +
                 "ORDER BY commit.id DESC ";

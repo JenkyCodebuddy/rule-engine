@@ -37,8 +37,8 @@ public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> imp
 
     @Override
     public List<Achievement> getAchievementsFromUser(int user_id){
-        String hql = "SELECT achievement.name, achievement.description FROM Achievement achievement " +
-                "INNER JOIN achievement.achievementusers as achievement_has_users " +
+        String hql = "FROM Achievement achievement " +
+                "LEFT JOIN FETCH achievement.achievementusers as achievement_has_users " +
                 "WHERE achievement_has_users.user =:user_id AND achievement_has_users.progress = 100";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);

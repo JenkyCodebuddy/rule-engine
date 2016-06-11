@@ -1,6 +1,8 @@
 package jenky.codebuddy.models.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,7 +16,8 @@ public class Achievement {
     @Column(name = "achievement_id")
     private int id;
 
-    @OneToMany(mappedBy = "achievement")
+    @OneToMany(mappedBy = "achievement", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<AchievementUser> achievementusers = new HashSet<AchievementUser>();
 
     @Column(name = "name")
