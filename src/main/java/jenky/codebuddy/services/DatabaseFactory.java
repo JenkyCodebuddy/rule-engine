@@ -1,15 +1,26 @@
 package jenky.codebuddy.services;
 
+import jenky.codebuddy.database.achievement.AchievementService;
 import jenky.codebuddy.database.achievement.AchievementServiceImpl;
-import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
+import jenky.codebuddy.database.authentication.*;
+import jenky.codebuddy.database.authentication.AuthenticationService;
+import jenky.codebuddy.database.commit.CommitService;
 import jenky.codebuddy.database.commit.CommitServiceImpl;
+import jenky.codebuddy.database.company.CompanyService;
 import jenky.codebuddy.database.company.CompanyServiceImpl;
+import jenky.codebuddy.database.item.ItemService;
 import jenky.codebuddy.database.item.ItemServiceImpl;
+import jenky.codebuddy.database.itemuser.ItemUserService;
 import jenky.codebuddy.database.itemuser.ItemUserServiceImpl;
+import jenky.codebuddy.database.metric.MetricService;
 import jenky.codebuddy.database.metric.MetricServiceImpl;
+import jenky.codebuddy.database.project.ProjectService;
 import jenky.codebuddy.database.project.ProjectServiceImpl;
+import jenky.codebuddy.database.score.ScoreService;
 import jenky.codebuddy.database.score.ScoreServiceImpl;
+import jenky.codebuddy.database.user.UserService;
 import jenky.codebuddy.database.user.UserServiceImpl;
+import jenky.codebuddy.database.verification.VerificationService;
 import jenky.codebuddy.database.verification.VerificationServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,17 +30,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class DatabaseFactory {
 
-    private static AchievementServiceImpl achievementService;
-    private static AuthenticationServiceImpl authenticationService;
-    private static CommitServiceImpl commitService;
-    private static CompanyServiceImpl companyService;
-    private static ItemServiceImpl itemService;
-    private static ItemUserServiceImpl itemUserService;
-    private static MetricServiceImpl metricService;
-    private static ProjectServiceImpl projectService;
-    private static ScoreServiceImpl scoreService;
-    private static VerificationServiceImpl verificationService;
-    private static UserServiceImpl userService;
+    private static AchievementService achievementService;
+    private static jenky.codebuddy.database.authentication.AuthenticationService authenticationService;
+    private static CommitService commitService;
+    private static CompanyService companyService;
+    private static ItemService itemService;
+    private static ItemUserService itemUserService;
+    private static MetricService metricService;
+    private static ProjectService projectService;
+    private static ScoreService scoreService;
+    private static VerificationService verificationService;
+    private static UserService userService;
     private static ApplicationContext context;
 
     private DatabaseFactory() {
@@ -50,47 +61,51 @@ public class DatabaseFactory {
         userService = (UserServiceImpl) context.getBean("userServiceImpl");
     }
 
-    public static AchievementServiceImpl getAchievementService() {
+    public static AchievementService getAchievementService() {
         return achievementService;
     }
 
-    public static AuthenticationServiceImpl getAuthenticationService() {
+    public static ApplicationContext getContext() {
+        return context;
+    }
+
+    public static AuthenticationService getAuthenticationService() {
         return authenticationService;
     }
 
-    public static CommitServiceImpl getCommitService() {
+    public static CommitService getCommitService() {
         return commitService;
     }
 
-    public static CompanyServiceImpl getCompanyService() {
+    public static CompanyService getCompanyService() {
         return companyService;
     }
 
-    public static ItemServiceImpl getItemService() {
+    public static ItemService getItemService() {
         return itemService;
     }
 
-    public static ItemUserServiceImpl getItemUserService() {
+    public static ItemUserService getItemUserService() {
         return itemUserService;
     }
 
-    public static MetricServiceImpl getMetricService() {
+    public static MetricService getMetricService() {
         return metricService;
     }
 
-    public static ProjectServiceImpl getProjectService() {
+    public static ProjectService getProjectService() {
         return projectService;
     }
 
-    public static ScoreServiceImpl getScoreService() {
+    public static ScoreService getScoreService() {
         return scoreService;
     }
 
-    public static VerificationServiceImpl getVerificationService() {
+    public static VerificationService getVerificationService() {
         return verificationService;
     }
 
-    public static UserServiceImpl getUserService() {
+    public static UserService getUserService() {
         return userService;
     }
 }
