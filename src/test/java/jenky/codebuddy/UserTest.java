@@ -1,16 +1,11 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.database.user.UserServiceImpl;
-import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.services.DatabaseFactory;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 
 /**

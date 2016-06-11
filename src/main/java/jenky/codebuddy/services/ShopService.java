@@ -21,11 +21,11 @@ public class ShopService {
         return new Items(allItems, 200);
     }
 
-    public Response buyItemForUser(String token, int item_id){
+    public Response buyItemForUser(String token, int itemId){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
-        if(DatabaseFactory.getItemService().checkIfItemExists(item_id)) {
-            Item item = DatabaseFactory.getItemService().getItemIfExists(item_id);
-            if (DatabaseFactory.getUserService().checkIfUserDoesntHaveItem(user.getUser_id(), item_id)) {
+        if(DatabaseFactory.getItemService().checkIfItemExists(itemId)) {
+            Item item = DatabaseFactory.getItemService().getItemIfExists(itemId);
+            if (DatabaseFactory.getUserService().checkIfUserDoesntHaveItem(user.getUser_id(), itemId)) {
                 if (DatabaseFactory.getUserService().checkIfUserHasEnoughCoins(user.getUser_id(), item.getPrice())) {
                     DatabaseFactory.getUserService().subtractCoins(user.getUser_id(), item.getPrice());
                     addItemToUser(user, item);

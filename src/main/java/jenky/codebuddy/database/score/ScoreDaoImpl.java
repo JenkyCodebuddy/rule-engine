@@ -1,16 +1,12 @@
 package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
-import static java.lang.Math.toIntExact;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import javax.xml.crypto.Data;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

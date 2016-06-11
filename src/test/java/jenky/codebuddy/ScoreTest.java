@@ -2,23 +2,19 @@ package jenky.codebuddy;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.database.score.ScoreServiceImpl;
 import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.services.DatabaseFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by Fabian on 9-6-2016.

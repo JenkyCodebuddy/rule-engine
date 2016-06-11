@@ -34,7 +34,7 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("project_name",projectName);
         Optional<Project> result = Optional.ofNullable((Project) query.uniqueResult());
-        return (result.isPresent());
+        return result.isPresent();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("project_id", project_id);
         Optional<Project> result = Optional.ofNullable((Project) query.uniqueResult());
-        return (result.isPresent());
+        return result.isPresent();
     }
 
     @Override
@@ -70,7 +70,6 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);
         long result =  (long) query.uniqueResult();
-        double d = (double) result;
         return result;
     }
 
