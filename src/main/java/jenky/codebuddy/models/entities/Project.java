@@ -16,10 +16,10 @@ public class Project {
     @Column(name = "project_id")
     private int id;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private Set<Commit> commits = new HashSet<Commit>(0);
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 

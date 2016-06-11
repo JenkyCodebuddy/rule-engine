@@ -1,5 +1,7 @@
 package jenky.codebuddy.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -18,9 +20,11 @@ public class Commit {
     private int id;
 
     @OneToMany(mappedBy = "commit")
+    @JsonIgnore
     private Set<Score> scores = new HashSet<Score>(0);
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "project_id")
     private Project project;
 
