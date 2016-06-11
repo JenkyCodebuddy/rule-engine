@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+/**
+ * This endpoints return the achievements that the user has.
+ */
 @RestController
 @RequestMapping(value = "/achievements")
 public class AchievementsController {
@@ -20,6 +23,10 @@ public class AchievementsController {
         setAchievementsService(new AchievementsService());
     }
 
+    /**
+     * @param headers Contains the token of the user.
+     * @return achievements or "Token is invalid"
+     */
     @RequestMapping(method = RequestMethod.GET)
     private Achievements getAllAchievements(@RequestHeader Map<String,String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
@@ -30,11 +37,11 @@ public class AchievementsController {
         }
     }
 
-    public AchievementsService getAchievementsService() {
+    private AchievementsService getAchievementsService() {
         return achievementsService;
     }
 
-    public void setAchievementsService(AchievementsService achievementsService) {
+    private void setAchievementsService(AchievementsService achievementsService) {
         this.achievementsService = achievementsService;
     }
 }

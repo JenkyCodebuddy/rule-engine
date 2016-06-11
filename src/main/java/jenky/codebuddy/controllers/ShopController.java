@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * Created by joost on 6-6-2016.
+ * This endpoints is used by the user to buy and see items from the shop
  */
 
 @RestController
@@ -22,6 +22,10 @@ public class ShopController {
         setShopService(new ShopService());
     }
 
+    /**
+     * @param headers contain the token of the user
+     * @return all items of the user of the user or "Token is invalid"
+     */
     @RequestMapping(method = RequestMethod.GET)
     private Items getAllItems(@RequestHeader Map<String,String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
@@ -32,21 +36,26 @@ public class ShopController {
         }
     }
 
-    @RequestMapping(value = "/buy/{itemId}", method = RequestMethod.POST)
-    private Response buyItemForUser(@PathVariable int itemId, @RequestHeader Map<String, String> headers){
+    /**
+     * @param item_id
+     * @param headers contains the token of the user
+     * @return 200 or 400 with description"
+     */
+    @RequestMapping(value = "/buy/{item_id}", method = RequestMethod.POST)
+    private Response buyItemForUser(@PathVariable int item_id, @RequestHeader Map<String, String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getShopService().buyItemForUser(headers.get("token"), itemId);
+            return getShopService().buyItemForUser(headers.get("token"), item_id);
         }
         else{
             return new Response(400,"Token not valid");
         }
     }
 
-    public ShopService getShopService() {
+    private ShopService getShopService() {
         return shopService;
     }
 
-    public void setShopService(ShopService shopService) {
+    private void setShopService(ShopService shopService) {
         this.shopService = shopService;
     }
 }

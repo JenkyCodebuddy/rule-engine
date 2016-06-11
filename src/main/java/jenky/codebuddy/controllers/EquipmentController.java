@@ -14,6 +14,9 @@ import java.util.Map;
  * Created by joost on 2-6-2016.
  */
 
+/**
+ * This endpoints return the equipment of the user.
+ */
 @RestController
 @RequestMapping(value = "/equipment")
 public class EquipmentController {
@@ -24,6 +27,10 @@ public class EquipmentController {
        setEquipmentService(new EquipmentService());
     }
 
+    /**
+     * @param headers Contains the token of the user
+     * @return profile or "Token is invalid"
+     */
     @RequestMapping(method = RequestMethod.GET)
     private Equipment getProfile(@RequestHeader Map<String,String> headers) {
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
@@ -34,11 +41,11 @@ public class EquipmentController {
         }
     }
 
-    public EquipmentService getEquipmentService() {
+    private EquipmentService getEquipmentService() {
         return equipmentService;
     }
 
-    public void setEquipmentService(EquipmentService equipmentService) {
+    private void setEquipmentService(EquipmentService equipmentService) {
         this.equipmentService = equipmentService;
     }
 }

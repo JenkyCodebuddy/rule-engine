@@ -23,6 +23,7 @@ public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> imp
         return achievements;
     }
 
+
     @Override
     public double getAchievementCountFromUser(int user_id){
         String hql = "SELECT COUNT(achievement_has_users.user) FROM Achievement achievement " +

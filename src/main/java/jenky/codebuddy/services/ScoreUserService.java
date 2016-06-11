@@ -1,5 +1,9 @@
 package jenky.codebuddy.services;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import jenky.codebuddy.modelbuilders.CommitModelBuilder;
+import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.Metric;
@@ -7,6 +11,7 @@ import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
 import wildtornado.scocalc.objects.Score;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 /**
@@ -14,36 +19,47 @@ import java.util.*;
  */
 public class ScoreUserService {
 
-    private Score metricsDataInputModel;
-    private SonarResponse sonarResponse;
-    private UserCommit userCommit;
+    public ScoreUserService() {
 
-    public ScoreUserService (){
     }
-    public ScoreUserService(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit) {
-        this.metricsDataInputModel = metricsDataInputModel;
-        this.sonarResponse = sonarResponse;
-        this.userCommit = userCommit;
+
+    /**
+     * Parses the headers and sends it to the appropriate builders. Afterwards saves the models
+     * @param headers Reponse from the CI server
+     */
+    public void parseResponse(Map<String, String> headers){
+        Gson gson = new Gson();
+        Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
+        List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
+        SonarResponse sonarResponse = sonarResponseList.get(0);
+        Map<String, String> githubInfoMap = createGithubUserInfoMap(headers);
+        CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
+        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
+        saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());;
+    }
+
+    /**
+     * @param metricsDataInputModel  contains the calculated socre
+     * @param sonarResponse  contains the calculated score from sonarqube
+     * @param userCommit  contains information about the user who commited this
+     */
+    private void saveUserScore(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit){
         Commit commit = createCommit(userCommit);
-        saveUserScore(commit);
-    }
-
-    private void saveUserScore(Commit commit){
-        List<Metric> metricsList = this.sonarResponse.getMsr();
+        List<Metric> metricsList = sonarResponse.getMsr();
         Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
-        User user = DatabaseFactory.getUserService().getUserIfExists(this.userCommit.getEmail());
+        User user = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail());
         for (Metric aMetricsList : metricsList) {
             jenky.codebuddy.models.entities.Score score = new jenky.codebuddy.models.entities.Score();
             score.setUser(user);
             score.setSonar_value(aMetricsList.getVal());
-            score.setScore((int) getScoreByName(aMetricsList.getKey()));
+            score.setScore((int) getScoreByName(aMetricsList.getKey(), metricsDataInputModel));
             score.setCommit(commit);
             score.setMetric(DatabaseFactory.getMetricService().getMetricIfExists(aMetricsList.getKey()));
             scores.add(score);
             DatabaseFactory.getScoreService().save(score);
         }
         //TODO add to current coins
-        user.setJenkycoins(this.metricsDataInputModel.getCoinsEarned());
+        user.setJenkycoins(metricsDataInputModel.getCoinsEarned());
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
@@ -58,13 +74,13 @@ public class ScoreUserService {
         return commit;
     }
 
-    private double getScoreByName(String name){
+    private double getScoreByName(String name, Score metricsDataInputModel){
         switch (name) {
-            case "ncloc": return this.metricsDataInputModel.getLinesOfCodeScore();
-            case "sqale_index": return this.metricsDataInputModel.getTechnicalDebtScore();
-            case "duplicated_lines": return this.metricsDataInputModel.getCodeDuplicationScore();
-            case "coverage": return this.metricsDataInputModel.getTestCoverageScore();
-            case "violations": return this.metricsDataInputModel.getCodeViolationsScore();
+            case "ncloc": return metricsDataInputModel.getLinesOfCodeScore();
+            case "sqale_index": return metricsDataInputModel.getTechnicalDebtScore();
+            case "duplicated_lines": return metricsDataInputModel.getCodeDuplicationScore();
+            case "coverage": return metricsDataInputModel.getTestCoverageScore();
+            case "violations": return metricsDataInputModel.getCodeViolationsScore();
             default: return 0;
         }
     }

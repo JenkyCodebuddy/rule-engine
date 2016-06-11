@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * Created by joost on 2-6-2016.
+ * This endpoints is used for login
  */
-
 @RestController
 @RequestMapping(value = "/login")
 public class LoginController {
@@ -23,16 +22,20 @@ public class LoginController {
         setLoginService(new LoginService());
     }
 
+    /**
+     * @param headers email and password of the user
+     * @return response 200 or 400 with description
+     */
     @RequestMapping(method = RequestMethod.POST) //
     private Response login(@RequestHeader Map<String,String> headers) {
         return getLoginService().login(headers.get("email"), headers.get("password"));
     }
 
-    public LoginService getLoginService() {
+    private LoginService getLoginService() {
         return loginService;
     }
 
-    public void setLoginService(LoginService loginService) {
+    private void setLoginService(LoginService loginService) {
         this.loginService = loginService;
     }
 }
