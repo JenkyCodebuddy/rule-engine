@@ -1,11 +1,16 @@
 package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
+import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Score;
+import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
+import static java.lang.Math.toIntExact;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import javax.xml.crypto.Data;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,22 +94,25 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("user_id",user_id);
         Optional result = Optional.ofNullable(query.uniqueResult());
-        return result.isPresent() ? (long)result.get() : null;
+        return result.isPresent() ? (double)result.get() : null;
     }
 
     @Override
-    public List<Score> getScoresFromProject(int project_id) {
-        String hql = "SELECT score.user.email, sum(score.score) FROM Score score INNER JOIN score.commit as commits INNER JOIN commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
-
-        /*"SELECT item.id, item.name, item.image, item.type " +
-                "FROM Item item " +
-                "INNER JOIN item.itemusers as item_has_users " +
-                "WHERE item_has_users.user= :user_id AND item_has_users.equipped = true";*/
+    public List<Object> getScoresFromProject(int project_id) {
+        String hql = "SELECT score FROM Score score LEFT JOIN FETCH score.commit as commits LEFT JOIN FETCH commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
 
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("project_id",project_id);
-        Optional<List<Score>> result = Optional.ofNullable((List<Score>) query.list());
-        return result.isPresent() ? result.get() : null;
+        Optional<List<Score>> listWithScores = Optional.ofNullable((List<Score>) query.list());
+        List<Object> finalScoreList = new ArrayList<Object>();
+        for(int i = 0; i < listWithScores.get().size(); i++){
+            Score s = listWithScores.get().get(i);
+            s.setScore(DatabaseFactory.getScoreService().getTotalScoreFromUser(s.getUser().getUser_id()));
+            s.setSonar_value(0);
+            finalScoreList.add(s);
+            finalScoreList.add(DatabaseFactory.getItemService().getEquippedItemsFromUser(s.getUser().getUser_id()));
+        }
+        return finalScoreList;
     }
 
     @Override

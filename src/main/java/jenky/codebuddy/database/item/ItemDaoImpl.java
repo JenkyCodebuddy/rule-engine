@@ -30,9 +30,8 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
 
     @Override
     public List<Item> getEquippedItemsFromUser(int user_id) {
-        String hql = "SELECT item.id, item.name, item.image, item.type " +
-                "FROM Item item " +
-                "INNER JOIN item.itemusers as item_has_users " +
+        String hql = "FROM Item item " +
+                "LEFT JOIN FETCH item.itemusers as item_has_users " +
                 "WHERE item_has_users.user= :user_id AND item_has_users.equipped = true";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);

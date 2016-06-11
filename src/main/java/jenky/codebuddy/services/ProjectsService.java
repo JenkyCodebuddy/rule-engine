@@ -31,7 +31,7 @@ public class ProjectsService {
 
     public SingleProject returnSingleProjectWithScores(int project_id) {
         if(DatabaseFactory.getProjectService().checkIfProjectExists(project_id)) {
-            List<Score> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(project_id);
+            List<Object> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(project_id);
             return new SingleProject(projectScores,200);
         }
         else{

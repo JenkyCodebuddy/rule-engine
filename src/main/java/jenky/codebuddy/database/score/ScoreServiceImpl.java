@@ -90,7 +90,7 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<Score> getScoresFromProject(int project_id){
+    public List<Object> getScoresFromProject(int project_id){
         return scoreDao.getScoresFromProject(project_id);
     }
 

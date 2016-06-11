@@ -1,5 +1,7 @@
 package jenky.codebuddy.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.websocket.ClientEndpoint;
 import java.util.Date;
@@ -19,6 +21,7 @@ public class Item {
     private int id;
 
     @OneToMany(mappedBy= "item")
+    @JsonIgnore
     private Set<ItemUser> itemusers = new HashSet<ItemUser>();
 
     @Column(name = "name")
