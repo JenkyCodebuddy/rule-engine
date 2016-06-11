@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * Created by joost on 3-6-2016.
+ * This endpoints used for when a new user wants to sing up.
  */
 
 @RestController
@@ -20,21 +20,29 @@ public class SignUpController {
         setSignUpService(new SignUpService());
     }
 
+    /**
+     * @param headers contains an email
+     * @return 200 or 400 with description
+     */
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Response signUpNewUser(@RequestHeader Map<String,String> headers){ //sign up a new user with an email supplied by user
+    public @ResponseBody Response signUpNewUser(@RequestHeader Map<String,String> headers){
         return getSignUpService().signUpNewUser(headers.get("email"));
     }
 
+    /**
+     * @param headers contains the verification code
+     * @return 200 or 400 with description
+     */
     @RequestMapping(value = "/verify", method = RequestMethod.POST)
     public @ResponseBody Response checkVerificationCode(@RequestHeader Map<String, String> headers){
         return getSignUpService().checkVerificationCode(headers.get("verificationcode"), headers.get("password"));  //check verification code supplied by user, and if correct set password
     }
 
-    public SignUpService getSignUpService() {
+    private SignUpService getSignUpService() {
         return signUpService;
     }
 
-    public void setSignUpService(SignUpService signUpService) {
+    private void setSignUpService(SignUpService signUpService) {
         this.signUpService = signUpService;
     }
 }

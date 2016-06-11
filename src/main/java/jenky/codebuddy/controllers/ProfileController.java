@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+/**
+ * This endpoints return the profile information of the user.
+ */
 @RestController
 @RequestMapping(value = "/profile")
 public class ProfileController {
@@ -20,6 +23,10 @@ public class ProfileController {
         setProfileService(new ProfileService());
     }
 
+    /**
+     * @param headers token of the user
+     * @return profile or "Token is invalid"
+     */
     @RequestMapping(method = RequestMethod.GET)
     private Profile getProfile(@RequestHeader Map<String,String> headers) {
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){

@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * This endpoints return the projects of the user and/or the score.
+ */
 @RestController
 @RequestMapping(value = "/projects")
 public class ProjectsController {
@@ -18,6 +21,10 @@ public class ProjectsController {
         setProjectsService(new ProjectsService());
     }
 
+    /**
+     * @param headers contains the token of the user
+     * @return projects of the user or "Token is invalid"
+     */
     @RequestMapping(method = RequestMethod.GET)
     private ActiveProjects showActiveProjectsForUser(@RequestHeader Map<String,String> headers) {
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
@@ -28,6 +35,11 @@ public class ProjectsController {
         }
     }
 
+    /**
+     * @param project_id
+     * @param headers contains the token of the user
+     * @return
+     */
     @RequestMapping(value = "/{project_id}", method = RequestMethod.GET)
     private SingleProject showScoresForProject(@PathVariable int project_id, @RequestHeader Map<String, String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
@@ -38,11 +50,11 @@ public class ProjectsController {
         }
     }
 
-    public ProjectsService getProjectsService() {
+    private ProjectsService getProjectsService() {
         return projectsService;
     }
 
-    public void setProjectsService(ProjectsService projectsService) {
+    private void setProjectsService(ProjectsService projectsService) {
         this.projectsService = projectsService;
     }
 }
