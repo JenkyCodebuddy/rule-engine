@@ -49,6 +49,10 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         super.delete(score);
     }
 
+    /**
+     * @param userEmail
+     * @return List of previous scores otherwise empty set of scores
+     */
     public List<Score> getPreviousScores(String userEmail){
         List<Score> scores = new ArrayList<Score>();
         String hql = "select max(s.commit.id) from Score s WHERE s.user.email = :userEmail";
@@ -61,7 +65,7 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
             query2.setParameter("commitId", result.get());
             scores = query2.list();
         }
-        return  scores;
+        return scores;
     }
 
     @Override

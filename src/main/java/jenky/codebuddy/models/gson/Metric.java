@@ -1,13 +1,20 @@
 package jenky.codebuddy.models.gson;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Fabian on 3-6-2016.
  */
 public class Metric {
 
+    @SerializedName("key")
     private String key;
+
+    @SerializedName("val")
     private Double val;
-    private String frmt_val;
+
+    @SerializedName("frmt_val")
+    private String formattedValue;
 
     public Metric(){
 
@@ -15,7 +22,7 @@ public class Metric {
 
     @Override
     public String toString() {
-        return " \n key=" + key  + ",\n val=" + val + ",\n frmt_val=" + frmt_val;
+        return " \n key=" + key  + ",\n val=" + val + ",\n formattedValue=" + formattedValue;
     }
 
     public String getKey() {
@@ -34,11 +41,11 @@ public class Metric {
         this.val = val;
     }
 
-    public String getFrmt_val() {
-        return frmt_val;
+    public String getFormattedValue() {
+        return formattedValue;
     }
 
-    public void setFrmt_val(String frmt_val) {
-        this.frmt_val = frmt_val;
+    public void setFormattedValue(String formattedValue) {
+        this.formattedValue = formattedValue;
     }
 }

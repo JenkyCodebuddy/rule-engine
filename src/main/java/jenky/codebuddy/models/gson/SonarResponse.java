@@ -1,33 +1,46 @@
 package jenky.codebuddy.models.gson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
-/**
- * Created by Fabian on 2-6-2016.
- */
 public class SonarResponse {
 
+    @SerializedName("id")
     private String id;
+
+    @SerializedName("key")
     private String key;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("scope")
     private String scope;
+
+    @SerializedName("qualifier")
     private String qualifier;
+
+    @SerializedName("date")
     private String date;
+
+    @SerializedName("creationDate")
     private String creationDate;
-    private String lname;
+
+    @SerializedName("lname")
+    private String lName;
+
+    @SerializedName("version")
     private String version;
+
+    @SerializedName("description")
     private String description;
+
+    @SerializedName("msr")
     private List<Metric> msr;
 
     public SonarResponse(){
 
-    }
-
-    @Override
-    public String toString() {
-        return "Resources : \n id=" + id  + ",\n key=" + key + ",\n name=" + name + ",\n lname="
-                + lname + ",\n scope=" + scope + ",\n qualifier=" + qualifier + ",\n date=" + date
-                + ",\n creationDate=" + creationDate + ",\n version=" + version + "\n description=" + description;
     }
 
     public String getId() {
@@ -86,12 +99,12 @@ public class SonarResponse {
         this.date = date;
     }
 
-    public String getLname() {
-        return lname;
+    public String getlName() {
+        return lName;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
     public String getVersion() {

@@ -3,7 +3,7 @@ package jenky.codebuddy.modelbuilders;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
-import jenky.codebuddy.services.ScoreUserService;
+import jenky.codebuddy.services.ScoreUserServiceImpl;
 import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 import wildtornado.scocalc.objects.Score;
@@ -67,7 +67,7 @@ public class ScoreModelBuilder {
      * @param email
      */
     private void mapComparisonDataInputModel(String email) {
-        List<jenky.codebuddy.models.entities.Score> previousScores = new ScoreUserService().getPreviousScores(email);
+        List<jenky.codebuddy.models.entities.Score> previousScores = new ScoreUserServiceImpl().getPreviousScores(email);
         HashMap<String, Double> previousScoresMap = new HashMap<String, Double>();
         this.comparisonDataInputModel = new DataInput();
         for (jenky.codebuddy.models.entities.Score score : previousScores) {
@@ -115,35 +115,8 @@ public class ScoreModelBuilder {
         this.scoreModel = calculator.generateScore();
     }
 
-    public DataInput getMetricsDataInputModel() {
-        return metricsDataInputModel;
-    }
-
-    public void setMetricsDataInputModel(DataInput metricsDataInputModel) {
-        this.metricsDataInputModel = metricsDataInputModel;
-    }
-
-    public DataInput getComparisonDataInputModel() {
-        return comparisonDataInputModel;
-    }
-
-    public void setComparisonDataInputModel(DataInput comparisonDataInputModel) {
-        this.comparisonDataInputModel = comparisonDataInputModel;
-    }
-
     public Score getScoreModel() {
         return scoreModel;
     }
 
-    public void setScoreModel(Score scoreModel) {
-        this.scoreModel = scoreModel;
-    }
-
-    public Map<String, Double> getMetricsMap() {
-        return metricsMap;
-    }
-
-    public void setMetricsMap(Map<String, Double> metricsMap) {
-        this.metricsMap = metricsMap;
-    }
 }
