@@ -24,12 +24,7 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("userid",userId);
         Authentication result = (Authentication) query.uniqueResult();
-        if(result != null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return result!=null;
     }
 
     @Override
@@ -49,12 +44,7 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("token",token);
         Authentication result = (Authentication) query.uniqueResult();
-        if(result != null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return result!=null;
     }
 
     @Override

@@ -4,7 +4,6 @@ import jenky.codebuddy.services.DatabaseFactory;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**

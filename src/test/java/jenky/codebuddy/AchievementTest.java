@@ -1,11 +1,8 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.database.achievement.AchievementServiceImpl;
 import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.services.DatabaseFactory;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertNotNull;

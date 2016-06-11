@@ -26,19 +26,11 @@ public class ScoreController {
     /**
      *
      * @param headers must contains a sonarresponse(json)
-     * email, sha, branh, project, username
+     * and header email, header sha, header branh, header project, username
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     private void saveScore(@RequestHeader Map<String, String> headers){
         ScoreUserService scoreUserService = new ScoreUserService();
-        Gson gson = new Gson();
-
-        Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
-        List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
-        SonarResponse sonarResponse = sonarResponseList.get(0);
-        Map<String, String> githubInfoMap = scoreUserService.createGithubUserInfoMap(headers);
-        CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
-        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
-        scoreUserService.saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());
+        scoreUserService.parseResponse(headers);
     }
 }

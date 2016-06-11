@@ -32,6 +32,9 @@ public class DatabaseFactory {
     private static UserServiceImpl userService;
     private static ApplicationContext context;
 
+    private DatabaseFactory() {
+    }
+
     static{
         context = new ClassPathXmlApplicationContext("spring.xml");
         achievementService = (AchievementServiceImpl) context.getBean("achievementServiceImpl");

@@ -1,7 +1,6 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.models.entities.Project;
-import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.ActiveProjects;
 import jenky.codebuddy.models.rest.SingleProject;
@@ -22,9 +21,9 @@ public class ProjectsService {
         return new ActiveProjects(allProjects,200);
     }
 
-    public SingleProject returnSingleProjectWithScores(int project_id) {
-        if(DatabaseFactory.getProjectService().checkIfProjectExists(project_id)) {
-            List<Object> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(project_id);
+    public SingleProject returnSingleProjectWithScores(int projectId) {
+        if(DatabaseFactory.getProjectService().checkIfProjectExists(projectId)) {
+            List<Object> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId);
             return new SingleProject(projectScores,200);
         }
         else{

@@ -1,5 +1,9 @@
 package jenky.codebuddy.services;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import jenky.codebuddy.modelbuilders.CommitModelBuilder;
+import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.Metric;
@@ -7,10 +11,11 @@ import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
 import wildtornado.scocalc.objects.Score;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 /**
- * Created by Fabian on 4-6-2016.
+ * This service has as main function to save the score in the database
  */
 public class ScoreUserService {
 
@@ -18,7 +23,27 @@ public class ScoreUserService {
 
     }
 
-    public void saveUserScore(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit){
+    /**
+     * Parses the headers and sends it to the appropriate builders. Afterwards saves the models
+     * @param headers Reponse from the CI server
+     */
+    public void parseResponse(Map<String, String> headers){
+        Gson gson = new Gson();
+        Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
+        List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
+        SonarResponse sonarResponse = sonarResponseList.get(0);
+        Map<String, String> githubInfoMap = createGithubUserInfoMap(headers);
+        CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
+        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
+        saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());;
+    }
+
+    /**
+     * @param metricsDataInputModel  contains the calculated socre
+     * @param sonarResponse  contains the calculated score from sonarqube
+     * @param userCommit  contains information about the user who commited this
+     */
+    private void saveUserScore(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit){
         Commit commit = createCommit(userCommit);
         List<Metric> metricsList = sonarResponse.getMsr();
         Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
@@ -40,6 +65,11 @@ public class ScoreUserService {
         DatabaseFactory.getUserService().saveOrUpdate(user);
     }
 
+    /**
+     * Creates a commit using the information from the userCommit
+     * @param userCommit contains information about the commiter
+     * @return Commit commit
+     */
     private Commit createCommit(UserCommit userCommit){
         Commit commit = new Commit();
         commit.setBranch(userCommit.getBranch());
@@ -49,6 +79,13 @@ public class ScoreUserService {
         return commit;
     }
 
+    /**
+     * This is created because the names the scorecalculator library uses
+     * are different then sonar uses
+     * @param name sonar name
+     * @param metricsDataInputModel contains the calculated scores
+     * @return calculated score for the sonar metric
+     */
     private double getScoreByName(String name, Score metricsDataInputModel){
         switch (name) {
             case "ncloc": return metricsDataInputModel.getLinesOfCodeScore();
@@ -60,10 +97,19 @@ public class ScoreUserService {
         }
     }
 
+    /**
+     * @param email of the commiter
+     * @return List of previouss scores
+     */
     public List<jenky.codebuddy.models.entities.Score> getPreviousScores(String email){
         return DatabaseFactory.getScoreService().getPreviousScores(email);
     }
 
+    /**
+     * Parses the headers to githubinfo
+     * @param headers From the CI server
+     * @return Map containing info about the committer
+     */
     public Map<String, String> createGithubUserInfoMap(Map<String, String> headers){
         Map githubInfoMap = new HashMap<String, String>();
         githubInfoMap.put("username",headers.get("username"));

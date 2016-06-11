@@ -44,7 +44,7 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("item_id",item_id);
         Optional<Item> result = Optional.ofNullable((Item) query.uniqueResult());
-        return (result.isPresent());
+        return result.isPresent();
     }
 
     @Override
@@ -53,6 +53,6 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("item_id",item_id);
         Optional<Item> result = Optional.ofNullable((Item) query.uniqueResult());
-        return(result.get());
+        return result.get();
     }
 }

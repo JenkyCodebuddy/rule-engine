@@ -1,14 +1,10 @@
 package jenky.codebuddy.models.rest;
 
-import jenky.codebuddy.models.entities.Item;
-import jenky.codebuddy.models.entities.Score;
-
 import java.util.List;
 
 public class SingleProject {
 
     private List<Object> userScores;
-    private List<Item> equippedItems;
     private int responseCode;
     private String responseMessage;
 

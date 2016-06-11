@@ -34,7 +34,7 @@ public class VerificationDaoImpl extends GenericDaoImpl<Verification, Integer> i
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("verification_code",verficationCode);
         Optional<Verification> result = Optional.ofNullable((Verification) query.uniqueResult());
-        return (result.isPresent());
+        return result.isPresent();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class VerificationDaoImpl extends GenericDaoImpl<Verification, Integer> i
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("verification_code",verficationCode);
         Optional<Verification> result = Optional.ofNullable((Verification) query.uniqueResult());
-        return (result.get());
+        return result.get();
     }
 
 }

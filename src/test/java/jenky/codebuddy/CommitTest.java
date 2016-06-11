@@ -1,13 +1,9 @@
 package jenky.codebuddy;
 
-import jenky.codebuddy.database.authentication.AuthenticationServiceImpl;
-import jenky.codebuddy.database.commit.CommitServiceImpl;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.services.DatabaseFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 

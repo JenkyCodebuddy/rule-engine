@@ -6,7 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertNotNull;
 
 
 /**

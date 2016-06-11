@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import wildtornado.scocalc.strategies.Calculator;
-
 public class ScoreModelBuilder {
     private DataInput metricsDataInputModel;
     private DataInput comparisonDataInputModel;
@@ -75,7 +73,7 @@ public class ScoreModelBuilder {
         for (jenky.codebuddy.models.entities.Score score : previousScores) {
             previousScoresMap.put(score.getMetric().getName(), score.getSonar_value());
         }
-        if (previousScoresMap.size() == 0){
+        if (previousScoresMap.isEmpty()){
             this.comparisonDataInputModel.setCommentPercentage(0);
             this.comparisonDataInputModel.setLinesOfCode(0);
             this.comparisonDataInputModel.setTechnicalDebt(0);
