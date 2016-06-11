@@ -16,7 +16,6 @@ public class ScoreModelBuilder {
     private DataInput metricsDataInputModel;
     private DataInput comparisonDataInputModel;
     private Score scoreModel = new Score();
-    private Map<String, Double> metricsMap;
 
     public ScoreModelBuilder(SonarResponse sonarResponse, UserCommit userCommit) {
         createMap(sonarResponse);
@@ -31,11 +30,11 @@ public class ScoreModelBuilder {
      */
     private void createMap(SonarResponse sonarResponse) {
         List<Metric> metricsList = sonarResponse.getMsr();
-        this.metricsMap = new HashMap<>();
+        Map<String, Double> metricsMap = new HashMap<>();
         for (Metric aMetricsList : metricsList) {
-            this.metricsMap.put(aMetricsList.getKey(), aMetricsList.getVal());
+            metricsMap.put(aMetricsList.getKey(), aMetricsList.getVal());
         }
-        mapMetricsData(this.metricsMap);
+        mapMetricsData(metricsMap);
     }
 
     /**

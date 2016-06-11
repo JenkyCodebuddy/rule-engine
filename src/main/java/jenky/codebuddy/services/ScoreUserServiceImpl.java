@@ -117,7 +117,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     @Override
     public Map<String, String> createGithubUserInfoMap(Map<String, String> headers){
-        Map githubInfoMap = new HashMap<String, String>();
+        Map<String, String> githubInfoMap = new HashMap<>();
         githubInfoMap.put("username",headers.get("username"));
         githubInfoMap.put("email", headers.get("email"));
         githubInfoMap.put("branch", headers.get("branch"));
