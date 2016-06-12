@@ -43,10 +43,9 @@ public class AuthenticationService { //static class for checking token if token 
             Object o = ois.readObject();
             key = (Key) o;
             ois.close();
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
         return key;
     }
@@ -60,9 +59,9 @@ public class AuthenticationService { //static class for checking token if token 
             oos.close();
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException();
         }
 
-        String keyString = Base64.getEncoder().encodeToString(baos.toByteArray());
-        return keyString;
+        return Base64.getEncoder().encodeToString(baos.toByteArray());
     }
 }
