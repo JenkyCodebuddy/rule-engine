@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class ProjectsServiceTest {
 
-    private static UserProjectsService userProjectsService;
+    private static ProjectsService userProjectsService;
     private static ActiveProjects activeProjects;
     private static SingleProject singleProject;
     private static Project project1;
@@ -32,7 +32,7 @@ public class ProjectsServiceTest {
 
     @BeforeClass
     public static void setup(){
-        userProjectsService = Mockito.mock(UserProjectsServiceImpl.class);
+        userProjectsService = Mockito.mock(ProjectsServiceImpl.class);
         project1 = new Project(null, null, "ICTLAB PROJECT", new Date(), new Date(), new Date());
         project2 = new Project(null, null, "HR PROJECT", new Date(), new Date(), new Date());
         project3 = new Project(null, null, "TEST", new Date(), new Date(), new Date());
