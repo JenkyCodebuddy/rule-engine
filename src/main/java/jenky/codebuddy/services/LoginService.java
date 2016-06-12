@@ -47,11 +47,15 @@ public class LoginService {
         }
     }
 
-
-    public Token generateToken(String email) { //method for generating a token
+    /**
+     * Creates a token for the user with subject email
+     * @param email of the user
+     * @return token
+     */
+    public Token generateToken(String email) {
         Token token = new Token();
         Key key = MacProvider.generateKey();
-        token.setToken(Jwts.builder().setSubject(email).signWith(SignatureAlgorithm.HS512, key).compact()); //generate a token with: userEmail as identifier, a key
+        token.setToken(Jwts.builder().setSubject(email).signWith(SignatureAlgorithm.HS512, key).compact());
         token.setKey(key);
         token.setId(email);
         return token;
