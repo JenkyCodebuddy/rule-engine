@@ -13,21 +13,34 @@ import java.util.Optional;
 @Repository
 public class VerificationDaoImpl extends GenericDaoImpl<Verification, Integer> implements VerificationDao {
 
+    /**
+     * @param verification
+     */
     @Override
     public void addNewVerification(Verification verification) {
         super.add(verification);
     }
 
+    /**
+     * @param verification
+     */
     @Override
     public void removeVerification(Verification verification) {
         super.delete(verification);
     }
 
+    /**
+     * @param verification
+     */
     @Override
     public void updateVerficication(Verification verification) {
         super.update(verification);
     }
 
+    /**
+     * @param verficationCode
+     * @return boolean
+     */
     @Override
     public boolean checkIfVerificationExists(String verficationCode){
         String hql = "FROM Verification v WHERE v.code = :verification_code";
@@ -37,6 +50,10 @@ public class VerificationDaoImpl extends GenericDaoImpl<Verification, Integer> i
         return result.isPresent();
     }
 
+    /**
+     * @param verficationCode
+     * @return Verification otherwise null
+     */
     @Override
     public Verification getVerificationIfExists(String verficationCode){
         String hql = "FROM Verification v WHERE v.code = :verification_code";

@@ -10,9 +10,20 @@ import java.util.List;
  */
 
 public interface AchievementDao extends GenericDao<Achievement, Integer> {
+    /**
+     * @return List<Achievement>
+     */
     public List<Achievement> getAchievements();
 
+    /**
+     * @param user_id id of the user
+     * @return int
+     */
     public double getAchievementCountFromUser(int user_id);
 
+    /**
+     * @param user_id id of the user
+     * @return
+     */
     public List<Achievement> getAchievementsFromUser(int user_id);
 }

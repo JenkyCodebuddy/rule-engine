@@ -14,8 +14,7 @@ import java.util.Map;
 public interface ScoreUserService {
 
     /**
-     * Parses the headers for the different model builders
-     * @param headers
+     * @param headers post from CI server
      */
     public void parseHeaders(Map<String, String> headers);
 
@@ -27,14 +26,14 @@ public interface ScoreUserService {
     public void saveUserScore(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit);
 
     /**
-     * @param userCommit contains info about the commit
-     * @return
+     * @param userCommit a map containing info about the commit
+     * @return Commit containing info about the commit
      */
     public Commit createCommit(UserCommit userCommit);
 
     /**
      * This is created because the names the scorecalculator library uses
-     * are different then sonar uses
+     * are different than sonar
      * @param name sonar name
      * @param metricsDataInputModel contains the calculated scores
      * @return calculated score for the sonar metric
@@ -42,8 +41,8 @@ public interface ScoreUserService {
     public double getScoreByName(String name, Score metricsDataInputModel);
 
     /**
-     * @param email
-     * @return
+     * @param email of the user
+     * @return List<jenky.codebuddy.models.entities.Score> containing the previous score of the user
      */
     public List<jenky.codebuddy.models.entities.Score> getPreviousScores(String email);
 

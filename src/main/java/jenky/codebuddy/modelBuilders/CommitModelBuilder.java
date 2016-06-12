@@ -12,7 +12,11 @@ public class CommitModelBuilder {
         createCommitModel(commitInfo);
     }
 
-    public void createCommitModel(Map commitInfo) {
+    /**
+     * Creates a map of the commit info from the header
+     * @param commitInfo
+     */
+    private void createCommitModel(Map commitInfo) {
         userCommitModel = new UserCommit(commitInfo.get("username").toString(),
                 commitInfo.get("email").toString(),
                 commitInfo.get("branch").toString(),
@@ -21,7 +25,7 @@ public class CommitModelBuilder {
         setUserCommitModel(userCommitModel);
     }
 
-    public void setUserCommitModel(UserCommit userCommitModel) {
+    private void setUserCommitModel(UserCommit userCommitModel) {
         this.userCommitModel = userCommitModel;
     }
 

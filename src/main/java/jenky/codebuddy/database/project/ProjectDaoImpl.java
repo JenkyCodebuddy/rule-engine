@@ -37,6 +37,10 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         return result.isPresent();
     }
 
+    /**
+     * @param project_id
+     * @return boolean
+     */
     @Override
     public boolean checkIfProjectExists(int project_id){
         String hql = "FROM Project p WHERE p.id= :project_id";
@@ -46,6 +50,10 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         return result.isPresent();
     }
 
+    /**
+     * @param projectName
+     * @return Project otherwise null
+     */
     @Override
     public Project getProjectIfExists(String projectName) {
         String hql = "FROM Project p WHERE p.name = :project_name";
@@ -64,6 +72,10 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         super.add(project);
     }
 
+    /**
+     * @param user_id
+     * @return int
+     */
     @Override
     public double getProjectCountFromUser(int user_id) {
         String hql = "SELECT COUNT(DISTINCT project.id) FROM Project project INNER JOIN project.commits as commits INNER JOIN commits.scores as scores WHERE scores.user =:user_id GROUP BY scores.user";
@@ -73,6 +85,10 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         return result;
     }
 
+    /**
+     * @param user_id
+     * @return List of projects the user is working on
+     */
     @Override
     public List<Project> getActiveProjectsFromUser(int user_id) {
         String hql = "SELECT project.name FROM Project project INNER JOIN project.commits as commits INNER JOIN commits.scores as scores WHERE scores.user =:user_id GROUP BY project.id";

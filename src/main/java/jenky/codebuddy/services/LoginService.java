@@ -20,6 +20,11 @@ public class LoginService {
 
     }
 
+    /**
+     * @param email
+     * @param password
+     * @return Response
+     */
     public Response login(String email, String password) {   //method for logging an user in based on email and password
         User user;
         Token token;
@@ -61,10 +66,20 @@ public class LoginService {
         return token;
     }
 
+    /**
+     * @param userId
+     * @param token
+     * @param key
+     */
     private void updateAuthentication(int userId, String token, String key) { //method for updating a record in the authentication table
         DatabaseFactory.getAuthenticationService().updateAuthentication(userId, token, key, new Date());
     }
 
+    /**
+     * @param user
+     * @param token
+     * @param key
+     */
     private void createNewAuthentication(User user, String token, String key) { //method for creating a new record in the authentication table
         Authentication authentication = new Authentication();
         authentication.setUser(user);

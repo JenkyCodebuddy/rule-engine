@@ -23,11 +23,18 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
         return commits;
     }
 
+    /**
+     * @param commit
+     */
     @Override
     public void saveCommit(Commit commit){
         super.add(commit);
     }
 
+    /**
+     * @param user_id
+     * @return List<Commit> from the user otherwise null
+     */
     @Override
     public List<Commit> getCommitsFromUser(int user_id){
         String hql = "FROM Commit commit " +

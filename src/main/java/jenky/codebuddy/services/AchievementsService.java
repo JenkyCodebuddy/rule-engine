@@ -14,6 +14,10 @@ public class AchievementsService {
     public AchievementsService() {
     }
 
+    /**
+     * @param token
+     * @return Achievement
+     */
     public Achievements returnAchievements(String token){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         List<Achievement> allAchievements = DatabaseFactory.getAchievementService().getAchievementsFromUser(user.getUser_id());

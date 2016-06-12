@@ -7,5 +7,8 @@ import jenky.codebuddy.models.entities.ItemUser;
  * Specifices the specific methods for ItemService.
  */
 public interface ItemUserService extends GenericService<ItemUser, Integer> {
+    /**
+     * @param itemUser
+     */
     public void addItemUser(ItemUser itemUser);
 }

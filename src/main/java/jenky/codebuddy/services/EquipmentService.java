@@ -14,6 +14,10 @@ public class EquipmentService {
     public EquipmentService(){
     }
 
+    /**
+     * @param token
+     * @return Equipment
+     */
     public Equipment returnEquipmentFromUser(String token){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         List<Item> equippedItems = DatabaseFactory.getItemService().getEquippedItemsFromUser(user.getUser_id());

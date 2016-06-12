@@ -41,6 +41,10 @@ public class MetricDaoImpl extends GenericDaoImpl<Metric, Integer> implements Me
         }
     }
 
+    /**
+     * @param metricName
+     * @return Metric otherwise null
+     */
     @Override
     public Metric getMetricIfExists(String metricName) {
         String hql = "FROM Metric m WHERE m.name = :metric";

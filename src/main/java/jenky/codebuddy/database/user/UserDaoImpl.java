@@ -16,17 +16,15 @@ import java.util.Optional;
 public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDao {
 
     /**
-     * Get all the projects
-     * @return List containing all the projects.
+     * @return List of all the users
      */
-
     @Override
     public List<User> getAllUsers() {
         return super.findAll();
     }
 
     /**
-     * Check if the given project exists or not.
+     * Check if the given user exists or not.
      * @param email
      * @return true or false
      */
@@ -39,6 +37,10 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         return result.isPresent();
     }
 
+    /**
+     * @param email
+     * @return
+     */
     @Override
     public User getUserIfExists(String email) {
         String hql = "FROM User u WHERE u.email = :user_email";
@@ -48,6 +50,11 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         return result.get();
     }
 
+    /**
+     * @param password
+     * @param userEmail
+     * @param updatedAt
+     */
     @Override
     public void setPasswordForUser(String password, String userEmail, Date updatedAt) {
         String hql = "UPDATE User u SET password =:password, updated_at =:updated_at WHERE u.email =:user_email";
@@ -58,6 +65,11 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         query.executeUpdate();
     }
 
+    /**
+     * @param user_id
+     * @param item_id
+     * @return User otherwise null
+     */
     @Override
     public boolean checkIfUserDoesntHaveItem(int user_id, int item_id) {
         String hql = "FROM User u INNER JOIN u.itemusers as item_has_user WHERE item_has_user.user = :user_id AND item_has_user.item = :item_id";
@@ -68,6 +80,11 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         return result.get().isEmpty();
     }
 
+    /**
+     * @param user_id
+     * @param amount
+     * @return
+     */
     @Override
     public boolean checkIfUserHasEnoughCoins(int user_id, double amount) {
         String hql = "SELECT u.jenkycoins FROM User u WHERE u.id = :user_id";
@@ -78,6 +95,10 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         return ((userCurrency - amount) >= 0) ? true : false;
     }
 
+    /**
+     * @param user_id
+     * @param amount
+     */
     @Override
     public void subtractCoins(int user_id, double amount) {
         String hql = "UPDATE User u SET u.jenkycoins = (u.jenkycoins - :amount) WHERE u.id = :user_id";

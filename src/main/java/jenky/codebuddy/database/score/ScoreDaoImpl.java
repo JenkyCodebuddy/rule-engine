@@ -68,6 +68,10 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         return scores;
     }
 
+    /**
+     * @param user_id
+     * @return int
+     */
     @Override
     public double getAvgScoreFromUser(int user_id){
         String hql = "SELECT avg(score.score) FROM Score score INNER JOIN User user ON user.id = score.user WHERE user.id= :user_id GROUP BY user.id";
@@ -77,6 +81,10 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         return result.isPresent() ? (double)result.get() : null;
     }
 
+    /**
+     * @param user_id
+     * @return int
+     */
     @Override
     public double getTotalScoreFromUser(int user_id){
         String hql = "SELECT sum(score.score) FROM Score score INNER JOIN User user ON user.id = score.user WHERE user.id= :user_id GROUP BY user.id";
@@ -86,6 +94,10 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         return result.isPresent() ? (double)result.get() : null;
     }
 
+    /**
+     * @param project_id
+     * @return int
+     */
     @Override
     public List<Object> getScoresFromProject(int project_id) {
         String hql = "SELECT score FROM Score score LEFT JOIN FETCH score.commit as commits LEFT JOIN FETCH commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
@@ -104,6 +116,10 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         return finalScoreList;
     }
 
+    /**
+     * @param user_id
+     * @return boolean
+     */
     @Override
     public boolean checkIfUserHasScores(int user_id) {
         String hql = "SELECT score.id FROM Score score WHERE score.user =:user_id";

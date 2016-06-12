@@ -16,11 +16,19 @@ public class ShopService {
     public ShopService() {
     }
 
+    /**
+     * @return List of all the items
+     */
     public Items getAllItems(){
         List<Item> allItems = DatabaseFactory.getItemService().getAllItems();
         return new Items(allItems, 200);
     }
 
+    /**
+     * @param token
+     * @param itemId
+     * @return Response
+     */
     public Response buyItemForUser(String token, int itemId){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         if(DatabaseFactory.getItemService().checkIfItemExists(itemId)) {
@@ -41,6 +49,10 @@ public class ShopService {
         }
     }
 
+    /**
+     * @param user
+     * @param item
+     */
     private void addItemToUser(User user, Item item){
         ItemUser itemUser = new ItemUser();
         itemUser.setUser(user);

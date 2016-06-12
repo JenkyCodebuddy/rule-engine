@@ -65,6 +65,12 @@ public class ProjectServiceImpl extends GenericServiceImpl<Project, Integer> imp
         return projectDao.checkIfProjectExists(projectName);
     }
 
+    /**
+     * Asks the projectDao to check if the given project exists or not.
+     * Transaction management done by Spring.
+     * @param project_id
+     * @return true or false
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public boolean checkIfProjectExists(int project_id) {
@@ -83,12 +89,21 @@ public class ProjectServiceImpl extends GenericServiceImpl<Project, Integer> imp
         return projectDao.getProjectIfExists(projectName);
     }
 
+    /**
+     * @param user_id
+     * @return int
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public double getProjectCountFromUser(int user_id) {
         return projectDao.getProjectCountFromUser(user_id);
     }
 
+    /**
+     *
+     * @param user_id
+     * @return List of projets the user is working on
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Project> getActiveProjectsFromUser(int user_id) {
