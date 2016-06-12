@@ -20,7 +20,7 @@ public class ScoreController {
     /**
      *
      * @param headers must contains a sonarresponse(json)
-     * and header email, header sha, header branh, header project, username
+     * and header email, header sha, header branch, header project, username
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     private void saveScore(@RequestHeader Map<String, String> headers){
