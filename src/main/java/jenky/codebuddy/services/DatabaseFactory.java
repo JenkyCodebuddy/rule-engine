@@ -30,82 +30,56 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class DatabaseFactory {
 
-    private static AchievementService achievementService;
-    private static jenky.codebuddy.database.authentication.AuthenticationService authenticationService;
-    private static CommitService commitService;
-    private static CompanyService companyService;
-    private static ItemService itemService;
-    private static ItemUserService itemUserService;
-    private static MetricService metricService;
-    private static ProjectService projectService;
-    private static ScoreService scoreService;
-    private static VerificationService verificationService;
-    private static UserService userService;
-    private static ApplicationContext context;
+    private static final ApplicationContext context;
 
     private DatabaseFactory() {
     }
 
     static{
         context = new ClassPathXmlApplicationContext("spring.xml");
-        achievementService = (AchievementServiceImpl) context.getBean("achievementServiceImpl");
-        authenticationService = (AuthenticationServiceImpl) context.getBean("authenticationServiceImpl");
-        commitService = (CommitServiceImpl) context.getBean("commitServiceImpl");
-        companyService = (CompanyServiceImpl) context.getBean("companyServiceImpl");
-        itemService = (ItemServiceImpl) context.getBean("itemServiceImpl");
-        itemUserService = (ItemUserServiceImpl) context.getBean("itemUserServiceImpl");
-        metricService = (MetricServiceImpl) context.getBean("metricServiceImpl");
-        projectService = (ProjectServiceImpl) context.getBean("projectServiceImpl");
-        scoreService = (ScoreServiceImpl) context.getBean("scoreServiceImpl");
-        verificationService = (VerificationServiceImpl) context.getBean("verificationServiceImpl");
-        userService = (UserServiceImpl) context.getBean("userServiceImpl");
     }
 
     public static AchievementService getAchievementService() {
-        return achievementService;
-    }
-
-    public static ApplicationContext getContext() {
-        return context;
+        return (AchievementServiceImpl) context.getBean("achievementServiceImpl");
     }
 
     public static AuthenticationService getAuthenticationService() {
-        return authenticationService;
+        return (AuthenticationServiceImpl) context.getBean("authenticationServiceImpl");
     }
 
     public static CommitService getCommitService() {
-        return commitService;
+        return (CommitServiceImpl) context.getBean("commitServiceImpl");
     }
 
     public static CompanyService getCompanyService() {
-        return companyService;
-    }
+        return (CompanyServiceImpl) context.getBean("companyServiceImpl");
+    } //etc..
 
     public static ItemService getItemService() {
-        return itemService;
+        return (ItemServiceImpl) context.getBean("itemServiceImpl");
     }
 
     public static ItemUserService getItemUserService() {
-        return itemUserService;
+        return (ItemUserServiceImpl) context.getBean("itemUserServiceImpl");
     }
 
     public static MetricService getMetricService() {
-        return metricService;
+        return (MetricServiceImpl) context.getBean("metricServiceImpl");
     }
 
     public static ProjectService getProjectService() {
-        return projectService;
+        return (ProjectServiceImpl) context.getBean("projectServiceImpl");
     }
 
     public static ScoreService getScoreService() {
-        return scoreService;
+        return (ScoreServiceImpl) context.getBean("scoreServiceImpl");
     }
 
     public static VerificationService getVerificationService() {
-        return verificationService;
+        return (VerificationServiceImpl) context.getBean("verificationServiceImpl");
     }
 
     public static UserService getUserService() {
-        return userService;
+        return (UserServiceImpl) context.getBean("userServiceImpl");
     }
 }

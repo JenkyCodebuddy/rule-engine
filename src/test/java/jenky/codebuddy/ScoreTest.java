@@ -27,9 +27,9 @@ public class ScoreTest{
     @Before
     public void setUp() {
         this.testScore = new Score();
-        User testuser = new User();
-        testuser.setEmail(TestInfo.TESTEMAIL);
-        testScore.setUser(testuser);
+        User testUser = new User();
+        testUser.setEmail(TestInfo.TESTEMAIL);
+        testScore.setUser(testUser);
     }
 
     @Test

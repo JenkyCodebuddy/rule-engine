@@ -12,8 +12,6 @@ import java.util.List;
  */
 public class ProfileService {
 
-    String token;
-
     public ProfileService() {
     }
 
@@ -32,13 +30,4 @@ public class ProfileService {
             return new Profile(400, "User has no scores yet");
         }
     }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
 }
