@@ -76,24 +76,40 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
         return scoreDao.getPreviousScores(userEmail);
     }
 
+    /**
+     * @param user_id
+     * @return int
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public double getAvgScoreFromUser(int user_id){
         return scoreDao.getAvgScoreFromUser(user_id);
     }
 
+    /**
+     * @param user_id
+     * @return int
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public double getTotalScoreFromUser(int user_id){
         return scoreDao.getTotalScoreFromUser(user_id);
     }
 
+    /**
+     * @param project_id
+     * @return List of scores from the given project
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Object> getScoresFromProject(int project_id){
         return scoreDao.getScoresFromProject(project_id);
     }
 
+    /**
+     * @param project_id
+     * @return boolean
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean checkIfUserHasScores(int project_id){

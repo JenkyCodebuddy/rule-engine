@@ -17,6 +17,11 @@ import java.util.Date;
 public class AuthenticationServiceImpl extends GenericServiceImpl<Authentication, Integer> implements AuthenticationService {
 
     private AuthenticationDao authenticationDao;
+
+    /**
+     * Injected by Spring
+     * @param authenticationDao
+     */
     @Autowired
     public AuthenticationServiceImpl(@Qualifier("authenticationDaoImpl") AuthenticationDao authenticationDao) {
         this.authenticationDao = authenticationDao;
@@ -26,30 +31,52 @@ public class AuthenticationServiceImpl extends GenericServiceImpl<Authentication
 
     }
 
+    /**
+     * @param authentication
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveAuthentication(Authentication authentication) {
         authenticationDao.saveAuthentication(authentication);
     }
 
+    /**
+     * @param userId int
+     * @return
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean checkIfAuthenticationForUserExists(int userId) {
         return authenticationDao.checkIfAuthenticationForUserExists(userId);
     }
 
+    /**
+     *
+     * @param userId
+     * @param token
+     * @param key
+     * @param updated_at
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void updateAuthentication(int userId, String token, String key, Date updated_at) {
         authenticationDao.updateAuthentication(userId, token, key, updated_at);
     }
 
+    /**
+     * @param token
+     * @return boolean
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean checkIfTokenExists(String token) {
         return authenticationDao.checkIfTokenExists(token);
     }
 
+    /**
+     * @param token
+     * @return String token otherwise null
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Authentication getAuthenticationIfTokenExists(String token) {

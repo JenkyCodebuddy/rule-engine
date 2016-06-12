@@ -54,6 +54,12 @@ public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> imple
         commitDao.saveCommit(commit);
     }
 
+    /**
+     * Ask commitDao to get the commits from the user
+     * Transaction is managed by Spring
+     * @param user_id
+     * @return List<Commit> from the user otherwise null
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Commit> getCommitsFromUser(int user_id) {

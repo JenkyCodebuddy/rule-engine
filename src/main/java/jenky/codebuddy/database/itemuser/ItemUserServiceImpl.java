@@ -30,9 +30,8 @@ public class ItemUserServiceImpl extends GenericServiceImpl<ItemUser, Integer> i
     }
 
     /**
-     * Asks itemDao to find and return all the items
-     * Transaction management done by Spring.
-     * @return
+     * Transaction is managed by Spring
+     * @param itemUser
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)

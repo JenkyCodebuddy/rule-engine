@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 public class ItemUserDaoImpl extends GenericDaoImpl<ItemUser, Integer> implements ItemUserDao {
 
     /**
-     * Return all the items
-     * @return List of Items
+     * @param itemUser
      */
     @Override
     public void addItemUser(ItemUser itemUser) {

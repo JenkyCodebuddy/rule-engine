@@ -18,6 +18,10 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         super.add(authentication);
     }
 
+    /**
+     * @param userId
+     * @return int userId
+     */
     @Override
     public boolean checkIfAuthenticationForUserExists(int userId) {
         String hql = "FROM Authentication a WHERE a.user.user_id = :userid";
@@ -27,6 +31,12 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         return result!=null;
     }
 
+    /**
+     * @param userId
+     * @param token
+     * @param keyString
+     * @param updated_at
+     */
     @Override
     public void updateAuthentication(int userId, String token, String keyString, Date updated_at) {
         String hql = "update Authentication a set token = :token, auth_key = :keyString, updated_at=:updated_at WHERE a.user.user_id = :userId";
@@ -38,6 +48,10 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         query.executeUpdate();
     }
 
+    /**
+     * @param token
+     * @return boolean
+     */
     @Override
     public boolean checkIfTokenExists(String token){
         String hql = "FROM Authentication a WHERE a.token = :token";
@@ -47,6 +61,10 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         return result!=null;
     }
 
+    /**
+     * @param token
+     * @return String token otherwise null
+     */
     @Override
     public Authentication getAuthenticationIfTokenExists(String token) {
         String hql = "FROM Authentication a WHERE a.token = :token";
