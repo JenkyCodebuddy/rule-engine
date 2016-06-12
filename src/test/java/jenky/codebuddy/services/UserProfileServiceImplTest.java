@@ -3,7 +3,6 @@ package jenky.codebuddy.services;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Project;
-import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Profile;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -17,9 +16,9 @@ import java.util.List;
 /**
  * Created by joost on 12-6-2016.
  */
-public class ProfileServiceTest {
+public class UserProfileServiceImplTest {
 
-    private static ProfileService profileService;
+    private static UserProfileService userProfileServiceImpl;
     private static Profile profile;
     private static Item item1;
     private static Item item2;
@@ -34,7 +33,7 @@ public class ProfileServiceTest {
 
     @BeforeClass
     public static void setup(){
-        profileService = Mockito.mock(ProfileService.class);
+        userProfileServiceImpl = Mockito.mock(UserProfileService.class);
         project = new Project(null, null, "ICTLAB PROJECT", new Date(), new Date(), new Date());
         item1 = new Item(null, "Iron chestplate", "Body armour", "chestplate.jpeg", 400, new Date(), new Date(), new Date());
         item2 = new Item(null, "Bronze helmet", "Headgear", "helmet.jpeg", 100, new Date(), new Date(), new Date());
@@ -46,13 +45,13 @@ public class ProfileServiceTest {
         projectCount = 3;
         profile = new Profile(Arrays.asList(item1,item2),Arrays.asList(commit1,commit2),totalscore,avgScore,achievementCount,projectCount, 200);
         token = "TEST_TOKEN";
-        Mockito.when(profileService.returnProfile(token)).thenReturn(profile);
+        Mockito.when(userProfileServiceImpl.returnProfile(token)).thenReturn(profile);
                 /*double totalScore, double avgScore, double achievementCount, double projectCount,*/
     }
 
     @Test
     public void testReturnProfile(){
-        Profile profile = profileService.returnProfile("TEST_TOKEN");
+        Profile profile = userProfileServiceImpl.returnProfile("TEST_TOKEN");
         Assert.assertNotNull(profile);
         List<Item> equippedItems = profile.getEquippedItems();
         Assert.assertEquals("Iron chestplate", equippedItems.get(0).getName());

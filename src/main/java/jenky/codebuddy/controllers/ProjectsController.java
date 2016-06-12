@@ -2,8 +2,9 @@ package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.ActiveProjects;
 import jenky.codebuddy.models.rest.SingleProject;
-import jenky.codebuddy.services.AuthenticationService;
-import jenky.codebuddy.services.ProjectsService;
+import jenky.codebuddy.services.UserAuthenticationService;
+import jenky.codebuddy.services.UserProjectsService;
+import jenky.codebuddy.services.UserProjectsServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -15,10 +16,10 @@ import java.util.Map;
 @RequestMapping(value = "/projects")
 public class ProjectsController {
 
-    ProjectsService projectsService;
+    private UserProjectsService userProjectsServiceImpl;
 
     public ProjectsController() {
-        setProjectsService(new ProjectsService());
+        setUserProjectsServiceImpl(new UserProjectsServiceImpl());
     }
 
     /**
@@ -27,8 +28,8 @@ public class ProjectsController {
      */
     @RequestMapping(method = RequestMethod.GET)
     private ActiveProjects showActiveProjectsForUser(@RequestHeader Map<String,String> headers) {
-        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getProjectsService().returnActiveProjectsForUser(headers.get("token"));
+        if(UserAuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return getUserProjectsServiceImpl().returnActiveProjectsForUser(headers.get("token"));
         }
         else{
             return new ActiveProjects(400,"Token not valid");
@@ -42,19 +43,19 @@ public class ProjectsController {
      */
     @RequestMapping(value = "/{project_id}", method = RequestMethod.GET)
     private SingleProject showScoresForProject(@PathVariable int project_id, @RequestHeader Map<String, String> headers){
-        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return projectsService.returnSingleProjectWithScores(project_id);
+        if(UserAuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return userProjectsServiceImpl.returnSingleProjectWithScores(project_id);
         }
         else{
             return new SingleProject(400,"Token is not valid");
         }
     }
 
-    private ProjectsService getProjectsService() {
-        return projectsService;
+    public UserProjectsService getUserProjectsServiceImpl() {
+        return userProjectsServiceImpl;
     }
 
-    private void setProjectsService(ProjectsService projectsService) {
-        this.projectsService = projectsService;
+    public void setUserProjectsServiceImpl(UserProjectsService userProjectsServiceImpl) {
+        this.userProjectsServiceImpl = userProjectsServiceImpl;
     }
 }

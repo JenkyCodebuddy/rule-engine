@@ -1,7 +1,8 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Response;
-import jenky.codebuddy.services.LoginService;
+import jenky.codebuddy.services.UserLoginService;
+import jenky.codebuddy.services.UserLoginServiceImpl;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,10 +17,10 @@ import java.util.Map;
 @RequestMapping(value = "/login")
 public class LoginController {
 
-    LoginService loginService;
+    UserLoginService userLoginServiceImpl;
 
     public LoginController() {
-        setLoginService(new LoginService());
+        setUserLoginServiceImpl(new UserLoginServiceImpl());
     }
 
     /**
@@ -28,14 +29,14 @@ public class LoginController {
      */
     @RequestMapping(method = RequestMethod.POST) //
     private Response login(@RequestHeader Map<String,String> headers) {
-        return getLoginService().login(headers.get("email"), headers.get("password"));
+        return getUserLoginServiceImpl().login(headers.get("email"), headers.get("password"));
     }
 
-    private LoginService getLoginService() {
-        return loginService;
+    public UserLoginService getUserLoginServiceImpl() {
+        return userLoginServiceImpl;
     }
 
-    private void setLoginService(LoginService loginService) {
-        this.loginService = loginService;
+    public void setUserLoginServiceImpl(UserLoginService userLoginServiceImpl) {
+        this.userLoginServiceImpl = userLoginServiceImpl;
     }
 }

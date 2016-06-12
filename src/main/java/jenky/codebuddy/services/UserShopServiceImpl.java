@@ -11,14 +11,15 @@ import java.util.List;
 /**
  * Created by joost on 6-6-2016.
  */
-public class ShopService {
+public class UserShopServiceImpl implements UserShopService {
 
-    public ShopService() {
+    public UserShopServiceImpl() {
     }
 
     /**
      * @return List of all the items
      */
+    @Override
     public Items getAllItems(){
         List<Item> allItems = DatabaseFactory.getItemService().getAllItems();
         return new Items(allItems, 200);
@@ -29,6 +30,7 @@ public class ShopService {
      * @param itemId
      * @return Response
      */
+    @Override
     public Response buyItemForUser(String token, int itemId){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         if(DatabaseFactory.getItemService().checkIfItemExists(itemId)) {

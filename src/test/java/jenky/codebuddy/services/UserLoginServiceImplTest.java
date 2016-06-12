@@ -3,7 +3,6 @@ package jenky.codebuddy.services;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.token.models.Token;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -13,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Created by joost on 12-6-2016.
  */
-public class LoginServiceTest {
+public class UserLoginServiceImplTest {
 
-    private static LoginService loginService;
+    private static UserLoginService userLoginServiceImpl;
     private static String testEmail;
     private static User testUser;
 
     @BeforeClass
     public static void setup(){
-        loginService = new LoginService();
+        userLoginServiceImpl = new UserLoginServiceImpl();
         testEmail = "test@123.com";
         testUser = new User();
         testUser.setPassword("testPassword");
@@ -30,7 +29,7 @@ public class LoginServiceTest {
 
     @Test
     public void testTokenGenerator(){
-        Token t = loginService.generateToken(testEmail);
+        Token t = userLoginServiceImpl.generateToken(testEmail);
         Assert.assertNotNull(t);
         Assert.assertNotNull(t.getId());
         Assert.assertNotNull(t.getKey());
@@ -42,7 +41,7 @@ public class LoginServiceTest {
     @Transactional
     public void testLogin(){
         DatabaseFactory.getUserService().save(testUser);
-        Response response = loginService.login(testUser.getEmail(), testUser.getPassword());
+        Response response = userLoginServiceImpl.login(testUser.getEmail(), testUser.getPassword());
         Assert.assertEquals(response.getResponseCode(),200);
     }
 }
