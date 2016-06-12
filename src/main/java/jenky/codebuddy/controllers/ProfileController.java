@@ -20,7 +20,7 @@ public class ProfileController {
     ProfileService profileService;
 
     public ProfileController() {
-        setProfileService(new ProfileService());
+        this.profileService = new ProfileService();
     }
 
     /**
@@ -30,18 +30,10 @@ public class ProfileController {
     @RequestMapping(method = RequestMethod.GET)
     private Profile getProfile(@RequestHeader Map<String,String> headers) {
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getProfileService().returnProfile(headers.get("token"));
+            return profileService.returnProfile(headers.get("token"));
         }
         else{
             return new Profile(400, "Token is invalid");
         }
-    }
-
-    public ProfileService getProfileService() {
-        return profileService;
-    }
-
-    public void setProfileService(ProfileService profileService) {
-        this.profileService = profileService;
     }
 }
