@@ -26,7 +26,6 @@
         <property name="password" value="codebuddy"/>
         <property name="minPoolSize" value="0"/>
         <property name="maxPoolSize" value="130"/>
-        <property name="maxIdleTime" value="30"/>
         <property name="acquireIncrement" value="1"/>
     </bean>
 
