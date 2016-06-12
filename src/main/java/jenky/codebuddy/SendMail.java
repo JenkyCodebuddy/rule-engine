@@ -10,6 +10,10 @@ import java.util.Properties;
  */
 public class SendMail {
 
+    /**
+     * @param recipientEmail
+     * @param verificationCode
+     */
     public void sendVerifcationMail(String recipientEmail, String verificationCode){
 
         final String username = "jenkycodebuddy@gmail.com";
