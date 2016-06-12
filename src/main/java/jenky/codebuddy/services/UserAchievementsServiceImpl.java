@@ -9,15 +9,16 @@ import java.util.List;
 /**
  * Created by joost on 4-6-2016.
  */
-public class AchievementsService {
+public class UserAchievementsServiceImpl implements UserAchievementsService {
 
-    public AchievementsService() {
+    public UserAchievementsServiceImpl() {
     }
 
     /**
      * @param token
      * @return Achievement
      */
+    @Override
     public Achievements returnAchievements(String token){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         List<Achievement> allAchievements = DatabaseFactory.getAchievementService().getAchievementsFromUser(user.getUser_id());

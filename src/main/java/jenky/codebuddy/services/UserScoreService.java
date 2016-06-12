@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Defines the business logic the ScoreUserServiceImpl must provide
+ * Defines the business logic the UserScoreServiceImpl must provide
  */
-public interface ScoreUserService {
+public interface UserScoreService {
 
     /**
      * @param headers post from CI server

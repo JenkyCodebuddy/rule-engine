@@ -1,7 +1,7 @@
 package jenky.codebuddy.controllers;
 
-import jenky.codebuddy.services.ScoreUserService;
-import jenky.codebuddy.services.ScoreUserServiceImpl;
+import jenky.codebuddy.services.UserScoreService;
+import jenky.codebuddy.services.UserScoreServiceImpl;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +24,7 @@ public class ScoreController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     private void saveScore(@RequestHeader Map<String, String> headers){
-        ScoreUserService scoreUserService = new ScoreUserServiceImpl();
-        scoreUserService.parseHeaders(headers);
+        UserScoreService userScoreService = new UserScoreServiceImpl();
+        userScoreService.parseHeaders(headers);
     }
 }

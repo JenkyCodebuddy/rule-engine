@@ -3,7 +3,7 @@ package jenky.codebuddy.modelbuilders;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
-import jenky.codebuddy.services.ScoreUserServiceImpl;
+import jenky.codebuddy.services.UserScoreServiceImpl;
 import wildtornado.scocalc.Calc;
 import wildtornado.scocalc.objects.DataInput;
 import wildtornado.scocalc.objects.Score;
@@ -66,7 +66,7 @@ public class ScoreModelBuilder {
      * @param email
      */
     private void mapComparisonDataInputModel(String email) {
-        List<jenky.codebuddy.models.entities.Score> previousScores = new ScoreUserServiceImpl().getPreviousScores(email);
+        List<jenky.codebuddy.models.entities.Score> previousScores = new UserScoreServiceImpl().getPreviousScores(email);
         HashMap<String, Double> previousScoresMap = new HashMap<String, Double>();
         this.comparisonDataInputModel = new DataInput();
         for (jenky.codebuddy.models.entities.Score score : previousScores) {
