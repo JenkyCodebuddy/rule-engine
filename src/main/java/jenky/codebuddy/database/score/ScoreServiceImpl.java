@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Service layer of Score. Inherits the GenericService and implements the UserScoreServiceImpl interface.
+ * Service layer of Score. Inherits the GenericService and implements the ScoreUserServiceImpl interface.
  */
 @Service
 public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> implements ScoreService {

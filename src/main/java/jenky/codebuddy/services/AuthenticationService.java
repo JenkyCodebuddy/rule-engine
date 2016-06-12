@@ -12,9 +12,9 @@ import java.util.Base64;
 /**
  * Created by joost on 2-6-2016.
  */
-public class UserAuthenticationService { //static class for checking token if token is valid
+public class AuthenticationService { //static class for checking token if token is valid
 
-    private UserAuthenticationService() {
+    private AuthenticationService() {
 
     }
 

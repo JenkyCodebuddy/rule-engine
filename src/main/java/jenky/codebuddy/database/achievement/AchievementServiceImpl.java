@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Service layer of Achievement. Inherits GenericService and implements the UserAuthenticationService interface
+ * Service layer of Achievement. Inherits GenericService and implements the AuthenticationService interface
  */
 @Service
 public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Integer> implements AchievementService {

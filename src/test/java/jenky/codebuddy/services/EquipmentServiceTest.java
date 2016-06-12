@@ -1,6 +1,7 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.models.entities.Item;
+import jenky.codebuddy.models.entities.ItemUser;
 import jenky.codebuddy.models.rest.Equipment;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -14,9 +15,9 @@ import java.util.List;
 /**
  * Created by joost on 12-6-2016.
  */
-public class UserEquipmentServiceImplTest {
+public class EquipmentServiceTest {
 
-    private static UserEquipmentService userEquipmentServiceImpl;
+    private static EquipmentService equipmentService;
     private static Item item1;
     private static Item item2;
     private static Item item3;
@@ -24,19 +25,19 @@ public class UserEquipmentServiceImplTest {
     private static String token;
     @BeforeClass
     public static void setup(){
-        userEquipmentServiceImpl = Mockito.mock(UserEquipmentService.class);
+        equipmentService = Mockito.mock(EquipmentService.class);
         item1 = new Item(null, "Iron chestplate", "Body armour", "chestplate.jpeg", 400, new Date(), new Date(), new Date());
         item2 = new Item(null, "Bronze helmet", "Headgear", "helmet.jpeg", 100, new Date(), new Date(), new Date());
         item3 = new Item(null, "Rune boots", "Boots", "runeboots.jpeg", 1337, new Date(), new Date(), new Date());
         equipment = new Equipment(Arrays.asList(item1,item2,item3),200);
         token = "TEST_TOKEN";
 
-        Mockito.when(userEquipmentServiceImpl.returnEquipmentFromUser(token)).thenReturn(equipment);
+        Mockito.when(equipmentService.returnEquipmentFromUser(token)).thenReturn(equipment);
     }
 
     @Test
     public void testReturnEquipment(){
-        Equipment equipment = userEquipmentServiceImpl.returnEquipmentFromUser("TEST_TOKEN");
+        Equipment equipment = equipmentService.returnEquipmentFromUser("TEST_TOKEN");
         Assert.assertNotNull(equipment);
         List<Item> items = equipment.getEquipment();
         Assert.assertEquals(3,items.size());

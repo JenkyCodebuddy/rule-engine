@@ -17,9 +17,9 @@ import java.util.*;
 /**
  * This service has as main function to save the score in the database
  */
-public class UserScoreServiceImpl implements UserScoreService {
+public class ScoreUserServiceImpl implements ScoreUserService {
 
-    public UserScoreServiceImpl() {
+    public ScoreUserServiceImpl() {
 
     }
 

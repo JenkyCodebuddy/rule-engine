@@ -14,9 +14,9 @@ import java.util.Date;
 /**
  * Created by joost on 2-6-2016.
  */
-public class UserLoginServiceImpl implements UserLoginService {
+public class LoginService {
 
-    public UserLoginServiceImpl() {
+    public LoginService() {
 
     }
 
@@ -25,7 +25,6 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @param password
      * @return Response
      */
-    @Override
     public Response login(String email, String password) {   //method for logging an user in based on email and password
         User user;
         Token token;
@@ -35,9 +34,9 @@ public class UserLoginServiceImpl implements UserLoginService {
                 if (user.getPassword().equals(password)) {
                     token = generateToken(email);   //generate a token with the email as identifier (identifier is needed for validation)
                     if (DatabaseFactory.getAuthenticationService().checkIfAuthenticationForUserExists(user.getUser_id())) {    //check if the user alread has a token
-                        updateAuthentication(user.getUser_id(), token.getToken(), UserAuthenticationService.keyToString(token.getKey()));   //if user has token, update the user's token in the database with a new one
+                        updateAuthentication(user.getUser_id(), token.getToken(), AuthenticationService.keyToString(token.getKey()));   //if user has token, update the user's token in the database with a new one
                     } else {
-                        createNewAuthentication(user, token.getToken(), UserAuthenticationService.keyToString(token.getKey())); //if user doesn't have a token, create one
+                        createNewAuthentication(user, token.getToken(), AuthenticationService.keyToString(token.getKey())); //if user doesn't have a token, create one
                     }
                     return new Response(200, token.getToken());   //return appropriate response models to the controller
                     //check if the password matches the password in the db
@@ -58,7 +57,6 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @param email of the user
      * @return token
      */
-    @Override
     public Token generateToken(String email) {
         Token token = new Token();
         Key key = MacProvider.generateKey();

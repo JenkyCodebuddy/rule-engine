@@ -1,9 +1,8 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Achievements;
-import jenky.codebuddy.services.UserAchievementsService;
-import jenky.codebuddy.services.UserAchievementsServiceImpl;
-import jenky.codebuddy.services.UserAuthenticationService;
+import jenky.codebuddy.services.AchievementsService;
+import jenky.codebuddy.services.AuthenticationService;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,10 +17,10 @@ import java.util.Map;
 @RequestMapping(value = "/achievements")
 public class AchievementsController {
 
-    UserAchievementsService userAchievementsServiceImpl;
+    AchievementsService achievementsService;
 
     public AchievementsController() {
-        setUserAchievementsServiceImpl(new UserAchievementsServiceImpl());
+        setAchievementsService(new AchievementsService());
     }
 
     /**
@@ -30,19 +29,19 @@ public class AchievementsController {
      */
     @RequestMapping(method = RequestMethod.GET)
     private Achievements getAllAchievements(@RequestHeader Map<String,String> headers){
-        if(UserAuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getUserAchievementsServiceImpl().returnAchievements(headers.get("token"));
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return getAchievementsService().returnAchievements(headers.get("token"));
         }
         else{
             return new Achievements(400,"Token not valid");
         }
     }
 
-    public UserAchievementsService getUserAchievementsServiceImpl() {
-        return userAchievementsServiceImpl;
+    private AchievementsService getAchievementsService() {
+        return achievementsService;
     }
 
-    public void setUserAchievementsServiceImpl(UserAchievementsService userAchievementsServiceImpl) {
-        this.userAchievementsServiceImpl = userAchievementsServiceImpl;
+    private void setAchievementsService(AchievementsService achievementsService) {
+        this.achievementsService = achievementsService;
     }
 }

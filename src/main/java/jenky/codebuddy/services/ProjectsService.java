@@ -10,17 +10,16 @@ import java.util.List;
 /**
  * Created by joost on 9-6-2016.
  */
-public class UserProjectsServiceImpl implements UserProjectsService {
+public class ProjectsService {
 
 
-    public UserProjectsServiceImpl() {
+    public ProjectsService() {
     }
 
     /**
      * @param token
      * @return ActiveProjects
      */
-    @Override
     public ActiveProjects returnActiveProjectsForUser(String token) {
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         List<Project> allProjects = DatabaseFactory.getProjectService().getActiveProjectsFromUser(user.getUser_id());
@@ -31,7 +30,6 @@ public class UserProjectsServiceImpl implements UserProjectsService {
      * @param projectId
      * @return Singleproject
      */
-    @Override
     public SingleProject returnSingleProjectWithScores(int projectId) {
         if(DatabaseFactory.getProjectService().checkIfProjectExists(projectId)) {
             List<Object> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId);

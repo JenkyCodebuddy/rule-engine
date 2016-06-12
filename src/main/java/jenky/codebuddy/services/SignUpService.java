@@ -11,11 +11,11 @@ import java.util.Random;
 /**
  * Created by joost on 3-6-2016.
  */
-public class UserSignUpServiceImpl implements UserSignUpService {
+public class SignUpService {
 
     private SendMail sendMail;
 
-    public UserSignUpServiceImpl() {
+    public SignUpService() {
         setSendMail(new SendMail());
     }
 
@@ -23,7 +23,6 @@ public class UserSignUpServiceImpl implements UserSignUpService {
      * @param userEmail
      * @return Response
      */
-    @Override
     public Response signUpNewUser(String userEmail){
         if(DatabaseFactory.getUserService().checkIfUserExists(userEmail)){  //check if email supplied by user already exists in the database
             return new Response(400,"Email already in use");
@@ -41,7 +40,6 @@ public class UserSignUpServiceImpl implements UserSignUpService {
      * @param password
      * @return Response
      */
-    @Override
     public Response checkVerificationCode(String verificationCode, String password){
         if(DatabaseFactory.getVerificationService().checkIfVerificationExists(verificationCode)){    //check if the supplied verification code matches the verification code in the database
             Verification verification = DatabaseFactory.getVerificationService().getVerificationIfExists(verificationCode);  //get the verification code from the database

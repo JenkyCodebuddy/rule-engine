@@ -2,9 +2,8 @@ package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Items;
 import jenky.codebuddy.models.rest.Response;
-import jenky.codebuddy.services.UserAuthenticationService;
-import jenky.codebuddy.services.UserShopService;
-import jenky.codebuddy.services.UserShopServiceImpl;
+import jenky.codebuddy.services.AuthenticationService;
+import jenky.codebuddy.services.ShopService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -17,10 +16,10 @@ import java.util.Map;
 @RequestMapping(value = "/shop")
 public class ShopController {
 
-    private UserShopService userShopServiceImpl;
+    ShopService shopService;
 
     public ShopController() {
-        setUserShopServiceImpl(new UserShopServiceImpl());
+        setShopService(new ShopService());
     }
 
     /**
@@ -29,8 +28,8 @@ public class ShopController {
      */
     @RequestMapping(method = RequestMethod.GET)
     private Items getAllItems(@RequestHeader Map<String,String> headers){
-        if(UserAuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getUserShopServiceImpl().getAllItems();
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return getShopService().getAllItems();
         }
         else{
             return new Items(400,"Token not valid");
@@ -44,19 +43,19 @@ public class ShopController {
      */
     @RequestMapping(value = "/buy/{item_id}", method = RequestMethod.POST)
     private Response buyItemForUser(@PathVariable int item_id, @RequestHeader Map<String, String> headers){
-        if(UserAuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getUserShopServiceImpl().buyItemForUser(headers.get("token"), item_id);
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return getShopService().buyItemForUser(headers.get("token"), item_id);
         }
         else{
             return new Response(400,"Token not valid");
         }
     }
 
-    public UserShopService getUserShopServiceImpl() {
-        return userShopServiceImpl;
+    private ShopService getShopService() {
+        return shopService;
     }
 
-    public void setUserShopServiceImpl(UserShopService userShopServiceImpl) {
-        this.userShopServiceImpl = userShopServiceImpl;
+    private void setShopService(ShopService shopService) {
+        this.shopService = shopService;
     }
 }

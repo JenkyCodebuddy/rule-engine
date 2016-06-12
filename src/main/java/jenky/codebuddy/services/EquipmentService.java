@@ -9,16 +9,15 @@ import java.util.List;
 /**
  * Created by joost on 9-6-2016.
  */
-public class UserEquipmentServiceImpl implements UserEquipmentService {
+public class EquipmentService {
 
-    public UserEquipmentServiceImpl(){
+    public EquipmentService(){
     }
 
     /**
      * @param token
      * @return Equipment
      */
-    @Override
     public Equipment returnEquipmentFromUser(String token){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         List<Item> equippedItems = DatabaseFactory.getItemService().getEquippedItemsFromUser(user.getUser_id());

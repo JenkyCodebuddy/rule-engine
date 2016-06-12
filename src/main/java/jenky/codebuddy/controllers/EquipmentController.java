@@ -1,9 +1,8 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Equipment;
-import jenky.codebuddy.services.UserAuthenticationService;
-import jenky.codebuddy.services.UserEquipmentService;
-import jenky.codebuddy.services.UserEquipmentServiceImpl;
+import jenky.codebuddy.services.AuthenticationService;
+import jenky.codebuddy.services.EquipmentService;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,10 +21,10 @@ import java.util.Map;
 @RequestMapping(value = "/equipment")
 public class EquipmentController {
 
-    UserEquipmentService userEquipmentServiceImpl;
+    EquipmentService equipmentService;
 
     public EquipmentController() {
-       setUserEquipmentServiceImpl(new UserEquipmentServiceImpl());
+       setEquipmentService(new EquipmentService());
     }
 
     /**
@@ -34,19 +33,19 @@ public class EquipmentController {
      */
     @RequestMapping(method = RequestMethod.GET)
     private Equipment getProfile(@RequestHeader Map<String,String> headers) {
-        if(UserAuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getUserEquipmentServiceImpl().returnEquipmentFromUser(headers.get("token"));
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return getEquipmentService().returnEquipmentFromUser(headers.get("token"));
         }
         else{
             return new Equipment(400,"Token not valid");
         }
     }
 
-    public UserEquipmentService getUserEquipmentServiceImpl() {
-        return userEquipmentServiceImpl;
+    private EquipmentService getEquipmentService() {
+        return equipmentService;
     }
 
-    public void setUserEquipmentServiceImpl(UserEquipmentService userEquipmentServiceImpl) {
-        this.userEquipmentServiceImpl = userEquipmentServiceImpl;
+    private void setEquipmentService(EquipmentService equipmentService) {
+        this.equipmentService = equipmentService;
     }
 }

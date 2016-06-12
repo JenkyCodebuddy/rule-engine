@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * Created by joost on 4-6-2016.
  */
-public class UserProfileServiceImpl implements UserProfileService {
+public class ProfileService {
 
-    public UserProfileServiceImpl() {
+    public ProfileService() {
     }
 
     /**
@@ -20,7 +20,6 @@ public class UserProfileServiceImpl implements UserProfileService {
      * @param token
      * @return Profile
      */
-    @Override
     public Profile returnProfile(String token) {
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         if(DatabaseFactory.getScoreService().checkIfUserHasScores(user.getUser_id())) {

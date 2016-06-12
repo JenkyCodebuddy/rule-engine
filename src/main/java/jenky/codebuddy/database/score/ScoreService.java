@@ -6,7 +6,7 @@ import jenky.codebuddy.models.entities.Score;
 import java.util.List;
 
 /**
- * THis itnerface specifies specific methods UserScoreServiceImpl must have.
+ * THis itnerface specifies specific methods ScoreUserServiceImpl must have.
  */
 public interface ScoreService extends GenericService<Score, Integer> {
     /**

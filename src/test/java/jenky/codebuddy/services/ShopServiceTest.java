@@ -9,16 +9,16 @@ import org.junit.Test;
 /**
  * Created by joost on 12-6-2016.
  */
-public class UserShopServiceImplTest {
+public class ShopServiceTest {
 
-    private static UserShopService userShopServiceImpl;
+    private static ShopService shopService;
     private static User testUser;
     private static Authentication testAuthentication;
     private static Item testItem;
 
     @BeforeClass
     public static void setup(){
-        userShopServiceImpl = new UserShopServiceImpl();
+        shopService = new ShopService();
         testAuthentication = new Authentication();
         testAuthentication.setToken("TEST_TOKEN");
         testUser = new User();
@@ -31,6 +31,6 @@ public class UserShopServiceImplTest {
 
     @Test
     public void testBuyItemForUser(){
-        userShopServiceImpl.buyItemForUser(testUser.getAuthentication().getToken(),testItem.getId());
+        shopService.buyItemForUser(testUser.getAuthentication().getToken(),testItem.getId());
     }
 }

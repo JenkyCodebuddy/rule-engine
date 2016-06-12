@@ -2,9 +2,9 @@ package jenky.codebuddy;
 
 import jenky.codebuddy.models.entities.Authentication;
 import jenky.codebuddy.models.entities.User;
-import jenky.codebuddy.services.UserAuthenticationService;
+import jenky.codebuddy.services.AuthenticationService;
 import jenky.codebuddy.services.DatabaseFactory;
-import jenky.codebuddy.services.UserLoginServiceImpl;
+import jenky.codebuddy.services.LoginService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
@@ -30,19 +30,19 @@ public class AuthenticationTest {
 
     @Test
     public void stringToKey() throws Exception{
-        assertEquals(javax.crypto.spec.SecretKeySpec.class,  UserAuthenticationService.stringToKey(TestInfo.TESTKEYSTRING).getClass());
+        assertEquals(javax.crypto.spec.SecretKeySpec.class,  AuthenticationService.stringToKey(TestInfo.TESTKEYSTRING).getClass());
     }
 
     @Test
     public void KeyToString() throws Exception{
-        System.out.println(UserAuthenticationService.keyToString(TestInfo.TESTKEY));
-        assertEquals(String.class,  UserAuthenticationService.keyToString(TestInfo.TESTKEY).getClass());
+        System.out.println(AuthenticationService.keyToString(TestInfo.TESTKEY));
+        assertEquals(String.class,  AuthenticationService.keyToString(TestInfo.TESTKEY).getClass());
     }
 
     @Test
     public void createJwtToken() throws Exception{
-        UserLoginServiceImpl userLoginServiceImpl = new UserLoginServiceImpl();
-        assertNotNull(userLoginServiceImpl.generateToken(TestInfo.TESTEMAIL));
+        LoginService loginService = new LoginService();
+        assertNotNull(loginService.generateToken(TestInfo.TESTEMAIL));
     }
 
 

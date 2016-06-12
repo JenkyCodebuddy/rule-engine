@@ -1,8 +1,7 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Response;
-import jenky.codebuddy.services.UserSignUpService;
-import jenky.codebuddy.services.UserSignUpServiceImpl;
+import jenky.codebuddy.services.SignUpService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -15,10 +14,10 @@ import java.util.Map;
 @RequestMapping(value = "/signup")  //all requests to the "/signup" endpoint
 public class SignUpController {
 
-    UserSignUpService userSignUpServiceImpl;
+    SignUpService signUpService;
 
     public SignUpController() {
-        setUserSignUpServiceImpl(new UserSignUpServiceImpl());
+        setSignUpService(new SignUpService());
     }
 
     /**
@@ -27,7 +26,7 @@ public class SignUpController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody Response signUpNewUser(@RequestHeader Map<String,String> headers){
-        return getUserSignUpServiceImpl().signUpNewUser(headers.get("email"));
+        return getSignUpService().signUpNewUser(headers.get("email"));
     }
 
     /**
@@ -36,14 +35,14 @@ public class SignUpController {
      */
     @RequestMapping(value = "/verify", method = RequestMethod.POST)
     public @ResponseBody Response checkVerificationCode(@RequestHeader Map<String, String> headers){
-        return getUserSignUpServiceImpl().checkVerificationCode(headers.get("verificationcode"), headers.get("password"));  //check verification code supplied by user, and if correct set password
+        return getSignUpService().checkVerificationCode(headers.get("verificationcode"), headers.get("password"));  //check verification code supplied by user, and if correct set password
     }
 
-    public UserSignUpService getUserSignUpServiceImpl() {
-        return userSignUpServiceImpl;
+    private SignUpService getSignUpService() {
+        return signUpService;
     }
 
-    public void setUserSignUpServiceImpl(UserSignUpService userSignUpServiceImpl) {
-        this.userSignUpServiceImpl = userSignUpServiceImpl;
+    private void setSignUpService(SignUpService signUpService) {
+        this.signUpService = signUpService;
     }
 }
