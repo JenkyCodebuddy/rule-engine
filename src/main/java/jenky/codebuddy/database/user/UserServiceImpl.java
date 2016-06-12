@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Service layer of Profile. Inherits the GenericService and implements the VerificationService interface.
+ * Service layer of User. Inherits the GenericService and implements the VerificationService interface.
  */
 @Service
 public class UserServiceImpl extends GenericServiceImpl<User, Integer> implements UserService {
@@ -66,30 +66,56 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
         return userDao.checkIfUserExists(userEmail);
     }
 
+    /**
+     * @param userEmail
+     * @return User otherwise null
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public User getUserIfExists(String userEmail){
         return userDao.getUserIfExists(userEmail);
     }
 
+    /**
+     * @param password
+     * @param userEmail
+     * @param updatedAt
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void setPasswordForUser(String password, String userEmail, Date updatedAt){
         userDao.setPasswordForUser(password, userEmail, updatedAt);
     }
 
+    /**
+     *
+     * @param user_id
+     * @param item_id
+     * @return boolean
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public boolean checkIfUserDoesntHaveItem(int user_id, int item_id){
         return userDao.checkIfUserDoesntHaveItem(user_id, item_id);
     }
 
+    /**
+     *
+     * @param user_id
+     * @param amount
+     * @return boolean
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public boolean checkIfUserHasEnoughCoins(int user_id, double amount){
         return userDao.checkIfUserHasEnoughCoins(user_id, amount);
     }
 
+    /**
+     *
+     * @param user_id
+     * @param amount
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public void subtractCoins(int user_id, double amount){

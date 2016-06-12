@@ -26,7 +26,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Created by joost on 10-6-2016.
+ * Returns the requested Service
  */
 public class DatabaseFactory {
 

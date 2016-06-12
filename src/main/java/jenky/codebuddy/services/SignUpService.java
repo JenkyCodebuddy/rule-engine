@@ -19,6 +19,10 @@ public class SignUpService {
         setSendMail(new SendMail());
     }
 
+    /**
+     * @param userEmail
+     * @return Response
+     */
     public Response signUpNewUser(String userEmail){
         if(DatabaseFactory.getUserService().checkIfUserExists(userEmail)){  //check if email supplied by user already exists in the database
             return new Response(400,"Email already in use");
@@ -31,6 +35,11 @@ public class SignUpService {
         }
     }
 
+    /**
+     * @param verificationCode
+     * @param password
+     * @return Response
+     */
     public Response checkVerificationCode(String verificationCode, String password){
         if(DatabaseFactory.getVerificationService().checkIfVerificationExists(verificationCode)){    //check if the supplied verification code matches the verification code in the database
             Verification verification = DatabaseFactory.getVerificationService().getVerificationIfExists(verificationCode);  //get the verification code from the database
@@ -43,6 +52,9 @@ public class SignUpService {
         }
     }
 
+    /**
+     * @return
+     */
     private String generateVerificationCode(){
         char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray(); //all possible characters in the verification code
         StringBuilder sb = new StringBuilder();
@@ -54,6 +66,10 @@ public class SignUpService {
         return sb.toString();
     }
 
+    /**
+     * @param userEmail
+     * @param verificationCode
+     */
     private void saveVerificationCode(String userEmail, String verificationCode){
         User user = new User();  //create new user with createdAt timestamp and email supplied by user
         user.setCreated_at(new Date());
@@ -63,14 +79,14 @@ public class SignUpService {
         verification.setCode(verificationCode);
         verification.setCreated_at(new Date());
         verification.setUser(DatabaseFactory.getUserService().getUserIfExists(userEmail));
-        DatabaseFactory.getVerificationService().addNewVerfication(verification); //save the verification code in db
+        DatabaseFactory.getVerificationService().addNewVerification(verification); //save the verification code in db
     }
 
-    public SendMail getSendMail() {
+    private SendMail getSendMail() {
         return sendMail;
     }
 
-    public void setSendMail(SendMail sendMail) {
+    private void setSendMail(SendMail sendMail) {
         this.sendMail = sendMail;
     }
 }

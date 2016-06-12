@@ -109,7 +109,10 @@ public class ScoreModelBuilder {
         }
     }
 
-    public void createScoreModel(){
+    /**
+     * This methods pulls the methods through the calculator and return a Score model from the codecalc
+     */
+    private void createScoreModel(){
         Calc calculator = new Calc(this.metricsDataInputModel, this.comparisonDataInputModel);
         this.scoreModel = calculator.generateScore();
     }

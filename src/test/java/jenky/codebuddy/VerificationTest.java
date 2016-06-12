@@ -33,6 +33,6 @@ public class VerificationTest {
     @Transactional
     @Rollback
     public void saveVerification() throws Exception{
-        DatabaseFactory.getVerificationService().addNewVerfication(this.verification);
+        DatabaseFactory.getVerificationService().addNewVerification(this.verification);
     }
 }

@@ -15,6 +15,11 @@ public class ProfileService {
     public ProfileService() {
     }
 
+    /**
+     * Collects the user info from the database
+     * @param token
+     * @return Profile
+     */
     public Profile returnProfile(String token) {
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         if(DatabaseFactory.getScoreService().checkIfUserHasScores(user.getUser_id())) {

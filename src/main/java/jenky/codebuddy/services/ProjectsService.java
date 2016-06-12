@@ -12,15 +12,24 @@ import java.util.List;
  */
 public class ProjectsService {
 
+
     public ProjectsService() {
     }
 
+    /**
+     * @param token
+     * @return ActiveProjects
+     */
     public ActiveProjects returnActiveProjectsForUser(String token) {
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         List<Project> allProjects = DatabaseFactory.getProjectService().getActiveProjectsFromUser(user.getUser_id());
         return new ActiveProjects(allProjects,200);
     }
 
+    /**
+     * @param projectId
+     * @return Singleproject
+     */
     public SingleProject returnSingleProjectWithScores(int projectId) {
         if(DatabaseFactory.getProjectService().checkIfProjectExists(projectId)) {
             List<Object> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId);

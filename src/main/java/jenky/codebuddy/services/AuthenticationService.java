@@ -18,6 +18,10 @@ public class AuthenticationService { //static class for checking token if token 
 
     }
 
+    /**
+     * @param token
+     * @return boolean
+     */
     public static boolean checkIfTokenIsValid(String token){  //method to check if the supplied token matches the token given to an user. Method is static, so no instantiation is needed everytime the method is called
         Boolean valid = false;
         AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) new ClassPathXmlApplicationContext("spring.xml").getBean("authenticationServiceImpl");
@@ -33,6 +37,10 @@ public class AuthenticationService { //static class for checking token if token 
         return valid;
     }
 
+    /**
+     * @param keyString
+     * @return Key
+     */
     public static Key stringToKey(String keyString) { //converts a keyString to a key so it can be used for validation
         Key key = null;
         byte[] data = Base64.getDecoder().decode(keyString);
@@ -50,6 +58,10 @@ public class AuthenticationService { //static class for checking token if token 
         return key;
     }
 
+    /**
+     * @param key
+     * @return String
+     */
     public static String keyToString(Key key){ //converts a Key object to a keyString, so it can be saved in the database
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = null;
