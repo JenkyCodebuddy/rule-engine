@@ -35,6 +35,10 @@ public class Profile {
         this.responseCode = responseCode;
     }
 
+    public Profile(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
     public int getResponseCode() {
         return responseCode;
     }

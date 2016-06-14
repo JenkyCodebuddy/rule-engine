@@ -32,7 +32,7 @@ public class ProfileService {
             return new Profile(items, commits, totalScore, avgScore, achievementCount, projectCount, 200);
         }
         else{
-            return new Profile(400, "User has no scores yet");
+            return new Profile(200);
         }
     }
 }
