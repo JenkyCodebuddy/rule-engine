@@ -32,7 +32,7 @@ public class ProjectsServiceTest {
 
     @BeforeClass
     public static void setup(){
-        userProjectsService = Mockito.mock(ProjectsServiceImpl.class);
+        userProjectsService = Mockito.mock(ProjectsService.class);
         project1 = new Project(null, null, "ICTLAB PROJECT", new Date(), new Date(), new Date());
         project2 = new Project(null, null, "HR PROJECT", new Date(), new Date(), new Date());
         project3 = new Project(null, null, "TEST", new Date(), new Date(), new Date());
