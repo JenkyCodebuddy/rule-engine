@@ -21,12 +21,12 @@
     <!--<property name="password" value="e1d3efd7"/>-->
 
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="jdbc:mysql://83.86.212.79:3306/ICTLABDB?zeroDateTimeBehavior=convertToNull"/>
-        <property name="user" value="codebuddy"/>
-        <property name="password" value="codebuddy"/>
+        <property name="jdbcUrl" value="jdbc:mysql://eu-cdbr-azure-west-d.cloudapp.net:3306/ICTLABDB?zeroDateTimeBehavior=convertToNull"/>
+        <property name="user" value="b20a60e558cd56"/>
+        <property name="password" value="e1d3efd7"/>
         <property name="minPoolSize" value="0"/>
-        <property name="maxPoolSize" value="130"/>
-        <property name="maxIdleTime" value="60"/>
+        <property name="maxPoolSize" value="3"/>
+        <property name="maxIdleTime" value="1"/>
         <property name="acquireIncrement" value="1"/>
     </bean>
 
