@@ -29,7 +29,7 @@ public class ProfileService {
             double totalScore = DatabaseFactory.getScoreService().getTotalScoreFromUser(user.getUser_id());;
             double achievementCount = DatabaseFactory.getAchievementService().getAchievementCountFromUser(user.getUser_id());
             double projectCount = DatabaseFactory.getProjectService().getProjectCountFromUser(user.getUser_id());
-            return new Profile(items, commits, totalScore, avgScore, achievementCount, projectCount, 200);
+            return new Profile(null,items, commits, 0, totalScore, avgScore, achievementCount, projectCount, 200);
         }
         else{
             return new Profile(200);

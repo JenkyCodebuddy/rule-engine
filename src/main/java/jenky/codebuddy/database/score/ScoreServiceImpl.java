@@ -3,6 +3,7 @@ package jenky.codebuddy.database.score;
 import jenky.codebuddy.database.generic.GenericServiceImpl;
 import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.models.rest.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -103,7 +104,7 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<User> getScoresFromProject(int project_id){
+    public List<Profile> getScoresFromProject(int project_id){
         return scoreDao.getScoresFromProject(project_id);
     }
 

@@ -6,6 +6,7 @@ import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Items;
 import jenky.codebuddy.models.rest.Response;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 /**
@@ -22,7 +23,8 @@ public class ShopService {
     public Items getAllPurchasableItems(String token){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         List<Item> allItems = DatabaseFactory.getItemService().getAllPurchasableItems(user.getUser_id());
-        return new Items(allItems, 200);
+        int jenkycoins = DatabaseFactory.getUserService().getJenkyCoinsFromUser(user.getUser_id());
+        return new Items(allItems, jenkycoins, 200);
     }
 
     /**

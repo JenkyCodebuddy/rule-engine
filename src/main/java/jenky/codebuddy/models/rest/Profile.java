@@ -3,13 +3,16 @@ package jenky.codebuddy.models.rest;
 
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Item;
+import jenky.codebuddy.models.entities.User;
 
 import java.util.List;
 
 public class Profile {
 
-    private List<Item> equippedItems;
+    private User user;
+    private List<Item> equipment;
     private List<Commit> commits;
+    private double projectScore;
     private double totalScore;
     private double avgScore;
     private double achievementCount;
@@ -25,9 +28,11 @@ public class Profile {
         this.responseMessage = responseMessage;
     }
 
-    public Profile(List<Item> equippedItems, List<Commit> commits, double totalScore, double avgScore, double achievementCount, double projectCount, int responseCode) {
-        this.equippedItems = equippedItems;
+    public Profile(User user, List<Item> equipment, List<Commit> commits, double projectScore, double totalScore, double avgScore, double achievementCount, double projectCount, int responseCode) {
+        this.user = user;
+        this.equipment = equipment;
         this.commits = commits;
+        this.projectScore = projectScore;
         this.totalScore = totalScore;
         this.avgScore = avgScore;
         this.achievementCount = achievementCount;
@@ -39,6 +44,22 @@ public class Profile {
         this.responseCode = responseCode;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public double getProjectScore() {
+        return projectScore;
+    }
+
+    public void setProjectScore(double projectScore) {
+        this.projectScore = projectScore;
+    }
+
     public int getResponseCode() {
         return responseCode;
     }
@@ -47,12 +68,12 @@ public class Profile {
         this.responseCode = responseCode;
     }
 
-    public List<Item> getEquippedItems() {
-        return equippedItems;
+    public List<Item> getEquipment() {
+        return equipment;
     }
 
-    public void setEquippedItems(List<Item> equippedItems) {
-        this.equippedItems = equippedItems;
+    public void setEquipment(List<Item> equipment) {
+        this.equipment = equipment;
     }
 
     public List<Commit> getCommits() {

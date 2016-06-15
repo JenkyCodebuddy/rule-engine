@@ -1,12 +1,10 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Equipment;
+import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.AuthenticationService;
 import jenky.codebuddy.services.EquipmentService;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -38,6 +36,16 @@ public class EquipmentController {
         }
         else{
             return new Equipment(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/equip", method = RequestMethod.POST)
+    private Response equipItems(@RequestHeader Map<String, String> headers, @RequestParam Map<String,String> items){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return getEquipmentService().equipItemsForUser(headers.get("token"), items);
+        }
+        else{
+            return new Response(400,"Token not valid");
         }
     }
 

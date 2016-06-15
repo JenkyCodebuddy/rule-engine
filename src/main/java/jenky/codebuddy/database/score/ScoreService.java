@@ -3,6 +3,7 @@ package jenky.codebuddy.database.score;
 import jenky.codebuddy.database.generic.GenericService;
 import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.models.rest.Profile;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public interface ScoreService extends GenericService<Score, Integer> {
      * @param project_id
      * @return int
      */
-    public List<User> getScoresFromProject(int project_id);
+    public List<Profile> getScoresFromProject(int project_id);
 
     /**
      * @param user_id

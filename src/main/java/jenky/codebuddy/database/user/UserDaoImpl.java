@@ -95,6 +95,15 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         return ((userCurrency - amount) >= 0) ? true : false;
     }
 
+    @Override
+    public int getJenkyCoinsFromUser(int user_id) {
+        String hql = "SELECT u.jenkycoins FROM User u WHERE u.id = :user_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
+        Optional result = Optional.ofNullable(query.uniqueResult());
+        return (int)result.get();
+    }
+
     /**
      * @param user_id
      * @param amount

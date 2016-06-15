@@ -78,4 +78,21 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
         Optional<Item> result = Optional.ofNullable((Item) query.uniqueResult());
         return result.get();
     }
+
+    @Override
+    public void unequipItemsForUser(int user_id){
+        String hql = "UPDATE ItemUser item_has_user SET equipped = false WHERE  item_has_user.user =:user_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
+        query.executeUpdate();
+    }
+
+    @Override
+    public void equipItemsForUser(int user_id, int item_id) {
+        String hql = "UPDATE ItemUser item_has_user SET equipped = true WHERE  item_has_user.user =:user_id AND item_has_user.item =:item_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
+        query.setInteger("item_id",item_id);
+        query.executeUpdate();
+    }
 }

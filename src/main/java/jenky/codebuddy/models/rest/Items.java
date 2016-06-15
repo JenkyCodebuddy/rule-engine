@@ -10,6 +10,7 @@ import java.util.List;
 public class Items {
 
     private List<Item> items;
+    private int jenkycoins;
     private int responseCode;
     private String responseMessage;
 
@@ -22,8 +23,9 @@ public class Items {
         this.responseMessage = responseMessage;
     }
 
-    public Items(List<Item> items, int responseCode) {
+    public Items(List<Item> items, int jenkycoins, int responseCode) {
         this.items = items;
+        this.jenkycoins = jenkycoins;
         this.responseCode = responseCode;
     }
 
@@ -49,5 +51,13 @@ public class Items {
 
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
+    }
+
+    public int getJenkycoins() {
+        return jenkycoins;
+    }
+
+    public void setJenkycoins(int jenkycoins) {
+        this.jenkycoins = jenkycoins;
     }
 }

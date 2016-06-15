@@ -65,4 +65,6 @@ public interface UserDao extends GenericDao<User, Integer> {
     public void subtractCoins(int user_id, double amount);
 
     public double countUsersFromProject(int project_id);
+
+    public int getJenkyCoinsFromUser(int user_id);
 }

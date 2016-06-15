@@ -137,4 +137,10 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     public double countUsersFromProject(int project_id) {
         return userDao.countUsersFromProject(project_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public int getJenkyCoinsFromUser(int user_id) {
+        return userDao.getJenkyCoinsFromUser(user_id);
+    }
 }

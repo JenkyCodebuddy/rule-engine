@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SingleProject {
 
-    private List<User> users;
+    private List<Profile> profile;
     private int responseCode;
     private String responseMessage;
 
@@ -18,17 +18,18 @@ public class SingleProject {
         this.responseMessage = responseMessage;
     }
 
-    public SingleProject(List<User> users, int responseCode) {
-        this.users = users;
+    public SingleProject(List<Profile> profile, int responseCode) {
+        this.profile = profile;
         this.responseCode = responseCode;
     }
 
-    public List<User> getUsers() {
-        return users;
+
+    public List<Profile> getProfile() {
+        return profile;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setProfile(List<Profile> profile) {
+        this.profile = profile;
     }
 
     public int getResponseCode() {

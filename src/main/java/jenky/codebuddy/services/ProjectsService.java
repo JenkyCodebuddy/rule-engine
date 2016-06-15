@@ -3,6 +3,7 @@ package jenky.codebuddy.services;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.ActiveProjects;
+import jenky.codebuddy.models.rest.Profile;
 import jenky.codebuddy.models.rest.SingleProject;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class ProjectsService {
      */
     public SingleProject returnSingleProjectWithScores(int projectId) {
         if(DatabaseFactory.getProjectService().checkIfProjectExists(projectId)) {
-            List<User> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId);
+            List<Profile> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId);
             return new SingleProject(projectScores,200);
         }
         else{

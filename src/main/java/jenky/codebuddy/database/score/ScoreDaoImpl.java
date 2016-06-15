@@ -4,11 +4,13 @@ import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.models.rest.Profile;
 import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -111,19 +113,25 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
      * @return int
      */
     @Override
-    public List<User> getScoresFromProject(int project_id) {
+    public List<Profile> getScoresFromProject(int project_id) {
         String hql = "SELECT score FROM Score score LEFT JOIN FETCH score.commit as commits LEFT JOIN FETCH commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
 
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("project_id",project_id);
         Optional<List<Score>> listWithScores = Optional.ofNullable((List<Score>) query.list());
-        List<User> allUsersWithEquipment = new ArrayList<User>();
+        List<Profile> allUsersWithEquipment = new ArrayList<Profile>();
         for(int i = 0; i < listWithScores.get().size(); i++){
-            User u = listWithScores.get().get(i).getUser();
-            u.setPassword(null);
-            u.setEquipment(DatabaseFactory.getItemService().getEquippedItemsFromUser(u.getUser_id()));
-            u.setTotalScore(DatabaseFactory.getScoreService().getTotalScoreFromUserForProject(u.getUser_id(), project_id));
-            allUsersWithEquipment.add(u);
+            Profile p = new Profile();
+            User user = listWithScores.get().get(i).getUser();
+            p.setUser(user);
+            p.setEquipment(DatabaseFactory.getItemService().getEquippedItemsFromUser(user.getUser_id()));
+            p.setAchievementCount(DatabaseFactory.getAchievementService().getAchievementCountFromUser(user.getUser_id()));
+            p.setProjectCount(DatabaseFactory.getProjectService().getProjectCountFromUser(user.getUser_id()));
+            p.setAvgScore(DatabaseFactory.getScoreService().getAvgScoreFromUser(user.getUser_id()));
+            p.setProjectScore(DatabaseFactory.getScoreService().getTotalScoreFromUserForProject(user.getUser_id(),project_id));
+            p.setTotalScore(DatabaseFactory.getScoreService().getTotalScoreFromUser(user.getUser_id()));
+            p.setCommits(null);
+            allUsersWithEquipment.add(p);
         }
         return allUsersWithEquipment;
     }
