@@ -38,8 +38,8 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implement
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<Item> getAllItems() {
-        return itemDao.getAllItems();
+    public List<Item> getAllPurchasableItems(int user_id) {
+        return itemDao.getAllPuchasableItems(user_id);
     }
 
     /**
@@ -70,5 +70,11 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implement
     @Transactional(propagation = Propagation.REQUIRED)
     public Item getItemIfExists(int item_id){
         return itemDao.getItemIfExists(item_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<Item> getAllEquipmentFromUser(int user_id) {
+        return itemDao.getAllEquipmentFromUser(user_id);
     }
 }

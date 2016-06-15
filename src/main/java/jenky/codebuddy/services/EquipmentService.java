@@ -20,7 +20,7 @@ public class EquipmentService {
      */
     public Equipment returnEquipmentFromUser(String token){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
-        List<Item> equippedItems = DatabaseFactory.getItemService().getEquippedItemsFromUser(user.getUser_id());
+        List<Item> equippedItems = DatabaseFactory.getItemService().getAllEquipmentFromUser(user.getUser_id());
         return new Equipment(equippedItems,200);
     }
 }

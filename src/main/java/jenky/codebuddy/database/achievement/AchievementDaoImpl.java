@@ -47,7 +47,7 @@ public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> imp
     public List<Achievement> getAchievementsFromUser(int user_id){
         String hql = "FROM Achievement achievement " +
                 "LEFT JOIN FETCH achievement.achievementusers as achievement_has_users " +
-                "WHERE achievement_has_users.user =:user_id AND achievement_has_users.progress = 100";
+                "WHERE achievement_has_users.user =:user_id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);
         List<Achievement> achievements = query.list();

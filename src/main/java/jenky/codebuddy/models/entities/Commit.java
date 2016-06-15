@@ -23,7 +23,7 @@ public class Commit {
     @JsonIgnore
     private Set<Score> scores = new HashSet<Score>(0);
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "project_id")
     private Project project;
@@ -43,17 +43,21 @@ public class Commit {
     @Column(name = "sha")
     private String sha;
 
+    @Transient
+    private double score;
+
     public Commit() {
     }
 
-    public Commit(Set<Score> scores, Project project, Date created_at, Date updated_at, Date deleted_at, String sha, String branch) {
+    public Commit(Set<Score> scores, Project project, Date created_at, Date updated_at, Date deleted_at, String branch, String sha, double score) {
         this.scores = scores;
         this.project = project;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
-        this.sha = sha;
         this.branch = branch;
+        this.sha = sha;
+        this.score = score;
     }
 
     public int getId() {
@@ -118,5 +122,13 @@ public class Commit {
 
     public void setSha(String sha) {
         this.sha = sha;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 }

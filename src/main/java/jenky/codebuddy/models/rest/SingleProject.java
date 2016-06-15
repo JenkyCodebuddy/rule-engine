@@ -1,10 +1,12 @@
 package jenky.codebuddy.models.rest;
 
+import jenky.codebuddy.models.entities.User;
+
 import java.util.List;
 
 public class SingleProject {
 
-    private List<Object> userScores;
+    private List<User> users;
     private int responseCode;
     private String responseMessage;
 
@@ -16,17 +18,17 @@ public class SingleProject {
         this.responseMessage = responseMessage;
     }
 
-    public SingleProject(List<Object> userScores, int responseCode) {
-        this.userScores = userScores;
+    public SingleProject(List<User> users, int responseCode) {
+        this.users = users;
         this.responseCode = responseCode;
     }
 
-    public List<Object> getUserScores() {
-        return userScores;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUserScores(List<Object> userScores) {
-        this.userScores = userScores;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public int getResponseCode() {

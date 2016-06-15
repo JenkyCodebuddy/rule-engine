@@ -32,7 +32,7 @@ public class ProjectsService {
      */
     public SingleProject returnSingleProjectWithScores(int projectId) {
         if(DatabaseFactory.getProjectService().checkIfProjectExists(projectId)) {
-            List<Object> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId);
+            List<User> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId);
             return new SingleProject(projectScores,200);
         }
         else{

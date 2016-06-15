@@ -13,13 +13,15 @@ public interface ItemDao extends GenericDao<Item, Integer> {
      * Return all the items
      * @return List of Items
      */
-    public List<Item> getAllItems();
+    public List<Item> getAllPuchasableItems(int user_id);
 
     /**
      * @param user_id
      * @return List of items that are equiped by the user
      */
     public List<Item> getEquippedItemsFromUser(int user_id);
+
+    public List<Item> getAllEquipmentFromUser(int user_id);
 
     /**
      * @param item_id

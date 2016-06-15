@@ -2,9 +2,12 @@ package jenky.codebuddy.database.commit;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +50,11 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
         query.setInteger("user_id",user_id);
         query.setMaxResults(3);
         List<Commit> result = query.list();
+        for(int i = 0; i<result.size(); i++){
+            Commit commit = result.get(i);
+            commit.setScore(DatabaseFactory.getScoreService().getScoreFromCommit(result.get(i).getId()));
+            result.set(i,commit);
+        }
         return result;
     }
 }

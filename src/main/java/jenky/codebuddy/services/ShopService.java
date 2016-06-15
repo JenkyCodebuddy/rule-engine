@@ -17,10 +17,11 @@ public class ShopService {
     }
 
     /**
-     * @return List of all the items
+     * @return List of all the items which are not purchased yet
      */
-    public Items getAllItems(){
-        List<Item> allItems = DatabaseFactory.getItemService().getAllItems();
+    public Items getAllPurchasableItems(String token){
+        User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
+        List<Item> allItems = DatabaseFactory.getItemService().getAllPurchasableItems(user.getUser_id());
         return new Items(allItems, 200);
     }
 

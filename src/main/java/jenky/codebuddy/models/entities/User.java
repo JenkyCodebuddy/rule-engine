@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -56,10 +57,16 @@ public class User{
     @JsonIgnore
     private Set<ItemUser> itemusers = new HashSet<ItemUser>();
 
+    @Transient
+    private List<Item> equipment;
+
+    @Transient
+    private double totalScore;
+
     public User() {
     }
 
-    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<AchievementUser> achievements, Set<ItemUser> itemusers) {
+    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<AchievementUser> achievements, Set<ItemUser> itemusers, List<Item> equipment, double totalScore) {
         this.email = email;
         this.password = password;
         this.created_at = created_at;
@@ -71,6 +78,8 @@ public class User{
         this.scores = scores;
         this.achievements = achievements;
         this.itemusers = itemusers;
+        this.equipment = equipment;
+        this.totalScore = totalScore;
     }
 
     public int getUser_id() {
@@ -167,5 +176,21 @@ public class User{
 
     public void setItemusers(Set<ItemUser> itemusers) {
         this.itemusers = itemusers;
+    }
+
+    public List<Item> getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(List<Item> equipment) {
+        this.equipment = equipment;
+    }
+
+    public double getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(double totalScore) {
+        this.totalScore = totalScore;
     }
 }

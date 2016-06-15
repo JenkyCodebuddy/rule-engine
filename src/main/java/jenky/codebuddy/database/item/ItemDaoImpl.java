@@ -19,10 +19,10 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
      * @return List of Items
      */
     @Override
-    public List<Item> getAllItems() {
-        String hql = "SELECT item.id, item.name, item.image, item.type " +
-                "FROM Item item";
+    public List<Item> getAllPuchasableItems(int user_id) {
+        String hql = "FROM Item item WHERE NOT EXISTS (from ItemUser item_has_user WHERE item_has_user.user = :user_id AND item_has_user.item = item.id)";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
         Optional<List<Item>> allItems = Optional.ofNullable(query.list());
         return allItems.get();
     }
@@ -36,6 +36,17 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
         String hql = "FROM Item item " +
                 "LEFT JOIN FETCH item.itemusers as item_has_users " +
                 "WHERE item_has_users.user= :user_id AND item_has_users.equipped = true";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
+        Optional<List<Item>> equippedItems = Optional.ofNullable(query.list());
+        return equippedItems.get();
+    }
+
+    @Override
+    public List<Item> getAllEquipmentFromUser(int user_id) {
+        String hql = "FROM Item item " +
+                "LEFT JOIN FETCH item.itemusers as item_has_users " +
+                "WHERE item_has_users.user= :user_id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);
         Optional<List<Item>> equippedItems = Optional.ofNullable(query.list());

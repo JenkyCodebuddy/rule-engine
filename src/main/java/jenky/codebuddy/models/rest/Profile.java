@@ -59,8 +59,8 @@ public class Profile {
         return commits;
     }
 
-    public void setCommits(List<Commit> userCommits) {
-        this.commits = userCommits;
+    public void setCommits(List<Commit> commits) {
+        this.commits = commits;
     }
 
     public double getTotalScore() {

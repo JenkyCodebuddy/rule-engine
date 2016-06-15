@@ -64,4 +64,6 @@ public interface UserService extends GenericService<User, Integer> {
      */
     public void subtractCoins(int user_id, double amount);
 
+    public double countUsersFromProject(int project_id);
+
 }

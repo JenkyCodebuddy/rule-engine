@@ -108,6 +108,14 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         query.executeUpdate();
     }
 
+    @Override
+    public double countUsersFromProject(int project_id) {
+        String hql = "SELECT COUNT(DISTINCT user.id) FROM User user INNER JOIN user.scores as score INNER JOIN score.commit as commit INNER JOIN commit.project as project WHERE project.id =:project_id GROUP BY project.id";/*INNER JOIN Commit commit ON commit.id = score.commit INNER JOIN Project project ON project.id = commit.project WHERE project.id =:project_id*/
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("project_id",project_id);
+        return (long) query.uniqueResult();
+    }
+
     /**
      * Saves the project.
      * @param user

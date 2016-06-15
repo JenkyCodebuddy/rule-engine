@@ -132,5 +132,9 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
         userDao.saveOrUpdate(user);
     }
 
-
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public double countUsersFromProject(int project_id) {
+        return userDao.countUsersFromProject(project_id);
+    }
 }

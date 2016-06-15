@@ -2,6 +2,7 @@ package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
 import jenky.codebuddy.models.entities.Score;
+import jenky.codebuddy.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -102,7 +103,7 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<Object> getScoresFromProject(int project_id){
+    public List<User> getScoresFromProject(int project_id){
         return scoreDao.getScoresFromProject(project_id);
     }
 
@@ -116,4 +117,15 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
         return scoreDao.checkIfUserHasScores(project_id);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public double getTotalScoreFromUserForProject(int user_id, int project_id) {
+        return scoreDao.getTotalScoreFromUserForProject(user_id, project_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public double getScoreFromCommit(int commit_id) {
+        return scoreDao.getScoreFromCommit(commit_id);
+    }
 }

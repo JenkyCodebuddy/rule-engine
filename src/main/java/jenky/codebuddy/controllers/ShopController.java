@@ -29,7 +29,7 @@ public class ShopController {
     @RequestMapping(method = RequestMethod.GET)
     private Items getAllItems(@RequestHeader Map<String,String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getShopService().getAllItems();
+            return getShopService().getAllPurchasableItems(headers.get("token"));
         }
         else{
             return new Items(400,"Token not valid");

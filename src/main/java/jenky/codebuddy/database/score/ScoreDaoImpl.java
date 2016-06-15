@@ -1,7 +1,9 @@
 package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
+import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Score;
+import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -94,26 +96,35 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         return result.isPresent() ? (double)result.get() : null;
     }
 
+    @Override
+    public double getTotalScoreFromUserForProject(int user_id, int project_id){
+        String hql = "SELECT sum(score.score) FROM Score score INNER JOIN User user ON user.id = score.user INNER JOIN Commit commit ON commit.id = score.commit INNER JOIN Project project ON project.id = commit.project WHERE user.id= :user_id AND project.id = :project_id GROUP BY user.id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("user_id",user_id);
+        query.setParameter("project_id",project_id);
+        Optional result = Optional.ofNullable(query.uniqueResult());
+        return result.isPresent() ? (double)result.get() : null;
+    }
+
     /**
      * @param project_id
      * @return int
      */
     @Override
-    public List<Object> getScoresFromProject(int project_id) {
+    public List<User> getScoresFromProject(int project_id) {
         String hql = "SELECT score FROM Score score LEFT JOIN FETCH score.commit as commits LEFT JOIN FETCH commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
 
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("project_id",project_id);
         Optional<List<Score>> listWithScores = Optional.ofNullable((List<Score>) query.list());
-        List<Object> finalScoreList = new ArrayList<Object>();
+        List<User> allUsersWithEquipment = new ArrayList<User>();
         for(int i = 0; i < listWithScores.get().size(); i++){
-            Score s = listWithScores.get().get(i);
-            s.setScore(DatabaseFactory.getScoreService().getTotalScoreFromUser(s.getUser().getUser_id()));
-            s.setSonar_value(0);
-            finalScoreList.add(s);
-            finalScoreList.add(DatabaseFactory.getItemService().getEquippedItemsFromUser(s.getUser().getUser_id()));
+            User u = listWithScores.get().get(i).getUser();
+            u.setEquipment(DatabaseFactory.getItemService().getEquippedItemsFromUser(u.getUser_id()));
+            u.setTotalScore(DatabaseFactory.getScoreService().getTotalScoreFromUserForProject(u.getUser_id(), project_id));
+            allUsersWithEquipment.add(u);
         }
-        return finalScoreList;
+        return allUsersWithEquipment;
     }
 
     /**
@@ -128,5 +139,14 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         query.setMaxResults(1);
         boolean result = query.list().isEmpty();
         return result ? false: true;
+    }
+
+    @Override
+    public double getScoreFromCommit(int commit_id) {
+        String hql = "SELECT sum(score.score) FROM Score score INNER JOIN Commit commit on commit.id = score.commit WHERE commit.id = :commit_id GROUP BY commit.id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("commit_id",commit_id);
+        Optional result = Optional.ofNullable(query.uniqueResult());
+        return result.isPresent() ? (double)result.get() : null;
     }
 }
