@@ -38,6 +38,4 @@ public interface ItemDao extends GenericDao<Item, Integer> {
     public void unequipItemsForUser(int user_id);
 
     public void equipItemsForUser(int user_id, int item_id);
-
-    public List<Item> getDefaultItems();
 }

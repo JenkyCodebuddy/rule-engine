@@ -89,10 +89,4 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implement
     public void equipItemsForUser(int user_id, int item_id) {
         itemDao.equipItemsForUser(user_id,item_id);
     }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public List<Item> getDefaultItems() {
-        return itemDao.getDefaultItems();
-    }
 }
