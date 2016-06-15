@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Transient;
 import java.util.List;
 
 /**
@@ -59,5 +60,11 @@ public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Inte
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Achievement> getAchievementsFromUser(int user_id){
         return achievementDao.getAchievementsFromUser(user_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public double getProgressFromAchievement(int achievement_id) {
+        return achievementDao.getProgressFromAchievement(achievement_id);
     }
 }

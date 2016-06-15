@@ -46,10 +46,13 @@ public class Commit {
     @Transient
     private double score;
 
+    @Transient
+    private String projectName;
+
     public Commit() {
     }
 
-    public Commit(Set<Score> scores, Project project, Date created_at, Date updated_at, Date deleted_at, String branch, String sha, double score) {
+    public Commit(Set<Score> scores, Project project, Date created_at, Date updated_at, Date deleted_at, String branch, String sha, double score, String projectName) {
         this.scores = scores;
         this.project = project;
         this.created_at = created_at;
@@ -58,6 +61,7 @@ public class Commit {
         this.branch = branch;
         this.sha = sha;
         this.score = score;
+        this.projectName = projectName;
     }
 
     public int getId() {
@@ -130,5 +134,13 @@ public class Commit {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 }

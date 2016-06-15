@@ -2,6 +2,7 @@ package jenky.codebuddy.database.commit;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -53,6 +54,8 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
         for(int i = 0; i<result.size(); i++){
             Commit commit = result.get(i);
             commit.setScore(DatabaseFactory.getScoreService().getScoreFromCommit(result.get(i).getId()));
+            Project p = DatabaseFactory.getProjectService().getProjectFromCommit(commit.getId());
+            commit.setProjectName(p.getName());
             result.set(i,commit);
         }
         return result;

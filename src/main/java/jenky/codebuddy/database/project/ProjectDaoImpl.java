@@ -105,4 +105,13 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         }
         return result;
     }
+
+    @Override
+    public Project getProjectFromCommit(int commit_id) {
+        String hql = "FROM Project project LEFT JOIN FETCH project.commits as commit WHERE commit.id=:commit_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("commit_id",commit_id);
+        Project result = (Project) query.uniqueResult();
+        return result;
+    }
 }

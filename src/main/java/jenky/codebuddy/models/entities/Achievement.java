@@ -38,10 +38,13 @@ public class Achievement {
     @Column(name = "deleted_at")
     private Date deleted_at;
 
+    @Transient
+    private double progress;
+
     public Achievement() {
     }
 
-    public Achievement(Set<AchievementUser> achievementusers, String name, String description, Date completed_on, Date created_at, Date updated_at, Date deleted_at) {
+    public Achievement(Set<AchievementUser> achievementusers, String name, String description, Date completed_on, Date created_at, Date updated_at, Date deleted_at, double progress) {
         this.achievementusers = achievementusers;
         this.name = name;
         this.description = description;
@@ -49,6 +52,7 @@ public class Achievement {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
+        this.progress = progress;
     }
 
     public int getId() {
@@ -113,5 +117,13 @@ public class Achievement {
 
     public void setCompleted_on(Date completed_on) {
         this.completed_on = completed_on;
+    }
+
+    public double getProgress() {
+        return progress;
+    }
+
+    public void setProgress(double progress) {
+        this.progress = progress;
     }
 }

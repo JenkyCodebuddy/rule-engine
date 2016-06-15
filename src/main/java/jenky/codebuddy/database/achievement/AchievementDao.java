@@ -26,4 +26,6 @@ public interface AchievementDao extends GenericDao<Achievement, Integer> {
      * @return
      */
     public List<Achievement> getAchievementsFromUser(int user_id);
+
+    public double getProgressFromAchievement(int achievement_id);
 }

@@ -49,4 +49,6 @@ public interface ProjectDao extends GenericDao<Project, Integer> {
      */
     public List<Project> getActiveProjectsFromUser(int user_id);
 
+    public Project getProjectFromCommit(int commit_id);
+
 }

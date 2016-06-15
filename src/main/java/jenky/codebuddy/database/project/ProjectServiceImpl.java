@@ -109,4 +109,10 @@ public class ProjectServiceImpl extends GenericServiceImpl<Project, Integer> imp
     public List<Project> getActiveProjectsFromUser(int user_id) {
         return projectDao.getActiveProjectsFromUser(user_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Project getProjectFromCommit(int commit_id) {
+        return projectDao.getProjectFromCommit(commit_id);
+    }
 }

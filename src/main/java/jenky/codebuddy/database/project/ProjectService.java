@@ -49,4 +49,6 @@ public interface ProjectService extends GenericService<Project, Integer> {
      */
     public List<Project> getActiveProjectsFromUser(int user_id);
 
+    public Project getProjectFromCommit(int commit_id);
+
 }

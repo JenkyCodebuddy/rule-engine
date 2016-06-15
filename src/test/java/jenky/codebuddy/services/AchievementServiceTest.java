@@ -27,9 +27,9 @@ public class AchievementServiceTest {
     @BeforeClass
     public static void setup() {
         achievementsService = Mockito.mock(AchievementsService.class);
-        achievement1 = new Achievement(null, "Commit master", "Get 5 commits", new Date(), new Date(), new Date(), new Date());
-        achievement2 = new Achievement(null, "10 Achievements", "Unlock 10 achievements", new Date(), new Date(), new Date(), new Date());
-        achievement3 = new Achievement(null, "KING", "You unlocked all achievements", new Date(), new Date(), new Date(), new Date());
+       // achievement1 = new Achievement(null, "Commit master", "Get 5 commits", new Date(), new Date(), new Date(), new Date());
+       // achievement2 = new Achievement(null, "10 Achievements", "Unlock 10 achievements", new Date(), new Date(), new Date(), new Date());
+       // achievement3 = new Achievement(null, "KING", "You unlocked all achievements", new Date(), new Date(), new Date(), new Date());
         allAchievements = new Achievements(Arrays.asList(achievement1,achievement2,achievement3),200);
         token = "TEST_TOKEN";
 

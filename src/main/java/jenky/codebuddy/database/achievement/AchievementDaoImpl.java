@@ -2,9 +2,11 @@ package jenky.codebuddy.database.achievement;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Achievement;
+import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 /**
@@ -51,6 +53,21 @@ public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> imp
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);
         List<Achievement> achievements = query.list();
+        for(int i = 0; i < achievements.size(); i++){
+            Achievement achievement = achievements.get(i);
+            achievement.setProgress(DatabaseFactory.getAchievementService().getProgressFromAchievement(achievement.getId()));
+            achievements.set(i,achievement);
+        }
         return achievements;
+    }
+
+    @Override
+    public double getProgressFromAchievement(int achievement_id){
+        String hql = "SELECT (achievement_has_users.progress) FROM Achievement achievement " +
+                "INNER JOIN achievement.achievementusers as achievement_has_users " +
+                "WHERE achievement_has_users.id =:achievement_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("achievement_id",achievement_id);
+        return (double)query.uniqueResult();
     }
 }
