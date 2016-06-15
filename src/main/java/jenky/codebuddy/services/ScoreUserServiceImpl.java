@@ -2,9 +2,11 @@ package jenky.codebuddy.services;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import jenky.codebuddy.database.project.ProjectService;
 import jenky.codebuddy.modelbuilders.CommitModelBuilder;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
@@ -68,6 +70,25 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
+     * Saves the project if it doesn't exists and return it
+     * @param projectname
+     */
+    @Override
+    public Project saveOrGetProjectIfExists(String projectname){
+        ProjectService projectsService = DatabaseFactory.getProjectService();
+        Project project = new Project();
+        if (!projectsService.checkIfProjectExists(projectname)){
+            project.setName(projectname);
+            project.setCreated_at(new Date());
+            projectsService.addProject(project);
+        } else {
+            project = projectsService.getProjectIfExists(projectname);
+            project.setUpdated_at(new Date());
+        }
+        return project;
+    }
+
+    /**
      * Creates a commit using the information from the userCommit
      * @param userCommit contains information about the commiter
      * @return Commit commit
@@ -76,7 +97,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     public Commit createCommit(UserCommit userCommit){
         Commit commit = new Commit();
         commit.setBranch(userCommit.getBranch());
-        commit.setProject(DatabaseFactory.getProjectService().getProjectIfExists(userCommit.getProjectName()));
+        commit.setProject(saveOrGetProjectIfExists(userCommit.getProjectName()));
         commit.setCreated_at(new Date());
         commit.setSha(userCommit.getSha());
         return commit;
