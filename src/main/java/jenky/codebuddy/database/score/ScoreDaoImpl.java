@@ -120,6 +120,7 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         List<User> allUsersWithEquipment = new ArrayList<User>();
         for(int i = 0; i < listWithScores.get().size(); i++){
             User u = listWithScores.get().get(i).getUser();
+            u.setPassword(null);
             u.setEquipment(DatabaseFactory.getItemService().getEquippedItemsFromUser(u.getUser_id()));
             u.setTotalScore(DatabaseFactory.getScoreService().getTotalScoreFromUserForProject(u.getUser_id(), project_id));
             allUsersWithEquipment.add(u);
