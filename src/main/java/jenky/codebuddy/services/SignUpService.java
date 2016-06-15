@@ -1,11 +1,16 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.SendMail;
+import jenky.codebuddy.models.entities.Item;
+import jenky.codebuddy.models.entities.ItemUser;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.entities.Verification;
 import jenky.codebuddy.models.rest.Response;
+import org.springframework.orm.jpa.vendor.Database;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -44,6 +49,7 @@ public class SignUpService {
         if(DatabaseFactory.getVerificationService().checkIfVerificationExists(verificationCode)){    //check if the supplied verification code matches the verification code in the database
             Verification verification = DatabaseFactory.getVerificationService().getVerificationIfExists(verificationCode);  //get the verification code from the database
             DatabaseFactory.getUserService().setPasswordForUser(password,verification.getUser().getEmail(),new Date());  //set the password and updatedAt timestamp for the user attached to a verification code (every verification code is linked to an user)
+            setDefaultEquipmentForUser(verification.getUser());
             DatabaseFactory.getVerificationService().removeVerification(verification); //remove the verificationcode from the database (password for user is set, so its no longer needed in the database)
             return new Response(200,"Verify code is correct, new user is created");
         }
@@ -80,6 +86,17 @@ public class SignUpService {
         verification.setCreated_at(new Date());
         verification.setUser(DatabaseFactory.getUserService().getUserIfExists(userEmail));
         DatabaseFactory.getVerificationService().addNewVerification(verification); //save the verification code in db
+    }
+
+    private void setDefaultEquipmentForUser(User user){
+        List<Item> defaultItems = DatabaseFactory.getItemService().getDefaultItems();
+        for(Item item : defaultItems){
+            ItemUser itemUser = new ItemUser();
+            itemUser.setUser(user);
+            itemUser.setItem(item);
+            itemUser.setEquipped(true);
+            DatabaseFactory.getItemUserService().addItemUser(itemUser);
+        }
     }
 
     private SendMail getSendMail() {
