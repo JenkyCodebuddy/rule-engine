@@ -1,6 +1,7 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.models.entities.Commit;
+import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
 import wildtornado.scocalc.objects.Score;
@@ -24,6 +25,14 @@ public interface ScoreUserService {
      * @param userCommit contains commit info
      */
     public void saveUserScore(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit);
+
+    /**
+     * Saves or gets the project if it exists. Always returns a project.
+     * If it exists the projects get an updated time.
+     * @param projectname
+     * @return
+     */
+    public Project saveOrGetProjectIfExists(String projectname);
 
     /**
      * @param userCommit a map containing info about the commit
@@ -53,4 +62,4 @@ public interface ScoreUserService {
      */
     public Map<String, String> createGithubUserInfoMap(Map<String, String> headers);
 
-    }
+}
