@@ -2,6 +2,7 @@ package jenky.codebuddy.database.item;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Item;
+import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -46,7 +47,7 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
     public List<Item> getAllEquipmentFromUser(int user_id) {
         String hql = "FROM Item item " +
                 "LEFT JOIN FETCH item.itemusers as item_has_users " +
-                "WHERE item_has_users.user= :user_id";
+                "WHERE item_has_users.user= :user_id ORDER BY item_has_users.equipped DESC ";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);
         Optional<List<Item>> equippedItems = Optional.ofNullable(query.list());
@@ -94,5 +95,13 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
         query.setInteger("user_id",user_id);
         query.setInteger("item_id",item_id);
         query.executeUpdate();
+    }
+
+    @Override
+    public List<Item> getDefaultItems() {
+        String hql = "FROM Item item WHERE item.id = 1 OR item.id = 2 OR item.id = 3 OR item.id = 4";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        List<Item> defaultItems = (List<Item>)query.list();
+        return defaultItems;
     }
 }
