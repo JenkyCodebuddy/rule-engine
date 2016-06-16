@@ -33,7 +33,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     public void parseHeaders(Map<String, String> headers){
         Gson gson = new Gson();
         Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
-        System.out.println(headers.get("sonarquberesponse").replaceAll("\\s",""));
         List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
         SonarResponse sonarResponse = sonarResponseList.get(0);
         Map<String, String> githubInfoMap = createGithubUserInfoMap(headers);
