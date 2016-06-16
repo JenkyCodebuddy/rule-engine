@@ -24,11 +24,4 @@ public class ScoreController {
         ScoreUserService scoreUserService = new ScoreUserServiceImpl();
         scoreUserService.parseHeaders(headers);
     }
-
-    @RequestMapping(value = "/json", method = RequestMethod.POST)
-    private void saveJson(@RequestBody String json){
-        ScoreUserService scoreUserService = new ScoreUserServiceImpl();
-        System.out.println(json);
-        //scoreUserService.parseHeaders(headers);
-    }
 }
