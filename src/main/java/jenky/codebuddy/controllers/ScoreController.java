@@ -2,10 +2,7 @@ package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.services.ScoreUserService;
 import jenky.codebuddy.services.ScoreUserServiceImpl;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -29,9 +26,9 @@ public class ScoreController {
     }
 
     @RequestMapping(value = "/json", method = RequestMethod.POST)
-    private void saveJson(@RequestHeader Map<String, String> headers){
+    private void saveJson(@RequestBody String json){
         ScoreUserService scoreUserService = new ScoreUserServiceImpl();
-        System.out.println(headers);
-        scoreUserService.parseHeaders(headers);
+        System.out.println(json);
+        //scoreUserService.parseHeaders(headers);
     }
 }
