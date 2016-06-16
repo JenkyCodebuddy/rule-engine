@@ -14,7 +14,7 @@ import java.util.Map;
  * to post the sonar results and commiter information to be saved in the database
  */
 @RestController
-@RequestMapping(value = "/score")
+@RequestMapping(value = "/save")
 public class ScoreController {
 
     /**
@@ -22,9 +22,16 @@ public class ScoreController {
      * @param headers must contains a sonarresponse(json)
      * and header email, header sha, header branch, header project, username
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    private void saveScore(@RequestHeader Map<String, String> headers){
+    @RequestMapping(value = "/commit", method = RequestMethod.POST)
+    private void saveCommit(@RequestHeader Map<String, String> headers){
         ScoreUserService scoreUserService = new ScoreUserServiceImpl();
+        scoreUserService.parseHeaders(headers);
+    }
+
+    @RequestMapping(value = "/json", method = RequestMethod.POST)
+    private void saveJson(@RequestHeader Map<String, String> headers){
+        ScoreUserService scoreUserService = new ScoreUserServiceImpl();
+        System.out.println(headers);
         scoreUserService.parseHeaders(headers);
     }
 }
