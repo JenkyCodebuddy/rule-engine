@@ -22,7 +22,7 @@ public class ScoreController {
      * @param headers must contains a sonarresponse(json)
      * and header email, header sha, header branch, header project, username
      */
-    @RequestMapping(value = "/commit", method = RequestMethod.POST)
+    @RequestMapping(value = "/score", method = RequestMethod.POST)
     private void saveCommit(@RequestHeader Map<String, String> headers){
         ScoreUserService scoreUserService = new ScoreUserServiceImpl();
         scoreUserService.parseHeaders(headers);
