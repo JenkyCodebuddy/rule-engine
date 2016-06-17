@@ -43,7 +43,7 @@ public class ProjectsController {
     @RequestMapping(value = "/{project_id}", method = RequestMethod.GET)
     private SingleProject showScoresForProject(@PathVariable int project_id, @RequestHeader Map<String, String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return projectsService.returnSingleProjectWithScores(project_id);
+            return projectsService.returnSingleProjectWithScores(project_id, headers.get("token"));
         }
         else{
             return new SingleProject(400,"Token is not valid");

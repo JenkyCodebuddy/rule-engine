@@ -113,11 +113,12 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
      * @return int
      */
     @Override
-    public List<Profile> getScoresFromProject(int project_id) {
-        String hql = "SELECT score FROM Score score LEFT JOIN FETCH score.commit as commits LEFT JOIN FETCH commits.project as projects WHERE projects.id =:project_id GROUP BY score.user";
+    public List<Profile> getScoresFromProject(int project_id, int user_id) {
+        String hql = "SELECT score FROM Score score LEFT JOIN FETCH score.commit as commits LEFT JOIN FETCH commits.project as projects WHERE projects.id =:project_id GROUP BY score.user ORDER BY CASE WHEN score.user =:user_id then 0 else 1 end ASC ";
 
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("project_id",project_id);
+        query.setInteger("user_id",user_id);
         Optional<List<Score>> listWithScores = Optional.ofNullable((List<Score>) query.list());
         List<Profile> allUsersWithEquipment = new ArrayList<Profile>();
         for(int i = 0; i < listWithScores.get().size(); i++){

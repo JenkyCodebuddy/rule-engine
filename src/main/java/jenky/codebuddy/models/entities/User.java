@@ -19,6 +19,7 @@ public class User{
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -58,15 +59,12 @@ public class User{
     private Set<ItemUser> itemusers = new HashSet<ItemUser>();
 
     @Transient
-    private List<Item> equipment;
-
-    @Transient
     private double totalScore;
 
     public User() {
     }
 
-    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<AchievementUser> achievements, Set<ItemUser> itemusers, List<Item> equipment, double totalScore) {
+    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<AchievementUser> achievements, Set<ItemUser> itemusers, double totalScore) {
         this.email = email;
         this.password = password;
         this.created_at = created_at;
@@ -78,7 +76,6 @@ public class User{
         this.scores = scores;
         this.achievements = achievements;
         this.itemusers = itemusers;
-        this.equipment = equipment;
         this.totalScore = totalScore;
     }
 
@@ -176,14 +173,6 @@ public class User{
 
     public void setItemusers(Set<ItemUser> itemusers) {
         this.itemusers = itemusers;
-    }
-
-    public List<Item> getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(List<Item> equipment) {
-        this.equipment = equipment;
     }
 
     public double getTotalScore() {
