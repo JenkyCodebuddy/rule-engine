@@ -2,12 +2,18 @@ package jenky.codebuddy.services;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import jenky.codebuddy.database.project.ProjectService;
 import jenky.codebuddy.modelbuilders.CommitModelBuilder;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.models.gcm.Data;
+import jenky.codebuddy.models.gcm.Message;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
@@ -145,5 +151,25 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         githubInfoMap.put("sha", headers.get("sha"));
         githubInfoMap.put("projectName", headers.get("projectname"));
         return githubInfoMap;
+    }
+
+    public void sendPush(String text, String id){
+        Data data =  new Data();
+        data.setMessage(text);
+        data.setTitle("Build info");
+
+        Message message = new Message();
+        message.setData(data);
+        message.setTo(id);
+
+        try {
+            Unirest.post("https://fcm.googleapis.com/fcm/send")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", "key=AIzaSyBQndUWi-dF7c-B5BrptQyKPhaTgjXHMV4")
+                    .body(message)
+                    .asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
     }
 }
