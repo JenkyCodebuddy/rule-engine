@@ -56,10 +56,26 @@ public interface ScoreUserService {
     public List<jenky.codebuddy.models.entities.Score> getPreviousScores(String email);
 
     /**
-     * Parses the headers to githubinfo map
+     * Created a usercommitmodel from the headers
      * @param headers From the CI server
      * @return Map containing info about the committer
      */
-    public Map<String, String> createGithubUserInfoMap(Map<String, String> headers);
+    public UserCommit createUserCommitModel(Map<String, String> headers);
+
+    /**
+     * Uses Firebase to send message to the user
+     * with a self defines message
+     * @param text
+     * @param id
+     */
+    public void sendPush(String text, String id);
+
+    /**
+     * extract projectname from address like http://github.com/company/project.git
+     * Splits at the fourth / and removes the last four characters (.git)
+     * @param url
+     * @return
+     */
+    public String filterRegex(String url);
 
 }
