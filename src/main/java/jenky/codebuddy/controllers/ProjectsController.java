@@ -18,7 +18,7 @@ public class ProjectsController {
     ProjectsService projectsService;
 
     public ProjectsController() {
-        setProjectsService(new ProjectsService());
+        this.projectsService = new ProjectsService();
     }
 
     /**
@@ -28,7 +28,7 @@ public class ProjectsController {
     @RequestMapping(method = RequestMethod.GET)
     private ActiveProjects showActiveProjectsForUser(@RequestHeader Map<String,String> headers) {
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getProjectsService().returnActiveProjectsForUser(headers.get("token"));
+            return projectsService.returnActiveProjectsForUser(headers.get("token"));
         }
         else{
             return new ActiveProjects(400,"Token not valid");
@@ -48,13 +48,5 @@ public class ProjectsController {
         else{
             return new SingleProject(400,"Token is not valid");
         }
-    }
-
-    private ProjectsService getProjectsService() {
-        return projectsService;
-    }
-
-    private void setProjectsService(ProjectsService projectsService) {
-        this.projectsService = projectsService;
     }
 }

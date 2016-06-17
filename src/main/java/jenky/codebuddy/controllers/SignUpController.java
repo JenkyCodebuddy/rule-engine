@@ -17,7 +17,7 @@ public class SignUpController {
     SignUpService signUpService;
 
     public SignUpController() {
-        setSignUpService(new SignUpService());
+        this.signUpService = new SignUpService();
     }
 
     /**
@@ -26,7 +26,7 @@ public class SignUpController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody Response signUpNewUser(@RequestHeader Map<String,String> headers){
-        return getSignUpService().signUpNewUser(headers.get("email"));
+        return signUpService.signUpNewUser(headers.get("email"));
     }
 
     /**
@@ -35,14 +35,6 @@ public class SignUpController {
      */
     @RequestMapping(value = "/verify", method = RequestMethod.POST)
     public @ResponseBody Response checkVerificationCode(@RequestHeader Map<String, String> headers){
-        return getSignUpService().checkVerificationCode(headers.get("verificationcode"), headers.get("password"));  //check verification code supplied by user, and if correct set password
-    }
-
-    private SignUpService getSignUpService() {
-        return signUpService;
-    }
-
-    private void setSignUpService(SignUpService signUpService) {
-        this.signUpService = signUpService;
+        return signUpService.checkVerificationCode(headers.get("verificationcode"), headers.get("password"));  //check verification code supplied by user, and if correct set password
     }
 }
