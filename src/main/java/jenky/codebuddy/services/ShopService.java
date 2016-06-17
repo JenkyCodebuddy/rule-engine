@@ -38,7 +38,7 @@ public class ShopService {
             Item item = DatabaseFactory.getItemService().getItemIfExists(itemId);
             if (DatabaseFactory.getUserService().checkIfUserDoesntHaveItem(user.getUser_id(), itemId)) {
                 if (DatabaseFactory.getUserService().checkIfUserHasEnoughCoins(user.getUser_id(), item.getPrice())) {
-                    DatabaseFactory.getUserService().subtractCoins(user.getUser_id(), item.getPrice());
+                    subtractCoinsForUser(user, item.getPrice());
                     addItemToUser(user, item);
                     return new Response(200, "Item purchased for user");
                 } else {
@@ -62,5 +62,10 @@ public class ShopService {
         itemUser.setItem(item);
         itemUser.setEquipped(false);
         DatabaseFactory.getItemUserService().addItemUser(itemUser);
+    }
+
+    private void subtractCoinsForUser(User user, int amount){
+        user.setJenkycoins(DatabaseFactory.getUserService().getJenkyCoinsFromUser(user.getUser_id()) - amount);
+        DatabaseFactory.getUserService().saveOrUpdate(user);
     }
 }

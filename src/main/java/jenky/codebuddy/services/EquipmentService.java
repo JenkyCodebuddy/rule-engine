@@ -1,12 +1,13 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.models.entities.Item;
+import jenky.codebuddy.models.entities.ItemUser;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Equipment;
 import jenky.codebuddy.models.rest.Response;
 
-import java.util.List;
-import java.util.Map;
+import javax.xml.crypto.Data;
+import java.util.*;
 
 /**
  * Created by joost on 9-6-2016.
@@ -26,10 +27,19 @@ public class EquipmentService {
         return new Equipment(equippedItems,200);
     }
 
-    public Response equipItemsForUser(String token, Map items){
+    public Response equipItemsForUser(String token, Map newItems){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
-        DatabaseFactory.getItemService().unequipItemsForUser(user.getUser_id());
-        items.forEach((key,value)->DatabaseFactory.getItemService().equipItemsForUser(user.getUser_id(),Integer.parseInt((String)value)));
+        user.getItemusers().forEach((itemUser)-> {
+            itemUser.setEquipped(false);
+            DatabaseFactory.getItemUserService().updateItemUser(itemUser);
+        });
+        newItems.forEach((key,value)->{
+            ItemUser itemUser = new ItemUser();
+            itemUser.setItem((Item) value);
+            itemUser.setEquipped(true);
+            itemUser.setUser(user);
+            DatabaseFactory.getItemUserService().updateItemUser(itemUser);
+        });
         return new Response(200, "Items equipped");
     }
 }

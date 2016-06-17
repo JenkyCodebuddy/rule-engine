@@ -34,7 +34,7 @@ public class LoginService {
                 if (user.getPassword().equals(password)) {
                     token = generateToken(email);   //generate a token with the email as identifier (identifier is needed for validation)
                     if (DatabaseFactory.getAuthenticationService().checkIfAuthenticationForUserExists(user.getUser_id())) {    //check if the user alread has a token
-                        updateAuthentication(user.getUser_id(), token.getToken(), AuthenticationService.keyToString(token.getKey()));   //if user has token, update the user's token in the database with a new one
+                        updateAuthentication(DatabaseFactory.getAuthenticationService().getAuthenticationIfUserExists(user.getUser_id()), token);   //if user has token, update the user's token in the database with a new one
                     } else {
                         createNewAuthentication(user, token.getToken(), AuthenticationService.keyToString(token.getKey())); //if user doesn't have a token, create one
                     }
@@ -54,6 +54,7 @@ public class LoginService {
 
     /**
      * Creates a token for the user with subject email
+     *
      * @param email of the user
      * @return token
      */
@@ -66,13 +67,11 @@ public class LoginService {
         return token;
     }
 
-    /**
-     * @param userId
-     * @param token
-     * @param key
-     */
-    private void updateAuthentication(int userId, String token, String key) { //method for updating a record in the authentication table
-        DatabaseFactory.getAuthenticationService().updateAuthentication(userId, token, key, new Date());
+    private void updateAuthentication(Authentication authentication, Token token) { //method for updating a record in the authentication table
+        authentication.setToken(token.getToken());
+        authentication.setAuth_key(AuthenticationService.keyToString(token.getKey()));
+        authentication.setUpdated_at(new Date());
+        DatabaseFactory.getAuthenticationService().updateAuthentication(authentication);
     }
 
     /**

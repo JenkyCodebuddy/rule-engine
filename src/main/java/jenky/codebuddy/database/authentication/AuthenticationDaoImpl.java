@@ -2,10 +2,12 @@ package jenky.codebuddy.database.authentication;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Authentication;
+import org.apache.http.auth.AUTH;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * Persistence for Achievement. This inherits GenericDaoImplementation
@@ -38,14 +40,8 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
      * @param updated_at
      */
     @Override
-    public void updateAuthentication(int userId, String token, String keyString, Date updated_at) {
-        String hql = "update Authentication a set token = :token, auth_key = :keyString, updated_at=:updated_at WHERE a.user.user_id = :userId";
-        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-        query.setParameter("token",token);
-        query.setParameter("keyString",keyString);
-        query.setParameter("userId",userId);
-        query.setParameter("updated_at",updated_at);
-        query.executeUpdate();
+    public void updateAuthentication(Authentication authentication) {
+        super.saveOrUpdate(authentication);
     }
 
     /**
@@ -61,21 +57,21 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         return result!=null;
     }
 
-    /**
-     * @param token
-     * @return String token otherwise null
-     */
     @Override
     public Authentication getAuthenticationIfTokenExists(String token) {
         String hql = "FROM Authentication a WHERE a.token = :token";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("token",token);
-        Authentication result = (Authentication) query.uniqueResult();
-        if(result != null){
-            return result;
-        }
-        else{
-            return null;
-        }
+        Optional<Authentication> result = Optional.ofNullable((Authentication) query.uniqueResult());
+        return result.isPresent() ? result.get() : null;
+    }
+
+    @Override
+    public Authentication getAuthenticationIfUserExists(int user_id) {
+        String hql = "FROM Authentication a WHERE a.user = :user_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
+        Optional<Authentication> result = Optional.ofNullable((Authentication) query.uniqueResult());
+        return result.isPresent() ? result.get() : null;
     }
 }

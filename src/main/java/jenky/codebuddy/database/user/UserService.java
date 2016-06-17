@@ -33,13 +33,6 @@ public interface UserService extends GenericService<User, Integer> {
     public User getUserIfExists(String email);
 
     /**
-     * @param password
-     * @param email
-     * @param updatedAt
-     */
-    public void setPasswordForUser(String password, String email, Date updatedAt);
-
-    /**
      * @param user
      */
     public void saveOrUpdate(User user);
@@ -58,14 +51,7 @@ public interface UserService extends GenericService<User, Integer> {
      */
     public boolean checkIfUserHasEnoughCoins(int user_id, double amount);
 
-    /**
-     * @param user_id
-     * @param amount
-     */
-    public void subtractCoins(int user_id, double amount);
-
     public double countUsersFromProject(int project_id);
 
     public int getJenkyCoinsFromUser(int user_id);
-
 }

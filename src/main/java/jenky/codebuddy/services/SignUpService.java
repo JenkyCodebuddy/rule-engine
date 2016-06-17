@@ -47,10 +47,12 @@ public class SignUpService {
      */
     public Response checkVerificationCode(String verificationCode, String password){
         if(DatabaseFactory.getVerificationService().checkIfVerificationExists(verificationCode)){    //check if the supplied verification code matches the verification code in the database
-            Verification verification = DatabaseFactory.getVerificationService().getVerificationIfExists(verificationCode);  //get the verification code from the database
-            DatabaseFactory.getUserService().setPasswordForUser(password,verification.getUser().getEmail(),new Date());  //set the password and updatedAt timestamp for the user attached to a verification code (every verification code is linked to an user)
-            setDefaultEquipmentForUser(verification.getUser());
-            DatabaseFactory.getVerificationService().removeVerification(verification); //remove the verificationcode from the database (password for user is set, so its no longer needed in the database)
+            User user = DatabaseFactory.getVerificationService().getVerificationIfExists(verificationCode).getUser();
+            user.setPassword(password);
+            user.setUpdated_at(new Date());
+            DatabaseFactory.getUserService().saveOrUpdate(user);  //set the password and updatedAt timestamp for the user attached to a verification code (every verification code is linked to an user)
+            setDefaultEquipmentForUser(user);
+            DatabaseFactory.getVerificationService().removeVerification(DatabaseFactory.getVerificationService().getVerificationIfExists(verificationCode)); //remove the verificationcode from the database (password for user is set, so its no longer needed in the database)
             return new Response(200,"Verify code is correct, new user is created");
         }
         else{
@@ -90,13 +92,13 @@ public class SignUpService {
 
     private void setDefaultEquipmentForUser(User user){
         List<Item> defaultItems = DatabaseFactory.getItemService().getDefaultItems();
-        for(Item item : defaultItems){
+        defaultItems.forEach((item)-> {
             ItemUser itemUser = new ItemUser();
             itemUser.setUser(user);
             itemUser.setItem(item);
             itemUser.setEquipped(true);
             DatabaseFactory.getItemUserService().addItemUser(itemUser);
-        }
+        });
     }
 
     private SendMail getSendMail() {
