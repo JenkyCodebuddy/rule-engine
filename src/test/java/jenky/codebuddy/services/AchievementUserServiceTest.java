@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by joost on 12-6-2016.
  */
-public class AchievementServiceTest {
+public class AchievementUserServiceTest {
 
     private static AchievementsService achievementsService;
     private static Achievement achievement1;
