@@ -67,6 +67,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
+        generateTips(user);
     }
 
     /**
@@ -145,5 +146,14 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         githubInfoMap.put("sha", headers.get("sha"));
         githubInfoMap.put("projectName", headers.get("projectname"));
         return githubInfoMap;
+    }
+
+    /**
+     * Generate tips for user
+     * @param user
+     */
+    @Override
+    public void generateTips(User user){
+        List<Commit> lastCommits = DatabaseFactory.getCommitService().getCommitsFromUser(user.getUser_id());
     }
 }

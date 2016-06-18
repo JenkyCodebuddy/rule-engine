@@ -2,6 +2,7 @@ package jenky.codebuddy.services;
 
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Project;
+import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
 import wildtornado.scocalc.objects.Score;
@@ -61,5 +62,7 @@ public interface ScoreUserService {
      * @return Map containing info about the committer
      */
     public Map<String, String> createGithubUserInfoMap(Map<String, String> headers);
+
+    public void generateTips(User user);
 
 }
