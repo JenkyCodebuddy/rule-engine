@@ -2,15 +2,25 @@ package jenky.codebuddy.services;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import jenky.codebuddy.database.project.ProjectService;
-import jenky.codebuddy.modelbuilders.CommitModelBuilder;
+import jenky.codebuddy.database.score.ScoreService;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.models.gcm.Data;
+import jenky.codebuddy.models.gcm.Message;
+import jenky.codebuddy.models.gcm.Notification;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 import wildtornado.scocalc.objects.Score;
 
 import java.lang.reflect.Type;
@@ -21,13 +31,15 @@ import java.util.*;
  */
 public class ScoreUserServiceImpl implements ScoreUserService {
 
+    private final String messageUrl = "https://fcm.googleapis.com/fcm/send";
+
     public ScoreUserServiceImpl() {
 
     }
 
     /**
      * Parses the headers and sends it to the appropriate builders. Afterwards saves the models
-     * @param headers Reponse from the CI server
+     * @param headers Response from the CI server
      */
     @Override
     public void parseHeaders(Map<String, String> headers){
@@ -35,19 +47,19 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
         List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
         SonarResponse sonarResponse = sonarResponseList.get(0);
-        Map<String, String> githubInfoMap = createGithubUserInfoMap(headers);
-        CommitModelBuilder commitModelBuilder = new CommitModelBuilder(githubInfoMap);
-        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, commitModelBuilder.getUserCommitModel());
-        saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, commitModelBuilder.getUserCommitModel());;
+        UserCommit userCommit = createUserCommitModel(headers);
+        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
+        saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);;
     }
 
     /**
-     * @param metricsDataInputModel  contains the calculated socre
+     * @param metricsDataInputModel  contains the calculated score
      * @param sonarResponse  contains the calculated score from sonarqube
      * @param userCommit  contains information about the user who commited this
      */
     @Override
     public void saveUserScore(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit){
+        ScoreService scoreService = DatabaseFactory.getScoreService();
         Commit commit = createCommit(userCommit);
         List<Metric> metricsList = sonarResponse.getMsr();
         Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
@@ -60,13 +72,14 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             score.setCommit(commit);
             score.setMetric(DatabaseFactory.getMetricService().getMetricIfExists(aMetricsList.getKey()));
             scores.add(score);
-            DatabaseFactory.getScoreService().save(score);
+            scoreService.save(score);
         }
         //TODO add to current coins
         user.setJenkycoins(metricsDataInputModel.getCoinsEarned());
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
+        sendPush("results are saved", "Results are in, check your profile!", user.getMessageToken());
     }
 
     /**
@@ -90,14 +103,14 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Creates a commit using the information from the userCommit
-     * @param userCommit contains information about the commiter
-     * @return Commit commit
+     * @param userCommit
+     * @return
      */
     @Override
     public Commit createCommit(UserCommit userCommit){
         Commit commit = new Commit();
         commit.setBranch(userCommit.getBranch());
-        commit.setProject(saveOrGetProjectIfExists(userCommit.getProjectName()));
+        commit.setProject(saveOrGetProjectIfExists(filterRegex(userCommit.getProjectName())));
         commit.setCreated_at(new Date());
         commit.setSha(userCommit.getSha());
         return commit;
@@ -137,18 +150,67 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      * @return Map containing info about the committer
      */
     @Override
-    public Map<String, String> createGithubUserInfoMap(Map<String, String> headers){
-        Map<String, String> githubInfoMap = new HashMap<>();
-        githubInfoMap.put("username",headers.get("username"));
-        githubInfoMap.put("email", headers.get("email"));
-        githubInfoMap.put("branch", headers.get("branch"));
-        githubInfoMap.put("sha", headers.get("sha"));
-        githubInfoMap.put("projectName", headers.get("projectname"));
-        return githubInfoMap;
+    public UserCommit createUserCommitModel(Map<String, String> headers){
+        UserCommit userCommit = new UserCommit();
+        userCommit.setUsername(headers.get("username"));
+        userCommit.setProjectName(headers.get("projectname"));
+        userCommit.setSha(headers.get("sha"));
+        userCommit.setBranch(headers.get("branch"));
+        userCommit.setEmail(headers.get("email"));
+        return userCommit;
     }
+
+    /**
+     * Uses firebase to send a notifcation with a custom body
+     * @param messageBody
+     * @param notificationBody
+     * @param id
+     */
+    @Override
+    public void sendPush(String messageBody, String notificationBody, String id){
+        Gson gson = new Gson();
+        Data data =  new Data();
+        Notification notification = new Notification();
+        Message message = new Message();
+
+        data.setMessage(messageBody);
+        data.setTitle("Build info");
+
+        notification.setTitle("Code buddy");
+        notification.setBody(notificationBody);
+        notification.setIcon("myicon");
+
+        message.setData(data);
+        message.setTo(id);
+        message.setNotification(notification);
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpPost request = new HttpPost(messageUrl);
+            StringEntity params = new StringEntity(gson.toJson(message));
+            request.addHeader("content-type", "application/json");
+            request.addHeader("Authorization", "key=AIzaSyBQndUWi-dF7c-B5BrptQyKPhaTgjXHMV4");
+            request.setEntity(params);
+            HttpResponse response = httpClient.execute(request);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * extract projectname from address like http://github.com/company/project.git
+     * Splits at the fourth / and removes the last four characters (.git)
+     * @param url
+     * @return
+     */
+    @Override
+    public String filterRegex(String url) {
+        String[] paths = url.split("/");
+        return paths[4].substring(0, paths[4].length() - 4);
+    }
+
     /**
      * Generate tips for user
-     * @param user
      */
     @Override
     public void generateTips(){

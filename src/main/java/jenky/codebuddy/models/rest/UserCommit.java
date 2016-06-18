@@ -8,14 +8,6 @@ public class UserCommit {
     String sha;
     String projectName;
 
-    public UserCommit(String username, String email, String branch, String sha, String projectName) {
-        this.username = username;
-        this.email = email;
-        this.branch = branch;
-        this.sha = sha;
-        this.projectName = projectName;
-    }
-
     public String getUsername() {
         return username;
     }
