@@ -178,7 +178,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
         notification.setTitle("Code buddy");
         notification.setBody(notificationBody);
-        notification.setIcon("myicon");
+        notification.setIcon("resources/images/Jenky.jpg");
 
         message.setData(data);
         message.setTo(id);
@@ -210,11 +210,12 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * Generate tips for user
+     * Generates tips if needed for the user
+     * @param user
      */
     @Override
-    public void generateTips(){
-        List<Commit> lastCommits = DatabaseFactory.getCommitService().getCommitsFromUser(1);
+    public void generateTips(User user){
+        List<Commit> lastCommits = DatabaseFactory.getCommitService().getCommitsFromUser(user.getUser_id());
         Commit commit1 = lastCommits.get(0);
         Set<jenky.codebuddy.models.entities.Score> score = commit1.getScores();
         System.out.println(score);

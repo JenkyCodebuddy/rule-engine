@@ -79,6 +79,10 @@ public interface ScoreUserService {
      */
     public String filterRegex(String url);
 
-    public void generateTips();
+    /**
+     * Generates tips for the user if needed
+     * @param user
+     */
+    public void generateTips(User user);
 
 }

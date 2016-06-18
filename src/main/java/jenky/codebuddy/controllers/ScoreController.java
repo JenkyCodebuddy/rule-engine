@@ -32,9 +32,9 @@ public class ScoreController {
         scoreUserService.parseHeaders(headers);
     }
 
-    @RequestMapping(value = "/tips", method = RequestMethod.GET)
-    private void tips(@RequestHeader Map<String, String> headers){
-        ScoreUserService scoreUserService = new ScoreUserServiceImpl();
-        scoreUserService.generateTips();
-    }
+//    @RequestMapping(value = "/tips", method = RequestMethod.GET)
+//    private void tips(@RequestHeader Map<String, String> headers){
+//        ScoreUserService scoreUserService = new ScoreUserServiceImpl();
+//        scoreUserService.generateTips();
+//    }
 }

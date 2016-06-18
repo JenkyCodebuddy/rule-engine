@@ -28,12 +28,13 @@ public class ScoreTest{
 
     private Score testScore;
     private ScoreUserService scoreUserService;
+    private User testUser;
 
     @Before
     public void setUp() {
         this.testScore = new Score();
         this.scoreUserService = new ScoreUserServiceImpl();
-        User testUser = new User();
+        this.testUser = new User();
         testUser.setEmail(TestInfo.TESTEMAIL);
         testScore.setUser(testUser);
     }
@@ -93,5 +94,10 @@ public class ScoreTest{
     @Test
     public void sendPush(){
         scoreUserService.sendPush("test" , "Results are in, check your profile!", "cM6L9vKZx4Y:APA91bG9DxVbwXUjOx9Ag50tl0TRhxvcpLepq-f4PKF34h20NY9LCyMU5WBm4Q8Dgln30uwX5hNuxgXC_XT3QGEIPGswwzC1qsUWozh0C-pecnbANtTqGPX3sK_m_8SwFPR_PE5NZukJ");
+    }
+
+    @Test
+    public void generateTip(){
+        scoreUserService.generateTips(testUser);
     }
 }
