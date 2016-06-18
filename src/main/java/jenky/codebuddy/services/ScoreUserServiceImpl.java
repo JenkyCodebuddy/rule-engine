@@ -43,7 +43,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     @Override
     public void parseHeaders(Map<String, String> headers){
-        if (headers.get("buildresult").equals("\"SUCCES\"")){
+        if (headers.get("buildresult").equals("SUCCES")){
             Gson gson = new Gson();
             Type sonar = new TypeToken<List<SonarResponse>>() {
             }.getType();
