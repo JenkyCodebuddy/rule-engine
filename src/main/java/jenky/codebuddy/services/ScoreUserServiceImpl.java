@@ -159,6 +159,17 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     @Override
     public void sendPush(String text, String id){
+        Unirest.setObjectMapper(new com.mashape.unirest.http.ObjectMapper() {
+            private Gson gson = new Gson();
+
+            public <T> T readValue(String value, Class<T> valueType) {
+                return gson.fromJson(value, valueType);
+            }
+
+            public String writeValue(Object value) {
+                return gson.toJson(value);
+            }
+        });
         Data data =  new Data();
         data.setMessage(text);
         data.setTitle("Build info");
