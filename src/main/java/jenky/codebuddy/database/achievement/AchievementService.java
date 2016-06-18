@@ -2,6 +2,7 @@ package jenky.codebuddy.database.achievement;
 
 import jenky.codebuddy.database.generic.GenericService;
 import jenky.codebuddy.models.entities.Achievement;
+import jenky.codebuddy.models.entities.AchievementUser;
 
 import java.util.List;
 
@@ -27,4 +28,9 @@ public interface AchievementService extends GenericService<Achievement, Integer>
     public List<Achievement> getAchievementsFromUser(int user_id);
 
     public double getProgressFromAchievement(int achievement_id);
+
+    public Achievement findById(int achievement_id);
+
+    public boolean checkIfAchievementExists(int achievement_id);
+
 }

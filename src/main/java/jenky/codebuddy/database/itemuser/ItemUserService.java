@@ -11,4 +11,6 @@ public interface ItemUserService extends GenericService<ItemUser, Integer> {
      * @param itemUser
      */
     public void addItemUser(ItemUser itemUser);
+
+    public void updateItemUser(ItemUser itemUser);
 }

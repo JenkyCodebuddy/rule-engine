@@ -50,17 +50,10 @@ public class AuthenticationServiceImpl extends GenericServiceImpl<Authentication
         return authenticationDao.checkIfAuthenticationForUserExists(userId);
     }
 
-    /**
-     *
-     * @param userId
-     * @param token
-     * @param key
-     * @param updated_at
-     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void updateAuthentication(int userId, String token, String key, Date updated_at) {
-        authenticationDao.updateAuthentication(userId, token, key, updated_at);
+    public void updateAuthentication(Authentication authentication) {
+        authenticationDao.updateAuthentication(authentication);
     }
 
     /**
@@ -73,13 +66,15 @@ public class AuthenticationServiceImpl extends GenericServiceImpl<Authentication
         return authenticationDao.checkIfTokenExists(token);
     }
 
-    /**
-     * @param token
-     * @return String token otherwise null
-     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Authentication getAuthenticationIfTokenExists(String token) {
         return authenticationDao.getAuthenticationIfTokenExists(token);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Authentication getAuthenticationIfUserExists(int user_id) {
+        return authenticationDao.getAuthenticationIfUserExists(user_id);
     }
 }

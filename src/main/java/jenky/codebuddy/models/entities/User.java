@@ -19,6 +19,7 @@ public class User{
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -33,6 +34,9 @@ public class User{
 
     @Column(name = "jenkycoins")
     private int jenkycoins;
+
+    @Column(name = "messagetoken")
+    private String messageToken;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -53,12 +57,9 @@ public class User{
     @JsonIgnore
     private Set<AchievementUser> achievements = new HashSet<AchievementUser>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<ItemUser> itemusers = new HashSet<ItemUser>();
-
-    @Transient
-    private List<Item> equipment;
 
     @Transient
     private double totalScore;
@@ -66,7 +67,7 @@ public class User{
     public User() {
     }
 
-    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<AchievementUser> achievements, Set<ItemUser> itemusers, List<Item> equipment, double totalScore) {
+    public User(String email, String password, Date created_at, Date updated_at, Date deleted_at, int jenkycoins, Verification verfication, Authentication authentication, Set<Score> scores, Set<AchievementUser> achievements, Set<ItemUser> itemusers, double totalScore, String messageToken) {
         this.email = email;
         this.password = password;
         this.created_at = created_at;
@@ -78,8 +79,8 @@ public class User{
         this.scores = scores;
         this.achievements = achievements;
         this.itemusers = itemusers;
-        this.equipment = equipment;
         this.totalScore = totalScore;
+        this.messageToken = messageToken;
     }
 
     public int getUser_id() {
@@ -178,19 +179,19 @@ public class User{
         this.itemusers = itemusers;
     }
 
-    public List<Item> getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(List<Item> equipment) {
-        this.equipment = equipment;
-    }
-
     public double getTotalScore() {
         return totalScore;
     }
 
     public void setTotalScore(double totalScore) {
         this.totalScore = totalScore;
+    }
+
+    public String getMessageToken() {
+        return messageToken;
+    }
+
+    public void setMessageToken(String messageToken) {
+        this.messageToken = messageToken;
     }
 }

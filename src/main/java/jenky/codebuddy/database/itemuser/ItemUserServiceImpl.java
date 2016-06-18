@@ -38,4 +38,10 @@ public class ItemUserServiceImpl extends GenericServiceImpl<ItemUser, Integer> i
     public void addItemUser(ItemUser itemUser) {
         itemUserDao.addItemUser(itemUser);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateItemUser(ItemUser itemUser) {
+        itemUserDao.updateItemUser(itemUser);
+    }
 }

@@ -48,7 +48,7 @@ public interface ScoreService extends GenericService<Score, Integer> {
      * @param project_id
      * @return int
      */
-    public List<Profile> getScoresFromProject(int project_id);
+    public List<Profile> getScoresFromProject(int project_id, int user_id);
 
     /**
      * @param user_id

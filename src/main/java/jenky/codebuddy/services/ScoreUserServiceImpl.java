@@ -207,4 +207,15 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         String[] paths = url.split("/");
         return paths[4].substring(0, paths[4].length() - 4);
     }
+    /**
+     * Generate tips for user
+     * @param user
+     */
+    @Override
+    public void generateTips(){
+        List<Commit> lastCommits = DatabaseFactory.getCommitService().getCommitsFromUser(1);
+        Commit commit1 = lastCommits.get(0);
+        Set<jenky.codebuddy.models.entities.Score> score = commit1.getScores();
+        System.out.println(score);
+    }
 }

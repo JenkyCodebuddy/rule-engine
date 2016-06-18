@@ -28,4 +28,8 @@ public interface AchievementDao extends GenericDao<Achievement, Integer> {
     public List<Achievement> getAchievementsFromUser(int user_id);
 
     public double getProgressFromAchievement(int achievement_id);
+
+    public Achievement findById(int achievement_id);
+
+    public boolean checkIfAchievementExists(int achievement_id);
 }

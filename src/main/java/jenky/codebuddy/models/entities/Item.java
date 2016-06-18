@@ -33,7 +33,7 @@ public class Item {
     private String image;
 
     @Column(name = "price")
-    private double price;
+    private int price;
 
     @Column(name = "created_at")
     private Date created_at;
@@ -48,7 +48,7 @@ public class Item {
 
     }
 
-    public Item(Set<ItemUser> itemusers, String name, String type, String image, double price, Date created_at, Date updated_at, Date deleted_at) {
+    public Item(Set<ItemUser> itemusers, String name, String type, String image, int price, Date created_at, Date updated_at, Date deleted_at) {
         this.itemusers = itemusers;
         this.name = name;
         this.type = type;
@@ -123,11 +123,11 @@ public class Item {
         this.deleted_at = deleted_at;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }

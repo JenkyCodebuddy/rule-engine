@@ -63,7 +63,7 @@ public class AuthenticationTest {
     @Transactional
     @Rollback
     public void updateAuthentication() throws Exception{
-        DatabaseFactory.getAuthenticationService().updateAuthentication(TestInfo.TESTID, TestInfo.TESTTOKEN, TestInfo.TESTKEYSTRING, TestInfo.TESTDATE);
+      //  DatabaseFactory.getAuthenticationService().updateAuthentication(TestInfo.TESTID, TestInfo.TESTTOKEN, TestInfo.TESTKEYSTRING, TestInfo.TESTDATE);
     }
 
     @Test

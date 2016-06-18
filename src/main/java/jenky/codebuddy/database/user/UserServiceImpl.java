@@ -77,17 +77,6 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     }
 
     /**
-     * @param password
-     * @param userEmail
-     * @param updatedAt
-     */
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void setPasswordForUser(String password, String userEmail, Date updatedAt){
-        userDao.setPasswordForUser(password, userEmail, updatedAt);
-    }
-
-    /**
      *
      * @param user_id
      * @param item_id
@@ -109,17 +98,6 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public boolean checkIfUserHasEnoughCoins(int user_id, double amount){
         return userDao.checkIfUserHasEnoughCoins(user_id, amount);
-    }
-
-    /**
-     *
-     * @param user_id
-     * @param amount
-     */
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public void subtractCoins(int user_id, double amount){
-        userDao.subtractCoins(user_id, amount);
     }
 
     /**

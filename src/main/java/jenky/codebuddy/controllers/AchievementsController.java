@@ -1,6 +1,7 @@
 package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.rest.Achievements;
+import jenky.codebuddy.models.rest.Response;
 import jenky.codebuddy.services.AchievementsService;
 import jenky.codebuddy.services.AuthenticationService;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,9 +21,8 @@ public class AchievementsController {
     AchievementsService achievementsService;
 
     public AchievementsController() {
-        setAchievementsService(new AchievementsService());
+        this.achievementsService = new AchievementsService();
     }
-
     /**
      * @param headers Contains the token of the user.
      * @return achievements or "Token is invalid"
@@ -30,18 +30,20 @@ public class AchievementsController {
     @RequestMapping(method = RequestMethod.GET)
     private Achievements getAllAchievements(@RequestHeader Map<String,String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getAchievementsService().returnAchievements(headers.get("token"));
+            return achievementsService.returnAchievements(headers.get("token"));
         }
         else{
             return new Achievements(400,"Token not valid");
         }
     }
 
-    private AchievementsService getAchievementsService() {
-        return achievementsService;
-    }
-
-    private void setAchievementsService(AchievementsService achievementsService) {
-        this.achievementsService = achievementsService;
+    @RequestMapping(value = "/10_commit_achievement", method = RequestMethod.POST)
+    private Response tenCommitAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.tenCommitAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
     }
 }

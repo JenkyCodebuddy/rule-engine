@@ -19,7 +19,7 @@ public class LoginController {
     LoginService loginService;
 
     public LoginController() {
-        setLoginService(new LoginService());
+        this.loginService = new LoginService();
     }
 
     /**
@@ -28,14 +28,7 @@ public class LoginController {
      */
     @RequestMapping(method = RequestMethod.POST) //
     private Response login(@RequestHeader Map<String,String> headers) {
-        return getLoginService().login(headers.get("email"), headers.get("password"));
+        return loginService.login(headers.get("email"), headers.get("password"));
     }
 
-    private LoginService getLoginService() {
-        return loginService;
-    }
-
-    private void setLoginService(LoginService loginService) {
-        this.loginService = loginService;
-    }
 }

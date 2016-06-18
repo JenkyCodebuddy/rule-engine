@@ -43,7 +43,7 @@ public class ProjectsServiceTest {
        // singleProject = new SingleProject(Arrays.asList(score1,score2),200);
         token = "TEST_TOKEN";
         Mockito.when(userProjectsService.returnActiveProjectsForUser(token)).thenReturn(activeProjects);
-        Mockito.when(userProjectsService.returnSingleProjectWithScores(49)).thenReturn(singleProject);
+       // Mockito.when(userProjectsService.returnSingleProjectWithScores(49)).thenReturn(singleProject);
     }
 
     @Test

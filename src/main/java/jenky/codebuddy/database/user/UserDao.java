@@ -38,13 +38,6 @@ public interface UserDao extends GenericDao<User, Integer> {
     public void saveOrUpdate(User user);
 
     /**
-     * @param password
-     * @param email
-     * @param updatedAt
-     */
-    public void setPasswordForUser(String password, String email, Date updatedAt);
-
-    /**
      * @param user_id
      * @param item_id
      * @return boolean
@@ -58,11 +51,6 @@ public interface UserDao extends GenericDao<User, Integer> {
      */
     public boolean checkIfUserHasEnoughCoins(int user_id, double amount);
 
-    /**
-     * @param user_id
-     * @param amount
-     */
-    public void subtractCoins(int user_id, double amount);
 
     public double countUsersFromProject(int project_id);
 

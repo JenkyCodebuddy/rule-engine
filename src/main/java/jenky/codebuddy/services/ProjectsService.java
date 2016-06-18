@@ -31,9 +31,10 @@ public class ProjectsService {
      * @param projectId
      * @return Singleproject
      */
-    public SingleProject returnSingleProjectWithScores(int projectId) {
+    public SingleProject returnSingleProjectWithScores(int projectId, String token) {
+        User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         if(DatabaseFactory.getProjectService().checkIfProjectExists(projectId)) {
-            List<Profile> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId);
+            List<Profile> projectScores = DatabaseFactory.getScoreService().getScoresFromProject(projectId,user.getUser_id());
             return new SingleProject(projectScores,200);
         }
         else{

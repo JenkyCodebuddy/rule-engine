@@ -35,6 +35,6 @@ public class UserTest {
     @Transactional
     @Rollback
     public void setPasswordForUser(){
-        DatabaseFactory.getUserService().setPasswordForUser(TestInfo.TESTPASSWORD, TestInfo.TESTEMAIL, TestInfo.TESTDATE);
+      //  DatabaseFactory.getUserService().setPasswordForUser(TestInfo.TESTPASSWORD, TestInfo.TESTEMAIL, TestInfo.TESTDATE);
     }
 }

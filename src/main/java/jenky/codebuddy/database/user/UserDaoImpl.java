@@ -51,21 +51,6 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
     }
 
     /**
-     * @param password
-     * @param userEmail
-     * @param updatedAt
-     */
-    @Override
-    public void setPasswordForUser(String password, String userEmail, Date updatedAt) {
-        String hql = "UPDATE User u SET password =:password, updated_at =:updated_at WHERE u.email =:user_email";
-        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-        query.setParameter("password",password);
-        query.setParameter("updated_at",updatedAt);
-        query.setParameter("user_email",userEmail);
-        query.executeUpdate();
-    }
-
-    /**
      * @param user_id
      * @param item_id
      * @return User otherwise null
@@ -104,19 +89,6 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
         return (int)result.get();
     }
 
-    /**
-     * @param user_id
-     * @param amount
-     */
-    @Override
-    public void subtractCoins(int user_id, double amount) {
-        String hql = "UPDATE User u SET u.jenkycoins = (u.jenkycoins - :amount) WHERE u.id = :user_id";
-        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-        query.setInteger("user_id", user_id);
-        query.setDouble("amount",amount);
-        query.executeUpdate();
-    }
-
     @Override
     public double countUsersFromProject(int project_id) {
         String hql = "SELECT COUNT(DISTINCT user.id) FROM User user INNER JOIN user.scores as score INNER JOIN score.commit as commit INNER JOIN commit.project as project WHERE project.id =:project_id GROUP BY project.id";/*INNER JOIN Commit commit ON commit.id = score.commit INNER JOIN Project project ON project.id = commit.project WHERE project.id =:project_id*/
@@ -129,6 +101,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
      * Saves the project.
      * @param user
      */
+
     @Override
     public void save(User user) {
         super.add(user);

@@ -21,7 +21,7 @@ public interface AuthenticationService extends GenericService<Authentication, In
      * @param key
      * @param updated_at
      */
-    public void updateAuthentication(int userId, String token, String key, Date updated_at);
+    public void updateAuthentication(Authentication authentication);
 
     /**
      * @param userId
@@ -40,4 +40,6 @@ public interface AuthenticationService extends GenericService<Authentication, In
      * @return String token otherwise null
      */
     public Authentication getAuthenticationIfTokenExists(String token);
+
+    public Authentication getAuthenticationIfUserExists(int user_id);
 }

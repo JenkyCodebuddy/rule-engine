@@ -22,7 +22,7 @@ public interface AuthenticationDao extends GenericDao<Authentication, Integer> {
      * @param key the token was signed with
      * @param updated_at
      */
-    public void updateAuthentication(int userId, String token, String key, Date updated_at);
+    public void updateAuthentication(Authentication authentication);
 
     /**
      * @param userId
@@ -41,5 +41,7 @@ public interface AuthenticationDao extends GenericDao<Authentication, Integer> {
      * @return String token otherwise null
      */
     public Authentication getAuthenticationIfTokenExists(String token);
+
+    public Authentication getAuthenticationIfUserExists(int user_id);
 
 }

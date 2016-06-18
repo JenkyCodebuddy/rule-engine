@@ -19,7 +19,7 @@ public class ShopController {
     ShopService shopService;
 
     public ShopController() {
-        setShopService(new ShopService());
+        this.shopService = new ShopService();
     }
 
     /**
@@ -29,7 +29,7 @@ public class ShopController {
     @RequestMapping(method = RequestMethod.GET)
     private Items getAllItems(@RequestHeader Map<String,String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getShopService().getAllPurchasableItems(headers.get("token"));
+            return shopService.getAllPurchasableItems(headers.get("token"));
         }
         else{
             return new Items(400,"Token not valid");
@@ -44,18 +44,10 @@ public class ShopController {
     @RequestMapping(value = "/buy/{item_id}", method = RequestMethod.POST)
     private Response buyItemForUser(@PathVariable int item_id, @RequestHeader Map<String, String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return getShopService().buyItemForUser(headers.get("token"), item_id);
+            return shopService.buyItemForUser(headers.get("token"), item_id);
         }
         else{
             return new Response(400,"Token not valid");
         }
-    }
-
-    private ShopService getShopService() {
-        return shopService;
-    }
-
-    private void setShopService(ShopService shopService) {
-        this.shopService = shopService;
     }
 }

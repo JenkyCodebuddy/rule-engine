@@ -2,6 +2,8 @@ package jenky.codebuddy.services;
 
 import jenky.codebuddy.database.achievement.AchievementService;
 import jenky.codebuddy.database.achievement.AchievementServiceImpl;
+import jenky.codebuddy.database.achievementuser.AchievementUserService;
+import jenky.codebuddy.database.achievementuser.AchievementUserServiceImpl;
 import jenky.codebuddy.database.authentication.*;
 import jenky.codebuddy.database.authentication.AuthenticationService;
 import jenky.codebuddy.database.commit.CommitService;
@@ -41,6 +43,10 @@ public class DatabaseFactory {
 
     public static AchievementService getAchievementService() {
         return (AchievementServiceImpl) context.getBean("achievementServiceImpl");
+    }
+
+    public static AchievementUserService getAchievementUserService() {
+        return (AchievementUserServiceImpl) context.getBean("achievementUserServiceImpl");
     }
 
     public static AuthenticationService getAuthenticationService() {
