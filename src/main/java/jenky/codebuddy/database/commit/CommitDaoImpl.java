@@ -60,4 +60,13 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
         }
         return result;
     }
+
+    @Override
+    public double getUserCommitCount(int user_id) {
+        String hql = ""; //TODO: No clue.
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
+        long result =  (long) query.uniqueResult();
+        return result;
+    }
 }

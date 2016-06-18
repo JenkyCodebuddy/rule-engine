@@ -46,4 +46,94 @@ public class AchievementsController {
             return new Response(400,"Token not valid");
         }
     }
+
+    @RequestMapping(value = "/100_commit_achievement", method = RequestMethod.POST)
+    private Response hundredCommitAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.hundredCommitAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/1000_commit_achievement", method = RequestMethod.POST)
+    private Response thousandCommitAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.thousandCommitAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/saving_up_achievement", method = RequestMethod.POST)
+    private Response savingUpAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.savingUpAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/money_bank_achievement", method = RequestMethod.POST)
+    private Response moneyBankAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.moneyBankAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/rich_boi_achievement", method = RequestMethod.POST)
+    private Response richBoiAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.richBoiAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/first_project_achievement", method = RequestMethod.POST)
+    private Response yourFirstProjectAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.yourFirstProjectAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/busy_body_achievement", method = RequestMethod.POST)
+    private Response busyBodyAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.busyBodyAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/project_freak_achievement", method = RequestMethod.POST)
+    private Response projectFreakProjectAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.projectFreakProjectAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
+
+    @RequestMapping(value = "/high_score_achievement", method = RequestMethod.POST)
+    private Response highScoreAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.highScoreAchievement(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
 }

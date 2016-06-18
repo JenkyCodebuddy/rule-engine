@@ -66,4 +66,10 @@ public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> imple
         Hibernate.initialize(commitDao.getCommitsFromUser(user_id));
         return commitDao.getCommitsFromUser(user_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public double getUserCommitCount(int user_id) {
+        return commitDao.getUserCommitCount(user_id);
+    }
 }
