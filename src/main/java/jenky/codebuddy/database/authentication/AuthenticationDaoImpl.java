@@ -33,12 +33,6 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         return result!=null;
     }
 
-    /**
-     * @param userId
-     * @param token
-     * @param keyString
-     * @param updated_at
-     */
     @Override
     public void updateAuthentication(Authentication authentication) {
         super.saveOrUpdate(authentication);
