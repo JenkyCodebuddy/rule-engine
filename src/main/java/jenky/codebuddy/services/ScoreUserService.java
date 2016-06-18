@@ -63,6 +63,6 @@ public interface ScoreUserService {
      */
     public Map<String, String> createGithubUserInfoMap(Map<String, String> headers);
 
-    public void generateTips(User user);
+    public void generateTips();
 
 }
