@@ -34,8 +34,8 @@ public class ShopService {
      */
     public Response buyItemForUser(String token, int itemId){
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
-        if(DatabaseFactory.getItemService().findById(itemId)!=null) {
-            Item item = DatabaseFactory.getItemService().findById(itemId);
+        if(DatabaseFactory.getItemService().checkIfItemExists(itemId)) {
+            Item item = DatabaseFactory.getItemService().getItemIfExists(itemId);
             if (DatabaseFactory.getUserService().checkIfUserDoesntHaveItem(user.getUser_id(), itemId)) {
                 if (DatabaseFactory.getUserService().checkIfUserHasEnoughCoins(user.getUser_id(), item.getPrice())) {
                     subtractCoinsForUser(user, item.getPrice());

@@ -23,7 +23,17 @@ public interface ItemService extends GenericService<Item, Integer> {
 
     public List<Item> getAllEquipmentFromUser(int user_id);
 
-    public Item findById(int item_id);
+    /**
+     * @param item_id
+     * @return boolean
+     */
+    public boolean checkIfItemExists(int item_id);
+
+    /**
+     * @param item_id
+     * @return item if exists otherwise null
+     */
+    public Item getItemIfExists(int item_id);
 
     public void equipItemsForUser(int user_id, int item_id);
 

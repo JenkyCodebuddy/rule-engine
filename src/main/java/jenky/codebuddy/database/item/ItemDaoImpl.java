@@ -54,9 +54,30 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
         return equippedItems.get();
     }
 
+    /**
+     * @param item_id
+     * @return
+     */
     @Override
-    public Item findById(int item_id){
-        return super.findById(item_id);
+    public boolean checkIfItemExists(int item_id) {
+        String hql = "FROM Item i WHERE i.id= :item_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("item_id",item_id);
+        Optional<Item> result = Optional.ofNullable((Item) query.uniqueResult());
+        return result.isPresent();
+    }
+
+    /**
+     * @param item_id
+     * @return
+     */
+    @Override
+    public Item getItemIfExists(int item_id) {
+        String hql = "FROM Item i WHERE i.id = :item_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("item_id",item_id);
+        Optional<Item> result = Optional.ofNullable((Item) query.uniqueResult());
+        return result.get();
     }
 
     @Override
