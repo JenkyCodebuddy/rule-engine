@@ -34,11 +34,7 @@ public class EquipmentService {
             DatabaseFactory.getItemUserService().updateItemUser(itemUser);
         });
         newItems.forEach((key,value)->{
-            ItemUser itemUser = new ItemUser();
-            itemUser.setItem((Item) value);
-            itemUser.setEquipped(true);
-            itemUser.setUser(user);
-            DatabaseFactory.getItemUserService().updateItemUser(itemUser);
+            DatabaseFactory.getItemService().equipItemsForUser(user.getUser_id(),Integer.parseInt((String)value));
         });
         return new Response(200, "Items equipped");
     }

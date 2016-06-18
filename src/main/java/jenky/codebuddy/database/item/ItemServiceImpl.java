@@ -80,12 +80,6 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implement
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void unequipItemsForUser(int user_id) {
-        itemDao.unequipItemsForUser(user_id);
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
     public void equipItemsForUser(int user_id, int item_id) {
         itemDao.equipItemsForUser(user_id,item_id);
     }
