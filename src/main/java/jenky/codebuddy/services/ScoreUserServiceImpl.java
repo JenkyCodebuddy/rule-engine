@@ -178,7 +178,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
         notification.setTitle("Code buddy");
         notification.setBody(notificationBody);
-        notification.setIcon("resources/images/Jenky.jpg");
+        notification.setIcon("myicon");
 
         message.setData(data);
         message.setTo(id);
