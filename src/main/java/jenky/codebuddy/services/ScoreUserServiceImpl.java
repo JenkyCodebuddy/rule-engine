@@ -43,13 +43,18 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     @Override
     public void parseHeaders(Map<String, String> headers){
-        Gson gson = new Gson();
-        Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
-        List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
-        SonarResponse sonarResponse = sonarResponseList.get(0);
-        UserCommit userCommit = createUserCommitModel(headers);
-        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
-        saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);;
+        if (headers.get("buildresult").equals("\"SUCCES\"")){
+            Gson gson = new Gson();
+            Type sonar = new TypeToken<List<SonarResponse>>() {
+            }.getType();
+            List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s", ""), sonar);
+            SonarResponse sonarResponse = sonarResponseList.get(0);
+            UserCommit userCommit = createUserCommitModel(headers);
+            ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
+            saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
+        } else {
+            sendPush("build failure", "uhoh you broke the build", "cM6L9vKZx4Y:APA91bG9DxVbwXUjOx9Ag50tl0TRhxvcpLepq-f4PKF34h20NY9LCyMU5WBm4Q8Dgln30uwX5hNuxgXC_XT3QGEIPGswwzC1qsUWozh0C-pecnbANtTqGPX3sK_m_8SwFPR_PE5NZukJ");
+        }
     }
 
     /**

@@ -28,7 +28,6 @@ public class ScoreController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     private void saveScore(@RequestHeader Map<String, String> headers){
-        System.out.println(headers.get("buildresult"));
         ScoreUserService scoreUserService = new ScoreUserServiceImpl();
         scoreUserService.parseHeaders(headers);
     }
