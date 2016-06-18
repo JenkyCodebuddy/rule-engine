@@ -52,24 +52,10 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implement
         return itemDao.getEquippedItemsFromUser(user_id);
     }
 
-    /**
-     * @param item_id
-     * @return boolean
-     */
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public boolean checkIfItemExists(int item_id) {
-        return itemDao.checkIfItemExists(item_id);
-    }
-
-    /**
-     * @param item_id
-     * @return gets item if exits
-     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public Item getItemIfExists(int item_id){
-        return itemDao.getItemIfExists(item_id);
+    public Item findById(int item_id){
+        return itemDao.findById(item_id);
     }
 
     @Override
