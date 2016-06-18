@@ -78,7 +78,8 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         user.setJenkycoins(metricsDataInputModel.getCoinsEarned());
         user.setScores(scores);
         user.setUpdated_at(new Date());
-        //DatabaseFactory.getUserService().saveOrUpdate(user);
+        DatabaseFactory.getUserService().saveOrUpdate(user);
+        sendPush("results are saved", "Results are in, check your profile!", user.getMessageToken());
     }
 
     /**
@@ -207,9 +208,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         String[] paths = url.split("/");
         return paths[4].substring(0, paths[4].length() - 4);
     }
+
     /**
      * Generate tips for user
-     * @param user
      */
     @Override
     public void generateTips(){
