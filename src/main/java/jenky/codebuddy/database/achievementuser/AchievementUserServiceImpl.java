@@ -1,15 +1,13 @@
 package jenky.codebuddy.database.achievementuser;
 
 import jenky.codebuddy.database.generic.GenericServiceImpl;
-import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.models.entities.AchievementUser;
+import jenky.codebuddy.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * Service layer of Achievement. Inherits GenericService and implements the AuthenticationService interface
@@ -17,15 +15,15 @@ import java.util.List;
 @Service
 public class AchievementUserServiceImpl extends GenericServiceImpl<AchievementUser, Integer> implements AchievementUserService {
 
-    private AchievementUserDao achievementDao;
+    private AchievementUserDao achievementUserDao;
 
     /**
      * Injected by Spring
-     * @param achievementDao
+     * @param achievementUserDao
      */
     @Autowired
-    public AchievementUserServiceImpl(@Qualifier("achievementUserDaoImpl") AchievementUserDao achievementDao) {
-        this.achievementDao = achievementDao;
+    public AchievementUserServiceImpl(@Qualifier("achievementUserDaoImpl") AchievementUserDao achievementUserDao) {
+        this.achievementUserDao = achievementUserDao;
     }
 
     public AchievementUserServiceImpl(){
@@ -35,6 +33,24 @@ public class AchievementUserServiceImpl extends GenericServiceImpl<AchievementUs
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdate(AchievementUser achievementUser){
-        achievementDao.saveOrUpdate(achievementUser);
+        achievementUserDao.saveOrUpdate(achievementUser);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean checkIfAchievementHasBeenGranted(User user, int achievement_id) {
+        return achievementUserDao.checkIfAchievementHasBeenGranted(user, achievement_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean checkIfAchievementHasBeenCompleted(User user, int achievement_id) {
+        return achievementUserDao.checkIfAchievementHasBeenCompleted(user, achievement_id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public AchievementUser getSingleAchievementUser(User user, int achievement_id) {
+        return achievementUserDao.getSingleAchievementUser(user, achievement_id);
     }
 }

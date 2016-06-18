@@ -37,10 +37,10 @@ public class AchievementsController {
         }
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    private Response achievemtsTest(@RequestHeader Map<String,String> headers){
+    @RequestMapping(value = "/10_commit_achievement", method = RequestMethod.POST)
+    private Response tenCommitAchievement(@RequestHeader Map<String,String> headers){
         if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return achievementsService.testMethod(headers.get("token"));
+            return achievementsService.tenCommitAchievement(headers.get("token"));
         }
         else{
             return new Response(400,"Token not valid");

@@ -73,4 +73,10 @@ public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Inte
     public Achievement findById(int achievement_id) {
         return achievementDao.findById(achievement_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean checkIfAchievementExists(int achievement_id) {
+        return achievementDao.checkIfAchievementExists(achievement_id);
+    }
 }

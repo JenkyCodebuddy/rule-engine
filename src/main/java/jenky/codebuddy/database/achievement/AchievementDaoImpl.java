@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.xml.crypto.Data;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Persistence for Achievement. This inherits GenericDaoImplementation
@@ -74,5 +75,14 @@ public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> imp
     @Override
     public Achievement findById(int achievement_id){
         return super.findById(achievement_id);
+    }
+
+    @Override
+    public boolean checkIfAchievementExists(int achievement_id){
+        String hql = "FROM Achievement achievement where achievement.id=:achievement_id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("achievement_id",achievement_id);
+        Optional<Achievement> achievement = Optional.ofNullable((Achievement)query.uniqueResult());
+        return achievement.isPresent();
     }
 }

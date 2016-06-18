@@ -3,6 +3,7 @@ package jenky.codebuddy.database.achievementuser;
 import jenky.codebuddy.database.generic.GenericService;
 import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.models.entities.AchievementUser;
+import jenky.codebuddy.models.entities.User;
 
 import java.util.List;
 
@@ -12,5 +13,11 @@ import java.util.List;
 public interface AchievementUserService extends GenericService<AchievementUser, Integer> {
 
     public void saveOrUpdate(AchievementUser achievementUser);
+
+    public boolean checkIfAchievementHasBeenGranted(User user, int achievement_id);
+
+    public boolean checkIfAchievementHasBeenCompleted(User user, int achievement_id);
+
+    public AchievementUser getSingleAchievementUser(User user, int achievement_id);
 
 }
