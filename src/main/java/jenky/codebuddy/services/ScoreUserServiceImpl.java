@@ -12,9 +12,15 @@ import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gcm.Data;
 import jenky.codebuddy.models.gcm.Message;
+import jenky.codebuddy.models.gcm.Notification;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 import wildtornado.scocalc.objects.Score;
 
 import java.lang.reflect.Type;
@@ -24,6 +30,8 @@ import java.util.*;
  * This service has as main function to save the score in the database
  */
 public class ScoreUserServiceImpl implements ScoreUserService {
+
+    private final String messageUrl = "https://fcm.googleapis.com/fcm/send";
 
     public ScoreUserServiceImpl() {
 
@@ -152,40 +160,39 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * Uses Firebase to send message to the user
-     * with a self defines message
-     * @param text
+     * Uses firebase to send a notifcation with a custom body
+     * @param messageBody
+     * @param notificationBody
      * @param id
      */
     @Override
-    public void sendPush(String text, String id){
-        Unirest.setObjectMapper(new com.mashape.unirest.http.ObjectMapper() {
-            private Gson gson = new Gson();
-
-            public <T> T readValue(String value, Class<T> valueType) {
-                return gson.fromJson(value, valueType);
-            }
-
-            public String writeValue(Object value) {
-                return gson.toJson(value);
-            }
-        });
+    public void sendPush(String messageBody, String notificationBody, String id){
+        Gson gson = new Gson();
         Data data =  new Data();
-        data.setMessage(text);
+        Notification notification = new Notification();
+        Message message = new Message();
+
+        data.setMessage(messageBody);
         data.setTitle("Build info");
 
-        Message message = new Message();
+        notification.setTitle("Code buddy");
+        notification.setBody(notificationBody);
+        notification.setIcon("myicon");
+
         message.setData(data);
         message.setTo(id);
+        message.setNotification(notification);
 
+        HttpClient httpClient = HttpClientBuilder.create().build();
         try {
-            Unirest.post("https://fcm.googleapis.com/fcm/send")
-                    .header("Content-Type", "application/json")
-                    .header("Authorization", "key=AIzaSyBQndUWi-dF7c-B5BrptQyKPhaTgjXHMV4")
-                    .body(message)
-                    .asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
+            HttpPost request = new HttpPost(messageUrl);
+            StringEntity params = new StringEntity(gson.toJson(message));
+            request.addHeader("content-type", "application/json");
+            request.addHeader("Authorization", "key=AIzaSyBQndUWi-dF7c-B5BrptQyKPhaTgjXHMV4");
+            request.setEntity(params);
+            HttpResponse response = httpClient.execute(request);
+        }catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

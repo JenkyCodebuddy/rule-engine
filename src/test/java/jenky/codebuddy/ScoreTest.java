@@ -92,6 +92,6 @@ public class ScoreTest{
 
     @Test
     public void sendPush(){
-        scoreUserService.sendPush("test" , "dtr1hEmd3M4:APA91bHprc_uOuaNJbGMUjwuARMJry4acTvXERJMxMVbU0msvPbMFlELEJXRosnpHK7rQ2A-7doNNaDHKg7SNK4f10l_M6-hI5ZzvOUQK_LuylfjEU1OR3UtDm6S0-vsYIbGnDkt9SOJ");
+        scoreUserService.sendPush("test" , "Results are in, check your profile!", "cM6L9vKZx4Y:APA91bG9DxVbwXUjOx9Ag50tl0TRhxvcpLepq-f4PKF34h20NY9LCyMU5WBm4Q8Dgln30uwX5hNuxgXC_XT3QGEIPGswwzC1qsUWozh0C-pecnbANtTqGPX3sK_m_8SwFPR_PE5NZukJ");
     }
 }

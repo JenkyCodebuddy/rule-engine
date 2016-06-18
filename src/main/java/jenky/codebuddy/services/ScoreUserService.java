@@ -63,12 +63,12 @@ public interface ScoreUserService {
     public UserCommit createUserCommitModel(Map<String, String> headers);
 
     /**
-     * Uses Firebase to send message to the user
-     * with a self defines message
-     * @param text
+     * Uses firebase to send a notification with a custom body
+     * @param messageBody
+     * @param notificationBody
      * @param id
      */
-    public void sendPush(String text, String id);
+    public void sendPush(String messageBody, String notificationBody, String id);
 
     /**
      * extract projectname from address like http://github.com/company/project.git
