@@ -70,4 +70,9 @@ public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> imp
         query.setInteger("achievement_id",achievement_id);
         return (double)query.uniqueResult();
     }
+
+    @Override
+    public Achievement findById(int achievement_id){
+        return super.findById(achievement_id);
+    }
 }
