@@ -34,11 +34,10 @@ public class ScoreTest{
 
     @Before
     public void setUp() {
+        this.scoreUserService = new ScoreUserServiceImpl();
         this.testScore = new Score();
         this.messagingService = new MessagingService();
-        this.testUser = new User();
-        testUser.setEmail(TestInfo.TESTEMAIL);
-        testScore.setUser(testUser);
+        this.testUser = DatabaseFactory.getUserService().getUserIfExists(TestInfo.TESTEMAIL);
     }
 
     @Test
@@ -100,6 +99,6 @@ public class ScoreTest{
 
     @Test
     public void generateTip(){
-        scoreUserService.generateTips(testUser);
+        scoreUserService.generateTips(testUser, testUser.getMessageToken());
     }
 }

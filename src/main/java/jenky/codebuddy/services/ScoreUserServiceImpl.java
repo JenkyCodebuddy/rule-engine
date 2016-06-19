@@ -21,6 +21,9 @@ import java.util.*;
  */
 public class ScoreUserServiceImpl implements ScoreUserService {
 
+    private User user;
+    private MessagingService messagingService;
+
     public ScoreUserServiceImpl() {
 
     }
@@ -31,7 +34,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     @Override
     public void parseHeaders(Map<String, String> headers){
-        MessagingService messagingService = new MessagingService();
+        this.messagingService = new MessagingService();
         UserCommit userCommit = createUserCommitModel(headers);
         String messageId = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail()).getMessageToken();
         if (headers.get("buildresult").equals("\"SUCCESS\"")){
@@ -42,9 +45,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
-            messagingService.sendPush("results are saved", "Results are in, check your profile!", messageId);
+            this.messagingService.sendPush("results are saved", "Results are in, check your profile!", messageId);
         } else {
-            messagingService.sendPush("build failure", "uhoh you broke the build! No scores earned!", messageId);
+            this.messagingService.sendPush("build failure", "uhoh you broke the build! No scores earned!", messageId);
         }
     }
 
@@ -58,8 +61,8 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         ScoreService scoreService = DatabaseFactory.getScoreService();
         Commit commit = createCommit(userCommit);
         List<Metric> metricsList = sonarResponse.getMsr();
+        this.user = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail());
         Set<jenky.codebuddy.models.entities.Score> scores = new HashSet<>(0);
-        User user = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail());
         for (Metric aMetricsList : metricsList) {
             jenky.codebuddy.models.entities.Score score = new jenky.codebuddy.models.entities.Score();
             score.setUser(user);
@@ -75,7 +78,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
-        generateTips(user);
     }
 
     /**
@@ -173,9 +175,10 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      * @param user
      */
     @Override
-    public void generateTips(User user){
+    public void generateTips(User user, String messageId){
+        Random rand = new Random();
         List<List<Double>> sonarValues = DatabaseFactory.getCommitService().getSonarValuesFromLastCommits(user.getUser_id());
-        List<Double> averageScores = new ArrayList<Double>();
+        List<Double> averageScores = new ArrayList<>();
         for(int i = 0; i < sonarValues.get(0).size(); i++){
             double[] average = new double[3];
             for(int p = 0 ; p < sonarValues.size(); p++){
@@ -183,6 +186,10 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             }
             averageScores.add(Math.floor((average[0] + average[1] + average[2])/3));
         }
-        System.out.println(averageScores); //averageScores contains the average scores
+        if(averageScores.get(4) < 40){
+            if(rand.nextInt(10) + 1 == 5){
+                this.messagingService.sendPush("tips", "Your unit test coverage sucks! Why not ask Joost for some help?", messageId);
+            }
+        }
     }
 }
