@@ -75,6 +75,6 @@ public interface ScoreUserService {
      * Generates tips for the user if needed
      * @param user
      */
-    public void generateTips(User user, String messageId);
+    public void generateTips(User user, String messageId, String projectName);
 
 }

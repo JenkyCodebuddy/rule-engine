@@ -121,4 +121,10 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     public int getJenkyCoinsFromUser(int user_id) {
         return userDao.getJenkyCoinsFromUser(user_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public User getUserWithHighestMetricScoreForProject(String metric, String projectName) {
+        return userDao.getUserWithHighestMetricScoreForProject(metric,projectName);
+    }
 }

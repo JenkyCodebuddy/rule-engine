@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service layer for UserCommit. Extends GenericService and implements CommitService.
@@ -67,7 +68,7 @@ public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> imple
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<List<Double>> getSonarValuesFromLastCommits(int user_id) {
+    public List<Map<String, Double>> getSonarValuesFromLastCommits(int user_id) {
         return commitDao.getSonarValuesFromLastCommits(user_id);
     }
 

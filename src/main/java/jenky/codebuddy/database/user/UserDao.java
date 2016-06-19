@@ -55,4 +55,6 @@ public interface UserDao extends GenericDao<User, Integer> {
     public double countUsersFromProject(int project_id);
 
     public int getJenkyCoinsFromUser(int user_id);
+
+    public User getUserWithHighestMetricScoreForProject(String metric, String projectName);
 }

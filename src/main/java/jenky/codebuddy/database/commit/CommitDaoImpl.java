@@ -9,8 +9,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.xml.crypto.Data;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Persistence for UserCommit. Inherits GenericDao and implements the CommitDao interface
@@ -62,7 +61,7 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
         return result;
     }
 
-   public List<List<Double>> getSonarValuesFromLastCommits(int user_id){
+   public List<Map<String,Double>> getSonarValuesFromLastCommits(int user_id){
         String hql = "FROM Commit commit " +
                 "LEFT JOIN FETCH commit.project as project " +
                 "INNER JOIN commit.scores as scores " +
@@ -72,16 +71,19 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);
         query.setMaxResults(3);
-        List<Object[]> result = query.list();
-        List<List<Double>> sonarValues = new ArrayList<List<Double>>();
-        for(Object[] obj : result){
-            List<Double> scores = new ArrayList<Double>();
-            for(Score score : ((Commit)obj[0]).getScores()){
-                scores.add(score.getSonar_value());
+        Optional<List<Object[]>> result = Optional.ofNullable(query.list());
+        if(result.isPresent()) {
+            List<Map<String, Double>> sonarValues = new ArrayList<Map<String, Double>>();
+            for (Object[] obj : result.get()) {
+                Map<String, Double> map = new HashMap<String, Double>();
+                for (Score score : ((Commit) obj[0]).getScores()) {
+                    map.put(score.getMetric().getName(), score.getSonar_value());
+                }
+                sonarValues.add(map);
             }
-            sonarValues.add(scores);
+            return sonarValues;
         }
-        return sonarValues;
+       return null;
    }
 
     @Override

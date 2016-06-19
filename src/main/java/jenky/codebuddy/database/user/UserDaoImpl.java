@@ -115,4 +115,27 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
     public void saveOrUpdate(User user) {
         super.saveOrUpdate(user);
     }
+
+    @Override
+    public User getUserWithHighestMetricScoreForProject(String metricName, String projectName) {
+        String hql = "FROM User user " +
+                "       LEFT JOIN FETCH user.scores as score " +
+                "       LEFT JOIN FETCH score.commit as commit " +
+                "       LEFT JOIN FETCH score.metric as metric " +
+                "       LEFT JOIN FETCH commit.project as project " +
+                "           WHERE project.name =:projectName " +
+                "               AND metric.name =:metricName " +
+                "               AND score.score = " +
+                "                   (SELECT max(score.score) FROM Score score " +
+                "                       INNER JOIN score.metric as metric " +
+                "                       INNER JOIN score.commit as commit " +
+                "                       INNER JOIN commit.project as project " +
+                "                           WHERE project.name =:projectName " +
+                "                               AND metric.name =:metricName) " +
+                "                                   GROUP BY score.id";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setParameter("metricName",metricName);
+        query.setParameter("projectName",projectName);;
+        return (User)query.uniqueResult();
+    }
 }

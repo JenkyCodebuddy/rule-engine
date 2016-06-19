@@ -4,6 +4,7 @@ import jenky.codebuddy.database.generic.GenericDao;
 import jenky.codebuddy.models.entities.Commit;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Specific methods for CommitDao
@@ -26,7 +27,7 @@ public interface CommitDao extends GenericDao<Commit, Integer> {
      */
     public List<Commit> getCommitsFromUserForProfile(int user_id);
 
-    public List<List<Double>> getSonarValuesFromLastCommits(int user_id);
+    public List<Map<String,Double>> getSonarValuesFromLastCommits(int user_id);
 
     public double getUserCommitCount(int user_id);
 }
