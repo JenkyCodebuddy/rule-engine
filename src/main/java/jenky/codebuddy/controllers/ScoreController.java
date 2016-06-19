@@ -34,7 +34,7 @@ public class ScoreController {
 
         /**
          * Dit is een voorbeeld van hoe er wordt gechecked wanneer Jenkins de resultaten post
-         * naar de rule engine. ALs je de email wilt van een user is dat dus header.get("email")
+         * naar de rule engine. Als je de email wilt van een user is dat dus header.get("email")
          * Voor username is dit headers.get("username"). Token is niet mogelijk hier.
          */
         //AchievementsService achievementsService = new AchievementsService();
