@@ -29,8 +29,6 @@ import java.util.*;
  */
 public class ScoreUserServiceImpl implements ScoreUserService {
 
-    private final String messageUrl = "https://fcm.googleapis.com/fcm/send";
-
     public ScoreUserServiceImpl() {
 
     }
@@ -41,6 +39,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     @Override
     public void parseHeaders(Map<String, String> headers){
+        MessagingService messagingService = new MessagingService();
         UserCommit userCommit = createUserCommitModel(headers);
         String messageId = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail()).getMessageToken();
         if (headers.get("buildresult").equals("\"SUCCESS\"")){
@@ -51,9 +50,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
-            sendPush("results are saved", "Results are in, check your profile!", messageId);
+            messagingService.sendPush("results are saved", "Results are in, check your profile!", messageId);
         } else {
-            sendPush("build failure", "uhoh you broke the build! No scores earned!", messageId);
+            messagingService.sendPush("build failure", "uhoh you broke the build! No scores earned!", messageId);
         }
     }
 
@@ -162,43 +161,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         userCommit.setBranch(headers.get("branch"));
         userCommit.setEmail(headers.get("email"));
         return userCommit;
-    }
-
-    /**
-     * Uses firebase to send a notifcation with a custom body
-     * @param messageBody
-     * @param notificationBody
-     * @param id
-     */
-    @Override
-    public void sendPush(String messageBody, String notificationBody, String id){
-        Gson gson = new Gson();
-        Data data =  new Data();
-        Notification notification = new Notification();
-        Message message = new Message();
-
-        data.setMessage(messageBody);
-        data.setTitle("Build info");
-
-        notification.setTitle("Code buddy");
-        notification.setBody(notificationBody);
-        notification.setIcon("myicon");
-
-        message.setData(data);
-        message.setTo(id);
-        message.setNotification(notification);
-
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        try {
-            HttpPost request = new HttpPost(messageUrl);
-            StringEntity params = new StringEntity(gson.toJson(message));
-            request.addHeader("content-type", "application/json");
-            request.addHeader("Authorization", "key=AIzaSyBQndUWi-dF7c-B5BrptQyKPhaTgjXHMV4");
-            request.setEntity(params);
-            HttpResponse response = httpClient.execute(request);
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     /**
