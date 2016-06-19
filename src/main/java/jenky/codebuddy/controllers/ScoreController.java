@@ -2,6 +2,7 @@ package jenky.codebuddy.controllers;
 
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.User;
+import jenky.codebuddy.services.AchievementsService;
 import jenky.codebuddy.services.DatabaseFactory;
 import jenky.codebuddy.services.ScoreUserService;
 import jenky.codebuddy.services.ScoreUserServiceImpl;
@@ -24,17 +25,20 @@ public class ScoreController {
     /**
      *
      * @param headers must contains a sonarresponse(json)
-     * and header email, header sha, header branch, header project, username
+     * and header email, header sha, header branch, header project, header username
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     private void saveScore(@RequestHeader Map<String, String> headers){
         ScoreUserService scoreUserService = new ScoreUserServiceImpl();
         scoreUserService.parseHeaders(headers);
+
+        /**
+         * Dit is een voorbeeld van hoe er wordt gechecked wanneer Jenkins de resultaten post
+         * naar de rule engine. ALs je de email wilt van een user is dat dus header.get("email")
+         * Voor username is dit headers.get("username"). Token is niet mogelijk hier.
+         */
+        //AchievementsService achievementsService = new AchievementsService();
+        //achievementsService.checkForAchievements(headers.get("email"));
     }
 
-    /*@RequestMapping(value = "/tips", method = RequestMethod.GET)
-    private void tips(@RequestHeader Map<String, String> headers){
-        ScoreUserService scoreUserService = new ScoreUserServiceImpl();
-        scoreUserService.generateTips();
-    }*/
 }

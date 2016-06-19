@@ -8,6 +8,7 @@ import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.services.DatabaseFactory;
+import jenky.codebuddy.services.MessagingService;
 import jenky.codebuddy.services.ScoreUserService;
 import jenky.codebuddy.services.ScoreUserServiceImpl;
 import org.junit.Before;
@@ -27,13 +28,14 @@ public class ScoreTest{
 
 
     private Score testScore;
+    private MessagingService messagingService;
     private ScoreUserService scoreUserService;
     private User testUser;
 
     @Before
     public void setUp() {
         this.testScore = new Score();
-        this.scoreUserService = new ScoreUserServiceImpl();
+        this.messagingService = new MessagingService();
         this.testUser = new User();
         testUser.setEmail(TestInfo.TESTEMAIL);
         testScore.setUser(testUser);
@@ -93,7 +95,7 @@ public class ScoreTest{
 
     @Test
     public void sendPush(){
-        scoreUserService.sendPush("test" , "Results are in, check your profile!", "cM6L9vKZx4Y:APA91bG9DxVbwXUjOx9Ag50tl0TRhxvcpLepq-f4PKF34h20NY9LCyMU5WBm4Q8Dgln30uwX5hNuxgXC_XT3QGEIPGswwzC1qsUWozh0C-pecnbANtTqGPX3sK_m_8SwFPR_PE5NZukJ");
+        messagingService.sendPush("test" , "Results are in, check your profile!", "cM6L9vKZx4Y:APA91bG9DxVbwXUjOx9Ag50tl0TRhxvcpLepq-f4PKF34h20NY9LCyMU5WBm4Q8Dgln30uwX5hNuxgXC_XT3QGEIPGswwzC1qsUWozh0C-pecnbANtTqGPX3sK_m_8SwFPR_PE5NZukJ");
     }
 
     @Test
