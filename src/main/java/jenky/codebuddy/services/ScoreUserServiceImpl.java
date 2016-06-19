@@ -8,17 +8,9 @@ import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Project;
 import jenky.codebuddy.models.entities.User;
-import jenky.codebuddy.models.gcm.Data;
-import jenky.codebuddy.models.gcm.Message;
-import jenky.codebuddy.models.gcm.Notification;
 import jenky.codebuddy.models.gson.Metric;
 import jenky.codebuddy.models.gson.SonarResponse;
 import jenky.codebuddy.models.rest.UserCommit;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import wildtornado.scocalc.objects.Score;
 
 import java.lang.reflect.Type;
@@ -83,7 +75,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
-        sendPush("results are saved", "Results are in, check your profile!", user.getMessageToken());
         generateTips(user);
     }
 
