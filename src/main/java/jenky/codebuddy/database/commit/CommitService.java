@@ -23,7 +23,9 @@ public interface CommitService extends GenericService<Commit, Integer> {
      * @param user_id
      * @return List<Commit> from the user
      */
-    public List<Commit> getCommitsFromUser(int user_id);
+    public List<Commit> getCommitsFromUserForProfile(int user_id);
+
+    public List<List<Double>> getSonarValuesFromLastCommits(int user_id);
 
     public double getUserCommitCount(int user_id);
 }

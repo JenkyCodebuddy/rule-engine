@@ -3,6 +3,7 @@ package jenky.codebuddy.database.commit;
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Commit;
 import jenky.codebuddy.models.entities.Project;
+import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.services.DatabaseFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -40,7 +41,7 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
      * @return List<Commit> from the user otherwise null
      */
     @Override
-    public List<Commit> getCommitsFromUser(int user_id){
+    public List<Commit> getCommitsFromUserForProfile(int user_id){
         String hql = "FROM Commit commit " +
                 "LEFT JOIN FETCH commit.project as project " +
                 "LEFT JOIN FETCH commit.scores as scores " +
@@ -60,6 +61,28 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
         }
         return result;
     }
+
+   public List<List<Double>> getSonarValuesFromLastCommits(int user_id){
+        String hql = "FROM Commit commit " +
+                "LEFT JOIN FETCH commit.project as project " +
+                "INNER JOIN commit.scores as scores " +
+                "WHERE scores.user =:user_id " +
+                "GROUP BY commit.id " +
+                "ORDER BY commit.id DESC ";
+        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+        query.setInteger("user_id",user_id);
+        query.setMaxResults(3);
+        List<Object[]> result = query.list();
+        List<List<Double>> sonarValues = new ArrayList<List<Double>>();
+        for(Object[] obj : result){
+            List<Double> scores = new ArrayList<Double>();
+            for(Score score : ((Commit)obj[0]).getScores()){
+                scores.add(score.getSonar_value());
+            }
+            sonarValues.add(scores);
+        }
+        return sonarValues;
+   }
 
     @Override
     public double getUserCommitCount(int user_id) {

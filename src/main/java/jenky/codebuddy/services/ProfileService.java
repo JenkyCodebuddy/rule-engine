@@ -24,7 +24,7 @@ public class ProfileService {
         User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token).getUser();
         if(DatabaseFactory.getScoreService().checkIfUserHasScores(user.getUser_id())) {
             List<Item> items = DatabaseFactory.getItemService().getEquippedItemsFromUser(user.getUser_id());
-            List<Commit> commits = DatabaseFactory.getCommitService().getCommitsFromUser(user.getUser_id());
+            List<Commit> commits = DatabaseFactory.getCommitService().getCommitsFromUserForProfile(user.getUser_id());
             double avgScore = DatabaseFactory.getScoreService().getAvgScoreFromUser(user.getUser_id());
             double totalScore = DatabaseFactory.getScoreService().getTotalScoreFromUser(user.getUser_id());;
             double achievementCount = DatabaseFactory.getAchievementService().getAchievementCountFromUser(user.getUser_id());
