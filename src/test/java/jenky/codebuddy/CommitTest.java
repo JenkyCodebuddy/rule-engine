@@ -39,7 +39,7 @@ public class CommitTest {
     @Test
     @Transactional
     public void getCommitsFromUser(){
-        assertNotNull(DatabaseFactory.getCommitService().getCommitsFromUser(TestInfo.TESTID));
+        assertNotNull(DatabaseFactory.getCommitService().getCommitsFromUserForProfile(TestInfo.TESTID));
     }
 
 
