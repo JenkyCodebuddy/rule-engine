@@ -63,10 +63,10 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
 
     @Override
     public double getUserCommitCount(int user_id) {
-        String hql = ""; //TODO: No clue.
+        String hql = "SELECT count(commit.id) as commitCount FROM Commit commit INNER JOIN commit.scores as score INNER JOIN score.user as user WHERE user.id=:user_id GROUP BY commit.id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("user_id",user_id);
-        long result =  (long) query.uniqueResult();
-        return result;
+        List result =  query.list();
+        return result.size();
     }
 }

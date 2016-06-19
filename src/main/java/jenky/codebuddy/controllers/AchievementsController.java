@@ -136,4 +136,14 @@ public class AchievementsController {
             return new Response(400,"Token not valid");
         }
     }
+
+    @RequestMapping(value = "/x_commit_achievement", method = RequestMethod.POST)
+    private Response xCommitAchievement(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return achievementsService.xCommitAchievement(headers.get("token"), 1, 1);
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
 }

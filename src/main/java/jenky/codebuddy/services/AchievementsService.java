@@ -45,7 +45,7 @@ public class AchievementsService {
         return xCommitAchievement(token, achievement_id, x);
     }
 
-    private Response xCommitAchievement(String token, int achievement_id, int x) {
+    public Response xCommitAchievement(String token, int achievement_id, int x) {
         User user = getUser(token);
         double amount = DatabaseFactory.getCommitService().getUserCommitCount(user.getUser_id());
         int progress = (int) Math.floor(amount / x);
