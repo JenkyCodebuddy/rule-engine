@@ -83,6 +83,8 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
+        sendPush("results are saved", "Results are in, check your profile!", user.getMessageToken());
+        generateTips(user);
     }
 
     /**
@@ -181,9 +183,15 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     @Override
     public void generateTips(User user){
-        List<Commit> lastCommits = DatabaseFactory.getCommitService().getCommitsFromUser(user.getUser_id());
-        Commit commit1 = lastCommits.get(0);
-        Set<jenky.codebuddy.models.entities.Score> score = commit1.getScores();
-        System.out.println(score);
+        List<List<Double>> sonarValues = DatabaseFactory.getCommitService().getSonarValuesFromLastCommits(user.getUser_id());
+        List<Double> averageScores = new ArrayList<Double>();
+        for(int i = 0; i < sonarValues.get(0).size(); i++){
+            double[] average = new double[3];
+            for(int p = 0 ; p < sonarValues.size(); p++){
+                average[p] = sonarValues.get(p).get(i);
+            }
+            averageScores.add(Math.floor((average[0] + average[1] + average[2])/3));
+        }
+        System.out.println(averageScores); //averageScores contains the average scores
     }
 }
