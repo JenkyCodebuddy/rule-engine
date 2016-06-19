@@ -2,8 +2,6 @@ package jenky.codebuddy.services;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import jenky.codebuddy.database.project.ProjectService;
 import jenky.codebuddy.database.score.ScoreService;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
@@ -31,8 +29,6 @@ import java.util.*;
  */
 public class ScoreUserServiceImpl implements ScoreUserService {
 
-    private final String messageUrl = "https://fcm.googleapis.com/fcm/send";
-
     public ScoreUserServiceImpl() {
 
     }
@@ -43,13 +39,21 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     @Override
     public void parseHeaders(Map<String, String> headers){
-        Gson gson = new Gson();
-        Type sonar = new TypeToken<List<SonarResponse>>(){}.getType();
-        List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s",""), sonar);
-        SonarResponse sonarResponse = sonarResponseList.get(0);
+        MessagingService messagingService = new MessagingService();
         UserCommit userCommit = createUserCommitModel(headers);
-        ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
-        saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);;
+        String messageId = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail()).getMessageToken();
+        if (headers.get("buildresult").equals("\"SUCCESS\"")){
+            Gson gson = new Gson();
+            Type sonar = new TypeToken<List<SonarResponse>>() {
+            }.getType();
+            List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s", ""), sonar);
+            SonarResponse sonarResponse = sonarResponseList.get(0);
+            ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
+            saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
+            messagingService.sendPush("results are saved", "Results are in, check your profile!", messageId);
+        } else {
+            messagingService.sendPush("build failure", "uhoh you broke the build! No scores earned!", messageId);
+        }
     }
 
     /**
@@ -79,7 +83,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
-        sendPush("results are saved", "Results are in, check your profile!", user.getMessageToken());
     }
 
     /**
@@ -161,43 +164,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * Uses firebase to send a notifcation with a custom body
-     * @param messageBody
-     * @param notificationBody
-     * @param id
-     */
-    @Override
-    public void sendPush(String messageBody, String notificationBody, String id){
-        Gson gson = new Gson();
-        Data data =  new Data();
-        Notification notification = new Notification();
-        Message message = new Message();
-
-        data.setMessage(messageBody);
-        data.setTitle("Build info");
-
-        notification.setTitle("Code buddy");
-        notification.setBody(notificationBody);
-        notification.setIcon("myicon");
-
-        message.setData(data);
-        message.setTo(id);
-        message.setNotification(notification);
-
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        try {
-            HttpPost request = new HttpPost(messageUrl);
-            StringEntity params = new StringEntity(gson.toJson(message));
-            request.addHeader("content-type", "application/json");
-            request.addHeader("Authorization", "key=AIzaSyBQndUWi-dF7c-B5BrptQyKPhaTgjXHMV4");
-            request.setEntity(params);
-            HttpResponse response = httpClient.execute(request);
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
      * extract projectname from address like http://github.com/company/project.git
      * Splits at the fourth / and removes the last four characters (.git)
      * @param url
@@ -210,11 +176,12 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * Generate tips for user
+     * Generates tips if needed for the user
+     * @param user
      */
     @Override
-    public void generateTips(){
-        List<Commit> lastCommits = DatabaseFactory.getCommitService().getCommitsFromUser(1);
+    public void generateTips(User user){
+        List<Commit> lastCommits = DatabaseFactory.getCommitService().getCommitsFromUser(user.getUser_id());
         Commit commit1 = lastCommits.get(0);
         Set<jenky.codebuddy.models.entities.Score> score = commit1.getScores();
         System.out.println(score);
