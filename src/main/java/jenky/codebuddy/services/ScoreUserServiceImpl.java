@@ -2,8 +2,6 @@ package jenky.codebuddy.services;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import jenky.codebuddy.database.project.ProjectService;
 import jenky.codebuddy.database.score.ScoreService;
 import jenky.codebuddy.modelbuilders.ScoreModelBuilder;
@@ -44,6 +42,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     @Override
     public void parseHeaders(Map<String, String> headers){
         UserCommit userCommit = createUserCommitModel(headers);
+        String messageId = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail()).getMessageToken();
         if (headers.get("buildresult").equals("\"SUCCESS\"")){
             Gson gson = new Gson();
             Type sonar = new TypeToken<List<SonarResponse>>() {
@@ -52,9 +51,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
+            sendPush("results are saved", "Results are in, check your profile!", messageId);
         } else {
-            //DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail()).getMessageToken();
-            sendPush("build failure", "uhoh you broke the build", "cM6L9vKZx4Y:APA91bG9DxVbwXUjOx9Ag50tl0TRhxvcpLepq-f4PKF34h20NY9LCyMU5WBm4Q8Dgln30uwX5hNuxgXC_XT3QGEIPGswwzC1qsUWozh0C-pecnbANtTqGPX3sK_m_8SwFPR_PE5NZukJ");
+            sendPush("build failure", "uhoh you broke the build! No scores earned!", messageId);
         }
     }
 
@@ -85,7 +84,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
-        sendPush("results are saved", "Results are in, check your profile!", user.getMessageToken());
     }
 
     /**
