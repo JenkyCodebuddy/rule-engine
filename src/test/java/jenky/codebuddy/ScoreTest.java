@@ -38,6 +38,7 @@ public class ScoreTest{
         this.testScore = new Score();
         this.messagingService = new MessagingService();
         this.testUser = DatabaseFactory.getUserService().getUserIfExists(TestInfo.TESTEMAIL);
+        //testUser.setUser_id(962);
     }
 
     @Test
@@ -99,6 +100,6 @@ public class ScoreTest{
 
     @Test
     public void generateTip(){
-        scoreUserService.generateTips(testUser, testUser.getMessageToken());
+        scoreUserService.generateTips(testUser, testUser.getMessageToken(), "rule-engine");
     }
 }
