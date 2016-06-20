@@ -194,17 +194,21 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         if (sonarValues != null && sonarValues.size() == 3) {
             Map<String, Double> averageScores = generateAverageScoresMap(sonarValues);
             List<String> metricsWhichNeedTips = checkWhichMetricsNeedTips(averageScores);
-            //if (rand.nextInt(3) == 3) { //random factor for when a tip is shown (1 in 3 chance right now), commented out for testing
+            if (rand.nextInt(3) == 3) { //random factor for when a tip is shown (1 in 3 chance right now), commented out for testing
                 String metric = "ncloc";//metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size())); //get random metric from metricWhichNeedTips list
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
                 if(userWithBestScoreForMetric != null){
                     System.out.println("If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score");
+                    this.messagingService.sendPush(
+                            "tips",
+                            "If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
+                            messageId);
                 }
                 else{
                     System.out.println("No one is suitable to ask for tips");
                 }
                //this.messagingService.sendPush("tips", "Your unit test coverage sucks! Why not ask Joost for some help?", messageId);
-            //}
+            }
         }
         else{
             System.out.println("There are not enough previous commits");
