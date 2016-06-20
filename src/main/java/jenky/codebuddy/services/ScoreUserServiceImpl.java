@@ -195,19 +195,17 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             Map<String, Double> averageScores = generateAverageScoresMap(sonarValues);
             List<String> metricsWhichNeedTips = checkWhichMetricsNeedTips(averageScores);
             if (rand.nextInt(3) == 3) { //random factor for when a tip is shown (1 in 3 chance right now), commented out for testing
-                String metric = "ncloc";//metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size())); //get random metric from metricWhichNeedTips list
+                String metric = metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size())); //get random metric from metricWhichNeedTips list
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
                 if(userWithBestScoreForMetric != null){
-                    System.out.println("If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score");
                     this.messagingService.sendPush(
                             "tips",
                             "If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
                             messageId);
                 }
                 else{
-                    System.out.println("No one is suitable to ask for tips");
+                    this.messagingService.sendPush("tips", "No one is suitable to ask for tips", messageId);
                 }
-               //this.messagingService.sendPush("tips", "Your unit test coverage sucks! Why not ask Joost for some help?", messageId);
             }
         }
         else{
@@ -238,8 +236,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     private List<String> checkWhichMetricsNeedTips(Map<String, Double> avgSonarValues) {
         Map<String, Double> sufficientMap = generateSufficientMap();
-        List<String> metricsWhichNeedTips = compareMaps(avgSonarValues, sufficientMap);
-        return metricsWhichNeedTips;
+        return compareMaps(avgSonarValues, sufficientMap);
     }
 
     /**
@@ -250,16 +247,16 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         Map<String, Double> sufficientMap = new HashMap<String, Double>();
         sufficientMap.put("coverage", 100.0);
         sufficientMap.put("complexity", 100.0);
-        sufficientMap.put("minor_violations", 100.0);
+        sufficientMap.put("minor_violations", 10.0);
         sufficientMap.put("duplicated_lines_density", 100.0);
         sufficientMap.put("duplicated_lines", 100.0);
-        sufficientMap.put("violations", 100.0);
+        sufficientMap.put("violations", 10.0);
         sufficientMap.put("comment_lines_density", 100.0);
         sufficientMap.put("sqale_index", 100.0);
-        sufficientMap.put("critical_violations", 100.0);
-        sufficientMap.put("blocker_violations", 100.0);
-        sufficientMap.put("test_failures", 100.0);
-        sufficientMap.put("major_violations", 100.0);
+        sufficientMap.put("critical_violations", 1.0);
+        sufficientMap.put("blocker_violations", 1.0);
+        sufficientMap.put("test_failures", 10.0);
+        sufficientMap.put("major_violations", 10.0);
         sufficientMap.put("tests", 100.0);
         sufficientMap.put("comment_lines", 100.0);
         sufficientMap.put("ncloc", 100.0);
