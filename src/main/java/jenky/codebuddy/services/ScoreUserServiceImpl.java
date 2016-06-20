@@ -30,14 +30,15 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Parses the headers and sends it to the appropriate builders. Afterwards saves the models
+     *
      * @param headers Response from the CI server
      */
     @Override
-    public void parseHeaders(Map<String, String> headers){
+    public void parseHeaders(Map<String, String> headers) {
         this.messagingService = new MessagingService();
         UserCommit userCommit = createUserCommitModel(headers);
         String messageId = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail()).getMessageToken();
-        if (headers.get("buildresult").equals("\"SUCCESS\"")){
+        if (headers.get("buildresult").equals("\"SUCCESS\"")) {
             Gson gson = new Gson();
             Type sonar = new TypeToken<List<SonarResponse>>() {
             }.getType();
@@ -52,12 +53,12 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * @param metricsDataInputModel  contains the calculated score
-     * @param sonarResponse  contains the calculated score from sonarqube
-     * @param userCommit  contains information about the user who commited this
+     * @param metricsDataInputModel contains the calculated score
+     * @param sonarResponse         contains the calculated score from sonarqube
+     * @param userCommit            contains information about the user who commited this
      */
     @Override
-    public void saveUserScore(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit){
+    public void saveUserScore(Score metricsDataInputModel, SonarResponse sonarResponse, UserCommit userCommit) {
         ScoreService scoreService = DatabaseFactory.getScoreService();
         Commit commit = createCommit(userCommit);
         List<Metric> metricsList = sonarResponse.getMsr();
@@ -82,13 +83,14 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Saves the project if it doesn't exists and return it
+     *
      * @param projectname
      */
     @Override
-    public Project saveOrGetProjectIfExists(String projectname){
+    public Project saveOrGetProjectIfExists(String projectname) {
         ProjectService projectsService = DatabaseFactory.getProjectService();
         Project project = new Project();
-        if (!projectsService.checkIfProjectExists(projectname)){
+        if (!projectsService.checkIfProjectExists(projectname)) {
             project.setName(projectname);
             project.setCreated_at(new Date());
             projectsService.addProject(project);
@@ -101,11 +103,12 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Creates a commit using the information from the userCommit
+     *
      * @param userCommit
      * @return
      */
     @Override
-    public Commit createCommit(UserCommit userCommit){
+    public Commit createCommit(UserCommit userCommit) {
         Commit commit = new Commit();
         commit.setBranch(userCommit.getBranch());
         commit.setProject(saveOrGetProjectIfExists(filterRegex(userCommit.getProjectName())));
@@ -117,19 +120,26 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     /**
      * This is created because the names the scorecalculator library uses
      * are different then sonar uses
-     * @param name sonar name
+     *
+     * @param name                  sonar name
      * @param metricsDataInputModel contains the calculated scores
      * @return calculated score for the sonar metric
      */
     @Override
-    public double getScoreByName(String name, Score metricsDataInputModel){
+    public double getScoreByName(String name, Score metricsDataInputModel) {
         switch (name) {
-            case "ncloc": return metricsDataInputModel.getLinesOfCodeScore();
-            case "sqale_index": return metricsDataInputModel.getTechnicalDebtScore();
-            case "duplicated_lines": return metricsDataInputModel.getCodeDuplicationScore();
-            case "coverage": return metricsDataInputModel.getTestCoverageScore();
-            case "violations": return metricsDataInputModel.getCodeViolationsScore();
-            default: return 0;
+            case "ncloc":
+                return metricsDataInputModel.getLinesOfCodeScore();
+            case "sqale_index":
+                return metricsDataInputModel.getTechnicalDebtScore();
+            case "duplicated_lines":
+                return metricsDataInputModel.getCodeDuplicationScore();
+            case "coverage":
+                return metricsDataInputModel.getTestCoverageScore();
+            case "violations":
+                return metricsDataInputModel.getCodeViolationsScore();
+            default:
+                return 0;
         }
     }
 
@@ -138,17 +148,18 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      * @return List of previouss scores
      */
     @Override
-    public List<jenky.codebuddy.models.entities.Score> getPreviousScores(String email){
+    public List<jenky.codebuddy.models.entities.Score> getPreviousScores(String email) {
         return DatabaseFactory.getScoreService().getPreviousScores(email);
     }
 
     /**
      * Parses the headers to githubinfo
+     *
      * @param headers From the CI server
      * @return Map containing info about the committer
      */
     @Override
-    public UserCommit createUserCommitModel(Map<String, String> headers){
+    public UserCommit createUserCommitModel(Map<String, String> headers) {
         UserCommit userCommit = new UserCommit();
         userCommit.setUsername(headers.get("username"));
         userCommit.setProjectName(headers.get("projectname"));
@@ -161,6 +172,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     /**
      * extract projectname from address like http://github.com/company/project.git
      * Splits at the fourth / and removes the last four characters (.git)
+     *
      * @param url
      * @return
      */
@@ -171,25 +183,99 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * Generates tips if needed for the user
+     * Generates tips if needed for the user. Tips are only generated when a user has at least 3 previous commits
+     *
      * @param user
      */
     @Override
-    public void generateTips(User user, String messageId){
+    public void generateTips(User user, String messageId, String projectName) {
         Random rand = new Random();
-        List<List<Double>> sonarValues = DatabaseFactory.getCommitService().getSonarValuesFromLastCommits(user.getUser_id());
-        List<Double> averageScores = new ArrayList<>();
-        for(int i = 0; i < sonarValues.get(0).size(); i++){
-            double[] average = new double[3];
-            for(int p = 0 ; p < sonarValues.size(); p++){
-                average[p] = sonarValues.get(p).get(i);
-            }
-            averageScores.add(Math.floor((average[0] + average[1] + average[2])/3));
+        List<Map<String, Double>> sonarValues = DatabaseFactory.getCommitService().getSonarValuesFromLastCommits(user.getUser_id());
+        if (sonarValues != null && sonarValues.size() == 3) {
+            Map<String, Double> averageScores = generateAverageScoresMap(sonarValues);
+            List<String> metricsWhichNeedTips = checkWhichMetricsNeedTips(averageScores);
+            //if (rand.nextInt(3) == 3) { //random factor for when a tip is shown (1 in 3 chance right now), commented out for testing
+                String metric = "ncloc";//metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size())); //get random metric from metricWhichNeedTips list
+                User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
+                if(userWithBestScoreForMetric != null){
+                    System.out.println("If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score");
+                }
+                else{
+                    System.out.println("No one is suitable to ask for tips");
+                }
+               //this.messagingService.sendPush("tips", "Your unit test coverage sucks! Why not ask Joost for some help?", messageId);
+            //}
         }
-        if(averageScores.get(4) < 40){
-            if(rand.nextInt(10) + 1 == 5){
-                this.messagingService.sendPush("tips", "Your unit test coverage sucks! Why not ask Joost for some help?", messageId);
+        else{
+            System.out.println("There are not enough previous commits");
+        }
+    }
+
+    /**
+     * This method takes as input a list of maps. Each map contains the sonarvalues from a commit. It calculates the average sonarvalues from these commit maps.
+     * @param sonarValues
+     * @return
+     */
+    private Map<String, Double> generateAverageScoresMap(List<Map<String, Double>> sonarValues) {
+        Map<String, Double> avgMap = new HashMap<String, Double>();
+        for (String key : sonarValues.get(0).keySet()) {
+            avgMap.put(key,
+                    Math.floor((sonarValues.get(0).get(key) +
+                            sonarValues.get(1).get(key) +
+                            sonarValues.get(2).get(key)) / 3));
+        }
+        return avgMap;
+    }
+
+    /**
+     * This method generates the list of strings of the metrics which need to be improved
+     * @param avgSonarValues
+     * @return
+     */
+    private List<String> checkWhichMetricsNeedTips(Map<String, Double> avgSonarValues) {
+        Map<String, Double> sufficientMap = generateSufficientMap();
+        List<String> metricsWhichNeedTips = compareMaps(avgSonarValues, sufficientMap);
+        return metricsWhichNeedTips;
+    }
+
+    /**
+     * Method for generating a map which contains the values which we consider good enough
+     * @return
+     */
+    private Map<String, Double> generateSufficientMap() {
+        Map<String, Double> sufficientMap = new HashMap<String, Double>();
+        sufficientMap.put("coverage", 100.0);
+        sufficientMap.put("complexity", 100.0);
+        sufficientMap.put("minor_violations", 100.0);
+        sufficientMap.put("duplicated_lines_density", 100.0);
+        sufficientMap.put("duplicated_lines", 100.0);
+        sufficientMap.put("violations", 100.0);
+        sufficientMap.put("comment_lines_density", 100.0);
+        sufficientMap.put("sqale_index", 100.0);
+        sufficientMap.put("critical_violations", 100.0);
+        sufficientMap.put("blocker_violations", 100.0);
+        sufficientMap.put("test_failures", 100.0);
+        sufficientMap.put("major_violations", 100.0);
+        sufficientMap.put("tests", 100.0);
+        sufficientMap.put("comment_lines", 100.0);
+        sufficientMap.put("ncloc", 100.0);
+        sufficientMap.put("test_errors", 100.0);
+        return sufficientMap;
+    }
+
+    /**
+     * This method compares the average sonar values with the sufficientMap
+     * @param avgMap
+     * @param sufficientMap
+     * @return
+     */
+    private List<String> compareMaps(Map<String, Double> avgMap, Map<String, Double> sufficientMap) {
+        List<String> metricsWhichNeedTips = new ArrayList<String>();
+        for (String key : sufficientMap.keySet()) {
+            if (sufficientMap.get(key) < avgMap.get(key)) {
+                metricsWhichNeedTips.add(key);
             }
         }
+        return metricsWhichNeedTips;
     }
 }

@@ -135,7 +135,8 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
                 "                                   GROUP BY score.id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("metricName",metricName);
-        query.setParameter("projectName",projectName);;
-        return (User)query.uniqueResult();
+        query.setParameter("projectName",projectName);
+        Optional<List<User>> result = Optional.ofNullable(query.list());
+        return result.isPresent() && result.get().size() == 1 ? result.get().get(0) : null;
     }
 }
