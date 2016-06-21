@@ -198,7 +198,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                 String metric = abbreviationMap().get(rand.nextInt(metricsWhichNeedTips.size())); //get random metric from metricWhichNeedTips list
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
                 if(userWithBestScoreForMetric != null){
-                    System.out.println("If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score");
                     this.messagingService.sendPush(
                             "tips",
                             "If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
@@ -207,7 +206,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                 else{
                     System.out.println("No one is suitable to ask for tips");
                 }
-               //this.messagingService.sendPush("tips", "Your unit test coverage sucks! Why not ask Joost for some help?", messageId);
             }
         }
         else{
@@ -238,7 +236,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     private List<String> checkWhichMetricsNeedTips(Map<String, Double> avgSonarValues) {
         Map<String, Double> sufficientMap = generateSufficientMap();
-        avgSonarValues.remove("complexity"); // remove all non relevant metrics 
+        avgSonarValues.remove("complexity"); // remove all non relevant metrics
         avgSonarValues.remove("sqale_index");
         avgSonarValues.remove("comment_lines");
         avgSonarValues.remove("ncloc");
