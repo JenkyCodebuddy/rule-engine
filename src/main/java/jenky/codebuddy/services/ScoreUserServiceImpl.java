@@ -46,9 +46,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
-            this.messagingService.sendPush("results are saved", "Results are in, check your profile!", messageId);
+            this.messagingService.sendPush("results are saved", "Results are in, check your profile!", "#ff1414", messageId);
         } else {
-            this.messagingService.sendPush("build failure", "uhoh you broke the build! No scores earned!", messageId);
+            this.messagingService.sendPush("build failure", "uhoh you broke the build! No scores earned!", "#ff0000", messageId);
         }
     }
 
@@ -201,6 +201,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                     this.messagingService.sendPush(
                             "tips",
                             "If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
+                            ,"#ff1414",
                             messageId);
                 }
                 else{
