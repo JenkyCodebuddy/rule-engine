@@ -46,9 +46,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
-            this.messagingService.sendPush("results are saved", "Results are in, check your profile!", "#ff1414", messageId);
+            this.messagingService.sendPush("Results are in, check your profile!", "#ff1414", messageId);
         } else {
-            this.messagingService.sendPush("build failure", "uhoh you broke the build! No scores earned!", "#ff0000", messageId);
+            this.messagingService.sendPush("uhoh you broke the build! No scores earned!", "#ff0000", messageId);
         }
     }
 
@@ -184,7 +184,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Generates tips if needed for the user. Tips are only generated when a user has at least 3 previous commits
-     *TODO add push message
+     * TODO add push message
      * @param user
      */
     @Override
@@ -199,9 +199,8 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
                 if(userWithBestScoreForMetric != null){
                     this.messagingService.sendPush(
-                            "tips",
-                            "If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
-                            ,"#ff1414",
+                            "If you want to improve the following metric: \" + metric + \", ask \" + userWithBestScoreForMetric.getEmail() + \"! He/she has the best score",
+                            "#ff1414",
                             messageId);
                 }
                 else{

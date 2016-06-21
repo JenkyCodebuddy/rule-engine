@@ -42,23 +42,20 @@ public class MessagingService {
     }
 
     /**
-     * Uses firebase to send a notifcation with a custom body
+     * Uses Firebase to send messages
      * @param messageBody
-     * @param notificationBody
+     * @param colour
      * @param id
      */
-    public void sendPush(String messageBody, String notificationBody, String colour,  String id){
+    public void sendPush(String messageBody, String colour,  String id){
         Gson gson = new Gson();
         jenky.codebuddy.models.gcm.Data data =  new jenky.codebuddy.models.gcm.Data();
         Notification notification = new Notification();
         Message message = new Message();
 
         data.setMessage(messageBody);
-        data.setTitle("Build info");
-
-        notification.setTitle("Code buddy");
-        notification.setBody(notificationBody);
-        notification.setIcon("myicon");
+        data.setTitle("Code buddy");
+        data.setColour(colour);
 
         message.setData(data);
         message.setTo(id);
