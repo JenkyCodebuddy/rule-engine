@@ -31,7 +31,7 @@ public class MessagingService {
         user.setMessageToken(messagingToken);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
-        return new Response(200,"Token saved");
+        return new Response(200,"Notification has been enabled.");
     }
 
     public Response deleteMessagingTokenForUser(String authenticationToken, String messagingToken){

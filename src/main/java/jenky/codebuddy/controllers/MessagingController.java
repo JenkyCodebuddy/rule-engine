@@ -39,11 +39,11 @@ public class MessagingController {
             if (AuthenticationService.checkIfTokenIsValid(headers.get("token"))) {
                 return messagingService.saveMessagingTokenForUser(headers.get("token"), headers.get("messagingtoken"));
             } else {
-                return new Response(400, "Token not valid");
+                return null;
             }
         }
         else{
-            return new Response(200,"Did nothing");
+            return new Response(200,"No auth token supplied");
         }
     }
 
