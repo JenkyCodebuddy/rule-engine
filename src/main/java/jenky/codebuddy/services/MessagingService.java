@@ -34,13 +34,6 @@ public class MessagingService {
         return new Response(200,"Notification has been enabled.");
     }
 
-    public Response deleteMessagingTokenForUser(String authenticationToken, String messagingToken){
-        User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(authenticationToken).getUser();
-        user.setMessageToken("");
-        DatabaseFactory.getUserService().saveOrUpdate(user);
-        return new Response(200,"Token deleted");
-    }
-
     /**
      * Uses firebase to send a notifcation with a custom body
      * @param messageBody
