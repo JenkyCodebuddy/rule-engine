@@ -40,7 +40,7 @@ public class MessagingService {
      * @param colour
      * @param id
      */
-    public void sendPush(String messageBody, String colour,  String id){
+    public void sendPush(String messageBody, String colour, String vibration, String id){
         Gson gson = new Gson();
         jenky.codebuddy.models.gcm.Data data =  new jenky.codebuddy.models.gcm.Data();
         Notification notification = new Notification();
@@ -49,6 +49,7 @@ public class MessagingService {
         data.setMessage(messageBody);
         data.setTitle("Code buddy");
         data.setColour(colour);
+        data.setVibration(vibration);
 
         message.setData(data);
         message.setTo(id);

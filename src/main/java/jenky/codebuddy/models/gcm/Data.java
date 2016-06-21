@@ -15,6 +15,18 @@ public class Data {
     @SerializedName("colour")
     private String colour;
 
+    @SerializedName("vibration")
+    private String vibration;
+
+
+    public String getVibration() {
+        return vibration;
+    }
+
+    public void setVibration(String vibration) {
+        this.vibration = vibration;
+    }
+
     public String getColour() {
         return colour;
     }
