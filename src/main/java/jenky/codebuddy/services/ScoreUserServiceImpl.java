@@ -25,6 +25,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     private MessagingService messagingService;
     private final String successColour = "#1472ff";
     private final String failColour = "#ff0000";
+    private final String vibration = "0";
     public ScoreUserServiceImpl() {
 
     }
@@ -47,9 +48,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
-            this.messagingService.sendPush("Results are in, check your profile!", successColour, messageId);
+            this.messagingService.sendPush("Results are in, check your profile!", vibration, successColour, messageId);
         } else {
-            this.messagingService.sendPush("uhoh you broke the build! No scores earned!", failColour, messageId);
+            this.messagingService.sendPush("uhoh you broke the build! No scores earned!", "1000", failColour, messageId);
         }
     }
 
@@ -202,6 +203,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                     this.messagingService.sendPush(
                             "If you want to improve the following metric: \" + metric + \", ask \" + userWithBestScoreForMetric.getEmail() + \"! He/she has the best score",
                             successColour,
+                            "1000",
                             messageId);
                 }
                 else{
