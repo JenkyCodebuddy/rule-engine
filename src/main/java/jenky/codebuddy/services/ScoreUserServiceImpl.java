@@ -26,6 +26,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     private final String successColour = "#1472ff";
     private final String failColour = "#ff0000";
     private final String vibration = "0";
+
     public ScoreUserServiceImpl() {
 
     }
@@ -185,9 +186,10 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * Generates tips if needed for the user. Tips are only generated when a user has at least 3 previous commits//
+     * Generates tips if needed for the user. Tips are only generated when a user has at least 3 previous commits
      * Tips are generated with a 1 in 3 chance
      * If there is no user with the highest score for a metric, no tip is generated
+     *
      * @param user
      */
     @Override
@@ -202,7 +204,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
                 if (userWithBestScoreForMetric != null) {
                     this.messagingService.sendPush(
-                            "If you want to improve the following metric: \" + metric + \", ask \" + userWithBestScoreForMetric.getEmail() + \"! He/she has the best score",
+                            "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
                             successColour,
                             "1000",
                             messageId);
@@ -213,6 +215,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * This method takes as input a list of maps. Each map contains the sonarvalues from a commit. It calculates the average sonarvalues from these commit maps.
+     *
      * @param sonarValues
      * @return
      */
@@ -229,6 +232,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * This method generates the list of strings of the metrics which need to be improved
+     *
      * @param avgSonarValues
      * @return
      */
@@ -245,26 +249,28 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Method for generating a map which contains the values which we consider good enough
+     *
      * @return
      */
     private Map<String, Double> generateSufficientMap() {
         Map<String, Double> sufficientMap = new HashMap<>();
-        sufficientMap.put("coverage", 100.0); //lower
-        sufficientMap.put("tests", 100.0); //lower
-        sufficientMap.put("comment_lines_density", 100.0); //lower
-        sufficientMap.put("minor_violations", 100.0); //higher
-        sufficientMap.put("duplicated_lines_density", 100.0); //higher
-        sufficientMap.put("violations", 100.0); //higher
-        sufficientMap.put("critical_violations", 100.0); //higher
-        sufficientMap.put("blocker_violations", 100.0); //higher
-        sufficientMap.put("test_failures", 100.0); //higher
-        sufficientMap.put("major_violations", 100.0); //higher
-        sufficientMap.put("test_errors", 100.0); //higher
+        sufficientMap.put("coverage", 10.0); //lower
+        sufficientMap.put("tests", 5.0); //lower
+        sufficientMap.put("comment_lines_density", 5.0); //lower
+        sufficientMap.put("minor_violations", 30.0); //higher
+        sufficientMap.put("duplicated_lines_density", 5.0); //higher
+        sufficientMap.put("violations", 20.0); //higher
+        sufficientMap.put("critical_violations", 3.0); //higher
+        sufficientMap.put("blocker_violations", 1.0); //higher
+        sufficientMap.put("test_failures", 3.0); //higher
+        sufficientMap.put("major_violations", 5.0); //higher
+        sufficientMap.put("test_errors", 3.0); //higher
         return sufficientMap;
     }
 
     /**
      * This method compares the average sonar values with the sufficientMap
+     *
      * @param avgMap
      * @param sufficientMap
      * @return
@@ -273,14 +279,18 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         List<String> metricsWhichNeedTips = new ArrayList<String>();
         List<Map<String, Double>> mapList = splitAvgMap(avgMap);
         for (String key : sufficientMap.keySet()) {
-            if (sufficientMap.get(key) < mapList.get(0).get(key) || sufficientMap.get(key) > mapList.get(1).get(key)) {
-                metricsWhichNeedTips.add(key);
+            if (mapList.get(0).containsKey(key)) {
+                if (mapList.get(0).get(key) > sufficientMap.get(key)){ metricsWhichNeedTips.add(key);}
+            }
+            if (mapList.get(1).containsKey(key)) {
+                if (mapList.get(1).get(key) > sufficientMap.get(key)){ metricsWhichNeedTips.add(key);}
             }
         }
         return metricsWhichNeedTips;
     }
 
-    private Map<String, String> abbreviationMap(){
+
+    private Map<String, String> abbreviationMap() {
         Map<String, String> abbreviationMap = new HashMap<>();
         abbreviationMap.put("coverage", "code coverage");
         abbreviationMap.put("minor_violations", "minor violations");
@@ -296,14 +306,14 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         return abbreviationMap;
     }
 
-    private List<Map<String, Double>>splitAvgMap(Map<String, Double> originalAvgMap){
+    private List<Map<String, Double>> splitAvgMap(Map<String, Double> originalAvgMap) {
         List<Map<String, Double>> mapList = new ArrayList<Map<String, Double>>();
         Map<String, Double> avgMapLower = new HashMap<>();
         Map<String, Double> avgMapHigher = new HashMap<>();
         avgMapLower.put("coverage", originalAvgMap.get("coverage"));
         avgMapLower.put("tests", originalAvgMap.get("tests"));
         avgMapLower.put("comment_lines_density", originalAvgMap.get("comment_lines_density"));
-        for(String key : avgMapLower.keySet()){
+        for (String key : avgMapLower.keySet()) {
             originalAvgMap.remove(key);
         }
         avgMapHigher = originalAvgMap;
@@ -311,5 +321,5 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         mapList.add(avgMapLower);
         return mapList;
     }
- }
+}
 
