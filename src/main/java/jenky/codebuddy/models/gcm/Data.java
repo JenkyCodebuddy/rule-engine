@@ -12,6 +12,16 @@ public class Data {
     @SerializedName("message")
     private String message;
 
+    @SerializedName("colour")
+    private String colour;
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
 
     public String getTitle() {
         return title;
