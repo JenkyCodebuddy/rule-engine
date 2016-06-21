@@ -184,6 +184,8 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Generates tips if needed for the user. Tips are only generated when a user has at least 3 previous commits
+     * Tips are generated with a 1 in 3 chance
+     * If there is no user with the highest score for a metric, no tip is generated
      *TODO add push message
      * @param user
      */
@@ -194,23 +196,16 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         if (sonarValues != null && sonarValues.size() == 3) {
             Map<String, Double> averageScores = generateAverageScoresMap(sonarValues);
             List<String> metricsWhichNeedTips = checkWhichMetricsNeedTips(averageScores);
-            if (rand.nextInt(3) + 1 == 3) { //random factor for when a tip is shown (1 in 3 chance right now), commented out for testing
-                String metric = abbreviationMap().get(rand.nextInt(metricsWhichNeedTips.size())); //get random metric from metricWhichNeedTips list
+            if (rand.nextInt(3) + 1 == 3) {
+                String metric = metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size()));
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
-                if(userWithBestScoreForMetric != null){
+                if (userWithBestScoreForMetric != null) {
                     this.messagingService.sendPush(
                             "tips",
-                            "If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
-                            ,"#ff1414",
+                            "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score!", "#ff1414",
                             messageId);
                 }
-                else{
-                    System.out.println("No one is suitable to ask for tips");
-                }
             }
-        }
-        else{
-            System.out.println("There are not enough previous commits");
         }
     }
 
@@ -240,6 +235,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         avgSonarValues.remove("complexity"); // remove all non relevant metrics
         avgSonarValues.remove("sqale_index");
         avgSonarValues.remove("comment_lines");
+        avgSonarValues.remove("duplicated_lines");
         avgSonarValues.remove("ncloc");
         List<String> metricsWhichNeedTips = compareMaps(avgSonarValues, sufficientMap);
         return metricsWhichNeedTips;
@@ -252,20 +248,15 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     private Map<String, Double> generateSufficientMap() {
         Map<String, Double> sufficientMap = new HashMap<String, Double>();
         sufficientMap.put("coverage", 100.0);
-        //sufficientMap.put("complexity", 100.0);
         sufficientMap.put("minor_violations", 100.0);
         sufficientMap.put("duplicated_lines_density", 100.0);
-        sufficientMap.put("duplicated_lines", 100.0);
         sufficientMap.put("violations", 100.0);
         sufficientMap.put("comment_lines_density", 100.0);
-        //sufficientMap.put("sqale_index", 100.0);
         sufficientMap.put("critical_violations", 100.0);
         sufficientMap.put("blocker_violations", 100.0);
         sufficientMap.put("test_failures", 100.0);
         sufficientMap.put("major_violations", 100.0);
         sufficientMap.put("tests", 100.0);
-        //sufficientMap.put("comment_lines", 100.0);
-        //sufficientMap.put("ncloc", 100.0);
         sufficientMap.put("test_errors", 100.0);
         return sufficientMap;
     }
@@ -289,20 +280,15 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     private Map<String, String> abbreviationMap(){
         Map<String, String> abbreviationMap = new HashMap<String, String>();
         abbreviationMap.put("coverage", "code coverage");
-        //abbreviationMap.put("complexity", "code complexity");
         abbreviationMap.put("minor_violations", "minor violations");
         abbreviationMap.put("duplicated_lines_density", "density of duplicated lines");
-        abbreviationMap.put("duplicated_lines", "number of duplicated lines");
         abbreviationMap.put("violations", "code violations");
-        abbreviationMap.put("comment_lines_density", "density of comments");
-        //abbreviationMap.put("sqale_index", "technical debt");
+        abbreviationMap.put("comment_lines_density", "comment density");
         abbreviationMap.put("critical_violations", "critical violations");
         abbreviationMap.put("blocker_violations", "blocker violations");
         abbreviationMap.put("test_failures", "test failures");
         abbreviationMap.put("major_violations", "major violations");
         abbreviationMap.put("tests", "number of tests");
-        //abbreviationMap.put("comment_lines", "number of comments");
-        //abbreviationMap.put("ncloc", "non commented lines of code");
         abbreviationMap.put("test_errors", "test errors");
         return abbreviationMap;
     }
