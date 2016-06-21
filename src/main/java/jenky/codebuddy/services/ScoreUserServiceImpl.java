@@ -194,7 +194,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         if (sonarValues != null && sonarValues.size() == 3) {
             Map<String, Double> averageScores = generateAverageScoresMap(sonarValues);
             List<String> metricsWhichNeedTips = checkWhichMetricsNeedTips(averageScores);
-            if (rand.nextInt(3) == 3) { //random factor for when a tip is shown (1 in 3 chance right now), commented out for testing
+            if ((rand.nextInt(3) +1) == 3) { //random factor for when a tip is shown (1 in 3 chance right now), commented out for testing
                 String metric = metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size())); //get random metric from metricWhichNeedTips list
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
                 if(userWithBestScoreForMetric != null){
