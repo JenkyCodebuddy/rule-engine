@@ -217,7 +217,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      * @return
      */
     private Map<String, Double> generateAverageScoresMap(List<Map<String, Double>> sonarValues) {
-        Map<String, Double> avgMap = new HashMap<String, Double>();
+        Map<String, Double> avgMap = new HashMap<>();
         for (String key : sonarValues.get(0).keySet()) {
             avgMap.put(key,
                     Math.floor((sonarValues.get(0).get(key) +
@@ -248,18 +248,18 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      * @return
      */
     private Map<String, Double> generateSufficientMap() {
-        Map<String, Double> sufficientMap = new HashMap<String, Double>();
-        sufficientMap.put("coverage", 100.0);
-        sufficientMap.put("minor_violations", 100.0);
-        sufficientMap.put("duplicated_lines_density", 100.0);
-        sufficientMap.put("violations", 100.0);
-        sufficientMap.put("comment_lines_density", 100.0);
-        sufficientMap.put("critical_violations", 100.0);
-        sufficientMap.put("blocker_violations", 100.0);
-        sufficientMap.put("test_failures", 100.0);
-        sufficientMap.put("major_violations", 100.0);
-        sufficientMap.put("tests", 100.0);
-        sufficientMap.put("test_errors", 100.0);
+        Map<String, Double> sufficientMap = new HashMap<>();
+        sufficientMap.put("coverage", 100.0); //lower
+        sufficientMap.put("tests", 100.0); //lower
+        sufficientMap.put("comment_lines_density", 100.0); //lower
+        sufficientMap.put("minor_violations", 100.0); //higher
+        sufficientMap.put("duplicated_lines_density", 100.0); //higher
+        sufficientMap.put("violations", 100.0); //higher
+        sufficientMap.put("critical_violations", 100.0); //higher
+        sufficientMap.put("blocker_violations", 100.0); //higher
+        sufficientMap.put("test_failures", 100.0); //higher
+        sufficientMap.put("major_violations", 100.0); //higher
+        sufficientMap.put("test_errors", 100.0); //higher
         return sufficientMap;
     }
 
@@ -271,8 +271,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
      */
     private List<String> compareMaps(Map<String, Double> avgMap, Map<String, Double> sufficientMap) {
         List<String> metricsWhichNeedTips = new ArrayList<String>();
+        List<Map<String, Double>> mapList = splitAvgMap(avgMap);
         for (String key : sufficientMap.keySet()) {
-            if (sufficientMap.get(key) < avgMap.get(key)) {
+            if (sufficientMap.get(key) < mapList.get(0).get(key) || sufficientMap.get(key) > mapList.get(1).get(key)) {
                 metricsWhichNeedTips.add(key);
             }
         }
@@ -280,7 +281,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     private Map<String, String> abbreviationMap(){
-        Map<String, String> abbreviationMap = new HashMap<String, String>();
+        Map<String, String> abbreviationMap = new HashMap<>();
         abbreviationMap.put("coverage", "code coverage");
         abbreviationMap.put("minor_violations", "minor violations");
         abbreviationMap.put("duplicated_lines_density", "density of duplicated lines");
@@ -294,4 +295,21 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         abbreviationMap.put("test_errors", "test errors");
         return abbreviationMap;
     }
+
+    private List<Map<String, Double>>splitAvgMap(Map<String, Double> originalAvgMap){
+        List<Map<String, Double>> mapList = new ArrayList<Map<String, Double>>();
+        Map<String, Double> avgMapLower = new HashMap<>();
+        Map<String, Double> avgMapHigher = new HashMap<>();
+        avgMapLower.put("coverage", originalAvgMap.get("coverage"));
+        avgMapLower.put("tests", originalAvgMap.get("tests"));
+        avgMapLower.put("comment_lines_density", originalAvgMap.get("comment_lines_density"));
+        for(String key : avgMapLower.keySet()){
+            originalAvgMap.remove(key);
+        }
+        avgMapHigher = originalAvgMap;
+        mapList.add(avgMapHigher);
+        mapList.add(avgMapLower);
+        return mapList;
+    }
  }
+
