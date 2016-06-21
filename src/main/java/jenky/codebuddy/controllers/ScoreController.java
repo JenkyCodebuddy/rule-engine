@@ -1,17 +1,17 @@
 package jenky.codebuddy.controllers;
 
-import jenky.codebuddy.models.entities.Commit;
-import jenky.codebuddy.models.entities.User;
-import jenky.codebuddy.services.AchievementsService;
-import jenky.codebuddy.services.DatabaseFactory;
 import jenky.codebuddy.services.ScoreUserService;
 import jenky.codebuddy.services.ScoreUserServiceImpl;
+import jenky.codebuddy.services.achievementchecker.achievements.AchievementChecker;
+import jenky.codebuddy.services.achievementchecker.achievements.commitachievements.CommitChecker;
+import jenky.codebuddy.services.achievementchecker.achievements.jenkycoinachievements.CoinChecker;
+import jenky.codebuddy.services.achievementchecker.achievements.projectachievements.ProjectChecker;
+import jenky.codebuddy.services.achievementchecker.achievements.scoreachievements.ScoreChecker;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,13 +32,20 @@ public class ScoreController {
         ScoreUserService scoreUserService = new ScoreUserServiceImpl();
         scoreUserService.parseHeaders(headers);
 
-        /**
-         * Dit is een voorbeeld van hoe er wordt gechecked wanneer Jenkins de resultaten post
-         * naar de rule engine. Als je de email wilt van een user is dat dus header.get("email")
-         * Voor username is dit headers.get("username"). Token is niet mogelijk hier.
-         */
-        //AchievementsService achievementsService = new AchievementsService();
-        //achievementsService.checkForAchievements(headers.get("email"));
+        checkForAchievements(headers.get("email"));
     }
 
+    private void checkForAchievements(String email) {
+        AchievementChecker commitChecker = new CommitChecker();
+        commitChecker.check(email);
+
+        AchievementChecker coinChecker = new CoinChecker();
+        coinChecker.check(email);
+
+        AchievementChecker projectChecker = new ProjectChecker();
+        projectChecker.check(email);
+
+        AchievementChecker scoreChecker = new ScoreChecker();
+        scoreChecker.check(email);
+    }
 }
