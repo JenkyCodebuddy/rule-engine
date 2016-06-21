@@ -201,10 +201,11 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                     this.messagingService.sendPush(
                             "tips",
                             "If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
+                            ,"#ff1414",
                             messageId);
                 }
                 else{
-                    this.messagingService.sendPush("tips", "No one is suitable to ask for tips", messageId);
+                    this.messagingService.sendPush("tips", "No one is suitable to ask for tips", "#ff1414", messageId);
                 }
             }
         }
