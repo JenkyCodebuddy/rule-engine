@@ -186,7 +186,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Generates tips if needed for the user. Tips are only generated when a user has at least 3 previous commits
-     * TODO add push message
      * Tips are generated with a 1 in 3 chance
      * If there is no user with the highest score for a metric, no tip is generated
      * @param user
