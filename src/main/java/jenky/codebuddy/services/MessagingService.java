@@ -47,7 +47,7 @@ public class MessagingService {
      * @param notificationBody
      * @param id
      */
-    public void sendPush(String messageBody, String notificationBody, String id){
+    public void sendPush(String messageBody, String notificationBody, String colour,  String id){
         Gson gson = new Gson();
         jenky.codebuddy.models.gcm.Data data =  new jenky.codebuddy.models.gcm.Data();
         Notification notification = new Notification();
