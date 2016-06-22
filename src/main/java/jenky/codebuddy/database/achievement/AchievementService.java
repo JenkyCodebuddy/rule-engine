@@ -27,7 +27,7 @@ public interface AchievementService extends GenericService<Achievement, Integer>
      */
     public List<Achievement> getAchievementsFromUser(int user_id);
 
-    public double getProgressFromAchievement(int achievement_id);
+    public double getProgressFromAchievement(int achievement_id, int user_id);
 
     public Achievement findById(int achievement_id);
 

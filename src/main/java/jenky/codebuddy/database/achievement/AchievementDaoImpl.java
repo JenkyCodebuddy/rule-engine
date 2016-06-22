@@ -56,20 +56,23 @@ public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> imp
         List<Achievement> achievements = query.list();
         for(int i = 0; i < achievements.size(); i++){
             Achievement achievement = achievements.get(i);
-            achievement.setProgress(DatabaseFactory.getAchievementService().getProgressFromAchievement(achievement.getId()));
+            achievement.setProgress(DatabaseFactory.getAchievementService().getProgressFromAchievement(achievement.getId(),user_id));
             achievements.set(i,achievement);
         }
         return achievements;
     }
 
     @Override
-    public double getProgressFromAchievement(int achievement_id){
+    public double getProgressFromAchievement(int achievement_id, int user_id){
         String hql = "SELECT (achievement_has_users.progress) FROM Achievement achievement " +
                 "INNER JOIN achievement.achievementusers as achievement_has_users " +
-                "WHERE achievement_has_users.id =:achievement_id";
+                "WHERE achievement_has_users.achievement =:achievement_id AND achievement_has_users.user =:user_id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setInteger("achievement_id",achievement_id);
-        return (double)query.uniqueResult();
+        query.setInteger("user_id",user_id);
+        double result = (double) query.uniqueResult();
+        System.out.println(result);
+        return (double) query.uniqueResult();
     }
 
     @Override

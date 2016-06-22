@@ -9,6 +9,8 @@ import jenky.codebuddy.services.DatabaseFactory;
  */
 public class AchievementUtil {
 
+
+
     public boolean attemptAchievement(User user, int achievement_id, int progress) {
         if (checkIfAchievementHasAlreadyBeenGranted(user, achievement_id)) {
             AchievementUser achievementUser = getAchievementUser(user, achievement_id);
