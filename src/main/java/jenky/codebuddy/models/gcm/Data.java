@@ -18,7 +18,7 @@ public class Data {
     @SerializedName("colour")
     private String colour;
 
-    @SerializedName("vibration")
+    @SerializedName("vibrate")
     private String vibration;
 
     public String getContent() {
