@@ -64,8 +64,8 @@ public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Inte
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public double getProgressFromAchievement(int achievement_id) {
-        return achievementDao.getProgressFromAchievement(achievement_id);
+    public double getProgressFromAchievement(int achievement_id, int user_id) {
+        return achievementDao.getProgressFromAchievement(achievement_id, user_id);
     }
 
     @Override
