@@ -46,5 +46,15 @@ public class MessagingController {
             return new Response(200,"No auth token supplied");
         }
     }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    private Response deleteMessagingTokenForUser(@RequestHeader Map<String,String> headers){
+        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+            return messagingService.deleteMessagingTokenForUser(headers.get("token"));
+        }
+        else{
+            return new Response(400,"Token not valid");
+        }
+    }
 }
 
