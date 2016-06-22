@@ -39,7 +39,7 @@ public class MessagingController {
             if (AuthenticationService.checkIfTokenIsValid(headers.get("token"))) {
                 return messagingService.saveMessagingTokenForUser(headers.get("token"), headers.get("messagingtoken"));
             } else {
-                return new Response();
+                return null;
             }
         }
         else{
