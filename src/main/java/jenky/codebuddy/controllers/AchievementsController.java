@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * This endpoints return the achievements that the user has.
+ * This endpoints return the achievements the user has.
  */
 @RestController
 @RequestMapping(value = "/achievements")
