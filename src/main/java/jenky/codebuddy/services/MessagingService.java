@@ -10,9 +10,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.springframework.orm.jpa.vendor.Database;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 
 /**
@@ -34,31 +32,23 @@ public class MessagingService {
         return new Response(200,"Notification has been enabled.");
     }
 
-    public Response deleteMessagingTokenForUser(String authenticationToken, String messagingToken){
-        User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(authenticationToken).getUser();
-        user.setMessageToken("");
-        DatabaseFactory.getUserService().saveOrUpdate(user);
-        return new Response(200,"Token deleted");
-    }
-
     /**
-     * Uses firebase to send a notifcation with a custom body
-     * @param messageBody
-     * @param notificationBody
+     * Uses Firebase to send messages
+     * @param messagePreview
+     * @param colour
      * @param id
      */
-    public void sendPush(String messageBody, String notificationBody, String id){
+    public void sendPush(String messagePreview, String content, String colour, String vibration, String id){
         Gson gson = new Gson();
         jenky.codebuddy.models.gcm.Data data =  new jenky.codebuddy.models.gcm.Data();
         Notification notification = new Notification();
         Message message = new Message();
 
-        data.setMessage(messageBody);
-        data.setTitle("Build info");
-
-        notification.setTitle("Code buddy");
-        notification.setBody(notificationBody);
-        notification.setIcon("myicon");
+        data.setMessage(messagePreview);
+        data.setContent(content);
+        data.setTitle("Code buddy");
+        data.setColour(colour);
+        data.setVibration(vibration);
 
         message.setData(data);
         message.setTo(id);

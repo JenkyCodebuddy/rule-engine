@@ -131,12 +131,13 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
                 "                       INNER JOIN score.commit as commit " +
                 "                       INNER JOIN commit.project as project " +
                 "                           WHERE project.name =:projectName " +
-                "                               AND metric.name =:metricName) " +
+                "                               AND metric.name =:metricName)" +
+                "                                   AND score.score != 0 " +
                 "                                   GROUP BY score.id";
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter("metricName",metricName);
         query.setParameter("projectName",projectName);
         Optional<List<User>> result = Optional.ofNullable(query.list());
-        return result.isPresent() && result.get().size() == 1 ? result.get().get(0) : null;
+        return result.isPresent() && result.get().size() > 0 ? result.get().get(0) : null;
     }
 }

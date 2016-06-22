@@ -23,6 +23,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     private User user;
     private MessagingService messagingService;
+    private final String successColour = "#1472ff";
+    private final String failColour = "#ff0000";
+    private final String vibration = "0";
 
     public ScoreUserServiceImpl() {
 
@@ -46,9 +49,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
-            this.messagingService.sendPush("results are saved", "Results are in, check your profile!", messageId);
+            this.messagingService.sendPush("Result", "Results are in, check your profile!", vibration, successColour, messageId);
         } else {
-            this.messagingService.sendPush("build failure", "uhoh you broke the build! No scores earned!", messageId);
+            this.messagingService.sendPush("Result", "uhoh you broke the build! No scores earned!", "1000", failColour, messageId);
         }
     }
 
@@ -184,7 +187,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * Generates tips if needed for the user. Tips are only generated when a user has at least 3 previous commits
-     *TODO add push message
+     * Tips are generated with a 1 in 3 chance
+     * If there is no user with the highest score for a metric, no tip is generated
+     *
      * @param user
      */
     @Override
@@ -194,32 +199,29 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         if (sonarValues != null && sonarValues.size() == 3) {
             Map<String, Double> averageScores = generateAverageScoresMap(sonarValues);
             List<String> metricsWhichNeedTips = checkWhichMetricsNeedTips(averageScores);
-            if ((rand.nextInt(3) +1) == 3) { //random factor for when a tip is shown (1 in 3 chance right now), commented out for testing
-                String metric = metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size())); //get random metric from metricWhichNeedTips list
+            if (rand.nextInt(3) + 1 == 3) {
+                String metric = metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size()));
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
-                if(userWithBestScoreForMetric != null){
+                if (userWithBestScoreForMetric != null) {
                     this.messagingService.sendPush(
-                            "tips",
-                            "If you want to improve the following metric: " + metric + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
+                            "Tip recieved!",
+                            "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
+                            successColour,
+                            "1000",
                             messageId);
                 }
-                else{
-                    this.messagingService.sendPush("tips", "No one is suitable to ask for tips", messageId);
-                }
             }
-        }
-        else{
-            System.out.println("There are not enough previous commits");
         }
     }
 
     /**
      * This method takes as input a list of maps. Each map contains the sonarvalues from a commit. It calculates the average sonarvalues from these commit maps.
+     *
      * @param sonarValues
      * @return
      */
     private Map<String, Double> generateAverageScoresMap(List<Map<String, Double>> sonarValues) {
-        Map<String, Double> avgMap = new HashMap<String, Double>();
+        Map<String, Double> avgMap = new HashMap<>();
         for (String key : sonarValues.get(0).keySet()) {
             avgMap.put(key,
                     Math.floor((sonarValues.get(0).get(key) +
@@ -231,52 +233,94 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     /**
      * This method generates the list of strings of the metrics which need to be improved
+     *
      * @param avgSonarValues
      * @return
      */
     private List<String> checkWhichMetricsNeedTips(Map<String, Double> avgSonarValues) {
         Map<String, Double> sufficientMap = generateSufficientMap();
-        return compareMaps(avgSonarValues, sufficientMap);
+        avgSonarValues.remove("complexity"); // remove all non relevant metrics
+        avgSonarValues.remove("sqale_index");
+        avgSonarValues.remove("comment_lines");
+        avgSonarValues.remove("duplicated_lines");
+        avgSonarValues.remove("ncloc");
+        List<String> metricsWhichNeedTips = compareMaps(avgSonarValues, sufficientMap);
+        return metricsWhichNeedTips;
     }
 
     /**
      * Method for generating a map which contains the values which we consider good enough
+     *
      * @return
      */
     private Map<String, Double> generateSufficientMap() {
-        Map<String, Double> sufficientMap = new HashMap<String, Double>();
-        sufficientMap.put("coverage", 100.0);
-        sufficientMap.put("complexity", 100.0);
-        sufficientMap.put("minor_violations", 10.0);
-        sufficientMap.put("duplicated_lines_density", 100.0);
-        sufficientMap.put("duplicated_lines", 100.0);
-        sufficientMap.put("violations", 10.0);
-        sufficientMap.put("comment_lines_density", 100.0);
-        sufficientMap.put("sqale_index", 100.0);
-        sufficientMap.put("critical_violations", 1.0);
-        sufficientMap.put("blocker_violations", 1.0);
-        sufficientMap.put("test_failures", 10.0);
-        sufficientMap.put("major_violations", 10.0);
-        sufficientMap.put("tests", 100.0);
-        sufficientMap.put("comment_lines", 100.0);
-        sufficientMap.put("ncloc", 100.0);
-        sufficientMap.put("test_errors", 100.0);
+        Map<String, Double> sufficientMap = new HashMap<>();
+        sufficientMap.put("coverage", 10.0); //lower
+        sufficientMap.put("tests", 5.0); //lower
+        sufficientMap.put("comment_lines_density", 5.0); //lower
+        sufficientMap.put("minor_violations", 30.0); //higher
+        sufficientMap.put("duplicated_lines_density", 5.0); //higher
+        sufficientMap.put("violations", 20.0); //higher
+        sufficientMap.put("critical_violations", 3.0); //higher
+        sufficientMap.put("blocker_violations", 1.0); //higher
+        sufficientMap.put("test_failures", 3.0); //higher
+        sufficientMap.put("major_violations", 5.0); //higher
+        sufficientMap.put("test_errors", 3.0); //higher
         return sufficientMap;
     }
 
     /**
      * This method compares the average sonar values with the sufficientMap
+     *
      * @param avgMap
      * @param sufficientMap
      * @return
      */
     private List<String> compareMaps(Map<String, Double> avgMap, Map<String, Double> sufficientMap) {
         List<String> metricsWhichNeedTips = new ArrayList<String>();
+        List<Map<String, Double>> mapList = splitAvgMap(avgMap);
         for (String key : sufficientMap.keySet()) {
-            if (sufficientMap.get(key) < avgMap.get(key)) {
-                metricsWhichNeedTips.add(key);
+            if (mapList.get(0).containsKey(key)) {
+                if (mapList.get(0).get(key) > sufficientMap.get(key)){ metricsWhichNeedTips.add(key);}
+            }
+            if (mapList.get(1).containsKey(key)) {
+                if (mapList.get(1).get(key) > sufficientMap.get(key)){ metricsWhichNeedTips.add(key);}
             }
         }
         return metricsWhichNeedTips;
     }
+
+
+    private Map<String, String> abbreviationMap() {
+        Map<String, String> abbreviationMap = new HashMap<>();
+        abbreviationMap.put("coverage", "code coverage");
+        abbreviationMap.put("minor_violations", "minor violations");
+        abbreviationMap.put("duplicated_lines_density", "density of duplicated lines");
+        abbreviationMap.put("violations", "code violations");
+        abbreviationMap.put("comment_lines_density", "comment density");
+        abbreviationMap.put("critical_violations", "critical violations");
+        abbreviationMap.put("blocker_violations", "blocker violations");
+        abbreviationMap.put("test_failures", "test failures");
+        abbreviationMap.put("major_violations", "major violations");
+        abbreviationMap.put("tests", "number of tests");
+        abbreviationMap.put("test_errors", "test errors");
+        return abbreviationMap;
+    }
+
+    private List<Map<String, Double>> splitAvgMap(Map<String, Double> originalAvgMap) {
+        List<Map<String, Double>> mapList = new ArrayList<Map<String, Double>>();
+        Map<String, Double> avgMapLower = new HashMap<>();
+        Map<String, Double> avgMapHigher = new HashMap<>();
+        avgMapLower.put("coverage", originalAvgMap.get("coverage"));
+        avgMapLower.put("tests", originalAvgMap.get("tests"));
+        avgMapLower.put("comment_lines_density", originalAvgMap.get("comment_lines_density"));
+        for (String key : avgMapLower.keySet()) {
+            originalAvgMap.remove(key);
+        }
+        avgMapHigher = originalAvgMap;
+        mapList.add(avgMapHigher);
+        mapList.add(avgMapLower);
+        return mapList;
+    }
 }
+

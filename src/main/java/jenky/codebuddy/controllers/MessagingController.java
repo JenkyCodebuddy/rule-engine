@@ -39,21 +39,11 @@ public class MessagingController {
             if (AuthenticationService.checkIfTokenIsValid(headers.get("token"))) {
                 return messagingService.saveMessagingTokenForUser(headers.get("token"), headers.get("messagingtoken"));
             } else {
-                return null;
+                return new Response();
             }
         }
         else{
             return new Response(200,"No auth token supplied");
-        }
-    }
-
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    private Response deleteMessagingTokenForUser(@RequestHeader Map<String,String> headers){
-        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
-            return messagingService.deleteMessagingTokenForUser(headers.get("token"), headers.get("messagingtoken"));
-        }
-        else{
-            return new Response(400,"Token not valid");
         }
     }
 }
