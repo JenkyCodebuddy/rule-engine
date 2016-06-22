@@ -21,6 +21,8 @@ public interface ScoreService extends GenericService<Score, Integer> {
      */
     public void save(Score score);
 
+    public void saveOrUpdate(Score score);
+
     /**
      * @param score
      */

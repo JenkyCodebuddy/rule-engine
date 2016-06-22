@@ -44,6 +44,11 @@ public class ScoreDaoImpl extends GenericDaoImpl<Score, Integer> implements Scor
         super.add(score);
     }
 
+    @Override
+    public void saveOrUpdate(Score score) {
+        super.saveOrUpdate(score);
+    }
+
     /**
      * Deletes the score.
      * @param score

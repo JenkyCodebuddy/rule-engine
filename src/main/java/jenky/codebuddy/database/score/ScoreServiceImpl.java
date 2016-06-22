@@ -44,6 +44,12 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
         scoreDao.save(score);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveOrUpdate(Score score) {
+        scoreDao.saveOrUpdate(score);
+    }
+
     /**
      * Asks the scoreDao to delete the given score.
      * Transaction management done by Spring.
@@ -129,4 +135,6 @@ public class ScoreServiceImpl extends GenericServiceImpl<Score, Integer> impleme
     public double getScoreFromCommit(int commit_id) {
         return scoreDao.getScoreFromCommit(commit_id);
     }
+
+
 }
