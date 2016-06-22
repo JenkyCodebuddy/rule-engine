@@ -77,8 +77,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             scores.add(score);
             scoreService.save(score);
         }
-        //TODO add to current coins
-        user.setJenkycoins(metricsDataInputModel.getCoinsEarned());
+        user.setJenkycoins(metricsDataInputModel.getCoinsEarned() * 90);
         user.setScores(scores);
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
