@@ -19,6 +19,6 @@ public abstract class BaseScoreAchievement implements ScoreAchievement {
 
     protected int getProgress(User user, int x) {
         double amount = DatabaseFactory.getScoreService().getTotalScoreFromUser(user.getUser_id());
-        return (int) Math.floor(amount / x);
+        return (int) Math.floor((amount / x) * 100d);
     }
 }
