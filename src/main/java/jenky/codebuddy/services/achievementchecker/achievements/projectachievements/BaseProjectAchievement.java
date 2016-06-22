@@ -19,6 +19,7 @@ public abstract class BaseProjectAchievement implements ProjectAchievement {
 
     protected int getProgress(User user, int x) {
         double amount = DatabaseFactory.getProjectService().getProjectCountFromUser(user.getUser_id());
-        return (int) Math.floor((amount / x) * 100d);
+        int val = (int) Math.floor((amount / x) * 100d);
+        return val >= 100 ? 100 : val;
     }
 }
