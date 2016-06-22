@@ -10,9 +10,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.springframework.orm.jpa.vendor.Database;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 
 /**
@@ -36,17 +34,18 @@ public class MessagingService {
 
     /**
      * Uses Firebase to send messages
-     * @param messageBody
+     * @param messagePreview
      * @param colour
      * @param id
      */
-    public void sendPush(String messageBody, String colour, String vibration, String id){
+    public void sendPush(String messagePreview, String content, String colour, String vibration, String id){
         Gson gson = new Gson();
         jenky.codebuddy.models.gcm.Data data =  new jenky.codebuddy.models.gcm.Data();
         Notification notification = new Notification();
         Message message = new Message();
 
-        data.setMessage(messageBody);
+        data.setMessage(messagePreview);
+        data.setContent(content);
         data.setTitle("Code buddy");
         data.setColour(colour);
         data.setVibration(vibration);

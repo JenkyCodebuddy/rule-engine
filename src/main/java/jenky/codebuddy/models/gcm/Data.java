@@ -12,12 +12,22 @@ public class Data {
     @SerializedName("message")
     private String message;
 
+    @SerializedName("content")
+    private String content;
+
     @SerializedName("colour")
     private String colour;
 
     @SerializedName("vibration")
     private String vibration;
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public String getVibration() {
         return vibration;
