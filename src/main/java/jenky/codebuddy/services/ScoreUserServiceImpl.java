@@ -203,7 +203,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             //if (rand.nextInt(3) + 1 == 3) {
                 String metric = metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size()));
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
-                if (userWithBestScoreForMetric != null && userWithBestScoreForMetric.getUser_id() == user.getUser_id()) {
+                if (userWithBestScoreForMetric != null && userWithBestScoreForMetric.getUser_id() != user.getUser_id()) {
                     this.messagingService.sendPush(
                             "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
                             "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
