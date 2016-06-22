@@ -1,0 +1,102 @@
+public Score setScore(Commit userCommit, Metric metric, int score, int sonarValue, User user){
+        Score scoreSave = new Score();
+
+        scoreSave.setCommit(userCommit);
+        scoreSave.setMetric(metric);
+        scoreSave.setScore(score);
+        scoreSave.setSonar_value(sonarValue);
+        scoreSave.setUser(user);
+
+        return scoreSave;
+    }
+
+    public Achievement setAchievement(String description, String name, Set<User> users){
+        Achievement achievementSave = new Achievement();
+
+        achievementSave.setCreated_at(date);
+        achievementSave.setDeleted_at(null);
+        achievementSave.setUpdated_at(null);
+        achievementSave.setDescription(description);
+        achievementSave.setName(name);
+        achievementSave.setUsers(users);
+
+        return achievementSave;
+    }
+
+    public Commit setCommit(String branch, Project project, Set<Score>scores){
+        Commit commitSave = new Commit();
+
+        commitSave.setCreated_at(date);
+        commitSave.setUpdated_at(null);
+        commitSave.setDeleted_at(null);
+        commitSave.setProject(project);
+        commitSave.setBranch(branch);
+        commitSave.setScores(scores);
+
+        return commitSave;
+    }
+
+    public Company setCompany(Set<Project>projects){
+        Company companySave = new Company();
+        companySave.setCreated_at(date);
+        companySave.setUpdated_at(null);
+        companySave.setDeleted_at(null);
+        companySave.setProject(projects);
+
+        return companySave;
+    }
+
+    public Item setItem(Set<User> users, String name, String type){
+        Item itemSave = new Item();
+        itemSave.setCreated_at(date);
+        itemSave.setUpdated_at(null);
+        itemSave.setUpdated_at(null);
+        itemSave.setName(name);
+        itemSave.setUsers(users);
+        itemSave.setType(type);
+
+        return itemSave;
+    }
+
+    public Metric setMetric(String name){
+        Metric metricSave = new Metric();
+        metricSave.setCreated_at(date);
+        metricSave.setUpdated_at(null);
+        metricSave.setDeleted_at(null);
+        metricSave.setName(name);
+
+        return metricSave;
+    }
+
+    public Project setProject(String name){
+        Project projectSave = new Project();
+        projectSave.setCreated_at(date);
+        projectSave.setUpdated_at(null);
+        projectSave.setDeleted_at(null);
+        projectSave.setName(name);
+
+        return projectSave;
+    }
+
+    public User setUser(String email, String password, Set<Score>scores, int jenkyCoins, Verification verification){
+        User userSave = new User();
+        userSave.setCreated_at(date);
+        userSave.setUpdated_at(null);
+        userSave.setDeleted_at(null);
+        userSave.setEmail(email);
+        userSave.setPassword(password);
+        userSave.setScores(scores);
+        userSave.setJenkycoins(jenkyCoins);
+        userSave.setVerfication(verification);
+
+        return userSave;
+    }
+
+    public Verification setVerification(String code, int verificationId){
+        Verification verificationSave = new Verification();
+        verificationSave.setCreated_at(date);
+        verificationSave.setCode(code);
+        verificationSave.setVerificiation_id(verificationId);
+
+        return verificationSave;
+    }
