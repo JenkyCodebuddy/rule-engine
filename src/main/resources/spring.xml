@@ -21,9 +21,9 @@
     <!--<property name="password" value="e1d3efd7"/>-->
 
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="jdbc:mysql://codebuddylocal/ICTLABDB?zeroDateTimeBehavior=convertToNull"/>
-        <property name="user" value="root"/>
-        <property name="password" value="root"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/CodebuddyLocal?zeroDateTimeBehavior=convertToNull"/>
+        <property name="user" value="codebuddy"/>
+        <property name="password" value="codebuddy"/>
         <property name="minPoolSize" value="0"/>
         <property name="maxPoolSize" value="120"/>
         <property name="maxIdleTime" value="1"/>
