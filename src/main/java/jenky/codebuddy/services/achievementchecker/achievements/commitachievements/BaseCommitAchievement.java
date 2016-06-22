@@ -19,7 +19,8 @@ public abstract class BaseCommitAchievement implements CommitAchievement {
 
     protected int getProgress(User user, int x) {
         double amount = DatabaseFactory.getCommitService().getUserCommitCount(user.getUser_id());
-        return (int) Math.floor((amount / x) * 100d);
+        int val = (int) Math.floor((amount / x) * 100d);
+        return val >= 100 ? 100 : val;
     }
 
 }
