@@ -26,6 +26,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     private final String successColour = "#1472ff";
     private final String failColour = "#ff0000";
     private final String vibration = "0";
+    private String messageId;
 
     public ScoreUserServiceImpl() {
 
@@ -50,6 +51,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
             this.messagingService.sendPush("Results are in, check your profile!", "Results are in, check your profile!", successColour, vibration, messageId);
+            generateTips(this.user, messageId, filterRegex(userCommit.getProjectName()));
         } else {
             this.messagingService.sendPush("uhoh you broke the build! No scores earned!", "uhoh you broke the build! No scores earned!", failColour, "1000", messageId);
         }
@@ -199,10 +201,10 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         if (sonarValues != null && sonarValues.size() == 3) {
             Map<String, Double> averageScores = generateAverageScoresMap(sonarValues);
             List<String> metricsWhichNeedTips = checkWhichMetricsNeedTips(averageScores);
-            if (rand.nextInt(3) + 1 == 3) {
+            //if (rand.nextInt(3) + 1 == 3) {
                 String metric = metricsWhichNeedTips.get(rand.nextInt(metricsWhichNeedTips.size()));
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
-                if (userWithBestScoreForMetric != null) {
+                if (userWithBestScoreForMetric != null && userWithBestScoreForMetric.getUser_id() == user.getUser_id()) {
                     this.messagingService.sendPush(
                             "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
                             "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
@@ -211,7 +213,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                             messageId);
                 }
             }
-        }
+        //}
     }
 
     /**
