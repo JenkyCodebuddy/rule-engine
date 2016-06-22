@@ -49,9 +49,9 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
-            this.messagingService.sendPush("Result", "Results are in, check your profile!", vibration, successColour, messageId);
+            this.messagingService.sendPush("Result", "Results are in, check your profile!", successColour, vibration, messageId);
         } else {
-            this.messagingService.sendPush("Result", "uhoh you broke the build! No scores earned!", "1000", failColour, messageId);
+            this.messagingService.sendPush("Result", "uhoh you broke the build! No scores earned!", failColour, "1000", messageId);
         }
     }
 
@@ -207,7 +207,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                             "Tip recieved!",
                             "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
                             successColour,
-                            "1000",
+                            "50",
                             messageId);
                 }
             }
