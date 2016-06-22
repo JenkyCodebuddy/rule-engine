@@ -3,7 +3,6 @@ package jenky.codebuddy.database.user;
 import jenky.codebuddy.database.generic.GenericService;
 import jenky.codebuddy.models.entities.User;
 
-import java.util.Date;
 import java.util.List;
 
 /**

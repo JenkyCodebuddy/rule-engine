@@ -6,9 +6,7 @@ import jenky.codebuddy.models.entities.ItemUser;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.entities.Verification;
 import jenky.codebuddy.models.rest.Response;
-import org.springframework.orm.jpa.vendor.Database;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;

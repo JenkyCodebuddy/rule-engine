@@ -1,13 +1,12 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.models.entities.Item;
-import jenky.codebuddy.models.entities.ItemUser;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Equipment;
 import jenky.codebuddy.models.rest.Response;
 
-import javax.xml.crypto.Data;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by joost on 9-6-2016.

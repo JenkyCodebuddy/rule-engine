@@ -1,11 +1,8 @@
 package jenky.codebuddy.services;
 
 import jenky.codebuddy.models.entities.Achievement;
-import jenky.codebuddy.models.entities.AchievementUser;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Achievements;
-import jenky.codebuddy.models.rest.Response;
-import org.hibernate.boot.model.relational.Database;
 
 import java.util.List;
 

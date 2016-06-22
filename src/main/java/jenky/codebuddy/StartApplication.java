@@ -1,7 +1,5 @@
 package jenky.codebuddy;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.Unirest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

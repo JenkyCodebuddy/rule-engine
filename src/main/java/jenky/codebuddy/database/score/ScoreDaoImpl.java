@@ -1,7 +1,6 @@
 package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
-import jenky.codebuddy.models.entities.Item;
 import jenky.codebuddy.models.entities.Score;
 import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Profile;
@@ -10,7 +9,6 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

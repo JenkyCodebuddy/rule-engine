@@ -3,8 +3,6 @@ package jenky.codebuddy.database.authentication;
 import jenky.codebuddy.database.generic.GenericService;
 import jenky.codebuddy.models.entities.Authentication;
 
-import java.util.Date;
-
 /**
  * Specfic methods for the service Achievement. Inherits GenericService interface
  */

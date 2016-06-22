@@ -2,7 +2,6 @@ package jenky.codebuddy.database.score;
 
 import jenky.codebuddy.database.generic.GenericService;
 import jenky.codebuddy.models.entities.Score;
-import jenky.codebuddy.models.entities.User;
 import jenky.codebuddy.models.rest.Profile;
 
 import java.util.List;

@@ -2,11 +2,9 @@ package jenky.codebuddy.database.authentication;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
 import jenky.codebuddy.models.entities.Authentication;
-import org.apache.http.auth.AUTH;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.Optional;
 
 /**

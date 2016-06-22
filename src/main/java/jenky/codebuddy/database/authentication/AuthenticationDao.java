@@ -3,8 +3,6 @@ package jenky.codebuddy.database.authentication;
 import jenky.codebuddy.database.generic.GenericDao;
 import jenky.codebuddy.models.entities.Authentication;
 
-import java.util.Date;
-
 /**
  * Specific methods for authentication. This interface inherits GenericDao interface
  */

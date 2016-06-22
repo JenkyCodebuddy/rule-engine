@@ -1,7 +1,5 @@
 package jenky.codebuddy.models.rest;
 
-import jenky.codebuddy.models.entities.User;
-
 import java.util.List;
 
 public class SingleProject {
