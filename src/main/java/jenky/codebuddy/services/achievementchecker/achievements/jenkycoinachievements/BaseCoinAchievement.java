@@ -19,6 +19,6 @@ public abstract class BaseCoinAchievement implements CoinAchievement {
 
     protected int getProgress(User user, int x) {
         double amount = DatabaseFactory.getUserService().getJenkyCoinsFromUser(user.getUser_id());
-        return (int) Math.floor(amount / x);
+        return (int) Math.floor((amount / x) * 100d);
     }
 }
