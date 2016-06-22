@@ -54,7 +54,7 @@ public class ScoreTest{
     @Transactional
     @Rollback
     public void saveScore() throws Exception {
-        DatabaseFactory.getScoreService().save(testScore);
+        //DatabaseFactory.getScoreService().save(testScore);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ScoreTest{
 
     @Test
     public void sendPush(){
-        messagingService.sendPush("test" , "Results are in, check your profile!", "1000", "cM6L9vKZx4Y:APA91bG9DxVbwXUjOx9Ag50tl0TRhxvcpLepq-f4PKF34h20NY9LCyMU5WBm4Q8Dgln30uwX5hNuxgXC_XT3QGEIPGswwzC1qsUWozh0C-pecnbANtTqGPX3sK_m_8SwFPR_PE5NZukJ");
+        messagingService.sendPush("test" , "test", "Results are in, check your profile!", "1000", "cM6L9vKZx4Y:APA91bG9DxVbwXUjOx9Ag50tl0TRhxvcpLepq-f4PKF34h20NY9LCyMU5WBm4Q8Dgln30uwX5hNuxgXC_XT3QGEIPGswwzC1qsUWozh0C-pecnbANtTqGPX3sK_m_8SwFPR_PE5NZukJ");
     }
 
     @Test
