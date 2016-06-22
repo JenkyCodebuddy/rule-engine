@@ -270,7 +270,10 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * This method compares the average sonar values with the sufficientMap
+     * This method compares two maps with sonar values with the sufficientMap
+     * mapList.get(0) contains values which should be lower than the sufficientMap
+     * mapList.get(1) contains values which should be higher than the sufficientMap
+     * Finally a list of strings is returned. This list contains the names of all metrics which should be improved
      *
      * @param avgMap
      * @param sufficientMap
@@ -281,7 +284,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         List<Map<String, Double>> mapList = splitAvgMap(avgMap);
         for (String key : sufficientMap.keySet()) {
             if (mapList.get(0).containsKey(key)) {
-                if (mapList.get(0).get(key) > sufficientMap.get(key)){ metricsWhichNeedTips.add(key);}
+                if (mapList.get(0).get(key) < sufficientMap.get(key)){ metricsWhichNeedTips.add(key);}
             }
             if (mapList.get(1).containsKey(key)) {
                 if (mapList.get(1).get(key) > sufficientMap.get(key)){ metricsWhichNeedTips.add(key);}
@@ -290,6 +293,10 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         return metricsWhichNeedTips;
     }
 
+    /**
+     * This method generates a map which is used for converting the abbreviations to their metric names
+     * @return
+     */
 
     private Map<String, String> abbreviationMap() {
         Map<String, String> abbreviationMap = new HashMap<>();
@@ -306,6 +313,14 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         abbreviationMap.put("test_errors", "test errors");
         return abbreviationMap;
     }
+
+    /**
+     * This method splits the map containing the average sonar values in 2
+     * One map contains sonar values which should be lower than the sufficientMap
+     * The other map contains sonar values which should be higher than the sufficientMap
+     * @param originalAvgMap
+     * @return
+     */
 
     private List<Map<String, Double>> splitAvgMap(Map<String, Double> originalAvgMap) {
         List<Map<String, Double>> mapList = new ArrayList<Map<String, Double>>();
