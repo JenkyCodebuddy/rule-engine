@@ -23,7 +23,8 @@ public class AuthenticationService { //static class for checking token if token 
      * @return boolean
      */
     public static boolean checkIfTokenIsValid(String token){  //method to check if the supplied token matches the token given to an user. Method is static, so no instantiation is needed everytime the method is called
-        Boolean valid = false;
+       System.out.println("***************************Checking if toking is valid"****************************);
+	Boolean valid = false;
         AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) new ClassPathXmlApplicationContext("spring.xml").getBean("authenticationServiceImpl");
         if(authenticationService.checkIfTokenExists(token)){    //check if the token exists in the database
             Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);  //get authentication record from the database which contains the supplied token
@@ -42,6 +43,7 @@ public class AuthenticationService { //static class for checking token if token 
      * @return Key
      */
     public static Key stringToKey(String keyString) { //converts a keyString to a key so it can be used for validation
+	System.out.println("***************************Coverting string to key"****************************);
         Key key = null;
         byte[] data = Base64.getDecoder().decode(keyString);
         ObjectInputStream ois = null;
@@ -63,6 +65,7 @@ public class AuthenticationService { //static class for checking token if token 
      * @return String
      */
     public static String keyToString(Key key){ //converts a Key object to a keyString, so it can be saved in the database
+	System.out.println("***************************Converting key to string"****************************);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = null;
         try {
