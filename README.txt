@@ -1,2 +1,1 @@
-This rule-engine is developed by Joost and Fabian!
- 
+This rule-engine is developed by Joost and Fabian! 

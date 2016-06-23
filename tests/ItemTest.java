@@ -15,6 +15,7 @@ public class ItemTest {
     @Test
     @Transactional
     public void getEquippedItemsFromUser() throws Exception{
+//test
         assertNotNull(DatabaseFactory.getItemService().getEquippedItemsFromUser(TestInfo.TESTID));
     }
 

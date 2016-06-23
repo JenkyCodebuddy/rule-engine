@@ -50,7 +50,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             SonarResponse sonarResponse = sonarResponseList.get(0);
             ScoreModelBuilder scoreModelBuilder = new ScoreModelBuilder(sonarResponse, userCommit);
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
-            this.messagingService.sendPush("Results are in, check your profile!", "Results are in, check your profile!", successColour, vibration, messageId);
             generateTips(this.user, messageId, filterRegex(userCommit.getProjectName()));
         } else {
             this.messagingService.sendPush("uhoh you broke the build! No scores earned!", "uhoh you broke the build! No scores earned!", failColour, "1000", messageId);
@@ -205,8 +204,8 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
                 if (userWithBestScoreForMetric != null && userWithBestScoreForMetric.getUser_id() != user.getUser_id()) {
                     this.messagingService.sendPush(
-                            "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
-                            "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
+                            "Successful build!",
+                            "Successful build, check your profile for results! \n\nIf want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
                             successColour,
                             "50",
                             messageId);
