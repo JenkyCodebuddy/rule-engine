@@ -333,7 +333,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             originalAvgMap.remove(key);
         }
         avgMapHigher = originalAvgMap;
-        mapList.add(avgMapHigher)
+        mapList.add(avgMapHigher);
         mapList.add(avgMapLower);
         return mapList;
     }
