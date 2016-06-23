@@ -52,7 +52,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
             saveUserScore(scoreModelBuilder.getScoreModel(), sonarResponse, userCommit);
             generateTips(this.user, messageId, filterRegex(userCommit.getProjectName()));
         } else {
-            this.messagingService.sendPush("uhoh you broke the build! No scores earned!", "uhoh you broke the build! No scores earned!", failColour, "1000", messageId);
+            this.messagingService.sendPush("Build failed!","You broke the build! No scores earned!", failColour, "1000", messageId);
         }
     }
 
