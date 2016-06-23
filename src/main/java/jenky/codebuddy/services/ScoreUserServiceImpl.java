@@ -204,8 +204,8 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                 User userWithBestScoreForMetric = DatabaseFactory.getUserService().getUserWithHighestMetricScoreForProject(metric, projectName);
                 if (userWithBestScoreForMetric != null && userWithBestScoreForMetric.getUser_id() != user.getUser_id()) {
                     this.messagingService.sendPush(
-                            "Successful build! Check your profile for results",
-                            "If you want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
+                            "Successful build!",
+                            "Successful build, check your profile for results! If want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
                             successColour,
                             "50",
                             messageId);
