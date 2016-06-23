@@ -205,7 +205,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
                 if (userWithBestScoreForMetric != null && userWithBestScoreForMetric.getUser_id() != user.getUser_id()) {
                     this.messagingService.sendPush(
                             "Successful build!",
-                            "Successful build, check your profile for results! \n\n If want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
+                            "Successful build, check your profile for results! \n\nIf want to improve the following metric: " + abbreviationMap().get(metric) + ", ask " + userWithBestScoreForMetric.getEmail() + "! He/she has the best score",
                             successColour,
                             "50",
                             messageId);
