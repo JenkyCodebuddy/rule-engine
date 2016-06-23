@@ -32,6 +32,13 @@ public class MessagingService {
         return new Response(200,"Notification has been enabled.");
     }
 
+    public Response deleteMessagingTokenForUser(String authenticationToken){
+        User user = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(authenticationToken).getUser();
+        user.setMessageToken("");
+        DatabaseFactory.getUserService().saveOrUpdate(user);
+        return new Response(200,"Notification disabled");
+    }
+
     /**
      * Uses Firebase to send messages
      * @param messagePreview
