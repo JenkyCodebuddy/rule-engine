@@ -15,7 +15,6 @@ public class SendMail {
      * @param verificationCode
      */
     public void sendVerifcationMail(String recipientEmail, String verificationCode){
-
         final String username = "jenkycodebuddy@gmail.com";
         final String password = "buddycodejenky";
 

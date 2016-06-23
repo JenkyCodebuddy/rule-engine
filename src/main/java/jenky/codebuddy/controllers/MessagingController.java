@@ -33,27 +33,25 @@ public class MessagingController {
      * @return achievements or "Token is invalid"
      */
     @RequestMapping(value = "/notifications", method = RequestMethod.POST)
-    private Response saveMessagingTokenForUser(@RequestHeader Map<String,String> headers){
+    private Response saveMessagingTokenForUser(@RequestHeader Map<String, String> headers) {
         Optional result = Optional.ofNullable(headers.get("token"));
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             if (AuthenticationService.checkIfTokenIsValid(headers.get("token"))) {
                 return messagingService.saveMessagingTokenForUser(headers.get("token"), headers.get("messagingtoken"));
             } else {
                 return null;
             }
-        }
-        else{
-            return new Response(200,"No auth token supplied");
+        } else {
+            return new Response(200, "No auth token supplied");
         }
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    private Response deleteMessagingTokenForUser(@RequestHeader Map<String,String> headers){
-        if(AuthenticationService.checkIfTokenIsValid(headers.get("token"))){
+    private Response deleteMessagingTokenForUser(@RequestHeader Map<String, String> headers) {
+        if (AuthenticationService.checkIfTokenIsValid(headers.get("token"))) {
             return messagingService.deleteMessagingTokenForUser(headers.get("token"));
-        }
-        else{
-            return new Response(200,"Failed to disable notifications");
+        } else {
+            return new Response(200, "Failed to disable notifications");
         }
     }
 }
