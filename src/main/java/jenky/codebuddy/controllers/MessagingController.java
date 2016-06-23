@@ -53,7 +53,7 @@ public class MessagingController {
             return messagingService.deleteMessagingTokenForUser(headers.get("token"));
         }
         else{
-            return new Response(400,"Token not valid");
+            return new Response(200,"Failed to disable notifications");
         }
     }
 }
