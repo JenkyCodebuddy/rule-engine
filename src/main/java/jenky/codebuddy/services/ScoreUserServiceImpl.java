@@ -25,8 +25,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     private MessagingService messagingService;
     private final String successColour = "#1472ff";
     private final String failColour = "#ff0000";
-    private final String vibration = "0";
-    private String messageId;
 
     public ScoreUserServiceImpl() {
 
@@ -43,7 +41,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
         UserCommit userCommit = createUserCommitModel(headers);
         String messageId = DatabaseFactory.getUserService().getUserIfExists(userCommit.getEmail()).getMessageToken();
         if (headers.get("buildresult").equals("\"SUCCESS\"")) {
-            Gson gson = new Gson();//
+            Gson gson = new Gson();
             Type sonar = new TypeToken<List<SonarResponse>>() {
             }.getType();
             List<SonarResponse> sonarResponseList = gson.fromJson(headers.get("sonarquberesponse").replaceAll("\\s", ""), sonar);
@@ -57,7 +55,7 @@ public class ScoreUserServiceImpl implements ScoreUserService {
     }
 
     /**
-     * @param metricsDataInputModel contains the calculated score
+     * @param metricsDataInputModel contains the calculated score.
      * @param sonarResponse         contains the calculated score from sonarqube
      * @param userCommit            contains information about the user who commited this
      */
