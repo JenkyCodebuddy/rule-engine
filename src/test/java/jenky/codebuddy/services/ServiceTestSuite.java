@@ -31,16 +31,16 @@ import java.util.Date;
 
 public class ServiceTestSuite {
 
-    static User user;
-    static Authentication authentication;
-    static ServiceTestSuite serviceTestSuite;
-    static Achievement achievement;
-    static AchievementUser achievementUser;
-    static Item item;
-    public static ItemUser itemUser;
-    static Project project;
-    static Commit commit;
-    static Score score;
+    private static User user;
+    private static Authentication authentication;
+    private static ServiceTestSuite serviceTestSuite;
+    private static Achievement achievement;
+    private static AchievementUser achievementUser;
+    private static Item item;
+    private static ItemUser itemUser;
+    private static Project project;
+    private static Commit commit;
+    private static Score score;
 
     @BeforeClass
     public static void setUp() {
@@ -81,12 +81,11 @@ public class ServiceTestSuite {
 
     private void createTestAuthentication(){
         Token token = createTestToken();
-
         authentication = new Authentication();
         authentication.setUser(user);
         authentication.setToken(token.getToken());
         authentication.setAuth_key(AuthenticationService.keyToString(token.getKey()));
-        authentication.setCreated_at(new Date());
+        authentication.setCreated_at(TestInfo.TESTDATE);
         DatabaseFactory.getAuthenticationService().saveAuthentication(authentication);
     }
 
@@ -94,14 +93,14 @@ public class ServiceTestSuite {
         achievement = new Achievement();
         achievement.setDescription(TestInfo.TESTACHIEVEMENTDESCRIPTION);
         achievement.setName(TestInfo.TESTACHIEVEMENTNAME);
-        achievement.setProgress(0);
-        achievement.setCreated_at(new Date());
+        achievement.setProgress(TestInfo.TESTACHIEVEMENTPROGRESS);
+        achievement.setCreated_at(TestInfo.TESTDATE);
         DatabaseFactory.getAchievementService().saveAchievement(achievement);
     }
 
     private void createTestProject(){
         project = new Project();
-        project.setName("test");
+        project.setName(TestInfo.TESTPROJECTNAME);
         DatabaseFactory.getProjectService().addProject(project);
     }
 
@@ -115,7 +114,7 @@ public class ServiceTestSuite {
         score = new Score();
         score.setCommit(commit);
         score.setUser(user);
-        score.setScore(420);
+        score.setScore(TestInfo.TESTSCORE);
         DatabaseFactory.getScoreService().save(score);
     }
 
@@ -138,11 +137,11 @@ public class ServiceTestSuite {
 
     private void createTestItem(){
         item = new Item();
-        item.setName("Test item");
-        item.setType("Test");
-        item.setImage("Test");
-        item.setPrice(100);
-        item.setCreated_at(new Date());
+        item.setName(TestInfo.TESTITEMNAME);
+        item.setType(TestInfo.TESTITEMTYPE);
+        item.setImage(TestInfo.TESTITEMIMAGE);
+        item.setPrice(TestInfo.TESTITEMPRICE);
+        item.setCreated_at(TestInfo.TESTDATE);
         DatabaseFactory.getItemService().saveItem(item);
     }
 
