@@ -36,6 +36,8 @@ public interface UserService extends GenericService<User, Integer> {
      */
     public void saveOrUpdate(User user);
 
+    public void deleteUser(User user);
+
     /**
      * @param user_id
      * @param item_id

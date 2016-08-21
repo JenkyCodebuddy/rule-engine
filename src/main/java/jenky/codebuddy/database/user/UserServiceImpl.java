@@ -111,6 +111,12 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteUser(User user) {
+        userDao.deleteUser(user);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public double countUsersFromProject(int project_id) {
         return userDao.countUsersFromProject(project_id);
     }

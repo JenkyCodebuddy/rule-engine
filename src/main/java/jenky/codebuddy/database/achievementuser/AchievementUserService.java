@@ -11,6 +11,8 @@ public interface AchievementUserService extends GenericService<AchievementUser, 
 
     public void saveOrUpdate(AchievementUser achievementUser);
 
+    public void deleteAchievementUser(AchievementUser achievementUser);
+
     public boolean checkIfAchievementHasBeenGranted(User user, int achievement_id);
 
     public boolean checkIfAchievementHasBeenCompleted(User user, int achievement_id);

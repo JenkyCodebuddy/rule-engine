@@ -72,4 +72,9 @@ public class AuthenticationDaoImpl extends GenericDaoImpl<Authentication, Intege
         Optional<Authentication> result = Optional.ofNullable((Authentication) query.uniqueResult());
         return result.isPresent() ? result.get() : null;
     }
+
+    @Override
+    public void deleteAuthentication(Authentication authentication){
+        super.delete(authentication);
+    }
 }

@@ -12,16 +12,16 @@ public class Score {
     @Column(name = "score_id")
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "commit_id")
     private Commit commit;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "metric_id")
     private Metric metric;

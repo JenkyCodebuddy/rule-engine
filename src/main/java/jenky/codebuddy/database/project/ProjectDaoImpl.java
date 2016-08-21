@@ -112,4 +112,9 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
         Project result = (Project) query.uniqueResult();
         return result;
     }
+
+    @Override
+    public void deleteProject(Project project) {
+        super.delete(project);
+    }
 }

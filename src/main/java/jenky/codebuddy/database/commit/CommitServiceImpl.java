@@ -77,4 +77,10 @@ public class CommitServiceImpl extends GenericServiceImpl<Commit, Integer> imple
     public double getUserCommitCount(int user_id) {
         return commitDao.getUserCommitCount(user_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public void deleteCommit(Commit commit) {
+        commitDao.deleteCommit(commit);
+    }
 }

@@ -95,4 +95,14 @@ public class ItemDaoImpl extends GenericDaoImpl<Item, Integer> implements ItemDa
         List<Item> defaultItems = (List<Item>)query.list();
         return defaultItems;
     }
+
+    @Override
+    public void saveItem(Item item){
+        super.add(item);
+    }
+
+    @Override
+    public void deleteItem(Item item) {
+        super.delete(item);
+    }
 }

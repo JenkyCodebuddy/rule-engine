@@ -42,4 +42,6 @@ public interface AuthenticationDao extends GenericDao<Authentication, Integer> {
 
     public Authentication getAuthenticationIfUserExists(int user_id);
 
+    public void deleteAuthentication(Authentication authentication);
+
 }

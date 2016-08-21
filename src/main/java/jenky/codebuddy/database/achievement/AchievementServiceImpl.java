@@ -78,4 +78,16 @@ public class AchievementServiceImpl extends GenericServiceImpl<Achievement, Inte
     public boolean checkIfAchievementExists(int achievement_id) {
         return achievementDao.checkIfAchievementExists(achievement_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveAchievement(Achievement achievement) {
+        achievementDao.saveAchievement(achievement);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteAchievement(Achievement achievement){
+        achievementDao.deleteAchievement(achievement);
+    }
 }

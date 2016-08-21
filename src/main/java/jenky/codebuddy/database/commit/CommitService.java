@@ -29,4 +29,6 @@ public interface CommitService extends GenericService<Commit, Integer> {
     public List<Map<String, Double>> getSonarValuesFromLastCommits(int user_id);
 
     public double getUserCommitCount(int user_id);
+
+    public void deleteCommit(Commit commit);
 }

@@ -40,4 +40,6 @@ public interface AuthenticationService extends GenericService<Authentication, In
     public Authentication getAuthenticationIfTokenExists(String token);
 
     public Authentication getAuthenticationIfUserExists(int user_id);
+
+    public void deleteAuthentication(Authentication authentication);
 }

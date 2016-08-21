@@ -21,4 +21,8 @@ public class ItemUserDaoImpl extends GenericDaoImpl<ItemUser, Integer> implement
     public void updateItemUser(ItemUser itemUser){
         super.saveOrUpdate(itemUser);
     }
+
+    public void deleteItemUser(ItemUser itemuser){
+
+    }
 }

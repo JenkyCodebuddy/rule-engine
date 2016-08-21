@@ -1,6 +1,7 @@
 package jenky.codebuddy.database.achievementuser;
 
 import jenky.codebuddy.database.generic.GenericDaoImpl;
+import jenky.codebuddy.models.entities.Achievement;
 import jenky.codebuddy.models.entities.AchievementUser;
 import jenky.codebuddy.models.entities.User;
 import org.hibernate.Query;
@@ -48,5 +49,11 @@ public class AchievementUserDaoImpl extends GenericDaoImpl<AchievementUser, Inte
         Optional<AchievementUser> result = Optional.ofNullable((AchievementUser) query.uniqueResult());
         return result.get();
     }
+
+    @Override
+    public void deleteAchievementUser(AchievementUser achievementUser){
+        super.delete(achievementUser);
+    }
+
 
 }

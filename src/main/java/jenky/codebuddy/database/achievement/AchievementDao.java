@@ -32,4 +32,9 @@ public interface AchievementDao extends GenericDao<Achievement, Integer> {
     public Achievement findById(int achievement_id);
 
     public boolean checkIfAchievementExists(int achievement_id);
+
+    public void saveAchievement(Achievement achievement);
+
+    public void deleteAchievement(Achievement achievement);
+
 }

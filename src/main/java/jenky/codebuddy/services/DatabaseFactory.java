@@ -59,7 +59,7 @@ public class DatabaseFactory {
 
     public static CompanyService getCompanyService() {
         return (CompanyServiceImpl) context.getBean("companyServiceImpl");
-    } //etc..
+    }
 
     public static ItemService getItemService() {
         return (ItemServiceImpl) context.getBean("itemServiceImpl");

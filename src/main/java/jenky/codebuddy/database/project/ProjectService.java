@@ -51,4 +51,6 @@ public interface ProjectService extends GenericService<Project, Integer> {
 
     public Project getProjectFromCommit(int commit_id);
 
+    public void deleteProject(Project project);
+
 }

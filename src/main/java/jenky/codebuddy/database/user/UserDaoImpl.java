@@ -116,6 +116,11 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
     }
 
     @Override
+    public void deleteUser(User user){
+        super.delete(user);
+    }
+
+    @Override
     public User getUserWithHighestMetricScoreForProject(String metricName, String projectName) {
         String hql = "FROM User user " +
                 "       LEFT JOIN FETCH user.scores as score " +

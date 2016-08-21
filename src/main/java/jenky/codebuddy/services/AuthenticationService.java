@@ -22,11 +22,10 @@ public class AuthenticationService { //static class for checking token if token 
      * @param token
      * @return boolean
      */
-    public static boolean checkIfTokenIsValid(String token){  //method to check if the supplied token matches the token given to an user. Method is static, so no instantiation is needed everytime the method is called
+    public static boolean checkIfTokenIsValid(String token){  //method to check if the supplied token matches the token given to an user.
 	Boolean valid = false;
-        AuthenticationServiceImpl authenticationService = (AuthenticationServiceImpl) new ClassPathXmlApplicationContext("spring.xml").getBean("authenticationServiceImpl");
-        if(authenticationService.checkIfTokenExists(token)){    //check if the token exists in the database
-            Authentication auth = authenticationService.getAuthenticationIfTokenExists(token);  //get authentication record from the database which contains the supplied token
+        if(DatabaseFactory.getAuthenticationService().checkIfTokenExists(token)){    //check if the token exists in the database
+            Authentication auth = DatabaseFactory.getAuthenticationService().getAuthenticationIfTokenExists(token);  //get authentication record from the database which contains the supplied token
             String keyString = auth.getAuth_key();  //get serialized key from the authentication record
             Key key = stringToKey(keyString);   //deserialize the key string to a key object
             Verify verification = new Verify();

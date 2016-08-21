@@ -87,4 +87,14 @@ public class AchievementDaoImpl extends GenericDaoImpl<Achievement, Integer> imp
         Optional<Achievement> achievement = Optional.ofNullable((Achievement)query.uniqueResult());
         return achievement.isPresent();
     }
+
+    @Override
+    public void saveAchievement(Achievement achievement){
+        super.add(achievement);
+    }
+
+    @Override
+    public void deleteAchievement(Achievement achievement){
+        super.delete(achievement);
+    }
 }

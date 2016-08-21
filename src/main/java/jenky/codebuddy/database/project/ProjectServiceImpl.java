@@ -115,4 +115,10 @@ public class ProjectServiceImpl extends GenericServiceImpl<Project, Integer> imp
     public Project getProjectFromCommit(int commit_id) {
         return projectDao.getProjectFromCommit(commit_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteProject(Project project) {
+        projectDao.deleteProject(project);
+    }
 }

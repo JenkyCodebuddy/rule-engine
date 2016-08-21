@@ -75,4 +75,10 @@ public class AuthenticationServiceImpl extends GenericServiceImpl<Authentication
     public Authentication getAuthenticationIfUserExists(int user_id) {
         return authenticationDao.getAuthenticationIfUserExists(user_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteAuthentication(Authentication authentication) {
+        authenticationDao.deleteAuthentication(authentication);
+    }
 }

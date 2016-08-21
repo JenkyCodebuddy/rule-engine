@@ -37,12 +37,12 @@ public class User{
     @Column(name = "messagetoken")
     private String messageToken;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user")
     @JsonIgnore
     @JoinColumn(name = "verification")
     private Verification verfication;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user")
     @JsonIgnore
     @JoinColumn(name = "authentication")
     private Authentication authentication;

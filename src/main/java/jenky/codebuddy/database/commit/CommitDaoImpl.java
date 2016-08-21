@@ -93,4 +93,9 @@ public class CommitDaoImpl extends GenericDaoImpl<Commit, Integer> implements Co
         List result =  query.list();
         return result.size();
     }
+
+    @Override
+    public void deleteCommit(Commit commit) {
+        super.delete(commit);
+    }
 }

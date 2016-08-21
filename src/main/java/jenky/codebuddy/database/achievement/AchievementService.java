@@ -32,4 +32,8 @@ public interface AchievementService extends GenericService<Achievement, Integer>
 
     public boolean checkIfAchievementExists(int achievement_id);
 
+    public void saveAchievement(Achievement achievement);
+
+    public void deleteAchievement(Achievement achievement);
+
 }

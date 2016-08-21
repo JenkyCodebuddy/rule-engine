@@ -38,4 +38,9 @@ public interface ItemService extends GenericService<Item, Integer> {
     public void equipItemsForUser(int user_id, int item_id);
 
     public List<Item> getDefaultItems();
+
+    public void saveItem(Item item);
+
+    public void deleteItem(Item item);
+
 }

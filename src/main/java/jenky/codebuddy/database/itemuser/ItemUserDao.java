@@ -13,4 +13,6 @@ public interface ItemUserDao extends GenericDao<ItemUser, Integer> {
     public void addItemUser(ItemUser itemUser);
 
     public void updateItemUser(ItemUser itemUser);
+
+    public void deleteItemUser(ItemUser itemUser);
 }

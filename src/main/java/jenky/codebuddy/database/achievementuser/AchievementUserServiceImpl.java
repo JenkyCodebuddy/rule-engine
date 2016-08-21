@@ -53,4 +53,10 @@ public class AchievementUserServiceImpl extends GenericServiceImpl<AchievementUs
     public AchievementUser getSingleAchievementUser(User user, int achievement_id) {
         return achievementUserDao.getSingleAchievementUser(user, achievement_id);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteAchievementUser(AchievementUser achievementUser) {
+        achievementUserDao.deleteAchievementUser(achievementUser);
+    }
 }

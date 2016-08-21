@@ -61,7 +61,7 @@ public class SignUpService {
     /**
      * @return
      */
-    private String generateVerificationCode(){
+    String generateVerificationCode(){
         char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray(); //all possible characters in the verification code
         StringBuilder sb = new StringBuilder();
         Random random = new Random();

@@ -89,4 +89,16 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Integer> implement
     public List<Item> getDefaultItems() {
         return itemDao.getDefaultItems();
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveItem(Item item) {
+        itemDao.saveItem(item);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteItem(Item item) {
+        itemDao.deleteItem(item);
+    }
 }

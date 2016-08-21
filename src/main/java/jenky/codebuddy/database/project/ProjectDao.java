@@ -51,4 +51,6 @@ public interface ProjectDao extends GenericDao<Project, Integer> {
 
     public Project getProjectFromCommit(int commit_id);
 
+    public void deleteProject(Project project);
+
 }
