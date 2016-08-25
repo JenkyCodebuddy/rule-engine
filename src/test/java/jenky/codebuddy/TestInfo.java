@@ -4,10 +4,6 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 
 import java.security.Key;
 import java.util.Date;
-
-/**
- * Created by Fabian on 10-6-2016.
- */
 public class TestInfo {
 
     public static final String TESTEMAIL = "testuser";

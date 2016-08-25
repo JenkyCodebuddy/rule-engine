@@ -31,9 +31,6 @@ public class Log4j {
         {
             throw new RuntimeException("Unable to load logging property " + LOG_PROPERTIES);
         }
-
-        log.info("CYKA");
-        log.debug("BLABLABLA");
     }
 
 }
