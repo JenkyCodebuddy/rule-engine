@@ -1,10 +1,9 @@
 package jenky.codebuddy.services;
 
-import jenky.codebuddy.controllers.SecurityController;
+import jenky.codebuddy.models.rest.Response;
 import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.Mac;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -15,10 +14,15 @@ public class SecurityService {
 
     }
 
-    public void checkHash(String calculatedHash, String hash){
+    public Response checkHash(String calculatedHash, String hash){
         System.out.println(calculatedHash);
         System.out.println(hash);
-        System.out.println(calculatedHash.equals(hash));
+        if(insecure_compare(calculatedHash, hash)){
+            return new Response(200, "Hash is valid");
+        }
+        else{
+            return new Response(500, "Hash is invalid");
+        }
     }
 
     public String hmacSha1(String file) {
@@ -43,5 +47,16 @@ public class SecurityService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean insecure_compare(String calculatedHash, String hash){
+        boolean equals = true;
+        for (int i = 0; i <= calculatedHash.length() - 1; i++) {
+            if(calculatedHash.getBytes()[i] != hash.getBytes()[i]){
+                equals = false;
+                break;
+            }
+        }
+        return equals;
     }
 }
