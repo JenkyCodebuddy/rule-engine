@@ -27,7 +27,7 @@ public class SecurityController{
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    private Response securityAssignment(@RequestHeader Map<String,String> headers) {
+    private Response securityAssignment(@RequestHeader Map<String,String> headers) throws Exception{
         return securityService.checkHash(securityService.hmacSha1(headers.get("file")), headers.get("hash"));
     }
 }

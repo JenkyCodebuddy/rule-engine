@@ -9,12 +9,12 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * Created by joost on 2-9-2016.
  */
-public class SecurityService {
+public class SecurityService extends Thread {
     public SecurityService(){
 
     }
 
-    public Response checkHash(String calculatedHash, String hash){
+    public Response checkHash(String calculatedHash, String hash) throws Exception{
         System.out.println(calculatedHash);
         System.out.println(hash);
         if(insecure_compare(calculatedHash, hash)){
@@ -49,9 +49,10 @@ public class SecurityService {
         }
     }
 
-    private boolean insecure_compare(String calculatedHash, String hash){
+    private boolean insecure_compare(String calculatedHash, String hash) throws Exception{
         boolean equals = true;
         for (int i = 0; i <= calculatedHash.length() - 1; i++) {
+            Thread.sleep(50);
             if(calculatedHash.getBytes()[i] != hash.getBytes()[i]){
                 equals = false;
                 break;
