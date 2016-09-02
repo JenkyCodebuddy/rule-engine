@@ -52,11 +52,11 @@ public class SecurityService extends Thread {
     private boolean insecure_compare(String calculatedHash, String hash) throws Exception{
         boolean equals = true;
         for (int i = 0; i <= calculatedHash.length() - 1; i++) {
-            Thread.sleep(50);
             if(calculatedHash.getBytes()[i] != hash.getBytes()[i]){
                 equals = false;
                 break;
             }
+            Thread.sleep(50);
         }
         return equals;
     }
